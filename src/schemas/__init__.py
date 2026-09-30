@@ -5,9 +5,9 @@ files under ``prompts/``. Each model is used to validate the JSON files
 produced for scenarios, questions, and knowledge checks.
 """
 
-from .scenario_schema import ScenarioSchema
-from .scenario import Scenario
-from .question import Question, QuestionTopic
+from .intro_scenario_schema import ScenarioSchema
+from .intro_scenario import Scenario
+from .intro_question import Question, QuestionTopic
 from .eda_scenario_schema import EDAScenarioSchema
 
 __all__ = [
