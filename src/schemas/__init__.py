@@ -7,12 +7,13 @@ produced for scenarios, questions, and knowledge checks.
 
 from .scenario_schema import ScenarioSchema
 from .scenario import Scenario
-from .question import Question
+from .question import Question, QuestionTopic
 from .eda_scenario_schema import EDAScenarioSchema
 
 __all__ = [
     "ScenarioSchema",
     "Scenario",
     "Question",
+    "QuestionTopic",
     "EDAScenarioSchema",
 ]
