@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How Do We Model Measurements and Waiting Times?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">How Do We Model Measurements and Waiting Times?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">Exponential, Gamma, Beta, Normal, and Log-Normal models for measurements and waiting times.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Probability models give us a compact way to describe uncertainty and answer questions about it. For each distribution below, we begin with a scenario and ask about a probability, an average, and a variance. We then summarize the distribution with its PMF or PDF, CDF, expectation, and variance, and use those quantities to answer the questions.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R’s distribution functions use a consistent naming pattern: <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">d</code> gives a PMF or PDF, and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">p</code> gives a CDF. Setting <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">lower.tail = FALSE</code> requests an upper-tail probability. The examples use these functions for probabilities, and show how to calculate expectations and variances in R alongside each distribution.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Exponential</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A detector records photons from a stable source at an average rate of \(\lambda=0.5\) photons per minute. Let \(X\) be the waiting time, in minutes, from one detection to the next. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that the next photon takes longer than two minutes to arrive?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average waiting time?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in waiting time?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">An <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A continuous model for waiting times between events at a constant rate.">Exponential</span>\((\lambda)\) distribution models waiting times between events occurring at a constant rate. Its PDF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\lambda e^{-\lambda x},\qquad x\geq0,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+1-e^{-\lambda x}, &amp; x\geq0,
+\end{cases}
+\qquad E[X]=\frac{1}{\lambda},\qquad
+\operatorname{Var}[X]=\frac{1}{\lambda^2}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X&gt;2)=e^{-\lambda(2)}=e^{-1}\approx0.3679.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R evaluates this upper-tail probability with:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pexp</span>(<span style="color:#005cc5;">2</span>, rate = <span style="color:#005cc5;">0.5</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)
+
+<span style="color:#586069; font-style:italic;"># Probability that the wait is between 1 and 3 minutes</span>
+<span style="color:#6f42c1;">pexp</span>(<span style="color:#005cc5;">3</span>, rate = <span style="color:#005cc5;">0.5</span>) - <span style="color:#6f42c1;">pexp</span>(<span style="color:#005cc5;">1</span>, rate = <span style="color:#005cc5;">0.5</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), \(E[X]=1/0.5=2\) minutes. For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=1/(0.5)^2=4\text{ minutes}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">rate &lt;- <span style="color:#005cc5;">0.5</span>
+<span style="color:#6f42c1;">c</span>(mean = <span style="color:#005cc5;">1</span> / rate, variance = <span style="color:#005cc5;">1</span> / rate^<span style="color:#005cc5;">2</span>)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Gamma</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A curing process has three sequential stages, each with an independent \(\operatorname{Exponential}(1)\) completion time in hours. Let \(X\) be the total processing time. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that the total processing time is at most four hours?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average total processing time?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in total processing time?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The total of three independent exponential waiting times with rate \(1\) follows a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A continuous model for positive waiting times or amounts.">Gamma</span> distribution with shape \(\alpha=3\) and rate \(\beta=1\). Using shape \(\alpha\) and rate \(\beta\), its PDF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x},\qquad x\geq0,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+\dfrac{\gamma(\alpha,\beta x)}{\Gamma(\alpha)}, &amp; x\geq0,
+\end{cases}
+\qquad E[X]=\frac{\alpha}{\beta},\qquad
+\operatorname{Var}[X]=\frac{\alpha}{\beta^2},
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">where \(\Gamma\) is the gamma function and \(\gamma\) is the lower incomplete gamma function,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\gamma(a,z)=\int_0^z t^{a-1}e^{-t}\,dt.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">This shape–rate convention matches R’s <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">dgamma()</code> and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">pgamma()</code> functions.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a), since \(\alpha=3\) is an integer, the probability can be written</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X\leq4)=1-e^{-4}\left(1+4+\frac{4^2}{2!}\right)
+=1-13e^{-4}\approx0.7619.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R evaluates the Gamma CDF with:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pgamma</span>(<span style="color:#005cc5;">4</span>, shape = <span style="color:#005cc5;">3</span>, rate = <span style="color:#005cc5;">1</span>)
+
+<span style="color:#586069; font-style:italic;"># Upper-tail probability beyond 4 hours</span>
+<span style="color:#6f42c1;">pgamma</span>(<span style="color:#005cc5;">4</span>, shape = <span style="color:#005cc5;">3</span>, rate = <span style="color:#005cc5;">1</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The same CDF is the lower incomplete gamma function divided by the complete gamma function. R has no separate unregularized lower-incomplete-gamma function, so compute its defining integral with <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">integrate()</code> and divide by <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">gamma(3)</code>:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">lower_gamma &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(t) t^(<span style="color:#005cc5;">3</span> - <span style="color:#005cc5;">1</span>) * <span style="color:#6f42c1;">exp</span>(-t),
+                         lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">4</span>)$value
+lower_gamma / <span style="color:#6f42c1;">gamma</span>(<span style="color:#005cc5;">3</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), \(E[X]=3/1=3\) hours. For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=3/1^2=3\text{ hours}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">shape &lt;- <span style="color:#005cc5;">3</span>
+rate &lt;- <span style="color:#005cc5;">1</span>
+<span style="color:#6f42c1;">c</span>(mean = shape / rate, variance = shape / rate^<span style="color:#005cc5;">2</span>)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Beta</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A plant pathologist models the fraction \(X\) of a leaf’s area affected by disease with a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A continuous model for proportions between 0 and 1.">Beta</span> distribution having \(\alpha=2\) and \(\beta=5\). We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that more than half of a leaf’s area is affected?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average fraction affected across leaves?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in the affected fraction?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A continuous model for proportions between 0 and 1.">Beta</span>\((\alpha,\beta)\) distribution models values between zero and one. Its PDF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)},
+\qquad 0&lt;x&lt;1,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=
+\begin{cases}
+0, &amp; x\leq0,\\
+I_x(\alpha,\beta), &amp; 0&lt;x&lt;1,\\
+1, &amp; x\geq1,
+\end{cases}
+\qquad E[X]=\frac{\alpha}{\alpha+\beta},\qquad
+\operatorname{Var}[X]=
+\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)},
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">where \(B(\alpha,\beta)\) is the beta function and \(I_x(\alpha,\beta)\) is the regularized incomplete beta function:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+I_x(\alpha,\beta)=\frac{1}{B(\alpha,\beta)}
+\int_0^x t^{\alpha-1}(1-t)^{\beta-1}\,dt.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X&gt;0.5)=1-I_{0.5}(2,5)=0.109375\approx0.1094.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Use <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">pbeta()</code> to evaluate the upper tail:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pbeta</span>(<span style="color:#005cc5;">0.5</span>, shape1 = <span style="color:#005cc5;">2</span>, shape2 = <span style="color:#005cc5;">5</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)
+
+<span style="color:#586069; font-style:italic;"># Probability that the fraction is between 0.2 and 0.6</span>
+<span style="color:#6f42c1;">pbeta</span>(<span style="color:#005cc5;">0.6</span>, shape1 = <span style="color:#005cc5;">2</span>, shape2 = <span style="color:#005cc5;">5</span>) -
+  <span style="color:#6f42c1;">pbeta</span>(<span style="color:#005cc5;">0.2</span>, shape1 = <span style="color:#005cc5;">2</span>, shape2 = <span style="color:#005cc5;">5</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Alternatively, use <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">beta()</code> for \(B(2,5)\) and integrate the beta density’s numerator to form \(I_{0.5}(2,5)\):</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">beta_2_5 &lt;- <span style="color:#6f42c1;">beta</span>(<span style="color:#005cc5;">2</span>, <span style="color:#005cc5;">5</span>)
+incomplete_beta &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(t) t^(<span style="color:#005cc5;">2</span> - <span style="color:#005cc5;">1</span>) * (<span style="color:#005cc5;">1</span> - t)^(<span style="color:#005cc5;">5</span> - <span style="color:#005cc5;">1</span>),
+                             lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">0.5</span>)$value
+<span style="color:#005cc5;">1</span> - incomplete_beta / beta_2_5</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), \(E[X]=2/(2+5)=2/7\approx0.2857\). For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=\frac{(2)(5)}{(2+5)^2(2+5+1)}
+=\frac{5}{196}\approx0.0255.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">alpha &lt;- <span style="color:#005cc5;">2</span>
+beta_shape &lt;- <span style="color:#005cc5;">5</span>
+<span style="color:#6f42c1;">c</span>(mean = alpha / (alpha + beta_shape),
+  variance = alpha * beta_shape /
+    ((alpha + beta_shape)^<span style="color:#005cc5;">2</span> * (alpha + beta_shape + <span style="color:#005cc5;">1</span>)))</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Normal</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A load cell has calibration errors that follow a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A symmetric, bell-shaped continuous model for measurement data.">Normal</span> distribution with mean \(0\) and standard deviation \(0.5\): \(X\sim\operatorname{Normal}(0,0.5)\). A device passes when the error is within \(\pm0.5\) units. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that a random calibration error is within the tolerance?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average calibration error?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in calibration error?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Let \(Z\sim\operatorname{Normal}(0,1)\). Its density and CDF are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\phi(z)=\frac{1}{\sqrt{2\pi}}e^{-z^2/2},\qquad
+\Phi(z)=P(Z\leq z)=\int_{-\infty}^{z}\phi(t)\,dt.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Thus, \(\Phi\) is the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A symmetric, bell-shaped continuous model for measurement data.">standard Normal</span> CDF, and R evaluates it with <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">pnorm(z)</code>. A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A symmetric, bell-shaped continuous model for measurement data.">Normal</span>\((\mu,\sigma)\) distribution is symmetric around \(\mu\). Its PDF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}
+\exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
+\qquad -\infty&lt;x&lt;\infty,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=\Phi\!\left(\frac{x-\mu}{\sigma}\right),
+\qquad E[X]=\mu,\qquad \operatorname{Var}[X]=\sigma^2,
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Converting a Normal variable to \(Z=(X-\mu)/\sigma\) is called <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="Converting a value to a z-score using its mean and standard deviation.">standardization</span>; the resulting variable has the standard Normal distribution.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(-0.5&lt;X&lt;0.5)=
+\Phi\!\left(\frac{0.5-0}{0.5}\right)-
+\Phi\!\left(\frac{-0.5-0}{0.5}\right)
+\approx0.6827.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R computes this difference of CDF values with:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pnorm</span>(<span style="color:#005cc5;">0.5</span>, mean = <span style="color:#005cc5;">0</span>, sd = <span style="color:#005cc5;">0.5</span>) -
+  <span style="color:#6f42c1;">pnorm</span>(-<span style="color:#005cc5;">0.5</span>, mean = <span style="color:#005cc5;">0</span>, sd = <span style="color:#005cc5;">0.5</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), the average error is \(E[X]=\mu=0\). For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=\sigma^2=(0.5)^2=0.25\text{ units}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">mu &lt;- <span style="color:#005cc5;">0</span>
+sigma &lt;- <span style="color:#005cc5;">0.5</span>
+<span style="color:#6f42c1;">c</span>(mean = mu, variance = sigma^<span style="color:#005cc5;">2</span>)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Log-Normal</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Completion times for additive-manufacturing jobs are positive and vary multiplicatively from job to job. Suppose \(\ln X\sim\operatorname{Normal}(\mu_{\log},\sigma_{\log})\), with \(\mu_{\log}=1\) and \(\sigma_{\log}=0.5\), where \(\sigma_{\log}\) is the standard deviation of \(\ln X\). We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that a job takes more than four hours?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average completion time?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in completion time?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A positive variable is log-normal when its logarithm is Normal.">Log-Normal</span>\((\mu_{\log},\sigma_{\log})\) variable is positive and has a Normally distributed logarithm. Its PDF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\frac{1}{x\sigma_{\log}\sqrt{2\pi}}
+\exp\!\left(-\frac{(\ln x-\mu_{\log})^2}{2\sigma_{\log}^2}\right),
+\qquad x&gt;0,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=
+\begin{cases}
+0, &amp; x\leq0,\\
+\Phi\!\left(\dfrac{\ln x-\mu_{\log}}{\sigma_{\log}}\right), &amp; x&gt;0.
+\end{cases}
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=\exp\!\left(\mu_{\log}+\frac{\sigma_{\log}^2}{2}\right),
+\qquad
+\operatorname{Var}[X]=
+\left(\exp(\sigma_{\log}^2)-1\right)
+\exp\!\left(2\mu_{\log}+\sigma_{\log}^2\right).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a), use the upper tail of the Log-Normal CDF:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X&gt;4)=1-F_X(4)\approx0.2199.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R computes this upper-tail probability with <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">plnorm()</code>:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">plnorm</span>(<span style="color:#005cc5;">4</span>, meanlog = <span style="color:#005cc5;">1</span>, sdlog = <span style="color:#005cc5;">0.5</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=\exp\!\left(1+\frac{0.5^2}{2}\right)
+=\exp(1.125)\approx3.0802\text{ hours}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=
+\left(\exp(0.5^2)-1\right)\exp(2(1)+0.5^2)
+\approx2.6948\text{ hours}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The moment formulas can also be evaluated in R using <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">exp()</code>:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">exp</span>(<span style="color:#005cc5;">1</span> + <span style="color:#005cc5;">0.5</span>^<span style="color:#005cc5;">2</span> / <span style="color:#005cc5;">2</span>)
+(<span style="color:#6f42c1;">exp</span>(<span style="color:#005cc5;">0.5</span>^<span style="color:#005cc5;">2</span>) - <span style="color:#005cc5;">1</span>) * <span style="color:#6f42c1;">exp</span>(<span style="color:#005cc5;">2</span> * <span style="color:#005cc5;">1</span> + <span style="color:#005cc5;">0.5</span>^<span style="color:#005cc5;">2</span>)</pre>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Exponential</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Gamma</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Beta</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Normal</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">standardization</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Log-Normal</span>
+</div>
+
+</body>
+</html>

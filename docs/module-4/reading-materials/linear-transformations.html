@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What Happens When You Shift or Rescale a Variable?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">What Happens When You Shift or Rescale a Variable?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">What shifting and rescaling a random variable does to its distribution, mean, and variance.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A bike-share operator reviews rental logs in equal 30-minute periods. The records are nonnegative counts, averaging about two rentals per period, with rentals arriving throughout the day rather than in obvious bursts. The station earns \(\$5\) per rental, and the operator wants to know how often revenue meets a \(\$10\) target. <strong>What is the probability that revenue in a 30-minute period is at least \(\$10\)?</strong></p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A shipping manager faces a different uncertainty. Repeated measurements of a product’s mass cluster around \(0.50\) kilograms, with a standard deviation of about \(0.02\) kilograms, and form a roughly symmetric, bell-shaped pattern. The shipping package adds \(50\) grams. <strong>What are the average total shipping weight and its variance?</strong> These answers help estimate postage and check package limits.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In the first problem, we need a probability for a transformed discrete count. In the second, we need the mean and variance of a transformed continuous measurement. Both problems become easier once we see how a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A transformation of the form Y = aX + b with a not equal to 0.">linear transformation</span> changes a distribution.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Transforming a distribution</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Suppose \(Y=g(X)\) and the transformation is one-to-one on the possible values of \(X\). Each possible value of \(Y\) then comes from exactly one value of \(X\). For a discrete random variable,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_Y(y)=P_X\!\left(g^{-1}(y)\right),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">for values \(y\) in the transformed support. The transformation changes the values and support; the probability attached to each value follows its corresponding value of \(X\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a continuous random variable, probabilities can be found by transforming the CDF. If \(g\) is increasing,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_Y(y)=P(Y\leq y)=P\!\left(X\leq g^{-1}(y)\right)
+=F_X\!\left(g^{-1}(y)\right).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">If \(g\) is decreasing, applying the inverse reverses the inequality:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_Y(y)=P(Y\leq y)=P\!\left(X\geq g^{-1}(y)\right)
+=1-F_X\!\left(g^{-1}(y)\right),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">when \(X\) is continuous. For a distribution with point masses, use \(1-F_X(g^{-1}(y)^-)\) instead, where \(F_X(t^-)=P(X&lt;t)\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For either increasing or decreasing transformations, the continuous PDF is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_Y(y)=f_X\!\left(g^{-1}(y)\right)
+\left|\frac{d}{dy}g^{-1}(y)\right|.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The absolute value accounts for a decreasing transformation as well as an increasing one. For a linear transformation \(Y=aX+b\), with \(a\ne0\), the inverse is \(g^{-1}(y)=(y-b)/a\). Thus the continuous PDF is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_Y(y)=\frac{1}{|a|}f_X\!\left(\frac{y-b}{a}\right),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">and the discrete PMF is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_Y(y)=P_X\!\left(\frac{y-b}{a}\right),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">at values in the transformed support.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">What happens to the mean and variance?</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The expected value shifts and scales with the transformation, while the variance is not affected by adding a constant. For \(Y=aX+b\),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y]=aE[X]+b,
+\qquad
+\operatorname{Var}[Y]=a^2\operatorname{Var}[X].
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The square on \(a\) is important: variance is measured in squared units. We can now use the distribution transformation to answer the bike-share operator’s probability question, and the moment formulas to help the shipping manager.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Answering the bike-share question: \(Y=aX\)</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The number of rentals is a count of events in a fixed time interval, and the records suggest a steady average rate with arrivals occurring independently. A Poisson model is appropriate for this kind of count, so let \(X\sim\operatorname{Poisson}(\lambda=2)\). The station earns \(\$5\) per rental, making its revenue \(Y=5X\) dollars. We want the probability that revenue is at least \(\$10\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The transformation is one-to-one on the possible counts: \(X=0,1,2,\ldots\) maps to \(Y=0,5,10,\ldots\). Since</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\frac{e^{-2}2^x}{x!},
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">the PMF of revenue is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_Y(y)=
+\begin{cases}
+\displaystyle e^{-2}\frac{2^{y/5}}{(y/5)!}, &amp; y=0,5,10,\ldots,\\[6pt]
+0, &amp; \text{otherwise}.
+\end{cases}
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Revenue of at least \(\$10\) means at least two rentals. Therefore,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(Y\geq10)=P(X\geq2)
+=1-F_X(1)
+=1-e^{-2}(1+2)
+\approx0.5940.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R can calculate this Poisson upper-tail probability directly:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">ppois</span>(<span style="color:#005cc5;">1</span>, lambda = <span style="color:#005cc5;">2</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The calculation uses the original count distribution after translating the event into terms of \(X\). Equivalently, one could add the transformed PMF values for \(y=10,15,20,\ldots\).</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Answering the shipping question: \(Y=aX+b\)</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Because the repeated mass measurements are continuous and approximately bell-shaped, we model the product mass as \(X\sim\operatorname{Normal}(\mu=0.50,\sigma=0.02)\) kilograms. The reported shipping weight in grams is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+Y=1000X+50.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Here \(a=1000\) converts kilograms to grams and \(b=50\) adds the package. The average shipping weight is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y]=1000E[X]+50
+=1000(0.50)+50
+=550\text{ grams}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Adding the package weight shifts every shipment by the same amount, so it does not change the variance. Converting kilograms to grams multiplies the variance by \(1000^2\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[Y]=1000^2\operatorname{Var}[X]
+=1000^2(0.02)^2
+=400\text{ grams}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The standard deviation is \(\sqrt{400}=20\) grams. It scales by \(1000\), but unlike the variance, it is not squared.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R can calculate the transformed moments and density using the same formulas. Here, \(Y=1000X+50\) for the shipping-weight example:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">a &lt;- <span style="color:#005cc5;">1000</span>
+b &lt;- <span style="color:#005cc5;">50</span>
+mean_x &lt;- <span style="color:#005cc5;">0.50</span>
+sd_x &lt;- <span style="color:#005cc5;">0.02</span>
+
+mean_y &lt;- a * mean_x + b
+variance_y &lt;- a^<span style="color:#005cc5;">2</span> * sd_x^<span style="color:#005cc5;">2</span>
+mean_y
+variance_y
+
+<span style="color:#586069; font-style:italic;"># Density of Y at y = 550 grams</span>
+<span style="color:#6f42c1;">dnorm</span>((<span style="color:#005cc5;">550</span> - b) / a, mean = mean_x, sd = sd_x) / <span style="color:#6f42c1;">abs</span>(a)
+
+<span style="color:#586069; font-style:italic;"># CDF of Y at y = 550 grams</span>
+<span style="color:#6f42c1;">pnorm</span>((<span style="color:#005cc5;">550</span> - b) / a, mean = mean_x, sd = sd_x)
+
+<span style="color:#586069; font-style:italic;"># PMF of revenue Y = 5X, where X ~ Poisson(2)</span>
+p_revenue &lt;- <span style="color:#cf222e;">function</span>(y) {
+  result &lt;- <span style="color:#6f42c1;">numeric</span>(<span style="color:#6f42c1;">length</span>(y))
+  on_support &lt;- y &gt;= <span style="color:#005cc5;">0</span> &amp; y %% <span style="color:#005cc5;">5</span> == <span style="color:#005cc5;">0</span>
+  result[on_support] &lt;- <span style="color:#6f42c1;">dpois</span>(y[on_support] / <span style="color:#005cc5;">5</span>, lambda = <span style="color:#005cc5;">2</span>)
+  result
+}
+<span style="color:#6f42c1;">p_revenue</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">5</span>, <span style="color:#005cc5;">10</span>, <span style="color:#005cc5;">7</span>))</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">The pattern</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a one-to-one linear transformation, probabilities move to the corresponding transformed support values. To find a probability, translate the event back to the original variable or add the appropriate transformed PMF/PDF probabilities. For moments, use</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[aX+b]=aE[X]+b,
+\qquad
+\operatorname{Var}[aX+b]=a^2\operatorname{Var}[X].
+$$
+</p>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">linear transformation</span>
+</div>
+
+</body>
+</html>

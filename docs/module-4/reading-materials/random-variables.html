@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How Do We Model Data?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">How Do We Model Data?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">How uncertain outcomes become numerical values we can model and summarize.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;"><em>How uncertain outcomes become numbers—and how those numbers help us answer practical questions.</em></p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">An electronics lab tests three sensor modules. Each module either passes or fails inspection. Before testing, an engineer might ask: <strong>How many of the \(3\) modules will pass?</strong> A soil scientist faces a different question when studying a core sample: <strong>What fraction of the pore space is filled with water?</strong> The first answer is a count. The second is a measurement that can take any value in \([0,1]\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Both questions begin with uncertain outcomes. To reason mathematically about them, we first need to turn each outcome into a number.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">From outcomes to numbers</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The set of all possible outcomes of a random process.">sample space</span>, written \(S\), is the set of all possible outcomes of a random process. A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A function that assigns a real number to every outcome of a random process.">random variable</span> is a function that assigns a real number to each outcome in \(S\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+X:S\longrightarrow S_X\subseteq\mathbb{R}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Here, \(X\) is the function and \(S_X\) is the set of values it can take, called its <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The set of values a random variable can take with positive probability or density.">support</span>. If \(s\) is one outcome in \(S\), then \(X(s)\) is the number assigned to that outcome. The random variable is the rule; a value such as \(X(s)=2\) is what the rule returns for a particular outcome.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For the sensor test, the sample space is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+S=\{PPP,PPF,PFP,FPP,PFF,FPF,FFP,FFF\},
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">where \(P\) means a module passes and \(F\) means it fails. Define \(X(s)\) to be the number of passes in outcome \(s\). For example, \(X(PFP)=2\), while \(X(FFF)=0\). Several different outcomes map to the same number, and the support is \(S_X=\{0,1,2,3\}\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The soil-core measurement is also a random variable. An outcome \(s\in S\) describes the water occupancy of the core’s pores. The rule \(X(s)\) returns the water-filled volume divided by the total pore volume. Its support is \([0,1]\), and unlike a count, it can take infinitely many possible values.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">How probability is assigned</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A random variable with finitely or countably many separate values.">discrete random variable</span>, probability is assigned to individual possible values. The function that gives these probabilities is the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A function assigning probability to each value of a discrete variable.">probability mass function</span>, or <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A function assigning probability to each value of a discrete variable.">PMF</span>:</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">We write the PMF as \(P_X(x)\); this is interchangeable with \(P(X=x)\), the probability that \(X\) equals \(x\).</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=P(X=x).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Each value \(P_X(x)\) is nonnegative, and the probabilities over the support add to \(1\). To find the probability of an event, add the PMF values for the outcomes that belong to that event.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A random variable whose values lie on a continuous scale.">continuous random variable</span>, probabilities are described by a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A nonnegative function describing the density of a continuous variable.">probability density function</span>, or <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A nonnegative function describing the density of a continuous variable.">PDF</span>, written \(f_X(x)\). A PDF is nonnegative and has total area \(1\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\int_{-\infty}^{\infty} f_X(x)\,dx=1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Probability comes from the area under the PDF over an interval:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(a&lt;X&lt;b)=\int_a^b f_X(x)\,dx.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The PDF value at a point is a density, not a probability. For a continuous variable, the probability of any one exact value is \(0\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Both types of variables also have a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The function giving the probability a variable is at most x.">cumulative distribution function</span>, or <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The function giving the probability a variable is at most x.">CDF</span>:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=P(X\leq x).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The CDF accumulates probability up to \(x\). For a discrete variable it adds the PMF values up through \(x\); for a continuous variable it integrates the PDF up to \(x\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=\sum_{t\leq x}P_X(t)
+\qquad\text{or}\qquad
+F_X(x)=\int_{-\infty}^{x} f_X(t)\,dt,
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">depending on whether \(X\) is discrete or continuous. In either case, a probability over an interval can be found from the CDF. In general,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(a&lt;X\leq b)=F_X(b)-F_X(a).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For continuous variables, including or excluding an endpoint does not change the probability. For discrete variables it can, because an individual value may have positive probability.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The CDF and the PMF or PDF carry the same information, and each can be recovered from the other. For a continuous variable, the CDF is continuous and its derivative is the PDF wherever the derivative exists:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\frac{d}{dx}F_X(x).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a discrete variable, the CDF is a step function. Its jump at each support point equals the PMF value there:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=F_X(x)-F_X(x^-),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">where \(F_X(x^-)\) is the limit of \(F_X(t)\) as \(t\) approaches \(x\) from below.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">What expectation and variance measure</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The probability-weighted average of a random variable.">expected value</span>, also called the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The probability-weighted average of a random variable.">expectation</span>, is the probability-weighted long-run average value of a random variable. It does not have to be a value the variable can actually take. For a discrete variable, multiply each value by its probability and add; for a continuous variable, multiply by the density and integrate:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=\sum_x xP_X(x)
+\qquad\text{or}\qquad
+E[X]=\int_{-\infty}^{\infty}x f_X(x)\,dx.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The probability-weighted average squared distance from the expectation.">variance</span> describes the average squared distance from the expectation. It is computed by weighting squared deviations from the mean:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=\sum_x(x-E[X])^2P_X(x)
+\qquad\text{or}\qquad
+\operatorname{Var}[X]=\int_{-\infty}^{\infty}(x-E[X])^2f_X(x)\,dx.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">An equivalent shortcut for either type of variable is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=E[X^2]-(E[X])^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The square root of the variance.">standard deviation</span> is the square root of the variance, \(\sigma_X=\sqrt{\operatorname{Var}[X]}\), and it is measured in the original units.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Counting passing sensor modules</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Suppose each module passes independently with probability \(0.8\) and fails with probability \(0.2\). The PMF for the count \(X\) is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\binom{3}{x}(0.8)^x(0.2)^{3-x},\qquad x\in\{0,1,2,3\}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Exactly two modules pass in three different outcomes: \(PPF\), \(PFP\), and \(FPP\). Each outcome has probability \((0.8)^2(0.2)\), so</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(2)=3(0.8)^2(0.2)=0.384.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The complete PMF is:</p>
+<table style="border-collapse:collapse; width:100%; max-width:100%; margin:0.5rem 0 1rem; font-size:.92rem; line-height:1.5; color:#1f2937;">
+<thead>
+<tr>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left;">\(x\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(0\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(1\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(2\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(3\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937;">\(P_X(x)\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.008\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.096\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.384\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.512\)</td>
+</tr>
+</tbody>
+</table>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The probabilities add to \(1\). The CDF accumulates these PMF values. For example, \(F_X(1)=P(X\leq1)=P_X(0)+P_X(1)=0.104\); at \(x=1\), the CDF has accumulated the probability of outcomes with \(0\) or \(1\) passing module. The chance that at least \(2\) modules pass is the sum for \(x=2\) and \(x=3\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X\geq 2)=P_X(2)+P_X(3)=0.384+0.512=0.896.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The expectation is the long-run average number passing:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=0(0.008)+1(0.096)+2(0.384)+3(0.512)=2.4.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Across many groups of \(3\) modules, the average number passing will approach \(2.4\). A single group cannot have \(2.4\) passing modules, but the long-run average can be \(2.4\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The second moment is \(E[X^2]=6.24\), so the variance is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=E[X^2]-(E[X])^2=6.24-(2.4)^2=0.48.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R, use the possible counts and their probabilities to compute the expectation and variance:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">x &lt;- <span style="color:#005cc5;">0</span>:<span style="color:#005cc5;">3</span>
+p &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.008</span>, <span style="color:#005cc5;">0.096</span>, <span style="color:#005cc5;">0.384</span>, <span style="color:#005cc5;">0.512</span>)
+expectation &lt;- <span style="color:#6f42c1;">sum</span>(x * p)
+variance &lt;- <span style="color:#6f42c1;">sum</span>((x - expectation)^<span style="color:#005cc5;">2</span> * p)
+<span style="color:#6f42c1;">c</span>(expectation = expectation, variance = variance)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Measuring water in a soil core</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Now let \(X\) be the fraction of a soil core’s pore volume filled with water. It is continuous and bounded between \(0\) and \(1\). Suppose its PDF is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=12x(1-x)^2,\qquad x\in(0,1),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">and \(f_X(x)=0\) outside this interval. The total area under the PDF is \(1\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\int_0^1 12x(1-x)^2\,dx=1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The probability that the water-filled fraction is between \(0.25\) and \(0.75\) is the area under the density in that interval:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(0.25&lt;X&lt;0.75)=\int_{0.25}^{0.75}12x(1-x)^2\,dx=0.6875.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R can evaluate this interval probability directly:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) <span style="color:#005cc5;">12</span> * x * (<span style="color:#005cc5;">1</span> - x)^<span style="color:#005cc5;">2</span>,
+          lower = <span style="color:#005cc5;">0.25</span>, upper = <span style="color:#005cc5;">0.75</span>)$value</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Here the CDF is \(0\) below the support and \(1\) above it. Within the support, it is the accumulated area from \(0\) to \(x\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=\int_0^x12t(1-t)^2\,dt=6x^2-8x^3+3x^4,\qquad 0\leq x\leq1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Differentiating this CDF recovers the PDF, as the general relationship predicts:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\frac{d}{dx}F_X(x)=\frac{d}{dx}\left(6x^2-8x^3+3x^4\right)=12x-24x^2+12x^3=12x(1-x)^2=f_X(x).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The same interval probability can therefore be found by subtracting CDF values:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(0.25&lt;X&lt;0.75)=F_X(0.75)-F_X(0.25)=0.6875.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Although \(f_X(0.5)=1.5\), the probability that \(X\) is exactly \(0.5\) is \(0\). Probability is area over an interval, not the density at a point.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The expectation of the water-filled fraction is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=\int_0^1 x\,12x(1-x)^2\,dx=0.4.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Also, \(E[X^2]=0.2\), so</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=E[X^2]-(E[X])^2=0.2-(0.4)^2=0.04.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R, integrate the density directly to compute the expectation and variance:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">expectation &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) x * <span style="color:#005cc5;">12</span> * x * (<span style="color:#005cc5;">1</span> - x)^<span style="color:#005cc5;">2</span>,
+                         lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+variance &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) (x - expectation)^<span style="color:#005cc5;">2</span> * <span style="color:#005cc5;">12</span> * x * (<span style="color:#005cc5;">1</span> - x)^<span style="color:#005cc5;">2</span>,
+                      lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+<span style="color:#6f42c1;">c</span>(expectation = expectation, variance = variance)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Putting the pieces together</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A random variable turns uncertain outcomes in a sample space \(S\) into numbers. Its support tells us which values are possible. A PMF assigns probability to each possible value of a discrete variable; a PDF describes density for a continuous variable, with area giving probability. The CDF accumulates probability up to a value. Expectations describe long-run averages, and variances describe spread around those averages.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The next reading will introduce specific distribution families. The ideas here—mapping outcomes to numbers and using PMFs, PDFs, CDFs, expectations, and variances—are the foundation for working with those models.</p>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">sample space</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">random variable</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">support</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">discrete random variable</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">probability mass function</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">continuous random variable</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">probability density function</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">cumulative distribution function</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">expected value</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">variance</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">standard deviation</span>
+</div>
+
+</body>
+</html>

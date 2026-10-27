@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How Do We Model Counts and Successes?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">How Do We Model Counts and Successes?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">Bernoulli, Binomial, Poisson, and related models for counts and binary outcomes.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Probability models give us a compact way to describe uncertainty and answer questions about it. For each distribution below, we begin with a scenario and ask about a probability, an average, and a variance. We then summarize the distribution with its PMF or PDF, CDF, expectation, and variance, and use those quantities to answer the questions.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R’s distribution functions use a consistent naming pattern: <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">d</code> gives a PMF or PDF, and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">p</code> gives a CDF. Setting <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">lower.tail = FALSE</code> requests an upper-tail probability. The examples use these functions for probabilities, and show how to calculate expectations and variances in R alongside each distribution.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Bernoulli</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A quality technician checks one filter cartridge for a leak. Let \(X=1\) if a leak is detected and \(X=0\) otherwise, with detection probability \(p=0.08\). The questions are:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that a leak is detected?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average value of \(X\) over many cartridges?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance of \(X\)?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model for one binary trial with success probability p.">Bernoulli</span>\((p)\) variable represents one trial with two outcomes. Its PMF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=p^x(1-p)^{1-x},\qquad x\in\{0,1\},
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+1-p, &amp; 0\leq x&lt;1,\\
+1, &amp; x\geq1,
+\end{cases}
+\qquad E[X]=p,\qquad \operatorname{Var}[X]=p(1-p).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a), \(P(X=1)=p=0.08\). R evaluates this PMF value with:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">dbinom</span>(<span style="color:#005cc5;">1</span>, size = <span style="color:#005cc5;">1</span>, prob = <span style="color:#005cc5;">0.08</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), the average value is \(E[X]=p=0.08\). For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=p(1-p)=0.08(0.92)=0.0736.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R, the expectation and variance follow directly from the Bernoulli formulas:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">p &lt;- <span style="color:#005cc5;">0.08</span>
+<span style="color:#6f42c1;">c</span>(mean = p, variance = p * (<span style="color:#005cc5;">1</span> - p))</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Binomial</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A production line packs batches of \(n=10\) chips. Each chip is independently defective with probability \(p=0.2\). Let \(X\) be the number of defective chips in a batch. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that at least three chips are defective?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average number of defective chips per batch?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in the number of defective chips per batch?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model for the number of successes in n independent binary trials.">Binomial</span>\((n,p)\) variable counts successes in a fixed number of independent trials, each with the same success probability. Its PMF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\binom{n}{x}p^x(1-p)^{n-x},\qquad x=0,1,\ldots,n,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\binom{n}{k}p^k(1-p)^{n-k},
+\qquad E[X]=np,\qquad \operatorname{Var}[X]=np(1-p),
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">where the CDF sum is understood to include only values from \(0\) to \(n\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a), subtract the probability of at most two defective chips from \(1\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X\geq3)=1-\sum_{x=0}^{2}\binom{10}{x}(0.2)^x(0.8)^{10-x}\approx0.3222.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R computes this upper tail directly:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pbinom</span>(<span style="color:#005cc5;">2</span>, size = <span style="color:#005cc5;">10</span>, prob = <span style="color:#005cc5;">0.2</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)
+
+<span style="color:#586069; font-style:italic;"># Probability of exactly 2 defective chips</span>
+<span style="color:#6f42c1;">dbinom</span>(<span style="color:#005cc5;">2</span>, size = <span style="color:#005cc5;">10</span>, prob = <span style="color:#005cc5;">0.2</span>)
+
+<span style="color:#586069; font-style:italic;"># Probability of exactly 2, 3, or 4 defective chips</span>
+<span style="color:#6f42c1;">pbinom</span>(<span style="color:#005cc5;">4</span>, size = <span style="color:#005cc5;">10</span>, prob = <span style="color:#005cc5;">0.2</span>) - <span style="color:#6f42c1;">pbinom</span>(<span style="color:#005cc5;">1</span>, size = <span style="color:#005cc5;">10</span>, prob = <span style="color:#005cc5;">0.2</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), \(E[X]=np=10(0.2)=2\) defective chips per batch. For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=np(1-p)=10(0.2)(0.8)=1.6\text{ chips}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">n &lt;- <span style="color:#005cc5;">10</span>
+p &lt;- <span style="color:#005cc5;">0.2</span>
+<span style="color:#6f42c1;">c</span>(mean = n * p, variance = n * p * (<span style="color:#005cc5;">1</span> - p))</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Multinomial</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A materials lab inspects \(n=20\) turbine blades. Each blade is classified as pass, rework, or reject, with probabilities \(0.7\), \(0.2\), and \(0.1\). Let \((X_1,X_2,X_3)\) be the three category counts. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability of exactly 14 passes, 4 blades needing rework, and 2 rejects?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average number of blades needing rework?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in the number of blades needing rework?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model for counts in several mutually exclusive categories.">Multinomial</span>\((n;p_1,\ldots,p_m)\) variable records counts in \(m\) mutually exclusive categories across \(n\) independent trials. The category counts sum to \(n\). Its joint PMF is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_{\mathbf X}(x_1,\ldots,x_m)=
+\frac{n!}{x_1!\cdots x_m!}\prod_{i=1}^{m}p_i^{x_i},
+\qquad x_i\in\{0,1,\ldots,n\},\quad \sum_{i=1}^{m}x_i=n.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The joint CDF accumulates the joint PMF over all category-count vectors no larger than the given vector:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_{\mathbf X}(x_1,\ldots,x_m)=
+\sum_{\substack{0\leq k_i\leq\lfloor x_i\rfloor\\
+                 k_1+\cdots+k_m=n}}
+\frac{n!}{k_1!\cdots k_m!}\prod_{i=1}^{m}p_i^{k_i}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For each category count \(X_i\),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X_i]=np_i,\qquad \operatorname{Var}[X_i]=np_i(1-p_i)
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X_1=14,X_2=4,X_3=2)=
+\frac{20!}{14!4!2!}(0.7)^{14}(0.2)^4(0.1)^2\approx0.0631.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Use <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">dmultinom()</code> for this joint probability:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">dmultinom</span>(x = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">14</span>, <span style="color:#005cc5;">4</span>, <span style="color:#005cc5;">2</span>), prob = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.7</span>, <span style="color:#005cc5;">0.2</span>, <span style="color:#005cc5;">0.1</span>))</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For parts (b) and (c), focus on the rework count \(X_2\). Its average is \(E[X_2]=np_2=20(0.2)=4\) blades per batch, and its variance is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X_2]=np_2(1-p_2)=20(0.2)(0.8)=3.2\text{ blades}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R, use the formulas for the rework count \(X_2\):</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">n &lt;- <span style="color:#005cc5;">20</span>
+p_rework &lt;- <span style="color:#005cc5;">0.2</span>
+<span style="color:#6f42c1;">c</span>(mean = n * p_rework,
+  variance = n * p_rework * (<span style="color:#005cc5;">1</span> - p_rework))</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Poisson</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A network relay records packet failures in fixed 15-minute intervals. Failures occur independently at an average rate of \(\lambda=3\) per interval. Let \(X\) count failures in one interval. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability of at least five failures in an interval?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average number of failures per interval?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in the number of failures per interval?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model for event counts in a fixed interval at a steady average rate.">Poisson</span>\((\lambda)\) distribution models counts of events in a fixed interval when they occur independently at a steady average rate. Its PMF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\frac{e^{-\lambda}\lambda^x}{x!},\qquad x=0,1,2,\ldots,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\frac{e^{-\lambda}\lambda^k}{k!},
+\qquad E[X]=\lambda,\qquad \operatorname{Var}[X]=\lambda.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X\geq5)=1-\sum_{x=0}^{4}\frac{e^{-3}3^x}{x!}\approx0.1847.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R computes the upper tail with:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">ppois</span>(<span style="color:#005cc5;">4</span>, lambda = <span style="color:#005cc5;">3</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)
+
+<span style="color:#586069; font-style:italic;"># Probability of exactly 2 failures</span>
+<span style="color:#6f42c1;">dpois</span>(<span style="color:#005cc5;">2</span>, lambda = <span style="color:#005cc5;">3</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), the average is \(E[X]=\lambda=3\) failures per interval. For part (c), the variance is also \(\lambda=3\) failures\(^2\) per interval.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">lambda &lt;- <span style="color:#005cc5;">3</span>
+<span style="color:#6f42c1;">c</span>(mean = lambda, variance = lambda)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Geometric</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A welding process produces welds that pass inspection with probability \(p=0.25\), independently from weld to weld. Let \(X\) be the number of failed welds before the first pass. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that more than four welds fail before the first pass?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average number of failed welds before the first pass?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in the number of failed welds before the first pass?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Here the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model for the number of failures before the first success.">Geometric</span>\((p)\) distribution counts failures before the first success. With this convention, its PMF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=(1-p)^x p,\qquad x=0,1,2,\ldots,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+1-(1-p)^{\lfloor x\rfloor+1}, &amp; x\geq0,
+\end{cases}
+\qquad E[X]=\frac{1-p}{p},\qquad
+\operatorname{Var}[X]=\frac{1-p}{p^2}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a), more than four failures means \(X&gt;4\), so</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X&gt;4)=(1-p)^5=(0.75)^5\approx0.2373.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R, <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">pgeom()</code> uses this same failures-before-the-first-success convention:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pgeom</span>(<span style="color:#005cc5;">4</span>, prob = <span style="color:#005cc5;">0.25</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), \(E[X]=(1-0.25)/0.25=3\) failed welds. For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=\frac{1-0.25}{(0.25)^2}=12\text{ failures}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">p &lt;- <span style="color:#005cc5;">0.25</span>
+<span style="color:#6f42c1;">c</span>(mean = (<span style="color:#005cc5;">1</span> - p) / p, variance = (<span style="color:#005cc5;">1</span> - p) / p^<span style="color:#005cc5;">2</span>)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Negative Binomial</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A lab repeats an assay until it has collected three valid readings. Each assay independently yields a valid reading with probability \(p=0.4\). Let \(X\) be the number of failed assays before the third valid reading. We ask:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(a)</strong> What is the probability that more than five assays fail before the third valid reading?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(b)</strong> What is the average number of failed assays before the third valid reading?</li>
+<li style="margin:0 0 .6rem; line-height:1.75; color:#1f2937;"><strong>(c)</strong> What is the variance in the number of failed assays before the third valid reading?</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model for failures before the rth success in independent trials.">Negative Binomial</span>\((r,p)\) distribution here counts failures before the \(r\)th success. Its PMF, CDF, expectation, and variance are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\binom{x+r-1}{x}(1-p)^x p^r,\qquad x=0,1,2,\ldots,
+$$
+</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\binom{k+r-1}{k}(1-p)^k p^r,
+\qquad E[X]=\frac{r(1-p)}{p},\qquad
+\operatorname{Var}[X]=\frac{r(1-p)}{p^2}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (a),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(X&gt;5)=1-\sum_{x=0}^{5}\binom{x+2}{x}(0.6)^x(0.4)^3\approx0.3154.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Use <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">pnbinom()</code> for this upper-tail probability:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pnbinom</span>(<span style="color:#005cc5;">5</span>, size = <span style="color:#005cc5;">3</span>, prob = <span style="color:#005cc5;">0.4</span>, lower.tail = <span style="color:#cf222e;">FALSE</span>)
+
+<span style="color:#586069; font-style:italic;"># Probability of exactly 2 failures before the third success</span>
+<span style="color:#6f42c1;">dnbinom</span>(<span style="color:#005cc5;">2</span>, size = <span style="color:#005cc5;">3</span>, prob = <span style="color:#005cc5;">0.4</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For part (b), \(E[X]=3(0.6)/0.4=4.5\) failed assays. For part (c),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=\frac{3(0.6)}{(0.4)^2}=11.25\text{ failures}^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In R:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">r &lt;- <span style="color:#005cc5;">3</span>
+p &lt;- <span style="color:#005cc5;">0.4</span>
+<span style="color:#6f42c1;">c</span>(mean = r * (<span style="color:#005cc5;">1</span> - p) / p,
+  variance = r * (<span style="color:#005cc5;">1</span> - p) / p^<span style="color:#005cc5;">2</span>)</pre>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Bernoulli</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Binomial</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Multinomial</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Poisson</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Geometric</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Negative Binomial</span>
+</div>
+
+</body>
+</html>

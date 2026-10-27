@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How Strongly Do Two Variables Move Together?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">How Strongly Do Two Variables Move Together?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">How covariance and correlation summarize relationships between random variables.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">At a community sustainability event, organizers record whether each visitor arrives by bike and whether they bring a reusable cup. They notice that the choices often occur together. <strong>How strongly are these two choices associated?</strong> A numerical summary could help organizers understand whether the same outreach is reaching people who make several lower-waste choices.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A small online shop compares how much of a product page visitors read with whether they make a purchase. Visitors who read more details seem more likely to buy. <strong>How strongly are page engagement and purchase associated?</strong> A numerical summary could help the shop evaluate product pages.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In both problems, we need a joint distribution for the pair. From it, we can find the marginal means and variances and the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The expectation of the product of two random variables, E[XY].">cross-moment</span>, then calculate <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A measure of whether two variables move above or below their means together.">covariance</span> and <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A standardized measure of the direction and strength of a linear association.">correlation</span>.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">From a joint model to correlation</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For discrete variables with joint PMF \(P_{X,Y}(x,y)\), the marginal PMFs and cross-moment are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\sum_y P_{X,Y}(x,y),\qquad
+P_Y(y)=\sum_x P_{X,Y}(x,y),\qquad
+E[XY]=\sum_x\sum_y xy\,P_{X,Y}(x,y).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For continuous variables with joint density \(f_{X,Y}(x,y)\), the marginal PDFs and cross-moment are found by integration:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\int f_{X,Y}(x,y)\,dy,\qquad
+f_Y(y)=\int f_{X,Y}(x,y)\,dx,\qquad
+E[XY]=\int\!\int xy f_{X,Y}(x,y)\,dx\,dy.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">If \(X\) is continuous and \(Y\) is discrete, the joint model is a density-mass function. Sum over \(Y\) to obtain \(f_X\), and integrate over \(X\) to obtain \(P_Y\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\sum_y f_{X,Y}(x,y),\qquad
+P_Y(y)=\int f_{X,Y}(x,y)\,dx,\qquad
+E[XY]=\sum_y\int xy f_{X,Y}(x,y)\,dx.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Once the means, variances, and cross-moment are known, covariance and correlation are</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y],
+\qquad
+\rho_{X,Y}=\operatorname{Corr}(X,Y)
+=\frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}[X]\operatorname{Var}[Y]}}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a continuous example, take \(f_{X,Y}(x,y)=x+y\) on \((0,1)^2\). Its marginal densities are \(f_X(x)=x+\frac12\) and \(f_Y(y)=y+\frac12\), so</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=E[Y]=\frac{7}{12},\qquad
+E[X^2]=E[Y^2]=\frac{5}{12},\qquad
+\operatorname{Var}[X]=\operatorname{Var}[Y]=\frac{11}{144}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The cross-moment is \(E[XY]=\frac13\), giving \(\operatorname{Cov}(X,Y)=-\frac{1}{144}\) and \(\operatorname{Corr}(X,Y)=-\frac{1}{11}\). R can calculate this correlation using the same marginal and cross-moment formulas:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">library</span>(cubature)
+
+joint_pdf &lt;- <span style="color:#cf222e;">function</span>(x, y) x + y
+<span style="color:#586069; font-style:italic;"># Integrating the joint PDF over the other variable gives these marginals.</span>
+marginal_x &lt;- <span style="color:#cf222e;">function</span>(x) x + <span style="color:#005cc5;">1</span>/<span style="color:#005cc5;">2</span>
+marginal_y &lt;- <span style="color:#cf222e;">function</span>(y) y + <span style="color:#005cc5;">1</span>/<span style="color:#005cc5;">2</span>
+
+mean_x &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) x * <span style="color:#6f42c1;">marginal_x</span>(x),
+                     lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+mean_y &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(y) y * <span style="color:#6f42c1;">marginal_y</span>(y),
+                     lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+second_x &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) x^<span style="color:#005cc5;">2</span> * <span style="color:#6f42c1;">marginal_x</span>(x),
+                       lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+second_y &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(y) y^<span style="color:#005cc5;">2</span> * <span style="color:#6f42c1;">marginal_y</span>(y),
+                       lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+mean_xy &lt;- <span style="color:#6f42c1;">hcubature</span>(
+  <span style="color:#cf222e;">function</span>(v) v[<span style="color:#005cc5;">1</span>] * v[<span style="color:#005cc5;">2</span>] * <span style="color:#6f42c1;">joint_pdf</span>(v[<span style="color:#005cc5;">1</span>], v[<span style="color:#005cc5;">2</span>]),
+  lowerLimit = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">0</span>),
+  upperLimit = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">1</span>, <span style="color:#005cc5;">1</span>)
+)$integral
+
+variance_x &lt;- second_x - mean_x^<span style="color:#005cc5;">2</span>
+variance_y &lt;- second_y - mean_y^<span style="color:#005cc5;">2</span>
+covariance_xy &lt;- mean_xy - mean_x * mean_y
+correlation_xy &lt;- covariance_xy / <span style="color:#6f42c1;">sqrt</span>(variance_x * variance_y)
+correlation_xy</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Covariance describes whether the variables tend to be above or below their means together, but its size depends on their units. Correlation standardizes covariance and lies between \(-1\) and \(1\). <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="Two variables are independent when their joint distribution factors into the marginals.">Independence of random variables</span> means that the joint model factors into the product of the marginals: \(P_{X,Y}(x,y)=P_X(x)P_Y(y)\) for discrete variables, or \(f_{X,Y}(x,y)=f_X(x)f_Y(y)\) for continuous variables. Independence implies zero correlation when the variances are finite, but zero correlation alone does not generally imply independence.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Bike commuting and reusable cups: a simple joint PMF</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Let \(X=1\) if a visitor arrived by bike and \(X=0\) otherwise. Let \(Y=1\) if the visitor brought a reusable cup and \(Y=0\) otherwise. All four combinations occur, and event records suggest that the two choices often occur together. A simple custom joint PMF representing that pattern is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{3}{8},&amp;(x,y)=(0,0)\text{ or }(1,1),\\
+\dfrac{1}{8},&amp;(x,y)=(0,1)\text{ or }(1,0),\\
+0,&amp;\text{otherwise}.
+\end{cases}
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The support is the full product \(\{0,1\}\times\{0,1\}\). Summing the joint PMF over the other variable gives</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(0)=P_X(1)=\frac12,
+\qquad
+P_Y(0)=P_Y(1)=\frac12.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Find the means and second moments from these marginal PMFs:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=E[Y]=\frac12,
+\qquad
+E[X^2]=E[Y^2]=\frac12.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Therefore,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[X]=\operatorname{Var}[Y]
+=\frac12-\left(\frac12\right)^2
+=\frac14.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The cross-moment comes directly from the joint PMF. Only the outcome \((1,1)\) contributes a nonzero value:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[XY]=\sum_x\sum_y xy\,P_{X,Y}(x,y)=\frac38.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Thus</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Cov}(X,Y)=\frac38-\frac12\cdot\frac12=\frac18,
+\qquad
+\operatorname{Corr}(X,Y)=\frac{1/8}{\sqrt{(1/4)(1/4)}}=0.5.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In this model, visitors who arrive by bike are more likely to bring a reusable cup, and the two choices have a moderate positive correlation.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R can calculate the marginal distributions, means, variances, and correlation from the joint PMF:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">x &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">1</span>)
+y &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">1</span>)
+joint &lt;- <span style="color:#6f42c1;">matrix</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">3</span>/<span style="color:#005cc5;">8</span>, <span style="color:#005cc5;">1</span>/<span style="color:#005cc5;">8</span>,
+                  <span style="color:#005cc5;">1</span>/<span style="color:#005cc5;">8</span>, <span style="color:#005cc5;">3</span>/<span style="color:#005cc5;">8</span>), nrow = <span style="color:#005cc5;">2</span>, byrow = <span style="color:#cf222e;">TRUE</span>)
+
+px &lt;- <span style="color:#6f42c1;">rowSums</span>(joint)
+py &lt;- <span style="color:#6f42c1;">colSums</span>(joint)
+mean_x &lt;- <span style="color:#6f42c1;">sum</span>(x * px)
+mean_y &lt;- <span style="color:#6f42c1;">sum</span>(y * py)
+variance_x &lt;- <span style="color:#6f42c1;">sum</span>((x - mean_x)^<span style="color:#005cc5;">2</span> * px)
+variance_y &lt;- <span style="color:#6f42c1;">sum</span>((y - mean_y)^<span style="color:#005cc5;">2</span> * py)
+mean_xy &lt;- <span style="color:#6f42c1;">sum</span>(<span style="color:#6f42c1;">outer</span>(x, y, <span style="color:#032f62;">&quot;*&quot;</span>) * joint)
+covariance_xy &lt;- mean_xy - mean_x * mean_y
+correlation_xy &lt;- covariance_xy / <span style="color:#6f42c1;">sqrt</span>(variance_x * variance_y)
+correlation_xy</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Page engagement and purchases: a mixed joint model</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Let \(X\) be the fraction of a product page a visitor reads, measured on a scale from \(0\) to \(1\), and let \(Y=1\) if the visitor purchases the product and \(Y=0\) otherwise. The engagement measurements are continuous and tend to be higher, while the outcome is a yes/no purchase. As a simple model, use a Beta\((2,1)\) marginal density for engagement, \(f_X(x)=2x\), and let the purchase probability given engagement \(x\) be \(P(Y=1\mid X=x)=x\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Multiplying the marginal density by the conditional probability gives the joint density-mass function:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+2x^2,&amp;0&lt;x&lt;1,\;y=1,\\
+2x(1-x),&amp;0&lt;x&lt;1,\;y=0,\\
+0,&amp;\text{otherwise}.
+\end{cases}
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The support is the full product \((0,1)\times\{0,1\}\). Sum over the two purchase outcomes to recover the marginal density of engagement:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=f_{X,Y}(x,0)+f_{X,Y}(x,1)
+=2x(1-x)+2x^2=2x,
+\qquad 0&lt;x&lt;1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Integrate over engagement to find the purchase PMF:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_Y(1)=\int_0^1 2x^2\,dx=\frac23,
+\qquad
+P_Y(0)=\int_0^1 2x(1-x)\,dx=\frac13.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Calculate the marginal moments directly. For page engagement,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[X]=\int_0^1 x(2x)\,dx=\frac23,
+\qquad
+E[X^2]=\int_0^1 x^2(2x)\,dx=\frac12,
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">so \(\operatorname{Var}[X]=\frac12-(\frac23)^2=\frac1{18}\). For purchase status,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y]=\frac23,\qquad E[Y^2]=\frac23,
+\qquad \operatorname{Var}[Y]=\frac23-\left(\frac23\right)^2=\frac29.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Only purchases (\(Y=1\)) contribute to the cross-moment:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[XY]=\int_0^1 x\,f_{X,Y}(x,1)\,dx
+=\int_0^1 2x^3\,dx=\frac12.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The covariance and correlation are therefore</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Cov}(X,Y)=\frac12-\frac23\cdot\frac23=\frac1{18},
+\qquad
+\operatorname{Corr}(X,Y)=\frac{1/18}{\sqrt{(1/18)(2/9)}}=\frac12.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">This model describes a positive association: visitors who read more of the product page are more likely to buy it.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">The pattern</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Start with a joint PMF or PDF for the pair. Find each marginal distribution, calculate the marginal means and variances from their definitions, and evaluate \(E[XY]\) from the joint model. Covariance and correlation then summarize the direction and strength of the linear association.</p>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">cross-moment</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">covariance</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">correlation</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">Independence of random variables</span>
+</div>
+
+</body>
+</html>

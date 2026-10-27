@@ -1,4 +1,4 @@
-# Linear Transformations of Random Variables
+# What Happens When You Shift or Rescale a Variable?
 
 A bike-share operator reviews rental logs in equal 30-minute periods. The records are nonnegative counts, averaging about two rentals per period, with rentals arriving throughout the day rather than in obvious bursts. The station earns $\$5$ per rental, and the operator wants to know how often revenue meets a $\$10$ target. **What is the probability that revenue in a 30-minute period is at least $\$10$?**
 

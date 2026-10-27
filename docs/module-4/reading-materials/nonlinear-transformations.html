@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What Happens When You Square or Take the Log of a Variable?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">What Happens When You Square or Take the Log of a Variable?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">How nonlinear changes reshape a distribution and its moments.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A maintenance team wants to prioritize devices by the impact of their faults. Inspection records show between zero and two minor faults per device: about \(40\%\) have no faults, \(40\%\) have one, and \(20\%\) have two. The team assigns the score \(Y=X^2\), so devices with multiple faults receive a higher score. <strong>What are the average score and its variance?</strong></p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">An insurer faces a probability question about claim sizes. Claims are positive amounts, with many moderate claims and fewer large ones. The insurer records each claim amount relative to \(\$1{,}000\) and tracks its natural logarithm, \(Y=\ln X\). <strong>What is the probability a claim is at most \(\$1{,}000\)?</strong> This probability helps describe how often claims fall below a useful reporting threshold.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">These questions involve two different summaries: moments of a discrete score and a probability for a transformed continuous amount. In both cases, we need to understand how replacing \(X\) with a nonlinear function, a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A transformation that is not of the linear form aX + b.">nonlinear transformation</span>, changes the values it can take and the probabilities attached to them.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Finding moments of a transformed variable</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a discrete random variable with PMF \(P_X(x)\) and transformation \(Y=g(X)\), compute the expectation by applying \(g\) to each possible value:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y]=E[g(X)]=\sum_x g(x)P_X(x).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For the variance, first find the second moment of the transformed variable:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[Y]
+=E[Y^2]-(E[Y])^2
+=\sum_x g(x)^2P_X(x)-(E[Y])^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a continuous random variable with PDF \(f_X(x)\), replace the sums with integrals over the support of \(X\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y]=E[g(X)]=\int g(x)f_X(x)\,dx,
+\qquad
+E[Y^2]=\int g(x)^2f_X(x)\,dx,
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">so</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[Y]
+=\int g(x)^2f_X(x)\,dx-(E[Y])^2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In either case, these are not generally the same as transforming the original mean and variance. We can use the fault-score question to see how to compute them directly.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Working out the fault-score mean and variance: \(Y=X^2\)</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The inspection records contain only the values \(0\), \(1\), and \(2\), with relative frequencies \(0.4\), \(0.4\), and \(0.2\). A custom discrete PMF represents these observed data:</p>
+<table style="border-collapse:collapse; width:100%; max-width:100%; margin:0.5rem 0 1rem; font-size:.92rem; line-height:1.5; color:#1f2937;">
+<thead>
+<tr>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left;">\(x\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(0\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(1\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(2\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937;">\(P_X(x)\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.4\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.4\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.2\)</td>
+</tr>
+</tbody>
+</table>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">To give greater weight to multiple faults, the maintenance team uses the score \(Y=X^2\). Squaring is strictly increasing on the support \(\{0,1,2\}\), so it is one-to-one here. The transformed distribution is:</p>
+<table style="border-collapse:collapse; width:100%; max-width:100%; margin:0.5rem 0 1rem; font-size:.92rem; line-height:1.5; color:#1f2937;">
+<thead>
+<tr>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(x\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(P_X(x)\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(y=x^2\)</th>
+<th style="background:#eef4f8; color:#5b6e7a; font-weight:700; padding:0.5rem 0.8rem; border:1px solid #92aeba; text-align:left; text-align: right;">\(P_Y(y)\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.4\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.4\)</td>
+</tr>
+<tr>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(1\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.4\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(1\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.4\)</td>
+</tr>
+<tr>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(2\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.2\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(4\)</td>
+<td style="padding:0.5rem 0.8rem; border:1px solid #92aeba; color:#1f2937; text-align: right;">\(0.2\)</td>
+</tr>
+</tbody>
+</table>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The mean score is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y]=0(0.4)+1(0.4)+4(0.2)=1.2.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The second moment is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y^2]=0^2(0.4)+1^2(0.4)+4^2(0.2)=3.6,
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">so the variance is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+\operatorname{Var}[Y]=3.6-(1.2)^2=2.16.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The same calculations in R use the transformed values and their probabilities:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">y &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">1</span>, <span style="color:#005cc5;">4</span>)
+p &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.4</span>, <span style="color:#005cc5;">0.4</span>, <span style="color:#005cc5;">0.2</span>)
+mean_y &lt;- <span style="color:#6f42c1;">sum</span>(y * p)
+variance_y &lt;- <span style="color:#6f42c1;">sum</span>(y^<span style="color:#005cc5;">2</span> * p) - mean_y^<span style="color:#005cc5;">2</span>
+<span style="color:#6f42c1;">c</span>(mean = mean_y, variance = variance_y)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Finding probabilities after a nonlinear transformation</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">When \(Y=g(X)\) is monotonic and one-to-one, the CDF provides a direct route to probabilities. If \(g\) is increasing,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_Y(y)=F_X\!\left(g^{-1}(y)\right).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">If \(g\) is decreasing, the event inequality reverses, so for a continuous \(X\),</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_Y(y)=1-F_X\!\left(g^{-1}(y)\right).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For a continuous variable, the transformed density is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_Y(y)=f_X\!\left(g^{-1}(y)\right)
+\left|\frac{d}{dy}g^{-1}(y)\right|.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The inverse must be used on the support where the transformation is one-to-one. We can use this method to answer the insurer’s question about the log-claim threshold.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Answering the claim-threshold question: \(Y=\ln X\)</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The claim records are positive and right-skewed. A Gamma model is a useful choice for positive amounts with this shape. Let \(X\) be the claim amount divided by \(\$1{,}000\), and use a Gamma distribution with shape \(2\) and rate \(1\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+X\sim\operatorname{Gamma}(\text{shape}=2,\text{ rate}=1).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Here \(X=1\) represents a \(\$1{,}000\) claim. Because \(X\) is the claim amount divided by \(\$1{,}000\), it is dimensionless and its natural logarithm is well-defined. The transformation is strictly increasing for \(X&gt;0\), and its inverse is \(X=e^Y\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The Gamma PDF with shape \(2\) and rate \(1\) is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=xe^{-x},\qquad x&gt;0.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Using the inverse transformation and its derivative,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_Y(y)=f_X(e^y)\left|\frac{d}{dy}e^y\right|
+=e^y e^{-e^y}e^y
+=e^{2y-e^y},\qquad -\infty&lt;y&lt;\infty.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The transformed CDF follows from the same inverse:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+F_Y(y)=P(\ln X\leq y)
+=P(X\leq e^y)
+=F_X(e^y)
+=1-(1+e^y)e^{-e^y}.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">What is the probability that a claim is at most \(\$1{,}000\)? Since this is \(X\leq1\), it is equivalent to \(Y\leq\ln(1)=0\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(Y\leq0)=F_Y(0)=1-2e^{-1}\approx0.2642.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R can evaluate this probability using the Gamma CDF:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">pgamma</span>(<span style="color:#005cc5;">1</span>, shape = <span style="color:#005cc5;">2</span>, rate = <span style="color:#005cc5;">1</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The threshold question can be answered from the derived distribution of \(Y\) or by translating the event back to \(X\) and using its Gamma CDF.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For the continuous Gamma example above, R can calculate the moments of \(Y=\ln X\) directly from the density of \(X\) and evaluate the transformed density using the change-of-variables formula:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">fx &lt;- <span style="color:#cf222e;">function</span>(x) <span style="color:#6f42c1;">dgamma</span>(x, shape = <span style="color:#005cc5;">2</span>, rate = <span style="color:#005cc5;">1</span>)
+mean_y &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) <span style="color:#6f42c1;">log</span>(x) * <span style="color:#6f42c1;">fx</span>(x),
+                    lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#cf222e;">Inf</span>)$value
+second_moment_y &lt;- <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) <span style="color:#6f42c1;">log</span>(x)^<span style="color:#005cc5;">2</span> * <span style="color:#6f42c1;">fx</span>(x),
+                             lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#cf222e;">Inf</span>)$value
+variance_y &lt;- second_moment_y - mean_y^<span style="color:#005cc5;">2</span>
+<span style="color:#6f42c1;">c</span>(mean = mean_y, variance = variance_y)
+
+fy &lt;- <span style="color:#cf222e;">function</span>(y) <span style="color:#6f42c1;">dgamma</span>(<span style="color:#6f42c1;">exp</span>(y), shape = <span style="color:#005cc5;">2</span>, rate = <span style="color:#005cc5;">1</span>) * <span style="color:#6f42c1;">exp</span>(y)
+<span style="color:#6f42c1;">fy</span>(<span style="color:#005cc5;">0</span>)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">The pattern</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For moments, calculate \(E[g(X)]\) and \(E[g(X)^2]\) using the original PMF or PDF, then use \(\operatorname{Var}[g(X)]=E[g(X)^2]-(E[g(X)])^2\). For probabilities, use the inverse transformation to derive the CDF or PDF of \(Y\), keeping track of the transformed support. A monotonic one-to-one transformation ensures that each transformed value corresponds to exactly one original value.</p>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">nonlinear transformation</span>
+</div>
+
+</body>
+</html>

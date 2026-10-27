@@ -23,7 +23,7 @@ After completing this module, you should be able to work with a probability mode
 
 ## What's Inside
 
-- **Readings** — six connected readings in sequence: *How Do We Model Data?*, *Common Distributions*, *Linear Transformations of Random Variables*, *Nonlinear Transformations of Random Variables*, *Joint, Marginal, and Conditional Distributions*, and *Joint Distributions and Correlation*.
+- **Readings** — seven connected readings in sequence: *How Do We Model Data?*, *How Do We Model Counts and Successes?*, *How Do We Model Measurements and Waiting Times?*, *What Happens When You Shift or Rescale a Variable?*, *What Happens When You Square or Take the Log of a Variable?*, *How Does Knowing One Outcome Change the Chances of Another?*, and *How Strongly Do Two Variables Move Together?*.
 - **Definitions and Examples** — an alphabetical glossary of Module 4 terms, with sourced definitions, fresh examples, and R code where it helps with calculations.
 - **Knowledge Checks** — practice with distribution choice, probabilities and moments, transformations, conditional distributions, and correlation.
 - **Quizzes** — three scenario-based checks of the Module 4 material.

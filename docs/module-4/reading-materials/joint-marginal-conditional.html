@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How Does Knowing One Outcome Change the Chances of Another?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">How Does Knowing One Outcome Change the Chances of Another?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">How a joint model reveals marginal and conditional distributions.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A café is reviewing orders to decide whether to offer a coffee-and-pastry bundle. The order records show whether a pastry was purchased and whether the customer ordered zero, one, or two coffees. Orders that include a pastry seem more likely to include coffee. <strong>Given that an order includes a pastry, how likely is it to include at least one coffee?</strong> How does that compare with the probability for all orders?</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A production manager has a related question about two processing stages. In each run, both stage durations fall between zero and a fixed maximum, and longer first-stage durations tend to occur with longer second-stage durations. <strong>Given that the first stage takes three-quarters of the maximum time, what is the probability that the second stage takes more than half the maximum time?</strong></p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">To answer questions like these, we need a <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model describing two or more random variables together.">joint distribution</span> that describes the pair of outcomes together. From that joint distribution, we can find each variable’s <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The distribution of one variable on its own in a joint model.">marginal distribution</span> and the distribution of one variable conditional on the other.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Starting with a joint model</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For two discrete random variables \(X\) and \(Y\), the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A model describing two or more random variables together.">joint PMF</span> gives the probability of each pair:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_{X,Y}(x,y)=P(X=x,Y=y).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The distribution of one variable on its own in a joint model.">marginal PMF</span> for one variable is found by adding the joint probabilities over all possible values of the other variable:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(x)=\sum_y P_{X,Y}(x,y),
+\qquad
+P_Y(y)=\sum_x P_{X,Y}(x,y).
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For continuous variables, a joint PDF describes the pair. Marginal PDFs are found by integrating over the other variable:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\int f_{X,Y}(x,y)\,dy,
+\qquad
+f_Y(y)=\int f_{X,Y}(x,y)\,dx.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The distribution of one variable given the value of another.">conditional distribution</span> describes one variable after the other is known. For discrete variables and for continuous variables with densities, respectively,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_{Y\mid X}(y\mid x)=\frac{P_{X,Y}(x,y)}{P_X(x)},
+\qquad
+f_{Y\mid X}(y\mid x)=\frac{f_{X,Y}(x,y)}{f_X(x)},
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">provided the conditioning value has positive probability or density. In each case, the conditional probabilities or density must total or integrate to \(1\) over the possible values of \(Y\).</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The conditional distribution also gives the conditional expectation, or average value of \(Y\) among cases with a specified value of \(X\). For discrete and continuous \(Y\), respectively,</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y\mid X=x]=\sum_y yP_{Y\mid X}(y\mid x),
+\qquad
+E[Y\mid X=x]=\int y f_{Y\mid X}(y\mid x)\,dy.
+$$
+</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Answering the café question</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Let \(X=1\) mean that an order includes a pastry, and \(X=0\) mean that it does not. Let \(Y\) be the number of coffees in the order, so \(Y\in\{0,1,2\}\). The records show all six combinations occur, with pastry orders more likely to include coffee. A simple joint PMF matching this pattern is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_{X,Y}(x,y)=
+\begin{cases}
+0.30,&amp;(x,y)=(0,0),\\
+0.24,&amp;(x,y)=(0,1),\\
+0.06,&amp;(x,y)=(0,2),\\
+0.10,&amp;(x,y)=(1,0),\\
+0.20,&amp;(x,y)=(1,1),\\
+0.10,&amp;(x,y)=(1,2),\\
+0,&amp;\text{otherwise}.
+\end{cases}
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The probabilities sum to \(1\), and the support is the full product \(\{0,1\}\times\{0,1,2\}\). Add across coffee counts to get the marginal distribution of pastry orders:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_X(0)=0.30+0.24+0.06=0.60,
+\qquad
+P_X(1)=0.10+0.20+0.10=0.40.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Add across pastry status to get the marginal coffee-count distribution:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_Y(0)=0.40,\qquad P_Y(1)=0.44,\qquad P_Y(2)=0.16.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Now condition on a pastry order, \(X=1\). Divide the joint probabilities in that row by \(P_X(1)=0.40\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P_{Y\mid X}(0\mid1)=0.25,\qquad
+P_{Y\mid X}(1\mid1)=0.50,\qquad
+P_{Y\mid X}(2\mid1)=0.25.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Thus the probability of at least one coffee given a pastry is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(Y\geq1\mid X=1)=0.50+0.25=0.75.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">For all orders, the marginal probability of at least one coffee is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(Y\geq1)=P_Y(1)+P_Y(2)=0.44+0.16=0.60.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The model therefore predicts that \(75\%\) of pastry orders include at least one coffee, compared with \(60\%\) of orders overall.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The conditional expectation is the average number of coffees in pastry orders:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y\mid X=1]=0(0.25)+1(0.50)+2(0.25)=1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R calculates this weighted average directly:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">y &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">1</span>, <span style="color:#005cc5;">2</span>)
+p_y_given_pastry &lt;- <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.25</span>, <span style="color:#005cc5;">0.50</span>, <span style="color:#005cc5;">0.25</span>)
+<span style="color:#6f42c1;">sum</span>(y * p_y_given_pastry)</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Answering the processing-time question</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The paired durations both range from \(0\) to \(1\) after scaling by the maximum stage time, and the observations suggest a modest positive association. To represent this pattern with a simple joint PDF on the square, use</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{6}{7}(1+x^2y),&amp;0&lt;x&lt;1,\;0&lt;y&lt;1,\\
+0,&amp;\text{otherwise}.
+\end{cases}
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The density is nonnegative and integrates to \(1\) over the rectangular support. R can check the total integral with <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">cubature::hcubature()</code>:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">library</span>(cubature)
+
+joint_pdf &lt;- <span style="color:#cf222e;">function</span>(x, y) (<span style="color:#005cc5;">6</span> / <span style="color:#005cc5;">7</span>) * (<span style="color:#005cc5;">1</span> + x^<span style="color:#005cc5;">2</span> * y)
+f_xy &lt;- <span style="color:#cf222e;">function</span>(z) <span style="color:#6f42c1;">joint_pdf</span>(z[<span style="color:#005cc5;">1</span>], z[<span style="color:#005cc5;">2</span>])
+
+<span style="color:#6f42c1;">hcubature</span>(f_xy, lowerLimit = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0</span>, <span style="color:#005cc5;">0</span>), upperLimit = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">1</span>, <span style="color:#005cc5;">1</span>))$integral</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">To find the marginal density of the first-stage duration, integrate over the full range of the second-stage duration:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_X(x)=\int_0^1\frac67(1+x^2y)\,dy
+=\frac67\left(1+\frac{x^2}{2}\right),\qquad 0&lt;x&lt;1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The marginal density of the second-stage duration is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_Y(y)=\int_0^1\frac67(1+x^2y)\,dx
+=\frac67\left(1+\frac{y}{3}\right),\qquad 0&lt;y&lt;1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R can calculate these marginal densities by integrating the joint PDF over the other variable:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">marginal_x &lt;- <span style="color:#cf222e;">function</span>(x) {
+  <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(y) <span style="color:#6f42c1;">joint_pdf</span>(x, y), lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+}
+marginal_y &lt;- <span style="color:#cf222e;">function</span>(y) {
+  <span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(x) <span style="color:#6f42c1;">joint_pdf</span>(x, y), lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value
+}
+
+<span style="color:#6f42c1;">marginal_x</span>(<span style="color:#005cc5;">0.75</span>)
+<span style="color:#6f42c1;">marginal_y</span>(<span style="color:#005cc5;">0.5</span>)</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">To condition on a first-stage duration of \(x\), divide the joint PDF by its marginal:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+f_{Y\mid X}(y\mid x)
+=\frac{f_{X,Y}(x,y)}{f_X(x)}
+=\frac{1+x^2y}{1+x^2/2},\qquad 0&lt;y&lt;1.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">At \(x=0.75\), the requested conditional probability is</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+P(Y&gt;0.5\mid X=0.75)
+=\int_{0.5}^1\frac{1+0.75^2y}{1+0.75^2/2}\,dy
+=\frac{91}{164}\approx0.5549.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R evaluates the same conditional probability by integrating the conditional density:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(y) <span style="color:#6f42c1;">joint_pdf</span>(<span style="color:#005cc5;">0.75</span>, y) / <span style="color:#6f42c1;">marginal_x</span>(<span style="color:#005cc5;">0.75</span>),
+          lower = <span style="color:#005cc5;">0.5</span>, upper = <span style="color:#005cc5;">1</span>)$value</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The same conditional density gives the expected second-stage duration at \(X=0.75\):</p>
+<p style="text-align:center; margin:0 0 1.1rem;">
+$$
+E[Y\mid X=0.75]
+=\int_0^1 y\frac{1+0.75^2y}{1+0.75^2/2}\,dy
+=\frac{22}{41}\approx0.5366.
+$$
+</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">R calculates this conditional expectation by integrating \(y\) times the conditional density:</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;"><span style="color:#6f42c1;">integrate</span>(<span style="color:#cf222e;">function</span>(y) y * <span style="color:#6f42c1;">joint_pdf</span>(<span style="color:#005cc5;">0.75</span>, y) / <span style="color:#6f42c1;">marginal_x</span>(<span style="color:#005cc5;">0.75</span>),
+          lower = <span style="color:#005cc5;">0</span>, upper = <span style="color:#005cc5;">1</span>)$value</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The joint model lets us answer the question by first finding the conditional distribution. The marginal distribution describes the second-stage duration across all runs; the conditional distribution describes it among runs with a specified first-stage duration.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">The pattern</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Start with a joint PMF or PDF for the pair. Sum or integrate over one variable to get a marginal distribution; divide the joint model by the relevant marginal to get a conditional distribution. The support determines which values are possible, and each marginal or conditional model must itself have total probability \(1\).</p>
+
+
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">joint distribution</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">marginal distribution</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">conditional distribution</span>
+</div>
+
+</body>
+</html>

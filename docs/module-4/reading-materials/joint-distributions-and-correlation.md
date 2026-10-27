@@ -1,4 +1,4 @@
-# Joint Distributions and Correlation
+# How Strongly Do Two Variables Move Together?
 
 At a community sustainability event, organizers record whether each visitor arrives by bike and whether they bring a reusable cup. They notice that the choices often occur together. **How strongly are these two choices associated?** A numerical summary could help organizers understand whether the same outreach is reaching people who make several lower-waste choices.
 

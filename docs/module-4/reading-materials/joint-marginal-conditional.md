@@ -1,4 +1,4 @@
-# Joint, Marginal, and Conditional Distributions
+# How Does Knowing One Outcome Change the Chances of Another?
 
 A café is reviewing orders to decide whether to offer a coffee-and-pastry bundle. The order records show whether a pastry was purchased and whether the customer ordered zero, one, or two coffees. Orders that include a pastry seem more likely to include coffee. **Given that an order includes a pastry, how likely is it to include at least one coffee?** How does that compare with the probability for all orders?
 

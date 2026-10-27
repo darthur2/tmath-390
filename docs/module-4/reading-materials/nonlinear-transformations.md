@@ -1,4 +1,4 @@
-# Nonlinear Transformations of Random Variables
+# What Happens When You Square or Take the Log of a Variable?
 
 A maintenance team wants to prioritize devices by the impact of their faults. Inspection records show between zero and two minor faults per device: about $40\%$ have no faults, $40\%$ have one, and $20\%$ have two. The team assigns the score $Y=X^2$, so devices with multiple faults receive a higher score. **What are the average score and its variance?**
 
