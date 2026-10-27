@@ -430,7 +430,7 @@ c(mean = shape / rate, variance = shape / rate^2)
 
 ### Beta
 
-A plant pathologist models the fraction $X$ of a leaf's area affected by disease with a Beta distribution having $\alpha=2$ and $\beta=5$. We ask:
+A plant pathologist models the fraction $X$ of a leaf's area affected by disease with a **Beta** distribution having $\alpha=2$ and $\beta=5$. We ask:
 
 - **(a)** What is the probability that more than half of a leaf's area is affected?
 - **(b)** What is the average fraction affected across leaves?
@@ -507,7 +507,7 @@ c(mean = alpha / (alpha + beta_shape),
 
 ### Normal
 
-A load cell has calibration errors $X\sim\operatorname{Normal}(0,0.5)$, where $0$ is the mean and $0.5$ is the standard deviation. A device passes when the error is within $\pm0.5$ units. We ask:
+A load cell has calibration errors that follow a **Normal** distribution with mean $0$ and standard deviation $0.5$: $X\sim\operatorname{Normal}(0,0.5)$. A device passes when the error is within $\pm0.5$ units. We ask:
 
 - **(a)** What is the probability that a random calibration error is within the tolerance?
 - **(b)** What is the average calibration error?
@@ -520,7 +520,7 @@ $$
 \Phi(z)=P(Z\leq z)=\int_{-\infty}^{z}\phi(t)\,dt.
 $$
 
-Thus, $\Phi$ is the standard Normal CDF, and R evaluates it with `pnorm(z)`. A **Normal**$(\mu,\sigma)$ distribution is symmetric around $\mu$. Its PDF, CDF, expectation, and variance are
+Thus, $\Phi$ is the **standard Normal** CDF, and R evaluates it with `pnorm(z)`. A **Normal**$(\mu,\sigma)$ distribution is symmetric around $\mu$. Its PDF, CDF, expectation, and variance are
 
 $$
 f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}
@@ -532,6 +532,8 @@ $$
 F_X(x)=\Phi\!\left(\frac{x-\mu}{\sigma}\right),
 \qquad E[X]=\mu,\qquad \operatorname{Var}[X]=\sigma^2,
 $$
+
+Converting a Normal variable to $Z=(X-\mu)/\sigma$ is called **standardization**; the resulting variable has the standard Normal distribution.
 
 For part (a),
 

@@ -28,7 +28,7 @@ The soil-core measurement is also a random variable. An outcome $s\in S$ describ
 
 ## How probability is assigned
 
-For a **discrete** random variable, probability is assigned to individual possible values. The function that gives these probabilities is the **probability mass function**, or **PMF**:
+For a **discrete random variable**, probability is assigned to individual possible values. The function that gives these probabilities is the **probability mass function**, or **PMF**:
 
 We write the PMF as $P_X(x)$; this is interchangeable with $P(X=x)$, the probability that $X$ equals $x$.
 
@@ -38,7 +38,7 @@ $$
 
 Each value $P_X(x)$ is nonnegative, and the probabilities over the support add to $1$. To find the probability of an event, add the PMF values for the outcomes that belong to that event.
 
-For a **continuous** random variable, probabilities are described by a **probability density function**, or **PDF**, written $f_X(x)$. A PDF is nonnegative and has total area $1$:
+For a **continuous random variable**, probabilities are described by a **probability density function**, or **PDF**, written $f_X(x)$. A PDF is nonnegative and has total area $1$:
 
 $$
 \int_{-\infty}^{\infty} f_X(x)\,dx=1.
@@ -90,7 +90,7 @@ where $F_X(x^-)$ is the limit of $F_X(t)$ as $t$ approaches $x$ from below.
 
 ## What expectation and variance measure
 
-The **expectation** is the probability-weighted long-run average value of a random variable. It does not have to be a value the variable can actually take. For a discrete variable, multiply each value by its probability and add; for a continuous variable, multiply by the density and integrate:
+The **expected value**, also called the **expectation**, is the probability-weighted long-run average value of a random variable. It does not have to be a value the variable can actually take. For a discrete variable, multiply each value by its probability and add; for a continuous variable, multiply by the density and integrate:
 
 $$
 E[X]=\sum_x xP_X(x)
@@ -111,6 +111,8 @@ An equivalent shortcut for either type of variable is
 $$
 \operatorname{Var}[X]=E[X^2]-(E[X])^2.
 $$
+
+The **standard deviation** is the square root of the variance, $\sigma_X=\sqrt{\operatorname{Var}[X]}$, and it is measured in the original units.
 
 ## Counting passing sensor modules
 

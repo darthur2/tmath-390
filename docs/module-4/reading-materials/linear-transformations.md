@@ -4,7 +4,7 @@ A bike-share operator reviews rental logs in equal 30-minute periods. The record
 
 A shipping manager faces a different uncertainty. Repeated measurements of a product's mass cluster around $0.50$ kilograms, with a standard deviation of about $0.02$ kilograms, and form a roughly symmetric, bell-shaped pattern. The shipping package adds $50$ grams. **What are the average total shipping weight and its variance?** These answers help estimate postage and check package limits.
 
-In the first problem, we need a probability for a transformed discrete count. In the second, we need the mean and variance of a transformed continuous measurement. Both problems become easier once we see how a linear transformation changes a distribution.
+In the first problem, we need a probability for a transformed discrete count. In the second, we need the mean and variance of a transformed continuous measurement. Both problems become easier once we see how a **linear transformation** changes a distribution.
 
 ## Transforming a distribution
 

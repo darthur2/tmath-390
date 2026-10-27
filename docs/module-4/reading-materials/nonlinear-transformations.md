@@ -4,7 +4,7 @@ A maintenance team wants to prioritize devices by the impact of their faults. In
 
 An insurer faces a probability question about claim sizes. Claims are positive amounts, with many moderate claims and fewer large ones. The insurer records each claim amount relative to $\$1{,}000$ and tracks its natural logarithm, $Y=\ln X$. **What is the probability a claim is at most $\$1{,}000$?** This probability helps describe how often claims fall below a useful reporting threshold.
 
-These questions involve two different summaries: moments of a discrete score and a probability for a transformed continuous amount. In both cases, we need to understand how replacing $X$ with a nonlinear function changes the values it can take and the probabilities attached to them.
+These questions involve two different summaries: moments of a discrete score and a probability for a transformed continuous amount. In both cases, we need to understand how replacing $X$ with a nonlinear function, a **nonlinear transformation**, changes the values it can take and the probabilities attached to them.
 
 ## Finding moments of a transformed variable
 
@@ -166,12 +166,6 @@ c(mean = mean_y, variance = variance_y)
 
 fy <- function(y) dgamma(exp(y), shape = 2, rate = 1) * exp(y)
 fy(0)
-
-# Density after the one-to-one transformation Y = sqrt(X)
-fy_sqrt <- function(y) {
-  ifelse(y >= 0, dexp(y^2, rate = 0.5) * 2 * y, 0)
-}
-fy_sqrt(1)
 ```
 
 ## The pattern

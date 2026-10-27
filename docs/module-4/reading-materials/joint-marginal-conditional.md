@@ -4,7 +4,7 @@ A café is reviewing orders to decide whether to offer a coffee-and-pastry bundl
 
 A production manager has a related question about two processing stages. In each run, both stage durations fall between zero and a fixed maximum, and longer first-stage durations tend to occur with longer second-stage durations. **Given that the first stage takes three-quarters of the maximum time, what is the probability that the second stage takes more than half the maximum time?**
 
-To answer questions like these, we need a model that describes the pair of outcomes together. From that joint model, we can find each variable's marginal distribution and the distribution of one variable conditional on the other.
+To answer questions like these, we need a **joint distribution** that describes the pair of outcomes together. From that joint distribution, we can find each variable's **marginal distribution** and the distribution of one variable conditional on the other.
 
 ## Starting with a joint model
 

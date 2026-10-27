@@ -577,52 +577,6 @@ exp(-lambda)
 dpois(0, lambda = lambda)
 ```
 
-## Distribution
-
-**Definition:** A description of the possible values of a random variable and their probabilities. Discrete variables use a PMF, while continuous variables use a PDF and CDF. Use a distribution to turn raw outcomes into a model that can answer probability questions.
-
-**Source:** *Introductory Statistics*, pp. 228-229; *Mathematical Statistics with Applications in R*, p. 64.
-
-**Example 1:** A game spinner lands on red, blue, or yellow with probabilities $0.2$, $0.5$, and $0.3$. Is this a valid distribution?
-
-**By hand:** The probabilities are nonnegative and
-$$
-0.2+0.5+0.3=1,
-$$
-so they define a valid discrete distribution.
-
-**In R:**
-```r
-probabilities <- c(0.2, 0.5, 0.3)
-sum(probabilities)
-```
-
-**Example 2:** A meteorologist models wind speed at a station as Normal with mean 15 m/s and standard deviation 4 m/s. What is the chance a reading exceeds 20 m/s?
-
-**By hand:** Standardize: $z=(20-15)/4=1.25$. Then $P(X>20)=1-\Phi(1.25)=0.1056$.
-
-**In R:**
-```r
-z <- (20 - 15) / 4
-pnorm(z, lower.tail = FALSE)
-```
-
-**Example 3:** A gallery models visitors per hour as Poisson with mean 12. What is the probability of at most 10 visitors in an hour?
-
-**By hand:** For $X\sim\operatorname{Poisson}(12)$,
-$$
-P(X\leq10)=\sum_{x=0}^{10}\frac{e^{-12}12^x}{x!}=0.3472.
-$$
-In R, `dpois` gives the PMF values and `ppois` gives the CDF.
-
-**In R:**
-```r
-lambda <- 12
-sum(exp(-lambda) * lambda^(0:10) / factorial(0:10))
-sum(dpois(0:10, lambda = lambda))
-ppois(10, lambda = lambda)
-```
-
 ## Expected Value (Expectation)
 
 **Definition:** The probability-weighted average of a random variable. For discrete $X$, $E[X]=\sum_x xP_X(x)$; for continuous $X$, $E[X]=\int x f_X(x)\,dx$. Use it to describe the long-run average outcome of a model.
@@ -991,13 +945,15 @@ P(X+Y<1)=\int_{0}^{1}\int_{0}^{1-x}(x+y)\,dy\,dx
 =\frac{1}{3}.
 $$
 
-**In R:** The inner integral handles $y$ from $0$ to $1-x$, and the outer integral handles $x$ from $0$ to $1$.
+**In R:** The indicator restricts the unit square to the triangular region $y<1-x$, and `cubature` evaluates the double integral directly.
 ```r
-joint <- function(x, y) x + y
-inner_integral <- function(x) {
-  integrate(function(y) joint(x, y), lower = 0, upper = 1 - x)$value
+library(cubature)
+joint <- function(v) {
+  x <- v[1]
+  y <- v[2]
+  ifelse(y < 1 - x, x + y, 0)
 }
-integrate(Vectorize(inner_integral), lower = 0, upper = 1)$value
+hcubature(joint, lowerLimit = c(0, 0), upperLimit = c(1, 1))$integral
 ```
 
 ## Linear Transformation
@@ -1159,14 +1115,16 @@ P(X<0.5)=\int_{0}^{0.5}2x\,dx
 =\left[x^2\right]_{0}^{0.5}=0.25.
 $$
 
-**In R:** The inner integral removes $Y$ and produces the marginal density; the second integration uses that marginal.
+**In R:** A single integral gives the marginal density at $x=0.5$, and `cubature` evaluates the double integral for $P(X<0.5)$ directly.
 ```r
+library(cubature)
 joint <- function(x, y) 4 * x * y
-marginal_x <- Vectorize(function(x) {
+marginal_x <- function(x) {
   integrate(function(y) joint(x, y), lower = 0, upper = 1)$value
-})
+}
 marginal_x(0.5)
-integrate(marginal_x, lower = 0, upper = 0.5)$value
+hcubature(function(v) joint(v[1], v[2]),
+          lowerLimit = c(0, 0), upperLimit = c(0.5, 1))$integral
 ```
 
 **Example 3:** A joint model pairs a continuous measurement $X$ with a binary indicator $Y$. If $P(X\leq2\mid Y=0)=0.6$, $P(Y=0)=0.6$, $P(X\leq2\mid Y=1)=0.3$, and $P(Y=1)=0.4$, what is the marginal probability $P(X\leq2)$?
@@ -1500,6 +1458,66 @@ lambda <- 2
 ppois(0, lambda = lambda, lower.tail = FALSE)
 ```
 
+## Probability Density Function (PDF)
+
+**Definition:** A nonnegative function $f_X(x)$ that gives the density of a continuous random variable. Probability is area under the density: $P(a<X<b)=\int_a^b f_X(x)\,dx$, and the total area is one. Use it to compute interval probabilities for continuous measurements.
+
+**Source:** *Introductory Statistics*, pp. 291-292; *Mathematical Statistics with Applications in R*, pp. 65-66.
+
+$$
+f_X(x)\ge0,\qquad \int_{-\infty}^{\infty}f_X(x)\,dx=1
+$$
+
+$$
+P(a<X<b)=\int_a^b f_X(x)\,dx,\qquad F_X(x)=\int_{-\infty}^x f_X(t)\,dt
+$$
+
+**Example 1:** A material's impurity fraction is modeled as Beta$(2,1)$ with density $f(x)=2x$ on $0<x<1$. What is the probability the fraction is between 0.2 and 0.6?
+
+**By hand:** Integrate the density over the interval:
+$$
+P(0.2<X<0.6)=\int_{0.2}^{0.6}2x\,dx
+=\left[x^2\right]_{0.2}^{0.6}=0.36-0.04=0.32.
+$$
+
+**In R:**
+```r
+integrate(function(x) 2 * x, lower = 0.2, upper = 0.6)$value
+pbeta(0.6, shape1 = 2, shape2 = 1) - pbeta(0.2, shape1 = 2, shape2 = 1)
+```
+
+**Example 2:** A call center models the time between calls as Exponential with rate 3 per minute. What are the density at 1 minute and the probability the wait exceeds 1 minute?
+
+**By hand:** For $f(x)=3e^{-3x}$,
+$$
+f(1)=3e^{-3}=0.1494,
+\qquad
+P(X>1)=\int_{1}^{\infty}3e^{-3x}\,dx=e^{-3}=0.0498.
+$$
+
+**In R:**
+```r
+dexp(1, rate = 3)
+pexp(1, rate = 3, lower.tail = FALSE)
+```
+
+**Example 3:** A measurement is Normal with mean 10 and standard deviation 2. What are the density at 12 and the probability the measurement falls between 9 and 11?
+
+**By hand:** Standardize: $z=(12-10)/2=1$. The density is
+$$
+f(12)=\frac{1}{2\sqrt{2\pi}}e^{-1^2/2}=0.1210.
+$$
+For the interval, $z_1=(9-10)/2=-0.5$ and $z_2=(11-10)/2=0.5$, so
+$$
+P(9<X<11)=\Phi(0.5)-\Phi(-0.5)=0.3829.
+$$
+
+**In R:**
+```r
+dnorm(12, mean = 10, sd = 2)
+pnorm(11, mean = 10, sd = 2) - pnorm(9, mean = 10, sd = 2)
+```
+
 ## Probability Mass Function (PMF)
 
 **Definition:** A function $P_X(x)=P(X=x)$ that assigns probability to each possible value of a discrete random variable. Values are nonnegative and sum to one over the support. Use it to answer exact-value questions for counts or categories.
@@ -1609,6 +1627,56 @@ probability <- c(0.3, 0.5, 0.2)
 sum(windows * probability)
 ```
 
+## Sample Space
+
+**Definition:** The set $S$ of all possible outcomes of a random process. A random variable assigns a real number to each outcome in $S$. Use it to list outcomes before defining events or random variables.
+
+**Source:** *Introductory Statistics*, pp. 227-229; *Mathematical Statistics with Applications in R*, p. 63.
+
+$$
+S=\{\text{all possible outcomes}\},\qquad X:S\to\mathbb{R}
+$$
+
+**Example 1:** A quality check records two independent light bulbs as working ($W$) or failed ($F$). What is the sample space, and what is the probability exactly one works?
+
+**By hand:** The sample space lists every ordered pair:
+$$
+S=\{WW,WF,FW,FF\}.
+$$
+Exactly one works in $WF$ and $FW$, so the probability is $2/4=0.5$.
+
+**In R:**
+```r
+outcomes <- c("WW", "WF", "FW", "FF")
+sum(outcomes %in% c("WF", "FW")) / length(outcomes)
+```
+
+**Example 2:** Two fair dice are rolled. What is the probability the sum is 7?
+
+**By hand:** There are $6\cdot6=36$ ordered outcomes in $S$. The sum 7 occurs for $(1,6),(2,5),(3,4),(4,3),(5,2),(6,1)$, so
+$$
+P(\text{sum}=7)=\frac{6}{36}=\frac{1}{6}.
+$$
+
+**In R:**
+```r
+rolls <- expand.grid(first = 1:6, second = 1:6)
+sum(rolls$first + rolls$second == 7) / nrow(rolls)
+```
+
+**Example 3:** One card is drawn from a standard 52-card deck. What is the probability it is a heart?
+
+**By hand:** The sample space has one outcome for each card, so $|S|=52$. There are 13 hearts, hence
+$$
+P(\text{heart})=\frac{13}{52}=0.25.
+$$
+
+**In R:**
+```r
+suits <- rep(c("hearts", "diamonds", "clubs", "spades"), each = 13)
+sum(suits == "hearts") / length(suits)
+```
+
 ## Standard Deviation
 
 **Definition:** The square root of the variance, $\sqrt{\operatorname{Var}[X]}$. It measures spread in the same units as the variable, while variance is measured in squared units. Use it to report variability on the original scale.
@@ -1646,6 +1714,62 @@ $$
 **In R:**
 ```r
 c(sd = 2.5 * 100, variance = 2.5^2 * 100^2)
+```
+
+## Standardization
+
+**Definition:** The conversion of a value to a z-score by subtracting its mean and dividing by its standard deviation, $z=(x-\mu)/\sigma$. For a Normal variable, the standardized variable has the standard Normal distribution. Use it to compare values from different Normal models or to use standard Normal probabilities.
+
+**Source:** *Introductory Statistics*, pp. 335-348; *Mathematical Statistics with Applications in R*, pp. 98-104.
+
+$$
+z=\frac{x-\mu}{\sigma},\qquad
+Z=\frac{X-\mu}{\sigma}\sim\operatorname{Normal}(0,1)
+$$
+
+**Example 1:** Exam scores are Normal with mean 72 and standard deviation 8. Standardize a score of 84 and find $P(X<84)$.
+
+**By hand:**
+$$
+z=\frac{84-72}{8}=1.5,
+\qquad P(X<84)=\Phi(1.5)=0.9332.
+$$
+
+**In R:**
+```r
+z <- (84 - 72) / 8
+z
+pnorm(z)
+```
+
+**Example 2:** Battery life is Normal with mean 500 hours and standard deviation 40 hours. Standardize 560 hours and find $P(X>560)$.
+
+**By hand:**
+$$
+z=\frac{560-500}{40}=1.5,
+\qquad P(X>560)=1-\Phi(1.5)=0.0668.
+$$
+
+**In R:**
+```r
+z <- (560 - 500) / 40
+z
+pnorm(z, lower.tail = FALSE)
+```
+
+**Example 3:** Two Normal models are $X\sim\operatorname{Normal}(70,10)$ and $Y\sim\operatorname{Normal}(50,5)$. Compare $x=85$ and $y=57.5$ on the standardized scale.
+
+**By hand:**
+$$
+z_X=\frac{85-70}{10}=1.5,
+\qquad
+z_Y=\frac{57.5-50}{5}=1.5.
+$$
+Both values sit 1.5 standard deviations above their means.
+
+**In R:**
+```r
+c(x = (85 - 70) / 10, y = (57.5 - 50) / 5)
 ```
 
 ## Support

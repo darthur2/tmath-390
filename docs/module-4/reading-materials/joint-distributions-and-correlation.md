@@ -4,7 +4,7 @@ At a community sustainability event, organizers record whether each visitor arri
 
 A small online shop compares how much of a product page visitors read with whether they make a purchase. Visitors who read more details seem more likely to buy. **How strongly are page engagement and purchase associated?** A numerical summary could help the shop evaluate product pages.
 
-In both problems, we need a joint distribution for the pair. From it, we can find the marginal means and variances and the cross-moment, then calculate covariance and correlation.
+In both problems, we need a joint distribution for the pair. From it, we can find the marginal means and variances and the **cross-moment**, then calculate **covariance** and **correlation**.
 
 ## From a joint model to correlation
 
@@ -52,6 +52,8 @@ $$
 The cross-moment is $E[XY]=\frac13$, giving $\operatorname{Cov}(X,Y)=-\frac{1}{144}$ and $\operatorname{Corr}(X,Y)=-\frac{1}{11}$. R can calculate this correlation using the same marginal and cross-moment formulas:
 
 ```r
+library(cubature)
+
 joint_pdf <- function(x, y) x + y
 # Integrating the joint PDF over the other variable gives these marginals.
 marginal_x <- function(x) x + 1/2
@@ -65,12 +67,11 @@ second_x <- integrate(function(x) x^2 * marginal_x(x),
                        lower = 0, upper = 1)$value
 second_y <- integrate(function(y) y^2 * marginal_y(y),
                        lower = 0, upper = 1)$value
-mean_xy <- integrate(function(x) {
-  vapply(x, function(x_value) {
-    x_value * integrate(function(y) y * joint_pdf(x_value, y),
-                        lower = 0, upper = 1)$value
-  }, numeric(1))
-}, lower = 0, upper = 1)$value
+mean_xy <- hcubature(
+  function(v) v[1] * v[2] * joint_pdf(v[1], v[2]),
+  lowerLimit = c(0, 0),
+  upperLimit = c(1, 1)
+)$integral
 
 variance_x <- second_x - mean_x^2
 variance_y <- second_y - mean_y^2
@@ -79,7 +80,7 @@ correlation_xy <- covariance_xy / sqrt(variance_x * variance_y)
 correlation_xy
 ```
 
-Covariance describes whether the variables tend to be above or below their means together, but its size depends on their units. Correlation standardizes covariance and lies between $-1$ and $1$. Independence implies zero correlation when the variances are finite, but zero correlation alone does not generally imply independence.
+Covariance describes whether the variables tend to be above or below their means together, but its size depends on their units. Correlation standardizes covariance and lies between $-1$ and $1$. **Independence of random variables** means that the joint model factors into the product of the marginals: $P_{X,Y}(x,y)=P_X(x)P_Y(y)$ for discrete variables, or $f_{X,Y}(x,y)=f_X(x)f_Y(y)$ for continuous variables. Independence implies zero correlation when the variances are finite, but zero correlation alone does not generally imply independence.
 
 ## Bike commuting and reusable cups: a simple joint PMF
 
