@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>How Many Students Take Both?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">How Many Students Take Both?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">When adding is not enough — and subtracting the overlap saves the day.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A high school has 300 students. A survey finds that 200 play soccer, 180 play basketball, and 110 play both. The athletic director reads the results and announces, "380 of our students play soccer or basketball!" But there are only 300 students in the school. Something is clearly wrong. The problem is that the 110 students who play <em>both</em> sports were counted in both the soccer number and the basketball number. Adding 200 and 180 counts those 110 students twice. The real number of students who play at least one sport is not 380 — it is \(200 + 180 - 110 = 270\). The 110 students who play both got added twice, so you have to subtract them once to get the correct total.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">This is the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="For any two events A and B, the probability that at least one occurs is P(A &cup; B) = P(A) + P(B) &minus; P(A &cap; B).">inclusion-exclusion principle</span>. For any two sets \(A\) and \(B\), the size of their union — everything in at least one of them — is</p>
+
+<p style="text-align:center;">
+$$
+|A \cup B| = |A| + |B| - |A \cap B|.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The same logic works for probabilities. If \(P(A)\) is the probability a student plays soccer and \(P(B)\) is the probability they play basketball, then</p>
+
+<p style="text-align:center;">
+$$
+P(A \cup B) = P(A) + P(B) - P(A \cap B).
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">In the survey, picking a random student gives \(P(\text{soccer}) = 200/300\), \(P(\text{basketball}) = 180/300\), and \(P(\text{both}) = 110/300\). So</p>
+
+<p style="text-align:center;">
+$$
+P(\text{soccer or basketball}) = \frac{200}{300} + \frac{180}{300} - \frac{110}{300} = \frac{270}{300} = 0.90.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Now compare this with the additivity rule from <em>What Are the Chances?</em>. That rule said \(P(A \cup B) = P(A) + P(B)\) when \(A\) and \(B\) are <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="Two events are mutually exclusive if they cannot happen at the same time: A &cap; B = &empty;, so P(A &cap; B) = 0.">mutually exclusive</span> — meaning they cannot happen at the same time. But soccer and basketball <em>can</em> happen at the same time: 110 students play both. When events overlap, the additivity rule overcounts. The inclusion-exclusion principle fixes that by subtracting the overlap.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Real-life events are rarely mutually exclusive. A person can have a cat <em>and</em> a dog. A patient can have high blood pressure <em>and</em> diabetes. A phone can be made by Samsung <em>and</em> run Android. Every time you see "or" in probability, ask yourself: could both happen? If the answer is yes, you need the inclusion-exclusion principle. Just add, then subtract the overlap, and the double counting takes care of itself.</p>
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">inclusion-exclusion principle</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">mutually exclusive</span>
+</div>
+
+</body>
+</html>

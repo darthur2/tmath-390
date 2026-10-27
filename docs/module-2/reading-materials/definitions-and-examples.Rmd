@@ -1,0 +1,1235 @@
+---
+title: "Glossary"
+output:
+  html_document:
+    toc: true
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+# Set the working directory to the course repository root so that
+# paths such as data/gas-prices-states.csv work when knitting
+knitr::opts_knit$set(root.dir = normalizePath(file.path(dirname(knitr::current_input()), "..", "..", "..")))
+
+# Plot settings
+knitr::opts_chunk$set(fig.width = 5.5, fig.height = 4, fig.align = "center", message = FALSE)
+
+# Load the packages used throughout
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+})
+```
+
+
+Welcome to the glossary for Module 2 (Exploratory Data Analysis). Each entry gives the definition of a key term, the sources used for that definition, and three examples drawn from a variety of fields to show the term in action. The terms are listed alphabetically.
+
+Many entries show the R code used to compute or draw the term. These snippets assume a numeric vector `x` (for example, `x <- c(12, 15, 18, 21, 26)`), a second numeric vector `y`, and a categorical vector `g` (for example, `g <- c("Low", "Medium", "High", "Low", "Medium")`). The **R Reference** section at the end of this glossary explains the R used throughout the module: reading a dataset, the tidyverse pipe, and drawing plots with ggplot2.
+
+## Bar Chart
+
+**Definition:** A bar chart (bar plot) displays the distribution of a categorical variable by drawing one bar for each category, with the height of the bar proportional to the count (frequency) or the proportion of observations in that category.
+
+**Source:** Introductory Statistics 2e, p. 78; R for Data Science (2e), ch. 1 "Data visualization", §1.4.1 "A categorical variable"
+
+**Example 1:** A bar chart of the material phases recorded for steel specimens shows that austenite was the most common phase in the sample.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Bar chart of material phases of steel specimens"}
+material_phase <- c(
+  "Austenite", "Austenite", "Austenite", "Martensite", "Martensite",
+  "Austenite", "Austenite", "Austenite", "Austenite", "Austenite",
+  "Austenite", "Martensite", "Austenite", "Martensite", "Austenite",
+  "Austenite", "Austenite", "Austenite", "Austenite", "Austenite",
+  "Austenite", "Austenite", "Martensite", "Ferrite", "Ferrite",
+  "Austenite", "Martensite", "Ferrite", "Austenite", "Austenite",
+  "Austenite", "Martensite", "Martensite", "Austenite", "Martensite",
+  "Austenite", "Ferrite", "Martensite", "Austenite", "Martensite"
+)
+
+ggplot(data.frame(material_phase), aes(x = material_phase)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Material phases of steel specimens") +
+  theme_minimal()
+```
+
+**Example 2:** A bar chart of the blood types of donors shows that type O was the most common blood type in the sample.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Bar chart of blood types of donors"}
+blood_type <- c(
+  "O", "O", "O", "A", "O", "O", "AB", "A",
+  "B", "A", "O", "O", "A", "AB", "O", "O",
+  "A", "AB", "A", "B", "AB", "A", "AB", "AB",
+  "B", "O", "O", "AB", "AB", "O", "B", "O",
+  "B", "O", "A", "A", "B", "A", "AB", "A"
+)
+
+ggplot(data.frame(blood_type), aes(x = blood_type)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Blood types of donors") +
+  theme_minimal()
+```
+
+**Example 3:** A bar chart of the rock types at sampling sites shows that igneous and sedimentary rocks were more common than metamorphic rocks.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Bar chart of rock types at sampling sites"}
+rock_type <- c(
+  "Sedimentary", "Sedimentary", "Igneous", "Sedimentary", "Igneous",
+  "Metamorphic", "Sedimentary", "Igneous", "Igneous", "Igneous",
+  "Sedimentary", "Sedimentary", "Metamorphic", "Igneous", "Igneous",
+  "Igneous", "Igneous", "Sedimentary", "Igneous", "Igneous",
+  "Sedimentary", "Metamorphic", "Igneous", "Sedimentary",
+  "Metamorphic", "Igneous", "Sedimentary", "Igneous", "Sedimentary",
+  "Igneous", "Igneous", "Igneous", "Sedimentary", "Sedimentary",
+  "Sedimentary", "Sedimentary", "Igneous", "Metamorphic", "Igneous",
+  "Sedimentary"
+)
+
+ggplot(data.frame(rock_type), aes(x = rock_type)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Rock types at sampling sites") +
+  theme_minimal()
+```
+
+## Boxplot
+
+**Definition:** A boxplot (box-and-whisker plot) is a graphical display that summarizes a distribution with five numbers: the minimum, first quartile (Q1), median, third quartile (Q3), and maximum. Whiskers extend to the most extreme values that are not outliers, and any outliers are plotted as individual points.
+
+**Source:** Mathematical Statistics with Applications in R, p. 25 ; Introductory Statistics 2e, p. 100; R for Data Science (2e), ch. 1 "Data visualization", §1.5.1 "A numerical and a categorical variable"
+
+**Example 1:** A boxplot of dissolved oxygen readings from river water samples shows the median near the center of the box, with one low-reading site drawn as a point below the lower whisker.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Boxplot of dissolved oxygen readings from river water"}
+dissolved_oxygen_mg_l <- c(9, 10.3, 8.3, 7.8, 8, 10, 7.4, 8.9, 8.3, 8.8,
+                           9, 8.1, 7.7, 8.2, 8.2, 8.7, 9.4, 8.8, 8.6, 6.3,
+                           8.8, 6.9, 11.4, 8, 8.5, 8.7, 9.2, 8.6, 7.6, 10.4,
+                           8.4, 7.6, 8.9, 7.2, 7.3, 7.9, 10.7, 7.6, 9, 8.1,
+                           4.2)
+
+ggplot(data.frame(dissolved_oxygen = dissolved_oxygen_mg_l), aes(y = dissolved_oxygen)) +
+  geom_boxplot(fill = "seagreen") +
+  labs(title = "Dissolved oxygen in river water") +
+  theme_minimal()
+```
+
+**Example 2:** Side-by-side boxplots of leaf length by tree species make it easy to see that Pine leaves tend to be longer than Maple or Oak leaves.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Side-by-side boxplots of leaf length by tree species"}
+oak   <- c(57.9, 69.9, 69.7, 72.1, 69.6, 71, 66.1, 73.3, 73.5, 69.8,
+           76.7, 71.5, 61.1, 58.6, 77.8, 75.8, 64.3, 68.5, 72.6, 66.5)
+maple <- c(55.7, 53.5, 57.9, 45.1, 47.7, 55.7, 60, 56.1, 50.6, 51.2,
+           57.4, 51.9, 55.9, 46.9, 61, 56.2, 58.2, 57.3, 55.5, 49.2)
+pine  <- c(83.8, 83, 85.1, 94.1, 91, 84.8, 86.8, 89.4, 81.3, 71.4,
+           78.5, 92.8, 93.9, 90.8, 81.3, 89.4, 86.6, 99, 97.5, 86.3)
+forest <- data.frame(species = rep(c("Oak", "Maple", "Pine"), each = 20),
+                     leaf_length_mm = c(oak, maple, pine))
+
+ggplot(forest, aes(x = species, y = leaf_length_mm)) +
+  geom_boxplot(fill = "seagreen") +
+  labs(title = "Leaf length by tree species") +
+  theme_minimal()
+```
+
+**Example 3:** Side-by-side boxplots of battery capacity by cell type show that Type C cells tend to hold less charge than Type A or Type B cells.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Side-by-side boxplots of battery capacity by cell type"}
+type_a <- c(2552, 2508, 2491, 2660, 2606, 2648, 2704, 2749, 2451, 2464,
+            2535, 2522, 2574, 2481, 2382, 2411, 2672, 2524, 2702, 2643)
+type_b <- c(2509, 2732, 2626, 2387, 2495, 2539, 2581, 2465, 2677, 2465,
+            2701, 2390, 2548, 2419, 2707, 2670, 2663, 2641, 2757, 2712)
+type_c <- c(2329, 2160, 2219, 2160, 2342, 2096, 2281, 2086, 2309, 2148,
+            2086, 2244, 2291, 2185, 2013, 2128, 2173, 2276, 2319, 2254)
+cells <- data.frame(cell_type = rep(c("Type A", "Type B", "Type C"), each = 20),
+                    battery_capacity_mah = c(type_a, type_b, type_c))
+
+ggplot(cells, aes(x = cell_type, y = battery_capacity_mah)) +
+  geom_boxplot(fill = "seagreen") +
+  labs(title = "Battery capacity by cell type") +
+  theme_minimal()
+```
+
+## Categorical Variable
+
+**Definition:** A categorical (qualitative) variable records which group, category, or label each observation belongs to; the values are names rather than measured amounts. Arithmetic such as addition or averaging does not make sense for categorical data.
+
+**Source:** Introductory Statistics 2e, p. 38; R for Data Science (2e), ch. 1 "Data visualization", §1.4.1 "A categorical variable"; Hands-On Programming with R, ch. 5 "R Objects", §5.1.3 "Characters"
+
+**Example 1:** Material phase (austenite, ferrite, or martensite) is a categorical variable because each steel specimen is assigned one of three microstructural labels.
+
+
+**Example 2:** Blood type (A, B, AB, or O) is a categorical variable naming the blood group of each donor.
+
+
+**Example 3:** Rock type (igneous, sedimentary, or metamorphic) is a categorical variable naming the geological origin of each site.
+
+
+## Central Tendency
+
+**Definition:** Central tendency (centrality) refers to a single value that represents the center, or typical value, of a distribution. The most common measures of central tendency are the mean, the median, and the mode; the appropriate measure depends on the shape of the distribution and the type of variable.
+
+**Source:** Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.1 "Center"
+
+**Example 1:** A concrete testing lab summarizes concrete slump measurements with the mean because the distribution is approximately symmetric.
+
+```{r}
+concrete_slump_mm <- c(75.9, 76.4, 82.1, 83.3, 79.3, 80.5, 80.6, 79.6, 81.9, 78.7,
+                       78.7, 77.3, 83.2, 79.3, 79.4, 84.7, 77.9, 76.9, 80.7, 75.8,
+                       78.8, 80.4, 82.7, 75.2, 80.2, 78.2, 81.8, 81.6)
+mean(concrete_slump_mm)
+median(concrete_slump_mm)
+```
+
+Because the distribution is approximately symmetric, the mean and median are close together.
+
+**Example 2:** A maintenance team summarizes equipment repair times with the median because the distribution is strongly right-skewed.
+
+```{r}
+repair_time_hours <- c(2, 13.9, 1.7, 2, 3.6, 4.7, 3.7, 3.3, 0.9, 1.3,
+                       0.7, 0.1, 0.9, 3.8, 2.1, 0.6, 16.2, 1.4, 2, 1.7,
+                       3.9, 2.7, 3, 7.7, 2.6, 0.1, 6.2, 2.9)
+median(repair_time_hours)
+mean(repair_time_hours)
+```
+
+The mean is pulled toward the long tail of long repairs and is larger than the median.
+
+**Example 3:** A blood bank summarizes donors' blood types with the mode because the variable is categorical.
+
+```{r}
+blood_type <- c("B", "O", "O", "O", "O", "O", "A", "O", "O", "A",
+                "A", "B", "O", "A", "O", "O", "O", "O", "A", "A",
+                "O", "A", "A", "A", "A", "B", "O", "B")
+names(which.max(table(blood_type)))
+```
+
+## Continuous Variable
+
+**Definition:** A continuous variable is a quantitative variable that can take any value within a range; between any two possible values there are infinitely many other possible values, and measurements are limited only by the precision of the measuring instrument.
+
+**Source:** Introductory Statistics 2e, p. 56; R for Data Science (2e), ch. 1 "Data visualization", §1.4.2 "A numerical variable"; Hands-On Programming with R, ch. 5 "R Objects", §5.1.1 "Doubles"
+
+**Example 1:** The width of the widest crack in a bridge deck is a continuous variable because it can take any value within a range of millimeters.
+
+
+The measurements take many fractional values, limited only by the precision of the gauge.
+
+**Example 2:** Server response time in milliseconds is a continuous variable because it can take any fractional value.
+
+
+Nearly every observation is a different fractional value, so the variable is not restricted to a fixed set of steps.
+
+**Example 3:** The mass of a product in kilograms is a continuous variable because it can take any value within a range.
+
+
+The values differ by small fractional amounts rather than jumping between whole units.
+
+## Correlation
+
+**Definition:** The correlation coefficient, denoted r, measures the strength and direction of the linear relationship between two quantitative variables.
+
+$$r = \frac{1}{n-1}\sum \left(\frac{x_i - \bar{x}}{s_x}\right)\left(\frac{y_i - \bar{y}}{s_y}\right)$$
+ Two variables have a linear relationship when their points in a scatterplot tend to fall along a straight line, so a change of one unit in x is associated with a roughly constant change in y. The value of r always lies between −1 and 1: the sign tells the direction (positive when the variables tend to increase together, negative when they move in opposite directions), and the magnitude tells the strength, which describes how tightly the points cluster around a line: weak (points widely scattered), moderate (a clear but loose trend), or strong (points tightly clustered), with values near ±1 indicating a strong linear relationship and values near 0 a weak one. A value near 0 indicates no *linear* relationship, not necessarily no relationship at all: the points may follow a curve (a nonlinear relationship) that the correlation coefficient does not describe. Correlation measures association, not causation.
+
+**Source:** Introductory Statistics 2e, p. 642; R for Data Science (2e), ch. 10 "Exploratory data analysis", §10.5.3 "Two numerical variables"
+
+**Example 1:** Applied load and deflection of steel specimens show a strong positive linear relationship: as the load increases, the deflection increases roughly in a straight line.
+
+```{r}
+load_kn <- c(10, 14.7, 19.5, 24.2, 28.9, 33.7, 38.4, 43.2, 47.9, 52.6,
+             57.4, 62.1, 66.8, 71.6, 76.3, 81.1, 85.8, 90.5, 95.3, 100)
+deflection_mm <- c(3.2, 5.8, 10.8, 9.6, 13.1, 17.6, 18.9, 24.1, 23, 25.7,
+                   26.1, 31.1, 34.8, 34.4, 39.6, 40, 39.4, 46.7, 48.8, 50.4)
+
+cor(load_kn, deflection_mm)
+```
+
+**Example 2:** Outdoor temperature and heating energy use show a strong negative linear relationship: warmer days tend to use less heating energy.
+
+```{r}
+temp_c <- c(8.3, 0.1, 2.6, 11.3, 13.8, 4.7, 17.2, 17.5, 14.3, 17.9,
+            14.9, 11.1, 4, 2.2, 14.5, -1.8, 6.9, 8.7, 16.7, 9.4)
+heating_kwh <- c(17.9, 21.2, 21.8, 15.7, 5.3, 22.2, 4.7, 4.8, 7.6, 12.1,
+                 13.4, 11.2, 25.1, 18.3, 7.7, 28, 16.1, 22, 4.7, 16.4)
+
+cor(temp_c, heating_kwh)
+```
+
+**Example 3:** Wind speed and enzyme reaction rate show almost no linear relationship: changes in wind speed are not associated with systematic changes in reaction rate.
+
+```{r}
+wind_mps <- c(6, 6.9, 7, 5.9, 8.4, 5.4, 11.6, 2.4, 9.7, 4,
+              8.8, 6, 2.6, 9.4, 8.2, 8.3, 7.7, 9.9, 3.8, 10.3)
+enzyme_rate <- c(5.05, 5.1, 5.33, 5.42, 5.19, 5.67, 5.46, 5.69, 5.76, 5.42,
+                 5.26, 4.45, 4.63, 4.48, 4.02, 4.2, 4.47, 4.67, 4.96, 6.45)
+
+cor(wind_mps, enzyme_rate)
+```
+
+## Discrete Variable
+
+**Definition:** A discrete variable is a quantitative variable that takes only certain separate values, usually whole numbers that come from counting; between two possible values there are no other possible values.
+
+**Source:** Introductory Statistics 2e, p. 56; R for Data Science (2e), ch. 1 "Data visualization", §1.4.2 "A numerical variable"; Hands-On Programming with R, ch. 5 "R Objects", §5.1.2 "Integers"
+
+**Example 1:** The number of cracks detected in a bridge deck is a discrete variable because you count whole cracks.
+
+
+Only whole numbers appear; there is no such thing as 2.5 cracks.
+
+**Example 2:** The number of failed login attempts in an hour is a discrete variable because it comes from counting attempts.
+
+
+**Example 3:** The number of items in a customer's cart is a discrete variable because you count items one at a time.
+
+
+## Distribution
+
+**Definition:** The distribution of a variable describes which values it takes and how often it takes them; it is the overall pattern of the data and is usually summarized with a table, histogram, or boxplot.
+
+**Source:** Introductory Statistics 2e, p. 38; R for Data Science (2e), ch. 1 "Data visualization", §1.4 "Visualizing distributions"; ch. 13 "Numbers", §13.6.4 "Distributions"
+
+**Example 1:** The distribution of tensile strengths shows most specimens clustering near 400 MPa with a few weaker ones.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Histogram of tensile strengths"}
+tensile_strength_mpa <- c(331, 344, 355, 391, 395, 396, 396, 397, 397, 397,
+                          398, 398, 398, 399, 399, 399, 399, 400, 401, 401,
+                          403, 404, 404, 405, 406, 406, 407)
+
+ggplot(data.frame(tensile_strength = tensile_strength_mpa), aes(x = tensile_strength)) +
+  geom_histogram(binwidth = 4, fill = "tomato", color = "white") +
+  labs(title = "Distribution of tensile strengths") +
+  theme_minimal()
+```
+
+**Example 2:** The distribution of wait times shows a large pile-up of short waits and a long tail of long waits.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Boxplot of wait times"}
+wait_time_min <- c(0.1, 0.3, 0.4, 0.5, 0.7, 0.9, 1.1, 1.3, 1.6, 1.9,
+                   2.2, 2.5, 2.9, 3.3, 3.8, 4.4, 5, 5.8, 6.7, 7.8,
+                   9.1, 10.6, 12.3, 14.5, 17.1, 20.2, 24.1, 29.4)
+
+ggplot(data.frame(wait_time = wait_time_min), aes(y = wait_time)) +
+  geom_boxplot(fill = "seagreen") +
+  labs(title = "Distribution of wait times") +
+  theme_minimal()
+```
+
+**Example 3:** The distribution of failure modes shows that most specimens failed ductile, with fewer brittle and mixed failures.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Bar chart of failure modes"}
+failure_mode <- c("Ductile", "Brittle", "Ductile", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Mixed", "Ductile", "Ductile",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Ductile", "Mixed",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Ductile")
+
+ggplot(data.frame(failure_mode), aes(x = failure_mode)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Distribution of failure modes") +
+  theme_minimal()
+```
+
+## Histogram
+
+**Definition:** A histogram is a graphical display of the distribution of a quantitative variable that divides the range of values into intervals (bins) and uses bars whose heights show how many observations fall in each interval.
+
+**Source:** Introductory Statistics 2e, p. 93; R for Data Science (2e), ch. 1 "Data visualization", §1.4.2 "A numerical variable"; ch. 10 "Exploratory data analysis", §10.3 "Variation"
+
+**Example 1:** A histogram of failure times shows most components failing early with a long right tail.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Histogram of component failure times"}
+failure_time_hours <- c(0.2, 0.4, 0.5, 0.7, 0.9, 1.1, 1.2, 1.4, 1.6, 1.8,
+                        2, 2.2, 2.5, 2.8, 3.1, 3.5, 3.9, 4.4, 5, 5.7,
+                        6.5, 7.4, 8.5, 9.8, 11.3, 13.1, 15.4, 18.2, 21.9, 26.8)
+
+ggplot(data.frame(failure_time = failure_time_hours), aes(x = failure_time)) +
+  geom_histogram(binwidth = 2, fill = "tomato", color = "white") +
+  labs(title = "Component failure times") +
+  theme_minimal()
+```
+
+**Example 2:** A histogram of shaft diameters shows one tall bar in the middle, indicating that most diameters are near the target.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Histogram of shaft diameters"}
+shaft_diameter_mm <- c(49.2, 49.9, 49.8, 49.3, 50.6, 49.9, 50.8, 51.4, 50.2, 50.3,
+                       50.9, 50.5, 51, 50.2, 51.3, 50, 50.7, 50.1, 50.5, 50.5,
+                       50.5, 49.5, 49.4, 51.3, 49.5, 50.9, 50.1, 50.2, 50.3, 49.4)
+
+ggplot(data.frame(shaft_diameter = shaft_diameter_mm), aes(x = shaft_diameter)) +
+  geom_histogram(binwidth = 0.3, fill = "tomato", color = "white") +
+  labs(title = "Shaft diameters") +
+  theme_minimal()
+```
+
+**Example 3:** A histogram of household energy use reveals a right-skewed distribution with a few very high users.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Histogram of household energy use"}
+household_kwh_day <- c(8.2, 9.1, 9.8, 10.5, 11.2, 11.9, 12.6, 13.4, 14.2, 15.1,
+                       16, 17, 18.1, 19.3, 20.6, 22, 23.5, 25.2, 27.1, 29.2,
+                       31.5, 34.1, 37, 40.3, 44.1, 48.5, 53.6, 59.8, 67.3, 76.9)
+
+ggplot(data.frame(energy_kwh = household_kwh_day), aes(x = energy_kwh)) +
+  geom_histogram(binwidth = 6, fill = "tomato", color = "white") +
+  labs(title = "Household energy use") +
+  theme_minimal()
+```
+
+## Interquartile Range (IQR)
+
+**Definition:** The interquartile range (IQR) is the distance between the first quartile (Q1) and the third quartile (Q3), so it measures the spread of the middle 50% of the data.
+
+$$\text{IQR} = Q_3 - Q_1$$
+ Because it ignores the extreme values, it is the preferred measure of variability when the distribution is skewed or has outliers.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 99; R for Data Science (2e), ch. 13 "Numbers", §13.6.3 "Spread"
+
+**Example 1:** The IQR of battery lifetimes is 33 hours, meaning the middle half of the batteries fall within a 33-hour span.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+IQR(battery_lifetime_hours)
+quantile(battery_lifetime_hours, probs = c(0.25, 0.75))
+```
+
+**Example 2:** For yield strengths, the IQR is 17 MPa, so the middle half of the specimens fall within a 17 MPa span.
+
+```{r}
+yield_strength_mpa <- c(361.5, 375.0, 382.4, 386.0, 388.3, 389.1, 390.2, 391.8,
+                        393.5, 395.0, 396.4, 397.8, 399.0, 400.2, 401.5, 402.8,
+                        404.0, 405.1, 406.3, 407.4, 408.2, 409.1, 410.3, 411.0,
+                        412.4, 413.6, 415.2, 417.0)
+IQR(yield_strength_mpa)
+```
+
+**Example 3:** A narrow IQR for sensor temperatures shows the process is stable in its middle half.
+
+```{r}
+sensor_temp_c <- c(23.1, 23.2, 23.3, 23.4, 23.5, 23.5, 23.6, 23.6, 23.7, 23.7,
+                   23.8, 23.9, 24.0, 24.1, 24.2, 24.3)
+IQR(sensor_temp_c)
+```
+
+**Example 4:** The IQR of hardness is computed separately within each annealing-temperature group.
+
+```{r}
+specimens <- data.frame(
+  annealing_temp = factor(rep(c("Low", "Medium", "High"), each = 10),
+                          levels = c("Low", "Medium", "High")),
+  hardness_hrb   = c(66.0, 67.1, 68.2, 69.0, 69.8, 70.5, 71.3, 72.0, 72.8, 73.5,
+                     74.0, 74.8, 75.5, 76.2, 76.9, 77.6, 78.3, 79.0, 79.8, 80.5,
+                     81.0, 81.8, 82.5, 83.2, 83.9, 84.6, 85.3, 86.0, 86.8, 87.5)
+)
+
+specimens %>%
+  group_by(annealing_temp) %>%
+  summarize(iqr_hardness = IQR(hardness_hrb))
+```
+
+## Mean
+
+**Definition:** The mean (arithmetic average) of a dataset is the sum of all values divided by the number of values.
+
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$
+ It is the appropriate measure of centrality when the distribution is approximately symmetric, because it uses every observation; it can be pulled away from the center by skewness or outliers.
+
+**Source:** Mathematical Statistics with Applications in R, p. 15 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.1 "Center"
+
+**Example 1:** The mean resting heart rate of 73.9 bpm describes a symmetric distribution of athlete heart rates.
+
+```{r}
+resting_heart_rate_bpm <- c(62, 65, 67, 68, 70, 71, 72, 72, 73, 73,
+                            74, 74, 74, 74, 75, 75, 76, 76, 77, 78,
+                            79, 81, 82, 86)
+mean(resting_heart_rate_bpm)
+```
+
+**Example 2:** The mean BMI of 24.9 summarizes a nearly symmetric sample of adults.
+
+```{r}
+bmi <- c(19.6, 20.5, 21.2, 21.8, 22.3, 22.7, 23.1, 23.5, 23.8, 24.1,
+         24.4, 24.7, 25.0, 25.3, 25.6, 25.9, 26.3, 26.7, 27.1, 27.6,
+         28.2, 28.9, 29.7, 30.7)
+mean(bmi)
+```
+
+**Example 3:** The mean hardness of a sample of annealed specimens represents the typical hardness when the distribution is symmetric.
+
+```{r}
+hardness_hrb <- c(68.4, 71.2, 70.1, 73.0, 74.5, 76.8, 79.3, 82.0, 84.1, 85.6)
+mean(hardness_hrb)
+```
+
+**Example 4:** The mean hardness is computed separately within each annealing-temperature group, showing that hardness increases with temperature.
+
+```{r}
+specimens <- data.frame(
+  annealing_temp = factor(rep(c("Low", "Medium", "High"), each = 10),
+                          levels = c("Low", "Medium", "High")),
+  hardness_hrb   = c(66.0, 67.1, 68.2, 69.0, 69.8, 70.5, 71.3, 72.0, 72.8, 73.5,
+                     74.0, 74.8, 75.5, 76.2, 76.9, 77.6, 78.3, 79.0, 79.8, 80.5,
+                     81.0, 81.8, 82.5, 83.2, 83.9, 84.6, 85.3, 86.0, 86.8, 87.5)
+)
+
+specimens %>%
+  group_by(annealing_temp) %>%
+  summarize(mean_hardness = mean(hardness_hrb))
+```
+
+## Median
+
+**Definition:** The median is the middle value of a dataset when the values are arranged in order; half of the observations fall below it and half above.
+
+$$\text{Median} = \begin{cases} x_{(n+1)/2} & \text{if } n \text{ odd} \\ \frac{x_{n/2} + x_{n/2+1}}{2} & \text{if } n \text{ even} \end{cases}$$
+ It is a robust measure of centrality that is preferred for skewed distributions, because it is not pulled toward the tail by outliers.
+
+**Source:** Mathematical Statistics with Applications in R, p. 16 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.1 "Center"
+
+**Example 1:** The median battery lifetime of 26.6 hours describes the center of a strongly right-skewed distribution better than the mean does.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+median(battery_lifetime_hours)
+mean(battery_lifetime_hours)
+```
+
+The mean (40.0 hours) is pulled toward the few very long-lived batteries.
+
+**Example 2:** The median wait time of 3 minutes is typical for a help desk where a few callers wait very long.
+
+```{r}
+wait_time_min <- c(0.2, 0.3, 0.5, 0.7, 0.9, 1.1, 1.3, 1.5, 1.7, 1.9,
+                   2.1, 2.3, 2.5, 2.8, 3.1, 3.5, 3.9, 4.4, 5.0, 5.7,
+                   6.5, 7.4, 8.5, 9.8, 11.3, 13.1, 15.4, 18.2)
+median(wait_time_min)
+```
+
+**Example 3:** The median particle diameter of 9.0 µm represents the center of a right-skewed particle-size distribution.
+
+```{r}
+particle_diameter_um <- c(3.1, 3.8, 4.4, 5.0, 5.6, 6.2, 6.8, 7.3, 7.8, 8.2,
+                          8.5, 8.8, 9.2, 9.7, 10.3, 11.0, 11.8, 12.7, 13.8,
+                          15.1, 16.6, 18.4, 20.6, 23.3)
+median(particle_diameter_um)
+```
+
+**Example 4:** The median hardness is computed separately within each annealing-temperature group.
+
+
+## Maximum
+
+**Definition:** The maximum is the largest value in a dataset. It is the value at the very top of the ordered list and, together with the minimum, it defines the range of the data. Because it is one of the two most extreme values, it is not robust: a single unusually large observation can pull it far from the rest of the data.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.2 "Minimum, maximum, and quantiles"
+
+**Example 1:** The maximum battery lifetime is 209.8 hours, the longest any battery in the sample survived.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+max(battery_lifetime_hours)
+```
+
+**Example 2:** The maximum furnace temperature reading is 169.1°C — an outlier far above the readings clustered near 150°C.
+
+```{r}
+furnace_temp_c <- c(148.2, 149.0, 149.6, 150.1, 150.4, 150.7, 151.0, 151.3,
+                    151.8, 152.4, 153.1, 153.9, 154.8, 165.8, 169.1)
+max(furnace_temp_c)
+```
+
+**Example 3:** The maximum pH reading is 7.69, the most basic site in the sample.
+
+```{r}
+ph_reading <- c(6.54, 6.62, 6.71, 6.78, 6.85, 6.91, 6.97, 7.02, 7.06, 7.09,
+                7.11, 7.14, 7.18, 7.23, 7.29, 7.35, 7.42, 7.50, 7.59, 7.69)
+max(ph_reading)
+```
+
+## Minimum
+
+**Definition:** The minimum is the smallest value in a dataset. It is the value at the very bottom of the ordered list and, together with the maximum, it defines the range of the data. Like the maximum, it is not robust, because it depends on a single extreme observation.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.2 "Minimum, maximum, and quantiles"
+
+**Example 1:** The minimum battery lifetime is 0.2 hours, the shortest any battery in the sample survived.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+min(battery_lifetime_hours)
+```
+
+**Example 2:** The minimum bottle fill is 445 mL, an outlier below the lower fence in a sample filled near 500 mL.
+
+```{r}
+bottle_fill_ml <- c(496, 497, 498, 498, 499, 499, 500, 500, 500,
+                    501, 501, 502, 502, 503, 504, 505, 445, 453)
+min(bottle_fill_ml)
+```
+
+**Example 3:** The minimum pH reading is 6.54, the most acidic site in the sample. Together the minimum and the maximum give the range.
+
+```{r}
+ph_reading <- c(6.54, 6.62, 6.71, 6.78, 6.85, 6.91, 6.97, 7.02, 7.06, 7.09,
+                7.11, 7.14, 7.18, 7.23, 7.29, 7.35, 7.42, 7.50, 7.59, 7.69)
+max(ph_reading) - min(ph_reading)
+```
+
+## Modality
+
+**Definition:** Modality describes the number of distinct peaks (modes) in the distribution of a quantitative variable. A distribution is unimodal when its histogram has a single distinct peak, so most observations cluster around one central value; a distribution is multimodal when its histogram has multiple distinct peaks, indicating several separated clusters of values.
+
+**Source:** Introductory Statistics 2e, p. 93; R for Data Science (2e), ch. 1 "Data visualization", §1.4.2 "A numerical variable"
+
+**Example 1:** The histogram below shows resistance readings from a single batch, which are unimodal: most readings cluster around one central value.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Histogram of resistance readings from a single batch (unimodal)"}
+batch_resistance_ohms <- c(94, 95, 96, 97, 98, 98, 99, 99, 100, 100,
+                           100, 101, 101, 102, 102, 103, 104, 105, 106, 107)
+
+ggplot(data.frame(resistance = batch_resistance_ohms), aes(x = resistance)) +
+  geom_histogram(binwidth = 2, fill = "slateblue", color = "white") +
+  labs(title = "Resistance from a single batch") +
+  theme_minimal()
+```
+
+**Example 2:** The histogram below shows outside-diameter measurements pooled from several machines, which are multimodal: the readings form several distinct clusters.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Histogram of diameters pooled from several machines (multimodal)"}
+pooled_diameter_mm <- c(88, 89, 90, 90, 91, 92, 93,
+                        103, 104, 105, 105, 106, 107, 108,
+                        118, 119, 120, 120, 121, 122)
+
+ggplot(data.frame(diameter = pooled_diameter_mm), aes(x = diameter)) +
+  geom_histogram(binwidth = 4, fill = "slateblue", color = "white") +
+  labs(title = "Diameters pooled from several machines") +
+  theme_minimal()
+```
+
+## Mode
+
+**Definition:** The mode is the value that occurs most frequently in a dataset. It is the only appropriate measure of central tendency for categorical data, because categorical data cannot be averaged; it can also be used for quantitative data, but it is less common there.
+
+**Source:** Mathematical Statistics with Applications in R, p. 14 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.1 "Center"
+
+**Example 1:** Ductile is the mode of a sample of failure modes because more specimens failed ductile than any other way.
+
+```{r}
+failure_mode <- c("Ductile", "Brittle", "Ductile", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Mixed", "Ductile", "Ductile",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Ductile", "Mixed",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Ductile")
+table(failure_mode)
+names(which.max(table(failure_mode)))
+```
+
+**Example 2:** Succeeded is the mode of a set of build statuses because most builds succeeded.
+
+```{r}
+build_status <- c("Succeeded", "Succeeded", "Failed", "Succeeded", "Succeeded",
+                  "Succeeded", "Failed", "Succeeded", "Succeeded", "Failed",
+                  "Succeeded", "Succeeded", "Succeeded", "Failed", "Succeeded",
+                  "Succeeded", "Failed", "Succeeded", "Succeeded", "Succeeded")
+table(build_status)
+names(which.max(table(build_status)))
+```
+
+**Example 3:** Forest is the mode of a sample of habitat types because it appeared most often.
+
+```{r}
+habitat_type <- c("Forest", "Grassland", "Forest", "Wetland", "Forest", "Forest",
+                  "Shrubland", "Forest", "Grassland", "Forest", "Wetland", "Forest",
+                  "Forest", "Shrubland", "Forest", "Grassland", "Forest", "Forest",
+                  "Wetland", "Forest")
+table(habitat_type)
+names(which.max(table(habitat_type)))
+```
+
+## Outlier
+
+**Definition:** An outlier is an observation that lies unusually far from the rest of the data and does not fit the general pattern. Using the 1.5 × IQR rule, a value is an outlier if it falls below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR, where
+
+$$Q_1 - 1.5 \times \text{IQR} \quad \text{or} \quad Q_3 + 1.5 \times \text{IQR}$$
+, where Q1 and Q3 are the first and third quartiles and IQR is their difference.
+
+**Source:** Mathematical Statistics with Applications in R, p. 15 ; Introductory Statistics 2e, p. 79; R for Data Science (2e), ch. 10 "Exploratory data analysis", §10.3.2 "Unusual values"
+
+**Example 1:** Two furnace temperature readings of 165.8°C and 169.1°C lie above the upper fence, so they are outliers among readings clustered near 150°C.
+
+```{r}
+furnace_temp_c <- c(148.2, 149.0, 149.6, 150.1, 150.4, 150.7, 151.0, 151.3,
+                    151.8, 152.4, 153.1, 153.9, 154.8, 165.8, 169.1)
+Q1 <- quantile(furnace_temp_c, 0.25)
+Q3 <- quantile(furnace_temp_c, 0.75)
+lower_fence <- Q1 - 1.5 * IQR(furnace_temp_c)
+upper_fence <- Q3 + 1.5 * IQR(furnace_temp_c)
+furnace_temp_c[furnace_temp_c < lower_fence | furnace_temp_c > upper_fence]
+```
+
+**Example 2:** Two bottles filled to 445 mL and 453 mL fall below the lower fence and are outliers in a sample of bottles filled near 500 mL.
+
+```{r}
+bottle_fill_ml <- c(496, 497, 498, 498, 499, 499, 500, 500, 500,
+                    501, 501, 502, 502, 503, 504, 505, 445, 453)
+Q1 <- quantile(bottle_fill_ml, 0.25)
+Q3 <- quantile(bottle_fill_ml, 0.75)
+lower_fence <- Q1 - 1.5 * IQR(bottle_fill_ml)
+upper_fence <- Q3 + 1.5 * IQR(bottle_fill_ml)
+bottle_fill_ml[bottle_fill_ml < lower_fence | bottle_fill_ml > upper_fence]
+```
+
+**Example 3:** A stream site with a pH reading far above the other sites is flagged as an outlier.
+
+```{r}
+stream_pH <- c(6.8, 6.9, 7.0, 7.0, 7.1, 7.1, 7.1, 7.2, 7.2, 7.3, 8.4)
+Q1 <- quantile(stream_pH, 0.25)
+Q3 <- quantile(stream_pH, 0.75)
+lower_fence <- Q1 - 1.5 * IQR(stream_pH)
+upper_fence <- Q3 + 1.5 * IQR(stream_pH)
+stream_pH[stream_pH < lower_fence | stream_pH > upper_fence]
+```
+
+## Proportion
+
+**Definition:** A proportion (relative frequency) is the fraction of observations in a category, computed as the category count divided by the total number of observations.
+
+$$p = \frac{\text{count in category}}{\text{total observations}}$$
+ Proportions are the standard way to summarize the variability of a categorical variable.
+
+**Source:** Introductory Statistics 2e, p. 39; R for Data Science (2e), ch. 13 "Numbers", §13.3 "Counts"
+
+**Example 1:** Ductile failures make up 0.68 (68%) of all specimens, and Brittle and Mixed make up 0.18 and 0.14.
+
+```{r}
+failure_mode <- c("Ductile", "Brittle", "Ductile", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Mixed", "Ductile", "Ductile",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Ductile", "Mixed",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Ductile")
+table(failure_mode) / length(failure_mode)
+```
+
+**Example 2:** Succeeded builds account for a proportion of 0.65 of all nightly builds.
+
+```{r}
+build_status <- c("Succeeded", "Succeeded", "Failed", "Succeeded", "Succeeded",
+                  "Succeeded", "Failed", "Succeeded", "Succeeded", "Failed",
+                  "Succeeded", "Succeeded", "Succeeded", "Failed", "Succeeded",
+                  "Succeeded", "Failed", "Succeeded", "Succeeded", "Succeeded")
+table(build_status) / length(build_status)
+```
+
+**Example 3:** Forest sites make up 0.35 of all sampled habitat sites.
+
+```{r}
+habitat_type <- c("Forest", "Grassland", "Forest", "Wetland", "Forest", "Forest",
+                  "Shrubland", "Forest", "Grassland", "Forest", "Wetland", "Forest",
+                  "Forest", "Shrubland", "Forest", "Grassland", "Forest", "Forest",
+                  "Wetland", "Forest")
+table(habitat_type) / length(habitat_type)
+```
+
+## Quantitative Variable
+
+**Definition:** A quantitative (numerical) variable records a measured or counted amount for each observation; its values are numbers on which arithmetic such as averaging makes sense.
+
+**Source:** Introductory Statistics 2e, p. 38; R for Data Science (2e), ch. 1 "Data visualization", §1.4.2 "A numerical variable"; Hands-On Programming with R, ch. 5 "R Objects", §5.1 "Atomic Vectors"
+
+**Example 1:** Tensile strength in megapascals is a quantitative variable because it is a measured amount.
+
+
+Arithmetic such as averaging makes sense for these numbers.
+
+**Example 2:** Weekly exercise minutes is a quantitative variable because it is a counted or measured amount.
+
+
+**Example 3:** Resting heart rate in beats per minute is a quantitative variable because it is a measured number.
+
+
+## Quartiles
+
+**Definition:** Quartiles divide an ordered dataset into four equal parts: the first quartile (Q1) separates the lowest 25% of the data from the rest, the median separates the lower half from the upper half, and the third quartile (Q3) separates the lowest 75% from the top 25%. The interquartile range is the distance Q3 − Q1.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.2 "Minimum, maximum, and quantiles"
+
+**Example 1:** For battery lifetimes, Q1 is 12.5 hours and Q3 is 45.5 hours, so the middle half of lifetimes span 33 hours.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+quantile(battery_lifetime_hours, probs = c(0.25, 0.5, 0.75))
+```
+
+**Example 2:** For yield strengths, Q1 is 391.4 MPa and Q3 is 408.4 MPa.
+
+```{r}
+yield_strength_mpa <- c(361.5, 375.0, 382.4, 386.0, 388.3, 389.1, 390.2, 391.8,
+                        393.5, 395.0, 396.4, 397.8, 399.0, 400.2, 401.5, 402.8,
+                        404.0, 405.1, 406.3, 407.4, 408.2, 409.1, 410.3, 411.0,
+                        412.4, 413.6, 415.2, 417.0)
+quantile(yield_strength_mpa, probs = c(0.25, 0.5, 0.75))
+```
+
+**Example 3:** For pH readings, Q1 and Q3 are both near 7.1, showing very little spread.
+
+```{r}
+ph_reading <- c(6.54, 6.62, 6.71, 6.78, 6.85, 6.91, 6.97, 7.02, 7.06, 7.09,
+                7.11, 7.14, 7.18, 7.23, 7.29, 7.35, 7.42, 7.50, 7.59, 7.69)
+quantile(ph_reading, probs = c(0.25, 0.5, 0.75))
+```
+
+## Range
+
+**Definition:** The range is the difference between the maximum and the minimum values in a dataset. It is a simple but non-robust measure of spread.
+
+$$\text{Range} = \max - \min$$
+, because it depends only on the two most extreme values and can be inflated by a single outlier.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.2 "Minimum, maximum, and quantiles"
+
+**Example 1:** Battery lifetimes run from 0.2 to 209.8 hours, a range of 209.6 hours.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+range(battery_lifetime_hours)
+diff(range(battery_lifetime_hours))
+```
+
+**Example 2:** The range of furnace temperatures is large only because of two extreme readings, so it overstates the typical spread.
+
+```{r}
+furnace_temp_c <- c(148.2, 149.0, 149.6, 150.1, 150.4, 150.7, 151.0, 151.3,
+                    151.8, 152.4, 153.1, 153.9, 154.8, 165.8, 169.1)
+diff(range(furnace_temp_c))
+```
+
+Most readings sit within a few degrees of 150°C, so the 20.9°C range is driven by the two high outliers.
+
+**Example 3:** The range of pH readings is 1.15, from 6.54 to 7.69.
+
+```{r}
+ph_reading <- c(6.54, 6.62, 6.71, 6.78, 6.85, 6.91, 6.97, 7.02, 7.06, 7.09,
+                7.11, 7.14, 7.18, 7.23, 7.29, 7.35, 7.42, 7.50, 7.59, 7.69)
+diff(range(ph_reading))
+```
+
+## Robust (Resistant) Measure
+
+**Definition:** A robust (resistant) measure is a statistic that is not greatly affected by outliers or by skewness. The median is a robust measure of centrality and the interquartile range is a robust measure of spread; the mean and standard deviation are not robust because they use every observation.
+
+**Source:** R for Data Science (2e), ch. 13 "Numbers", §13.6.1 "Center"; ch. 13 §13.6.3 "Spread"
+
+**Example 1:** The median battery lifetime changes little when a single very long-lived battery is added, so it is robust.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+median(battery_lifetime_hours)
+
+battery_with_extreme <- c(battery_lifetime_hours, 500)
+median(battery_with_extreme)
+mean(battery_with_extreme)
+```
+
+The median barely moves, while the mean jumps from 40.0 to 57.7 hours.
+
+**Example 2:** The IQR of yield strengths is barely changed by one very weak specimen, unlike the range.
+
+```{r}
+yield_strength_mpa <- c(361.5, 375.0, 382.4, 386.0, 388.3, 389.1, 390.2, 391.8,
+                        393.5, 395.0, 396.4, 397.8, 399.0, 400.2, 401.5, 402.8,
+                        404.0, 405.1, 406.3, 407.4, 408.2, 409.1, 410.3, 411.0,
+                        412.4, 413.6, 415.2, 417.0)
+IQR(yield_strength_mpa)
+diff(range(yield_strength_mpa))
+
+yield_with_weak <- c(yield_strength_mpa, 300)
+IQR(yield_with_weak)
+diff(range(yield_with_weak))
+```
+
+**Example 3:** A single extreme temperature reading inflates the mean and standard deviation but leaves the median and IQR almost unchanged.
+
+```{r}
+furnace_temp_c <- c(148.2, 149.0, 149.6, 150.1, 150.4, 150.7, 151.0, 151.3,
+                    151.8, 152.4, 153.1, 153.9, 154.8, 165.8, 169.1)
+mean(furnace_temp_c)
+sd(furnace_temp_c)
+
+furnace_typical <- c(148.2, 149.0, 149.6, 150.1, 150.4, 150.7, 151.0, 151.3,
+                     151.8, 152.4, 153.1, 153.9, 154.8)
+mean(furnace_typical)
+median(furnace_typical)
+IQR(furnace_typical)
+```
+
+## Scatterplot
+
+**Definition:** A scatterplot is a graphical display that plots one quantitative variable on the horizontal axis and another on the vertical axis, with one point per observation; it is used to see the form, direction, and strength of the relationship between the two variables. The form describes the overall shape of the cloud of points: linear when the points tend to fall along a straight line, nonlinear when they follow a curve. The direction is positive when larger values of one variable go with larger values of the other and negative when they move in opposite ways. The strength describes how tightly the points cluster around the line or curve: weak (widely scattered), moderate (a clear but loose trend), or strong (tightly clustered).
+
+**Source:** Introductory Statistics 2e, p. 632; R for Data Science (2e), ch. 1 "Data visualization", §1.5.3 "Two numerical variables"
+
+**Example 1:** A scatterplot of deflection against applied load shows a tight rising cloud of points.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Scatterplot of deflection against applied load"}
+load_kn <- c(10, 14.7, 19.5, 24.2, 28.9, 33.7, 38.4, 43.2, 47.9, 52.6,
+             57.4, 62.1, 66.8, 71.6, 76.3, 81.1, 85.8, 90.5, 95.3, 100)
+deflection_mm <- c(3.2, 5.8, 10.8, 9.6, 13.1, 17.6, 18.9, 24.1, 23, 25.7,
+                   26.1, 31.1, 34.8, 34.4, 39.6, 40, 39.4, 46.7, 48.8, 50.4)
+
+ggplot(data.frame(load_kn, deflection_mm), aes(x = load_kn, y = deflection_mm)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Deflection vs. applied load") +
+  theme_minimal()
+```
+
+**Example 2:** A scatterplot of heating energy use against outdoor temperature shows a falling band of points.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Scatterplot of heating energy use against outdoor temperature"}
+temp_c <- c(8.3, 0.1, 2.6, 11.3, 13.8, 4.7, 17.2, 17.5, 14.3, 17.9,
+            14.9, 11.1, 4, 2.2, 14.5, -1.8, 6.9, 8.7, 16.7, 9.4)
+heating_kwh <- c(17.9, 21.2, 21.8, 15.7, 5.3, 22.2, 4.7, 4.8, 7.6, 12.1,
+                 13.4, 11.2, 25.1, 18.3, 7.7, 28, 16.1, 22, 4.7, 16.4)
+
+ggplot(data.frame(temp_c, heating_kwh), aes(x = temp_c, y = heating_kwh)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Heating energy vs. temperature") +
+  theme_minimal()
+```
+
+**Example 3:** A scatterplot of enzyme reaction rate against wind speed reveals a scattered cloud with no clear trend.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Scatterplot of enzyme reaction rate against wind speed"}
+wind_mps <- c(6, 6.9, 7, 5.9, 8.4, 5.4, 11.6, 2.4, 9.7, 4,
+              8.8, 6, 2.6, 9.4, 8.2, 8.3, 7.7, 9.9, 3.8, 10.3)
+enzyme_rate <- c(5.05, 5.1, 5.33, 5.42, 5.19, 5.67, 5.46, 5.69, 5.76, 5.42,
+                 5.26, 4.45, 4.63, 4.48, 4.02, 4.2, 4.47, 4.67, 4.96, 6.45)
+
+ggplot(data.frame(wind_mps, enzyme_rate), aes(x = wind_mps, y = enzyme_rate)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Enzyme rate vs. wind speed") +
+  theme_minimal()
+```
+
+## Skew
+
+**Definition:** Skew describes the asymmetry of a distribution, determined by which tail stretches out farther. A distribution is right-skewed (positively skewed) when its right tail stretches toward the larger values while the bulk of the observations pile up on the left; a distribution is left-skewed (negatively skewed) when its left tail stretches toward the smaller values while the bulk of the observations pile up on the right; and a distribution is approximately symmetric when the two sides fall away from the center at about the same rate and the mean and median are close together. In a skewed distribution the mean is pulled toward the tail (larger than the median when right-skewed, smaller when left-skewed), so the median is the preferred measure of centrality.
+
+**Source:** Introductory Statistics 2e, p. 93; R for Data Science (2e), ch. 13 "Numbers", §13.6.1 "Center"
+
+**Example 1:** The histogram below shows battery lifetimes, which are strongly right-skewed: most batteries last a short time and a few last much longer.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Right-skewed histogram of battery lifetimes"}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+
+ggplot(data.frame(lifetime = battery_lifetime_hours), aes(x = lifetime)) +
+  geom_histogram(binwidth = 20, fill = "tomato", color = "white") +
+  labs(title = "Battery lifetimes (right-skewed)") +
+  theme_minimal()
+```
+
+The mean (40.0 hours) is larger than the median (26.6 hours), as expected for right-skewed data.
+
+**Example 2:** The histogram below shows yield strengths, which are left-skewed: most specimens cluster near the high end and a few weak specimens stretch the tail toward smaller values.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Left-skewed histogram of yield strengths"}
+yield_strength_mpa <- c(361.5, 375.0, 382.4, 386.0, 388.3, 389.1, 390.2, 391.8,
+                        393.5, 395.0, 396.4, 397.8, 399.0, 400.2, 401.5, 402.8,
+                        404.0, 405.1, 406.3, 407.4, 408.2, 409.1, 410.3, 411.0,
+                        412.4, 413.6, 415.2, 417.0)
+
+ggplot(data.frame(yield = yield_strength_mpa), aes(x = yield)) +
+  geom_histogram(binwidth = 5, fill = "tomato", color = "white") +
+  labs(title = "Yield strengths (left-skewed)") +
+  theme_minimal()
+```
+
+The mean (398.9 MPa) is smaller than the median (400.9 MPa), as expected for left-skewed data.
+
+**Example 3:** The histogram below shows shaft diameters, which are approximately symmetric: the two sides balance around the center.
+
+The sample dataset and the ggplot2 code that created this figure:
+
+```{r, fig.cap="Approximately symmetric histogram of shaft diameters"}
+shaft_diameter_mm <- c(49.2, 49.9, 49.8, 49.3, 50.6, 49.9, 50.8, 51.4, 50.2, 50.3,
+                       50.9, 50.5, 51, 50.2, 51.3, 50, 50.7, 50.1, 50.5, 50.5,
+                       50.5, 49.5, 49.4, 51.3, 49.5, 50.9, 50.1, 50.2, 50.3, 49.4)
+
+ggplot(data.frame(diameter = shaft_diameter_mm), aes(x = diameter)) +
+  geom_histogram(binwidth = 0.3, fill = "tomato", color = "white") +
+  labs(title = "Shaft diameters (symmetric)") +
+  theme_minimal()
+```
+
+The mean and median of the shaft diameters are close together (50.3 and 50.2 mm).
+
+## Standard Deviation
+
+**Definition:** The standard deviation (s) measures the typical distance of observations from the mean.
+
+$$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2}$$
+ It is the square root of the variance and is the preferred measure of variability when the distribution is approximately symmetric, but it is not robust and is inflated by outliers and skewness.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.3 "Spread"
+
+**Example 1:** The standard deviation of resting heart rates is 5.4 bpm, meaning athletes typically vary about 5 bpm around the mean.
+
+```{r}
+resting_heart_rate_bpm <- c(62, 65, 67, 68, 70, 71, 72, 72, 73, 73,
+                            74, 74, 74, 74, 75, 75, 76, 76, 77, 78,
+                            79, 81, 82, 86)
+sd(resting_heart_rate_bpm)
+```
+
+**Example 2:** The standard deviation of BMI is 2.9, a reasonable summary for a nearly symmetric distribution.
+
+```{r}
+bmi <- c(19.6, 20.5, 21.2, 21.8, 22.3, 22.7, 23.1, 23.5, 23.8, 24.1,
+         24.4, 24.7, 25.0, 25.3, 25.6, 25.9, 26.3, 26.7, 27.1, 27.6,
+         28.2, 28.9, 29.7, 30.7)
+sd(bmi)
+```
+
+**Example 3:** For a symmetric sample of resistance readings, the standard deviation of 18.0 Ω summarizes the spread.
+
+```{r}
+resistance_ohms <- c(88, 93, 97, 101, 104, 107, 110, 112, 115, 117, 118, 120,
+                     120, 122, 123, 125, 128, 131, 134, 137, 141, 146, 151, 157)
+sd(resistance_ohms)
+```
+
+**Example 4:** The standard deviation of hardness is computed separately within each annealing-temperature group.
+
+```{r}
+specimens <- data.frame(
+  annealing_temp = factor(rep(c("Low", "Medium", "High"), each = 10),
+                          levels = c("Low", "Medium", "High")),
+  hardness_hrb   = c(66.0, 67.1, 68.2, 69.0, 69.8, 70.5, 71.3, 72.0, 72.8, 73.5,
+                     74.0, 74.8, 75.5, 76.2, 76.9, 77.6, 78.3, 79.0, 79.8, 80.5,
+                     81.0, 81.8, 82.5, 83.2, 83.9, 84.6, 85.3, 86.0, 86.8, 87.5)
+)
+
+specimens %>%
+  group_by(annealing_temp) %>%
+  summarize(sd_hardness = sd(hardness_hrb))
+```
+
+## Variability
+
+**Definition:** Variability (spread) describes how spread out the values of a distribution are. The most common measures are the range, the interquartile range, the variance, and the standard deviation; the appropriate measure depends on the shape of the distribution. For categorical variables, variability is summarized with the proportions in each category.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6 "Numeric summaries"
+
+**Example 1:** The IQR of 33 hours describes the variability of skewed battery lifetimes.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+IQR(battery_lifetime_hours)
+```
+
+**Example 2:** The standard deviation of 5.4 bpm describes the variability of symmetric heart rates.
+
+```{r}
+resting_heart_rate_bpm <- c(62, 65, 67, 68, 70, 71, 72, 72, 73, 73,
+                            74, 74, 74, 74, 75, 75, 76, 76, 77, 78,
+                            79, 81, 82, 86)
+sd(resting_heart_rate_bpm)
+```
+
+**Example 3:** The proportions (Ductile = 0.68, Brittle = 0.18, Mixed = 0.14) describe the variability of the categorical failure modes.
+
+```{r}
+failure_mode <- c("Ductile", "Brittle", "Ductile", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Mixed", "Ductile", "Ductile",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Ductile", "Mixed",
+                  "Ductile", "Ductile", "Brittle", "Ductile", "Mixed", "Ductile",
+                  "Ductile", "Brittle", "Ductile", "Ductile")
+table(failure_mode) / length(failure_mode)
+```
+
+## Variance
+
+**Definition:** The variance (s²) is the average of the squared deviations of the observations from the mean; it measures spread in squared units.
+
+$$s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2$$
+ and is the square of the standard deviation.
+
+**Source:** Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 "Numbers", §13.6.3 "Spread"
+
+**Example 1:** The variance of resting heart rates is 28.8 bpm², whose square root gives the more interpretable standard deviation.
+
+```{r}
+resting_heart_rate_bpm <- c(62, 65, 67, 68, 70, 71, 72, 72, 73, 73,
+                            74, 74, 74, 74, 75, 75, 76, 76, 77, 78,
+                            79, 81, 82, 86)
+var(resting_heart_rate_bpm)
+sqrt(var(resting_heart_rate_bpm))
+```
+
+**Example 2:** The variance of BMI is 8.4, again more interpretable as its square root.
+
+```{r}
+bmi <- c(19.6, 20.5, 21.2, 21.8, 22.3, 22.7, 23.1, 23.5, 23.8, 24.1,
+         24.4, 24.7, 25.0, 25.3, 25.6, 25.9, 26.3, 26.7, 27.1, 27.6,
+         28.2, 28.9, 29.7, 30.7)
+var(bmi)
+sqrt(var(bmi))
+```
+
+**Example 3:** For a skewed variable, the variance is inflated by the long tail and is usually not reported.
+
+```{r}
+battery_lifetime_hours <- c(0.2, 0.6, 1.2, 2.1, 3.4, 5.2, 12.5, 14.8, 16.9, 19.1,
+                            21.6, 24.2, 26.6, 29.5, 32.1, 34.8, 37.9, 41.4, 45.5,
+                            52.8, 61.7, 74.3, 92.5, 138.4, 209.8)
+var(battery_lifetime_hours)
+```
+
+The variance is measured in squared hours, which is why the standard deviation (its square root) is reported instead.
+
+**Example 4:** The variance of hardness is computed separately within each annealing-temperature group.
+
+```{r}
+specimens <- data.frame(
+  annealing_temp = factor(rep(c("Low", "Medium", "High"), each = 10),
+                          levels = c("Low", "Medium", "High")),
+  hardness_hrb   = c(66.0, 67.1, 68.2, 69.0, 69.8, 70.5, 71.3, 72.0, 72.8, 73.5,
+                     74.0, 74.8, 75.5, 76.2, 76.9, 77.6, 78.3, 79.0, 79.8, 80.5,
+                     81.0, 81.8, 82.5, 83.2, 83.9, 84.6, 85.3, 86.0, 86.8, 87.5)
+)
+
+specimens %>%
+  group_by(annealing_temp) %>%
+  summarize(var_hardness = var(hardness_hrb))
+```
+
+---
+
+# R Reference: Reading and Working with Data in R
+
+The definitions in this glossary show the R code that computes each summary, and the module narratives show that code working on a real dataset. This reference collects the pieces of R that appear throughout — reading data, the tidyverse pipe, and the grammar of ggplot2 — with short explanations of what each piece does.
+
+## Reading a dataset into R
+
+A data file is usually a CSV: a table of rows (observations) and columns (variables). `read.csv()` reads it into a **data frame**, the tidy table R uses for statistics. `names()` lists the columns, `nrow()` counts the rows, and `\$` pulls out a single column.
+
+```{r}
+# Load the tidyverse (data wrangling) and ggplot2 (plotting) packages
+library(dplyr)
+library(ggplot2)
+
+# Read a CSV file saved in your working directory
+gas <- read.csv("data/gas-prices-states.csv")
+
+# List the columns and count the rows
+names(gas)
+nrow(gas)
+
+# Pull out a single column with $
+mean(gas$regular_price)
+```
+
+`summary()` is a quick all-in-one: for a numeric column it prints the minimum, first quartile, median, mean, third quartile, and maximum.
+
+```{r}
+summary(gas$regular_price)
+```
+
+## The tidyverse pipe
+
+The pipe `%>%` takes whatever is on its left and hands it to the function on its right, so a chain of pipes reads like a recipe: *take the data, keep these rows, keep these columns, count them.* The most common verbs are:
+
+- `filter()` keeps the rows that meet a condition
+- `select()` keeps only the named columns
+- `arrange()` sorts the rows
+- `slice_head()` / `slice_tail()` take the first / last rows
+- `mutate()` adds a new column
+- `count()` counts the rows in each group
+- `group_by()` + `summarize()` compute a summary within each group
+
+```{r}
+# Keep only cheap states, then count them
+gas %>%
+  filter(regular_price < 4.00) %>%
+  count()
+```
+
+## Drawing plots with ggplot2
+
+A ggplot2 plot is built by adding layers to `ggplot()`. The first call names the data and maps columns to parts of the plot with `aes()`; each `geom_*()` layer draws something. `labs()` sets titles and axis labels, and `theme_minimal()` gives a clean look.
+
+```{r}
+# Histogram of a quantitative variable
+ggplot(gas, aes(x = regular_price)) +
+  geom_histogram(binwidth = 0.2) +
+  labs(title = "Regular gas prices") +
+  theme_minimal()
+```
+
+The `geom_*()` layers used in this course are:
+
+- `geom_histogram()` — a histogram for one quantitative variable
+- `geom_boxplot()` — a boxplot for one or more quantitative variables
+- `geom_bar()` — a bar chart for a categorical variable
+- `geom_point()` — a scatterplot for two quantitative variables
+
+`binwidth` in `geom_histogram()` sets the width of the bins, and `fill` / `color` set the fill and outline colors.
+
+## A few helpers
+
+- `round(x, digits)` rounds a number to the requested number of decimal places (used to find the mode of a rounded variable)
+- `min(x)` and `max(x)` give the smallest and largest values (defined under Minimum and Maximum)
+- `cor(x, y)` measures the strength and direction of a linear relationship (defined under Correlation)
+

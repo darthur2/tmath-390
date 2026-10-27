@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Exploratory Data Analysis Mini-Project</title>
+  
+</head>
+<body style="max-width:1100px;margin:0 auto;padding:2rem 1.25rem 3rem;color:#1f2937;font-family:Arial,Helvetica,sans-serif;line-height:1.7;background:#fff">
+<h1 id="exploratory-data-analysis-mini-project" style="font-family:Arial,Helvetica,sans-serif;color:#245364;line-height:1.3;margin:0 0 1.5rem">Exploratory Data Analysis Mini-Project</h1>
+<h2 id="purpose" style="font-family:Arial,Helvetica,sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#346678;border-bottom:1px solid #92aeba;padding-bottom:.3rem;margin:2.4rem 0 .9rem">Purpose</h2>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">In this project, you will use exploratory data analysis (EDA) to
+understand an assigned dataset and communicate what it reveals. You will
+describe the variables, choose summaries and plots that fit the data,
+and investigate two relationships that interest you. The goal is to make
+evidence-based descriptions of patterns in the data—not to claim that
+one variable caused another unless the study design supports that
+conclusion.</p>
+<h2 id="materials" style="font-family:Arial,Helvetica,sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#346678;border-bottom:1px solid #92aeba;padding-bottom:.3rem;margin:2.4rem 0 .9rem">Materials</h2>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">You will receive:</p>
+<ul style="line-height:1.75;margin:.5rem 0 1rem;padding-left:1.5rem">
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">A cleaned CSV dataset assigned to you.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">A background description and data dictionary for that
+dataset.</li>
+</ul>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Use these materials to introduce the topic, observations, and
+available context. They are the intended source for your description;
+you do not need to search for the original website, study, or database.
+Do not invent a source, population, collection date, or procedure that
+the supplied materials do not provide. If an important detail is not
+available, say so briefly.</p>
+<h2 id="what-to-do" style="font-family:Arial,Helvetica,sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#346678;border-bottom:1px solid #92aeba;padding-bottom:.3rem;margin:2.4rem 0 .9rem">What to do</h2>
+<h3 id="introduce-the-dataset" style="font-family:Arial,Helvetica,sans-serif;font-size:.98rem;color:#245364;margin:1.8rem 0 .7rem">1. Introduce the dataset</h3>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Write a concise introduction that explains what the dataset
+describes, what one row represents, and the context in which the data
+were gathered, using the supplied background and data dictionary.
+Describe the population or coverage and collection approach to the
+extent those details are provided. Briefly identify the variables and
+what they measure.</p>
+<h3 id="describe-every-variable" style="font-family:Arial,Helvetica,sans-serif;font-size:.98rem;color:#245364;margin:1.8rem 0 .7rem">2. Describe every variable</h3>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Provide appropriate descriptive summaries for every variable in your
+assigned CSV. Choose summaries that fit each variable and its
+distribution, and explain what the results show in the context of the
+data.</p>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Create an appropriate, clearly labeled visualization for every
+variable. Choose displays that fit the variables and help the reader
+understand patterns in the data.</p>
+<h3 id="choose-and-investigate-two-research-questions" style="font-family:Arial,Helvetica,sans-serif;font-size:.98rem;color:#245364;margin:1.8rem 0 .7rem">3. Choose and
+investigate two research questions</h3>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Before you analyze relationships, choose <strong>two
+questions</strong> that you can investigate with the variables in your
+dataset. State both as explicit research questions in your report before
+presenting the corresponding analyses. No separate approval is required.
+Select variables that fit the required analysis for each question:</p>
+<ol type="1" style="line-height:1.75;margin:.5rem 0 1rem;padding-left:1.5rem">
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937"><strong>Two quantitative variables:</strong> Ask about a possible
+relationship between two numerical measurements. Use a scatterplot and a
+correlation measure. Describe the direction, form, and strength you see
+in the plot, and explain whether the correlation agrees with that visual
+pattern. Correlation summarizes a linear relationship; it does not by
+itself show that one variable causes the other.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937"><strong>One categorical and one quantitative variable:</strong> Ask
+how a numerical measurement differs across groups. Use side-by-side
+boxplots and a grouped summary table. Choose group summaries that suit
+the distribution, then use both the plot and table to support your
+comparison.</li>
+</ol>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">For both questions, connect your conclusion to the displays and
+summaries. Describe association or group differences; do not make causal
+claims unless the supplied study information supports them.</p>
+<h2 id="report-format-and-r-code" style="font-family:Arial,Helvetica,sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#346678;border-bottom:1px solid #92aeba;padding-bottom:.3rem;margin:2.4rem 0 .9rem">Report format and R code</h2>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Choose one of these formats:</p>
+<ul style="line-height:1.75;margin:.5rem 0 1rem;padding-left:1.5rem">
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937"><strong>R Markdown:</strong> Submit the <code style="font-family:Consolas,Menlo,monospace;background:#eaf0f6;color:#245364;padding:.1em .35em;border-radius:4px;font-size:.9em">.Rmd</code> source
+file and its knitted report. Make sure the rendered report displays the
+R code, results, tables, and figures.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937"><strong>Word:</strong> Submit a readable Word document that includes
+the relevant R code alongside the resulting tables, figures, and written
+interpretations.</li>
+</ul>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">In either format, include the code that produced the summaries and
+plots so your results can be followed. Use R functions and plotting
+methods covered in the course materials. The <a href="../reading-materials/definitions-and-examples.Rmd" style="color:#346678;text-decoration:underline">Module 2 R
+reference</a> and the Module 2 readings are available for review.</p>
+<h2 id="submission-checklist" style="font-family:Arial,Helvetica,sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#346678;border-bottom:1px solid #92aeba;padding-bottom:.3rem;margin:2.4rem 0 .9rem">Submission checklist</h2>
+<ul style="line-height:1.75;margin:.5rem 0 1rem;padding-left:1.5rem">
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">The introduction uses the provided background and does not add
+unsupported source details.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Every variable is summarized and has an appropriate, labeled
+univariate plot.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Two research questions are stated before their analyses and use
+variable pairs suited to the required methods.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Both relationship analyses include their required plot and numerical
+summary, with conclusions tied to the results.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">The report includes the R code and its output and is organized,
+readable, and complete.</li>
+</ul>
+<h2 id="grading-rubric" style="font-family:Arial,Helvetica,sans-serif;font-size:1.05rem;text-transform:uppercase;letter-spacing:.06em;color:#346678;border-bottom:1px solid #92aeba;padding-bottom:.3rem;margin:2.4rem 0 .9rem">Grading Rubric</h2>
+<p style="line-height:1.75;color:#1f2937;margin:0 0 1.1rem">Total: 100 points</p>
+<table style="display:block;width:100%;max-width:100%;overflow-x:auto;border-collapse:collapse;margin:1.2rem 0 2rem;font-size:.88rem;line-height:1.5;color:#1f2937">
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 1%" />
+<col style="width: 43%" />
+<col style="width: 22%" />
+<col style="width: 19%" />
+</colgroup>
+<thead>
+<tr>
+<th style="padding:.65rem .7rem;border:1px solid #92aeba;background:#eaf0f6;color:#245364;text-align:left;vertical-align:top">Criterion</th>
+<th style="text-align: right;;padding:.65rem .7rem;border:1px solid #92aeba;background:#eaf0f6;color:#245364;text-align:left;vertical-align:top">Points</th>
+<th style="padding:.65rem .7rem;border:1px solid #92aeba;background:#eaf0f6;color:#245364;text-align:left;vertical-align:top">Full Credit</th>
+<th style="padding:.65rem .7rem;border:1px solid #92aeba;background:#eaf0f6;color:#245364;text-align:left;vertical-align:top">Partial Credit</th>
+<th style="padding:.65rem .7rem;border:1px solid #92aeba;background:#eaf0f6;color:#245364;text-align:left;vertical-align:top">Low / No Credit</th>
+</tr>
+</thead>
+<tbody>
+<tr style="background:#f7fafc">
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Dataset introduction and background</td>
+<td style="text-align: right;;padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">20</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Clear, accurate introduction based on the supplied background and
+data dictionary. It explains what the dataset describes and includes the
+source/context, population or coverage, and collection approach to the
+extent provided.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Mostly complete introduction with minor missing detail or small
+imprecision.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Missing several required background elements, unclear description,
+or not responsive to the prompt.</td>
+</tr>
+<tr>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Descriptive statistics / numeric summaries</td>
+<td style="text-align: right;;padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">20</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Appropriate summaries are provided for every variable. The choice of
+summaries fits the variables and their distributions, and the results
+are clearly interpreted in context.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Summaries are mostly appropriate, with only minor issues in choosing
+or interpreting statistics for a few variables.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Summaries are often mismatched to the variable or its distribution,
+or the response is incomplete.</td>
+</tr>
+<tr style="background:#f7fafc">
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Univariate plots</td>
+<td style="text-align: right;;padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">20</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">An appropriate, clearly labeled plot is provided for every variable.
+Plot choices reflect the variables and their features and help the
+reader understand the data.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Plots are mostly appropriate and readable, with minor problems in
+choice, labeling, or presentation.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Plots are poorly chosen, weakly connected to the data, or the
+response is incomplete.</td>
+</tr>
+<tr>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Relationship question 1: scatterplot and correlation</td>
+<td style="text-align: right;;padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">20</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">States an answerable question about two quantitative variables, uses
+an appropriate scatterplot and correlation, and correctly interprets
+direction, form, and strength in context.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Uses a reasonable scatterplot and correlation, but interpretation is
+incomplete or slightly unclear.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Plot or correlation is not fully appropriate, or the interpretation
+misses important features.</td>
+</tr>
+<tr style="background:#f7fafc">
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">Relationship question 2: side-by-side boxplots and grouped summary
+table</td>
+<td style="text-align: right;;padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">20</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">States an answerable question about a quantitative variable across
+groups, uses side-by-side boxplots and a grouped summary table
+correctly, and draws a clear, supported conclusion.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">The comparison is mostly correct and well supported, with only minor
+issues in presentation or interpretation.</td>
+<td style="padding:.65rem .7rem;border:1px solid #c8d6df;text-align:left;vertical-align:top">The summaries or boxplots do not fully support the conclusion, or
+the analysis is incomplete.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="general-expectations" style="font-family:Arial,Helvetica,sans-serif;font-size:.98rem;color:#245364;margin:1.8rem 0 .7rem">General Expectations</h3>
+<ul style="line-height:1.75;margin:.5rem 0 1rem;padding-left:1.5rem">
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Exploration beyond the required analysis is welcome, especially when
+the data raise interesting questions or reveal unexpected patterns.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Work should be organized, readable, and complete.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Tables and figures should be clearly labeled and easy to
+interpret.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Interpretations should be tied to the displays and summaries rather
+than stated in isolation.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Good work shows that the choice of summaries and plots is informed
+by the data’s type and features.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Use the provided dataset description and dictionary; do not add
+unsupported details about the data’s source or collection.</li>
+<li style="margin:0 0 .6rem;line-height:1.75;color:#1f2937">Include the relevant R code with its output in the submitted
+report.</li>
+</ul>
+</body>
+</html>

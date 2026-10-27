@@ -1,0 +1,179 @@
+# Nonlinear Transformations of Random Variables
+
+A maintenance team wants to prioritize devices by the impact of their faults. Inspection records show between zero and two minor faults per device: about $40\%$ have no faults, $40\%$ have one, and $20\%$ have two. The team assigns the score $Y=X^2$, so devices with multiple faults receive a higher score. **What are the average score and its variance?**
+
+An insurer faces a probability question about claim sizes. Claims are positive amounts, with many moderate claims and fewer large ones. The insurer records each claim amount relative to $\$1{,}000$ and tracks its natural logarithm, $Y=\ln X$. **What is the probability a claim is at most $\$1{,}000$?** This probability helps describe how often claims fall below a useful reporting threshold.
+
+These questions involve two different summaries: moments of a discrete score and a probability for a transformed continuous amount. In both cases, we need to understand how replacing $X$ with a nonlinear function changes the values it can take and the probabilities attached to them.
+
+## Finding moments of a transformed variable
+
+For a discrete random variable with PMF $P_X(x)$ and transformation $Y=g(X)$, compute the expectation by applying $g$ to each possible value:
+
+$$
+E[Y]=E[g(X)]=\sum_x g(x)P_X(x).
+$$
+
+For the variance, first find the second moment of the transformed variable:
+
+$$
+\operatorname{Var}[Y]
+=E[Y^2]-(E[Y])^2
+=\sum_x g(x)^2P_X(x)-(E[Y])^2.
+$$
+
+For a continuous random variable with PDF $f_X(x)$, replace the sums with integrals over the support of $X$:
+
+$$
+E[Y]=E[g(X)]=\int g(x)f_X(x)\,dx,
+\qquad
+E[Y^2]=\int g(x)^2f_X(x)\,dx,
+$$
+
+so
+
+$$
+\operatorname{Var}[Y]
+=\int g(x)^2f_X(x)\,dx-(E[Y])^2.
+$$
+
+In either case, these are not generally the same as transforming the original mean and variance. We can use the fault-score question to see how to compute them directly.
+
+## Working out the fault-score mean and variance: $Y=X^2$
+
+The inspection records contain only the values $0$, $1$, and $2$, with relative frequencies $0.4$, $0.4$, and $0.2$. A custom discrete PMF represents these observed data:
+
+| $x$ | $0$ | $1$ | $2$ |
+|---|---:|---:|---:|
+| $P_X(x)$ | $0.4$ | $0.4$ | $0.2$ |
+
+To give greater weight to multiple faults, the maintenance team uses the score $Y=X^2$. Squaring is strictly increasing on the support $\{0,1,2\}$, so it is one-to-one here. The transformed distribution is:
+
+| $x$ | $P_X(x)$ | $y=x^2$ | $P_Y(y)$ |
+|---:|---:|---:|---:|
+| $0$ | $0.4$ | $0$ | $0.4$ |
+| $1$ | $0.4$ | $1$ | $0.4$ |
+| $2$ | $0.2$ | $4$ | $0.2$ |
+
+The mean score is
+
+$$
+E[Y]=0(0.4)+1(0.4)+4(0.2)=1.2.
+$$
+
+The second moment is
+
+$$
+E[Y^2]=0^2(0.4)+1^2(0.4)+4^2(0.2)=3.6,
+$$
+
+so the variance is
+
+$$
+\operatorname{Var}[Y]=3.6-(1.2)^2=2.16.
+$$
+
+The same calculations in R use the transformed values and their probabilities:
+
+```r
+y <- c(0, 1, 4)
+p <- c(0.4, 0.4, 0.2)
+mean_y <- sum(y * p)
+variance_y <- sum(y^2 * p) - mean_y^2
+c(mean = mean_y, variance = variance_y)
+```
+
+## Finding probabilities after a nonlinear transformation
+
+When $Y=g(X)$ is monotonic and one-to-one, the CDF provides a direct route to probabilities. If $g$ is increasing,
+
+$$
+F_Y(y)=F_X\!\left(g^{-1}(y)\right).
+$$
+
+If $g$ is decreasing, the event inequality reverses, so for a continuous $X$,
+
+$$
+F_Y(y)=1-F_X\!\left(g^{-1}(y)\right).
+$$
+
+For a continuous variable, the transformed density is
+
+$$
+f_Y(y)=f_X\!\left(g^{-1}(y)\right)
+\left|\frac{d}{dy}g^{-1}(y)\right|.
+$$
+
+The inverse must be used on the support where the transformation is one-to-one. We can use this method to answer the insurer's question about the log-claim threshold.
+
+## Answering the claim-threshold question: $Y=\ln X$
+
+The claim records are positive and right-skewed. A Gamma model is a useful choice for positive amounts with this shape. Let $X$ be the claim amount divided by $\$1{,}000$, and use a Gamma distribution with shape $2$ and rate $1$:
+
+$$
+X\sim\operatorname{Gamma}(\text{shape}=2,\text{ rate}=1).
+$$
+
+Here $X=1$ represents a $\$1{,}000$ claim. Because $X$ is the claim amount divided by $\$1{,}000$, it is dimensionless and its natural logarithm is well-defined. The transformation is strictly increasing for $X>0$, and its inverse is $X=e^Y$.
+
+The Gamma PDF with shape $2$ and rate $1$ is
+
+$$
+f_X(x)=xe^{-x},\qquad x>0.
+$$
+
+Using the inverse transformation and its derivative,
+
+$$
+f_Y(y)=f_X(e^y)\left|\frac{d}{dy}e^y\right|
+=e^y e^{-e^y}e^y
+=e^{2y-e^y},\qquad -\infty<y<\infty.
+$$
+
+The transformed CDF follows from the same inverse:
+
+$$
+F_Y(y)=P(\ln X\leq y)
+=P(X\leq e^y)
+=F_X(e^y)
+=1-(1+e^y)e^{-e^y}.
+$$
+
+What is the probability that a claim is at most $\$1{,}000$? Since this is $X\leq1$, it is equivalent to $Y\leq\ln(1)=0$:
+
+$$
+P(Y\leq0)=F_Y(0)=1-2e^{-1}\approx0.2642.
+$$
+
+R can evaluate this probability using the Gamma CDF:
+
+```r
+pgamma(1, shape = 2, rate = 1)
+```
+
+The threshold question can be answered from the derived distribution of $Y$ or by translating the event back to $X$ and using its Gamma CDF.
+
+For the continuous Gamma example above, R can calculate the moments of $Y=\ln X$ directly from the density of $X$ and evaluate the transformed density using the change-of-variables formula:
+
+```r
+fx <- function(x) dgamma(x, shape = 2, rate = 1)
+mean_y <- integrate(function(x) log(x) * fx(x),
+                    lower = 0, upper = Inf)$value
+second_moment_y <- integrate(function(x) log(x)^2 * fx(x),
+                             lower = 0, upper = Inf)$value
+variance_y <- second_moment_y - mean_y^2
+c(mean = mean_y, variance = variance_y)
+
+fy <- function(y) dgamma(exp(y), shape = 2, rate = 1) * exp(y)
+fy(0)
+
+# Density after the one-to-one transformation Y = sqrt(X)
+fy_sqrt <- function(y) {
+  ifelse(y >= 0, dexp(y^2, rate = 0.5) * 2 * y, 0)
+}
+fy_sqrt(1)
+```
+
+## The pattern
+
+For moments, calculate $E[g(X)]$ and $E[g(X)^2]$ using the original PMF or PDF, then use $\operatorname{Var}[g(X)]=E[g(X)^2]-(E[g(X)])^2$. For probabilities, use the inverse transformation to derive the CDF or PDF of $Y$, keeping track of the transformed support. A monotonic one-to-one transformation ensures that each transformed value corresponds to exactly one original value.

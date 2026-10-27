@@ -1,0 +1,31 @@
+# Module 3 Overview
+
+## Why This Module Matters
+
+Module 3 is about probability: the mathematical language of uncertainty. Whether we are deciding how many drinks a menu can produce, calculating the chance of drawing a good hand, or interpreting a medical test result, probability gives us a precise way to answer "how likely?" The topics in this module matter because probability is the foundation for statistical inference — without it, we cannot quantify uncertainty, measure risk, or evaluate evidence. Every confidence interval, every hypothesis test, and every prediction interval in later modules rests on the rules developed here.
+
+## What You'll Learn
+
+By the end of this module, you will understand the **fundamental theorem of counting**, **permutations**, and **combinations**, and how to use them to count possibilities in equally likely scenarios. You will learn **classical probability** and **empirical probability**, the three basic **axioms of probability**, and the **complement rule**. You will learn the **inclusion-exclusion principle** for "or" problems and the **joint**, **marginal**, and **conditional probabilities** that flow from a **two-way table**. You will learn the **multiplication rule** for "and" problems, the meaning of **independence**, the **law of total probability**, and **Bayes' Theorem** for reversing conditional probabilities. Key concepts such as **mutually exclusive** events, **sample spaces**, **outcomes**, **events**, **sensitivity**, and **specificity** will be defined along the way.
+
+## By the End of This Module, You Should Be Able To
+
+After completing this module, you should be able to work with a probability scenario and do several things with confidence:
+
+- Count the number of possible outcomes using the **fundamental theorem of counting**, **permutations**, and **combinations**.
+- Compute probabilities using both the **classical** and **empirical** approaches.
+- Apply the **complement rule** to find the probability that an event does not occur.
+- Use the **inclusion-exclusion principle** to find the probability of one event or another.
+- Read **joint**, **marginal**, and **conditional probabilities** from a **two-way table**.
+- Apply the **multiplication rule** to find the probability that two events both occur.
+- Determine whether two events are **independent**.
+- Use the **law of total probability** and **Bayes' Theorem** to update probabilities given new evidence.
+- Interpret **sensitivity** and **specificity** in the context of diagnostic testing.
+- Recognize when events are **mutually exclusive**.
+
+## What's Inside
+
+- **Readings** — seven short stories that introduce each concept in context: *How Many Unique Cups of Coffee Can You Make at Starbucks?*, *How Many Ways Can You Pick a Team?*, *What Are the Chances?*, *What's the Chance You Get at Least One?*, *How Many Students Take Both?*, *How Reliable Is That Test?*, and *How Likely Is That Transaction Really Fraud?*
+- **Definitions and Examples** — a glossary of every key term with sources from *Mathematical Statistics with Applications in R* and *Introductory Statistics 2e*.
+- **Knowledge Checks** — short practice questions that test each concept as you go.
+- **Quizzes** — three scenario-based checks of everything you've learned in the module.

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What Are the Chances?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">What Are the Chances?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">Two ways to answer the same question — and why they sometimes disagree.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">You are at a carnival, and one of the games catches your eye. A giant foam die sits on a table. You pay a dollar, the vendor rolls the die, and if it lands on 6, you win a stuffed bear. "One in six chance!" the vendor calls out. "Fair odds!" But is it? And what does "one in six" actually mean?</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">There are two ways to answer that question. One lives in your head, based on logic and symmetry. The other lives in the world, based on what actually happens when you start rolling. Both are called probability, but they are not the same thing.</p>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Classical Probability</h2>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The first way to answer is purely theoretical. A fair six-sided die has six faces, and if the die is perfectly balanced, each face is equally likely to turn up. Of the six possible outcomes, exactly one is a win. So the probability of winning is</p>
+
+<p style="text-align:center;">
+$$
+P(\text{win}) = \frac{1}{6}.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">This is <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="When all outcomes in a sample space are equally likely, the probability of an event E is P(E) = |E| / |S|.">classical probability</span>. It assumes that all outcomes in the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The set of all possible outcomes of a random phenomenon. An event is a subset of the sample space.">sample space</span> are equally likely and then counts the fraction that correspond to the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A subset of the sample space — a set of outcomes that we care about.">event</span> of interest. The formula is</p>
+
+<p style="text-align:center;">
+$$
+P(E) = \frac{|E|}{|S|},
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">where \(|E|\) is the number of outcomes in the event and \(|S|\) is the total number of outcomes in the sample space. You do not need to roll the die even once. You do not need data. You only need to know how many things <em>can</em> happen and which ones <em>count</em>.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Classical probability is why you can say the chance of drawing the ace of spades from a full deck is \(1/52\), or the chance of rolling a 7 with two dice is \(6/36 = 1/6\) (because six of the 36 possible pairs sum to 7). It is clean, it is exact, and it does not require a single observation. It only requires a fair, symmetrical world.</p>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Empirical Probability</h2>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">But the world is not always perfectly symmetrical, and you do not always know whether the die is fair. The second way to answer the question is to roll the die — many times — and see what happens.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Suppose you stand at the carnival table and watch 60 rolls. You count the number of times the die lands on 6. If it lands on 6 exactly 10 times, the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The relative frequency with which an event occurs in a set of observations: P(E) = number of times E occurs / total number of observations.">empirical probability</span> of winning is</p>
+
+<p style="text-align:center;">
+$$
+P(\text{win}) = \frac{10}{60} = \frac{1}{6}.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">That matches the classical answer. But what if it lands on 6 only 8 times? Then the empirical probability is \(8/60 \approx 0.133\), a little below the classical \(0.167\). What if it lands on 6 twelve times? Then it is \(12/60 = 0.20\), a little above. The empirical probability is simply the relative frequency you observe:</p>
+
+<p style="text-align:center;">
+$$
+P(E) = \frac{\text{number of times } E \text{ occurs}}{\text{total number of observations}}.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">No assumptions about fairness. No theory. Just data.</p>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">The Rules of Probability</h2>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Whether you are using the classical or the empirical approach, every probability must obey three basic rules. These rules are sometimes called the axioms of probability.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 0.3rem; padding-left:1.5rem;"><strong>1. Non-negativity.</strong> The probability of any event \(E\) is never negative:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">$$P(E) \ge 0.$$</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 0.3rem; padding-left:1.5rem;"><strong>2. Normalization.</strong> The probability that <em>something</em> in the sample space happens is always 1:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">$$P(S) = 1.$$</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem; padding-left:1.5rem;">This means the total probability of all possible outcomes adds up to 1.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 0.3rem; padding-left:1.5rem;"><strong>3. Additivity.</strong> If two events \(A\) and \(B\) cannot happen at the same time (they are mutually exclusive), then the probability that at least one of them occurs is the sum of their individual probabilities:</p>
+<p style="text-align:center; margin:0 0 1.1rem;">$$P(A \cup B) = P(A) + P(B).$$</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">These three rules are the foundation that every probability calculation rests on. Every other rule in probability is built from these same three axioms.</p>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Why They Can Be Different</h2>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">If you flip a coin 10 times, classical probability says the chance of heads is \(1/2\). But you could easily get 7 heads out of 10 flips — an empirical probability of \(0.70\). That does not mean the coin is rigged. It means 10 flips is a small sample, and small samples can vary. Classical probability tells you what should happen in theory. Empirical probability tells you what <em>did</em> happen in practice.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">As you flip more times, the empirical probability tends to settle down. Flip 100 times and you might see 53 heads. Flip 1,000 times and you might see 506. The empirical probability starts near the classical value and gets closer as the number of trials grows. This pattern is called the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="As the number of trials in a random experiment increases, the observed probability of an event tends to get closer to its theoretical probability.">law of large numbers</span>: the more observations you collect, the closer the empirical probability gets to the classical probability (assuming the underlying process is fair).</p>
+
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Which One Should You Use?</h2>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">It depends on what you have. If you know the sample space and can assume equally likely <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="A single possible result of a random phenomenon. The collection of all possible outcomes forms the sample space.">outcomes</span>, classical probability gives you a precise answer without collecting a single piece of data. It is the foundation of most probability theory. But if you cannot assume equally likely outcomes — or if you want to check whether the theory matches reality — you turn to empirical probability and count what actually happens.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The carnival vendor calls out "one in six" because classical probability says the game is fair. But if you watch 60 rolls and see only 4 wins, you have an empirical probability of \(4/60 \approx 0.067\), which is less than half the advertised chance. The classical probability assumes a fair die. The empirical probability checks whether that assumption holds. When they disagree, it is worth asking why.</p>
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">classical probability</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">sample space</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">event</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">empirical probability</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">law of large numbers</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">outcomes</span>
+</div>
+
+</body>
+</html>

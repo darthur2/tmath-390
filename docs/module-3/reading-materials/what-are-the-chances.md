@@ -1,0 +1,75 @@
+# What Are the Chances?
+
+You are at a carnival, and one of the games catches your eye. A giant foam die sits on a table. You pay a dollar, the vendor rolls the die, and if it lands on 6, you win a stuffed bear. "One in six chance!" the vendor calls out. "Fair odds!" But is it? And what does "one in six" actually mean?
+
+There are two ways to answer that question. One lives in your head, based on logic and symmetry. The other lives in the world, based on what actually happens when you start rolling. Both are called probability, but they are not the same thing.
+
+## Classical Probability
+
+The first way to answer is purely theoretical. A fair six-sided die has six faces, and if the die is perfectly balanced, each face is equally likely to turn up. Of the six possible outcomes, exactly one is a win. So the probability of winning is
+
+$$
+P(\text{win}) = \frac{1}{6}.
+$$
+
+This is **classical probability**. It assumes that all outcomes in the **sample space** are equally likely and then counts the fraction that correspond to the **event** of interest. The formula is
+
+$$
+P(E) = \frac{|E|}{|S|},
+$$
+
+where $|E|$ is the number of outcomes in the event and $|S|$ is the total number of outcomes in the sample space. You do not need to roll the die even once. You do not need data. You only need to know how many things *can* happen and which ones *count*.
+
+Classical probability is why you can say the chance of drawing the ace of spades from a full deck is $1/52$, or the chance of rolling a 7 with two dice is $6/36 = 1/6$ (because six of the 36 possible pairs sum to 7). It is clean, it is exact, and it does not require a single observation. It only requires a fair, symmetrical world.
+
+## Empirical Probability
+
+But the world is not always perfectly symmetrical, and you do not always know whether the die is fair. The second way to answer the question is to roll the die — many times — and see what happens.
+
+Suppose you stand at the carnival table and watch 60 rolls. You count the number of times the die lands on 6. If it lands on 6 exactly 10 times, the **empirical probability** of winning is
+
+$$
+P(\text{win}) = \frac{10}{60} = \frac{1}{6}.
+$$
+
+That matches the classical answer. But what if it lands on 6 only 8 times? Then the empirical probability is $8/60 \approx 0.133$, a little below the classical $0.167$. What if it lands on 6 twelve times? Then it is $12/60 = 0.20$, a little above. The empirical probability is simply the relative frequency you observe:
+
+$$
+P(E) = \frac{\text{number of times } E \text{ occurs}}{\text{total number of observations}}.
+$$
+
+No assumptions about fairness. No theory. Just data.
+
+## The Rules of Probability
+
+Whether you are using the classical or the empirical approach, every probability must obey three basic rules. These rules are sometimes called the axioms of probability.
+
+1. **Non-negativity.** The probability of any event $E$ is never negative:
+   $$
+   P(E) \ge 0.
+   $$
+
+2. **Normalization.** The probability that *something* in the sample space happens is always 1:
+   $$
+   P(S) = 1.
+   $$
+   This means the total probability of all possible outcomes adds up to 1.
+
+3. **Additivity.** If two events $A$ and $B$ cannot happen at the same time (they are mutually exclusive), then the probability that at least one of them occurs is the sum of their individual probabilities:
+   $$
+   P(A \cup B) = P(A) + P(B).
+   $$
+
+These three rules are the foundation that every probability calculation rests on. Every other rule in probability is built from these same three axioms.
+
+## Why They Can Be Different
+
+If you flip a coin 10 times, classical probability says the chance of heads is $1/2$. But you could easily get 7 heads out of 10 flips — an empirical probability of $0.70$. That does not mean the coin is rigged. It means 10 flips is a small sample, and small samples can vary. Classical probability tells you what should happen in theory. Empirical probability tells you what *did* happen in practice.
+
+As you flip more times, the empirical probability tends to settle down. Flip 100 times and you might see 53 heads. Flip 1,000 times and you might see 506. The empirical probability starts near the classical value and gets closer as the number of trials grows. This pattern is called the **law of large numbers**: the more observations you collect, the closer the empirical probability gets to the classical probability (assuming the underlying process is fair).
+
+## Which One Should You Use?
+
+It depends on what you have. If you know the sample space and can assume equally likely **outcomes**, classical probability gives you a precise answer without collecting a single piece of data. It is the foundation of most probability theory. But if you cannot assume equally likely outcomes — or if you want to check whether the theory matches reality — you turn to empirical probability and count what actually happens.
+
+The carnival vendor calls out "one in six" because classical probability says the game is fair. But if you watch 60 rolls and see only 4 wins, you have an empirical probability of $4/60 \approx 0.067$, which is less than half the advertised chance. The classical probability assumes a fair die. The empirical probability checks whether that assumption holds. When they disagree, it is worth asking why.

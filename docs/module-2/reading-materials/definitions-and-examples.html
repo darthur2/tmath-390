@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Glossary</title>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">Module 2 Glossary</h1>
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">Every key term from Module 2 — definitions, sources, and examples — listed alphabetically.</p>
+<p><a href="/courses/1923070/file_contents/course%20files/RMarkdown/definitions-and-examples.Rmd" style="display:inline-block; background:#346678; color:#fff; font-family:Arial, Helvetica, sans-serif; font-weight:700; text-decoration:none; border-radius:6px; padding:0.5em 1.1em; margin:0 0 1.5rem;">Download the R Markdown version of the glossary</a></p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Welcome to the glossary for Module 2 (Exploratory Data Analysis). Each entry gives the definition of a key term, the sources used for that definition, and three examples drawn from a variety of fields to show the term in action. The terms are listed alphabetically.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Many entries show the R code used to compute or draw the term. These snippets assume a numeric vector <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">x</code> (for example, <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">x &lt;- c(12, 15, 18, 21, 26)</code>), a second numeric vector <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">y</code>, and a categorical vector <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">g</code> (for example, <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">g &lt;- c(&quot;Low&quot;, &quot;Medium&quot;, &quot;High&quot;, &quot;Low&quot;, &quot;Medium&quot;)</code>). The <strong>R Reference</strong> section at the end of this glossary explains the R used throughout the module: reading a dataset, the tidyverse pipe, and drawing plots with ggplot2.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">B</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Bar Chart</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A bar chart (bar plot) displays the distribution of a categorical variable by drawing one bar for each category, with the height of the bar proportional to the count (frequency) or the proportion of observations in that category.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 78; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.1 &quot;A categorical variable&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> A bar chart of the material phases recorded for steel specimens shows that austenite was the most common phase in the sample.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+material_phase &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>,
+  <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>,
+  <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>,
+  <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>,
+  <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>,
+  <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Ferrite"</span>,
+  <span style="color:#032f62;">"Ferrite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Ferrite"</span>,
+  <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>,
+  <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Austenite"</span>,
+  <span style="color:#032f62;">"Ferrite"</span>, <span style="color:#032f62;">"Martensite"</span>, <span style="color:#032f62;">"Austenite"</span>, <span style="color:#032f62;">"Martensite"</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(material_phase),
+  <span style="color:#6f42c1;">aes</span>(x = material_phase)) +
+  <span style="color:#6f42c1;">geom_bar</span>(fill = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Material phases of steel specimens"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/bar_chart_material_phase.png" alt="Bar chart of material phases of steel specimens" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Bar chart of material phases of steel specimens</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> A bar chart of the blood types of donors shows that type O was the most common blood type in the sample.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+blood_type &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"A"</span>,
+  <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"A"</span>,
+  <span style="color:#032f62;">"B"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>,
+  <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>,
+  <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"B"</span>,
+  <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"AB"</span>,
+  <span style="color:#032f62;">"B"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"AB"</span>,
+  <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"B"</span>, <span style="color:#032f62;">"O"</span>,
+  <span style="color:#032f62;">"B"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"A"</span>,
+  <span style="color:#032f62;">"B"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"AB"</span>, <span style="color:#032f62;">"A"</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(blood_type), <span style="color:#6f42c1;">aes</span>(x = blood_type)) +
+  <span style="color:#6f42c1;">geom_bar</span>(fill = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Blood types of donors"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/bar_chart_blood_type.png" alt="Bar chart of blood types of donors" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Bar chart of blood types of donors</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A bar chart of the rock types at sampling sites shows that igneous and sedimentary rocks were more common than metamorphic rocks.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+rock_type &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Metamorphic"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>,
+  <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>,
+  <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Metamorphic"</span>,
+  <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Metamorphic"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>,
+  <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Sedimentary"</span>, <span style="color:#032f62;">"Igneous"</span>, <span style="color:#032f62;">"Igneous"</span>,
+  <span style="color:#032f62;">"Sedimentary"</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(rock_type), <span style="color:#6f42c1;">aes</span>(x = rock_type)) +
+  <span style="color:#6f42c1;">geom_bar</span>(fill = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Rock types at sampling sites"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/bar_chart_rock_type.png" alt="Bar chart of rock types at sampling sites" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Bar chart of rock types at sampling sites</p></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Boxplot</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A boxplot (box-and-whisker plot) is a graphical display that summarizes a distribution with five numbers: the minimum, first quartile (Q1), median, third quartile (Q3), and maximum. Whiskers extend to the most extreme values that are not outliers, and any outliers are plotted as individual points.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 25 ; Introductory Statistics 2e, p. 100; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.5.1 &quot;A numerical and a categorical variable&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> A boxplot of dissolved oxygen readings from river water samples shows the median near the center of the box, with one low-reading site drawn as a point below the lower whisker.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+dissolved_oxygen_mg_l &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">9</span>, <span style="color:#005cc5;">8.1</span>, <span style="color:#005cc5;">7.7</span>, <span style="color:#005cc5;">8.2</span>,
+  <span style="color:#005cc5;">8.2</span>, <span style="color:#005cc5;">8.7</span>, <span style="color:#005cc5;">9.4</span>, <span style="color:#005cc5;">8.8</span>,
+  <span style="color:#005cc5;">8.6</span>, <span style="color:#005cc5;">6.3</span>, <span style="color:#005cc5;">8.8</span>, <span style="color:#005cc5;">6.9</span>,
+  <span style="color:#005cc5;">11.4</span>, <span style="color:#005cc5;">8</span>, <span style="color:#005cc5;">8.5</span>, <span style="color:#005cc5;">8.7</span>,
+  <span style="color:#005cc5;">9.2</span>, <span style="color:#005cc5;">8.6</span>, <span style="color:#005cc5;">7.6</span>, <span style="color:#005cc5;">10.4</span>,
+  <span style="color:#005cc5;">8.4</span>, <span style="color:#005cc5;">7.6</span>, <span style="color:#005cc5;">8.9</span>, <span style="color:#005cc5;">7.2</span>,
+  <span style="color:#005cc5;">7.3</span>, <span style="color:#005cc5;">7.9</span>, <span style="color:#005cc5;">10.7</span>, <span style="color:#005cc5;">7.6</span>,
+  <span style="color:#005cc5;">9</span>, <span style="color:#005cc5;">8.1</span>, <span style="color:#005cc5;">4.2</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(dissolved_oxygen =
+  dissolved_oxygen_mg_l), <span style="color:#6f42c1;">aes</span>(y = dissolved_oxygen)) +
+  <span style="color:#6f42c1;">geom_boxplot</span>(fill = <span style="color:#032f62;">"seagreen"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Dissolved oxygen in river water"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/boxplot_dissolved_oxygen.png" alt="Boxplot of dissolved oxygen readings from river water" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Boxplot of dissolved oxygen readings from river water</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Side-by-side boxplots of leaf length by tree species make it easy to see that Pine leaves tend to be longer than Maple or Oak leaves.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+oak   &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">76.7</span>, <span style="color:#005cc5;">71.5</span>, <span style="color:#005cc5;">61.1</span>, <span style="color:#005cc5;">58.6</span>,
+  <span style="color:#005cc5;">77.8</span>, <span style="color:#005cc5;">75.8</span>, <span style="color:#005cc5;">64.3</span>, <span style="color:#005cc5;">68.5</span>,
+  <span style="color:#005cc5;">72.6</span>, <span style="color:#005cc5;">66.5</span>,
+)
+maple &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">57.4</span>, <span style="color:#005cc5;">51.9</span>, <span style="color:#005cc5;">55.9</span>, <span style="color:#005cc5;">46.9</span>,
+  <span style="color:#005cc5;">61</span>, <span style="color:#005cc5;">56.2</span>, <span style="color:#005cc5;">58.2</span>, <span style="color:#005cc5;">57.3</span>,
+  <span style="color:#005cc5;">55.5</span>, <span style="color:#005cc5;">49.2</span>,
+)
+pine  &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">78.5</span>, <span style="color:#005cc5;">92.8</span>, <span style="color:#005cc5;">93.9</span>, <span style="color:#005cc5;">90.8</span>,
+  <span style="color:#005cc5;">81.3</span>, <span style="color:#005cc5;">89.4</span>, <span style="color:#005cc5;">86.6</span>, <span style="color:#005cc5;">99</span>,
+  <span style="color:#005cc5;">97.5</span>, <span style="color:#005cc5;">86.3</span>,
+)
+forest &lt;- data.<span style="color:#6f42c1;">frame</span>(
+  leaf_length_mm = <span style="color:#6f42c1;">c</span>(oak, maple, pine),
+)
+
+<span style="color:#6f42c1;">ggplot</span>(forest, <span style="color:#6f42c1;">aes</span>(x = species, y = leaf_length_mm)) +
+  <span style="color:#6f42c1;">geom_boxplot</span>(fill = <span style="color:#032f62;">"seagreen"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Leaf length by tree species"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/boxplot_leaf_length_species.png" alt="Side-by-side boxplots of leaf length by tree species" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Side-by-side boxplots of leaf length by tree species</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> Side-by-side boxplots of battery capacity by cell type show that Type C cells tend to hold less charge than Type A or Type B cells.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+type_a &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">2535</span>, <span style="color:#005cc5;">2522</span>, <span style="color:#005cc5;">2574</span>, <span style="color:#005cc5;">2481</span>,
+  <span style="color:#005cc5;">2382</span>, <span style="color:#005cc5;">2411</span>, <span style="color:#005cc5;">2672</span>, <span style="color:#005cc5;">2524</span>,
+  <span style="color:#005cc5;">2702</span>, <span style="color:#005cc5;">2643</span>,
+)
+type_b &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">2701</span>, <span style="color:#005cc5;">2390</span>, <span style="color:#005cc5;">2548</span>, <span style="color:#005cc5;">2419</span>,
+  <span style="color:#005cc5;">2707</span>, <span style="color:#005cc5;">2670</span>, <span style="color:#005cc5;">2663</span>, <span style="color:#005cc5;">2641</span>,
+  <span style="color:#005cc5;">2757</span>, <span style="color:#005cc5;">2712</span>,
+)
+type_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">2086</span>, <span style="color:#005cc5;">2244</span>, <span style="color:#005cc5;">2291</span>, <span style="color:#005cc5;">2185</span>,
+  <span style="color:#005cc5;">2013</span>, <span style="color:#005cc5;">2128</span>, <span style="color:#005cc5;">2173</span>, <span style="color:#005cc5;">2276</span>,
+  <span style="color:#005cc5;">2319</span>, <span style="color:#005cc5;">2254</span>,
+)
+cells &lt;- data.<span style="color:#6f42c1;">frame</span>(
+  battery_capacity_mah = <span style="color:#6f42c1;">c</span>(type_a, type_b, type_c),
+)
+
+<span style="color:#6f42c1;">ggplot</span>(cells, <span style="color:#6f42c1;">aes</span>(x = cell_type,
+  y = battery_capacity_mah)) +
+  <span style="color:#6f42c1;">geom_boxplot</span>(fill = <span style="color:#032f62;">"seagreen"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Battery capacity by cell type"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/boxplot_battery_capacity.png" alt="Side-by-side boxplots of battery capacity by cell type" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Side-by-side boxplots of battery capacity by cell type</p></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">C</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Categorical Variable</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A categorical (qualitative) variable records which group, category, or label each observation belongs to; the values are names rather than measured amounts. Arithmetic such as addition or averaging does not make sense for categorical data.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 38; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.1 &quot;A categorical variable&quot;; Hands-On Programming with R, ch. 5 &quot;R Objects&quot;, §5.1.3 &quot;Characters&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Material phase (austenite, ferrite, or martensite) is a categorical variable because each steel specimen is assigned one of three microstructural labels.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Blood type (A, B, AB, or O) is a categorical variable naming the blood group of each donor.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> Rock type (igneous, sedimentary, or metamorphic) is a categorical variable naming the geological origin of each site.</p>
+</div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Central Tendency</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> Central tendency (centrality) refers to a single value that represents the center, or typical value, of a distribution. The most common measures of central tendency are the mean, the median, and the mode; the appropriate measure depends on the shape of the distribution and the type of variable.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.1 &quot;Center&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> A concrete testing lab summarizes concrete slump measurements with the mean because the distribution is approximately symmetric.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+concrete_slump_mm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">78.7</span>, <span style="color:#005cc5;">77.3</span>, <span style="color:#005cc5;">83.2</span>, <span style="color:#005cc5;">79.3</span>,
+  <span style="color:#005cc5;">79.4</span>, <span style="color:#005cc5;">84.7</span>, <span style="color:#005cc5;">77.9</span>, <span style="color:#005cc5;">76.9</span>,
+  <span style="color:#005cc5;">80.7</span>, <span style="color:#005cc5;">75.8</span>, <span style="color:#005cc5;">78.8</span>, <span style="color:#005cc5;">80.4</span>,
+  <span style="color:#005cc5;">82.7</span>, <span style="color:#005cc5;">75.2</span>, <span style="color:#005cc5;">80.2</span>, <span style="color:#005cc5;">78.2</span>,
+  <span style="color:#005cc5;">81.8</span>, <span style="color:#005cc5;">81.6</span>,
+)
+<span style="color:#6f42c1;">mean</span>(concrete_slump_mm)
+<span style="color:#6f42c1;">median</span>(concrete_slump_mm)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Because the distribution is approximately symmetric, the mean and median are close together.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> A maintenance team summarizes equipment repair times with the median because the distribution is strongly right-skewed.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+repair_time_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">0.7</span>, <span style="color:#005cc5;">0.1</span>, <span style="color:#005cc5;">0.9</span>, <span style="color:#005cc5;">3.8</span>,
+  <span style="color:#005cc5;">2.1</span>, <span style="color:#005cc5;">0.6</span>, <span style="color:#005cc5;">16.2</span>, <span style="color:#005cc5;">1.4</span>,
+  <span style="color:#005cc5;">2</span>, <span style="color:#005cc5;">1.7</span>, <span style="color:#005cc5;">3.9</span>, <span style="color:#005cc5;">2.7</span>,
+  <span style="color:#005cc5;">3</span>, <span style="color:#005cc5;">7.7</span>, <span style="color:#005cc5;">2.6</span>, <span style="color:#005cc5;">0.1</span>,
+  <span style="color:#005cc5;">6.2</span>, <span style="color:#005cc5;">2.9</span>,
+)
+<span style="color:#6f42c1;">median</span>(repair_time_hours)
+<span style="color:#6f42c1;">mean</span>(repair_time_hours)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The mean is pulled toward the long tail of long repairs and is larger than the median.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A blood bank summarizes donors&#x27; blood types with the mode because the variable is categorical.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+blood_type &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"B"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"A"</span>,
+  <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"O"</span>,
+  <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"A"</span>,
+  <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"A"</span>, <span style="color:#032f62;">"B"</span>,
+  <span style="color:#032f62;">"O"</span>, <span style="color:#032f62;">"B"</span>,
+)
+<span style="color:#6f42c1;">names</span>(which.<span style="color:#6f42c1;">max</span>(<span style="color:#6f42c1;">table</span>(blood_type)))
+</pre></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Continuous Variable</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A continuous variable is a quantitative variable that can take any value within a range; between any two possible values there are infinitely many other possible values, and measurements are limited only by the precision of the measuring instrument.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 56; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.2 &quot;A numerical variable&quot;; Hands-On Programming with R, ch. 5 &quot;R Objects&quot;, §5.1.1 &quot;Doubles&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The width of the widest crack in a bridge deck is a continuous variable because it can take any value within a range of millimeters.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The measurements take many fractional values, limited only by the precision of the gauge.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Server response time in milliseconds is a continuous variable because it can take any fractional value.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Nearly every observation is a different fractional value, so the variable is not restricted to a fixed set of steps.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The mass of a product in kilograms is a continuous variable because it can take any value within a range.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The values differ by small fractional amounts rather than jumping between whole units.</p></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Correlation</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The correlation coefficient, denoted r, measures the strength and direction of the linear relationship between two quantitative variables.<br/>$$r = \frac{1}{n-1}\sum \left(\frac{x_i - \bar{x}}{s_x}\right)\left(\frac{y_i - \bar{y}}{s_y}\right)$$<br/> Two variables have a linear relationship when their points in a scatterplot tend to fall along a straight line, so a change of one unit in x is associated with a roughly constant change in y. The value of r always lies between −1 and 1: the sign tells the direction (positive when the variables tend to increase together, negative when they move in opposite directions), and the magnitude tells the strength, which describes how tightly the points cluster around a line: weak (points widely scattered), moderate (a clear but loose trend), or strong (points tightly clustered), with values near ±1 indicating a strong linear relationship and values near 0 a weak one. A value near 0 indicates no <em>linear</em> relationship, not necessarily no relationship at all: the points may follow a curve (a nonlinear relationship) that the correlation coefficient does not describe. Correlation measures association, not causation.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 642; R for Data Science (2e), ch. 10 &quot;Exploratory data analysis&quot;, §10.5.3 &quot;Two numerical variables&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Applied load and deflection of steel specimens show a strong positive linear relationship: as the load increases, the deflection increases roughly in a straight line.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+load_kn &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">57.4</span>, <span style="color:#005cc5;">62.1</span>, <span style="color:#005cc5;">66.8</span>, <span style="color:#005cc5;">71.6</span>,
+  <span style="color:#005cc5;">76.3</span>, <span style="color:#005cc5;">81.1</span>, <span style="color:#005cc5;">85.8</span>, <span style="color:#005cc5;">90.5</span>,
+  <span style="color:#005cc5;">95.3</span>, <span style="color:#005cc5;">100</span>,
+)
+deflection_mm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">26.1</span>, <span style="color:#005cc5;">31.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">34.4</span>,
+  <span style="color:#005cc5;">39.6</span>, <span style="color:#005cc5;">40</span>, <span style="color:#005cc5;">39.4</span>, <span style="color:#005cc5;">46.7</span>,
+  <span style="color:#005cc5;">48.8</span>, <span style="color:#005cc5;">50.4</span>,
+)
+
+<span style="color:#6f42c1;">cor</span>(load_kn, deflection_mm)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Outdoor temperature and heating energy use show a strong negative linear relationship: warmer days tend to use less heating energy.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">14.9</span>, <span style="color:#005cc5;">11.1</span>, <span style="color:#005cc5;">4</span>, <span style="color:#005cc5;">2.2</span>,
+  <span style="color:#005cc5;">14.5</span>, -<span style="color:#005cc5;">1.8</span>, <span style="color:#005cc5;">6.9</span>, <span style="color:#005cc5;">8.7</span>,
+  <span style="color:#005cc5;">16.7</span>, <span style="color:#005cc5;">9.4</span>,
+)
+heating_kwh &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">13.4</span>, <span style="color:#005cc5;">11.2</span>, <span style="color:#005cc5;">25.1</span>, <span style="color:#005cc5;">18.3</span>,
+  <span style="color:#005cc5;">7.7</span>, <span style="color:#005cc5;">28</span>, <span style="color:#005cc5;">16.1</span>, <span style="color:#005cc5;">22</span>,
+  <span style="color:#005cc5;">4.7</span>, <span style="color:#005cc5;">16.4</span>,
+)
+
+<span style="color:#6f42c1;">cor</span>(temp_c, heating_kwh)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> Wind speed and enzyme reaction rate show almost no linear relationship: changes in wind speed are not associated with systematic changes in reaction rate.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+wind_mps &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">8.8</span>, <span style="color:#005cc5;">6</span>, <span style="color:#005cc5;">2.6</span>, <span style="color:#005cc5;">9.4</span>,
+  <span style="color:#005cc5;">8.2</span>, <span style="color:#005cc5;">8.3</span>, <span style="color:#005cc5;">7.7</span>, <span style="color:#005cc5;">9.9</span>,
+  <span style="color:#005cc5;">3.8</span>, <span style="color:#005cc5;">10.3</span>,
+)
+enzyme_rate &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">5.26</span>, <span style="color:#005cc5;">4.45</span>, <span style="color:#005cc5;">4.63</span>, <span style="color:#005cc5;">4.48</span>,
+  <span style="color:#005cc5;">4.02</span>, <span style="color:#005cc5;">4.2</span>, <span style="color:#005cc5;">4.47</span>, <span style="color:#005cc5;">4.67</span>,
+  <span style="color:#005cc5;">4.96</span>, <span style="color:#005cc5;">6.45</span>,
+)
+
+<span style="color:#6f42c1;">cor</span>(wind_mps, enzyme_rate)
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">D</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Discrete Variable</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A discrete variable is a quantitative variable that takes only certain separate values, usually whole numbers that come from counting; between two possible values there are no other possible values.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 56; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.2 &quot;A numerical variable&quot;; Hands-On Programming with R, ch. 5 &quot;R Objects&quot;, §5.1.2 &quot;Integers&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The number of cracks detected in a bridge deck is a discrete variable because you count whole cracks.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Only whole numbers appear; there is no such thing as 2.5 cracks.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The number of failed login attempts in an hour is a discrete variable because it comes from counting attempts.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The number of items in a customer&#x27;s cart is a discrete variable because you count items one at a time.</p>
+</div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Distribution</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The distribution of a variable describes which values it takes and how often it takes them; it is the overall pattern of the data and is usually summarized with a table, histogram, or boxplot.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 38; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4 &quot;Visualizing distributions&quot;; ch. 13 &quot;Numbers&quot;, §13.6.4 &quot;Distributions&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The distribution of tensile strengths shows most specimens clustering near 400 MPa with a few weaker ones.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+tensile_strength_mpa &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">398</span>, <span style="color:#005cc5;">398</span>, <span style="color:#005cc5;">398</span>, <span style="color:#005cc5;">399</span>,
+  <span style="color:#005cc5;">399</span>, <span style="color:#005cc5;">399</span>, <span style="color:#005cc5;">399</span>, <span style="color:#005cc5;">400</span>,
+  <span style="color:#005cc5;">401</span>, <span style="color:#005cc5;">401</span>, <span style="color:#005cc5;">403</span>, <span style="color:#005cc5;">404</span>,
+  <span style="color:#005cc5;">404</span>, <span style="color:#005cc5;">405</span>, <span style="color:#005cc5;">406</span>, <span style="color:#005cc5;">406</span>,
+  <span style="color:#005cc5;">407</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(tensile_strength =
+  tensile_strength_mpa), <span style="color:#6f42c1;">aes</span>(x = tensile_strength)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">4</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Distribution of tensile strengths"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/distribution_tensile_histogram.png" alt="Histogram of tensile strengths" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Histogram of tensile strengths</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The distribution of wait times shows a large pile-up of short waits and a long tail of long waits.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+wait_time_min &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">2.2</span>, <span style="color:#005cc5;">2.5</span>, <span style="color:#005cc5;">2.9</span>, <span style="color:#005cc5;">3.3</span>,
+  <span style="color:#005cc5;">3.8</span>, <span style="color:#005cc5;">4.4</span>, <span style="color:#005cc5;">5</span>, <span style="color:#005cc5;">5.8</span>,
+  <span style="color:#005cc5;">6.7</span>, <span style="color:#005cc5;">7.8</span>, <span style="color:#005cc5;">9.1</span>, <span style="color:#005cc5;">10.6</span>,
+  <span style="color:#005cc5;">12.3</span>, <span style="color:#005cc5;">14.5</span>, <span style="color:#005cc5;">17.1</span>, <span style="color:#005cc5;">20.2</span>,
+  <span style="color:#005cc5;">24.1</span>, <span style="color:#005cc5;">29.4</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(wait_time = wait_time_min),
+  <span style="color:#6f42c1;">aes</span>(y = wait_time)) +
+  <span style="color:#6f42c1;">geom_boxplot</span>(fill = <span style="color:#032f62;">"seagreen"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Distribution of wait times"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/distribution_wait_boxplot.png" alt="Boxplot of wait times" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Boxplot of wait times</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The distribution of failure modes shows that most specimens failed ductile, with fewer brittle and mixed failures.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+failure_mode &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Mixed"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(failure_mode),
+  <span style="color:#6f42c1;">aes</span>(x = failure_mode)) +
+  <span style="color:#6f42c1;">geom_bar</span>(fill = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Distribution of failure modes"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/distribution_failure_bar.png" alt="Bar chart of failure modes" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Bar chart of failure modes</p></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">H</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Histogram</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A histogram is a graphical display of the distribution of a quantitative variable that divides the range of values into intervals (bins) and uses bars whose heights show how many observations fall in each interval.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 93; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.2 &quot;A numerical variable&quot;; ch. 10 &quot;Exploratory data analysis&quot;, §10.3 &quot;Variation&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> A histogram of failure times shows most components failing early with a long right tail.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+failure_time_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">2</span>, <span style="color:#005cc5;">2.2</span>, <span style="color:#005cc5;">2.5</span>, <span style="color:#005cc5;">2.8</span>,
+  <span style="color:#005cc5;">3.1</span>, <span style="color:#005cc5;">3.5</span>, <span style="color:#005cc5;">3.9</span>, <span style="color:#005cc5;">4.4</span>,
+  <span style="color:#005cc5;">5</span>, <span style="color:#005cc5;">5.7</span>, <span style="color:#005cc5;">6.5</span>, <span style="color:#005cc5;">7.4</span>,
+  <span style="color:#005cc5;">8.5</span>, <span style="color:#005cc5;">9.8</span>, <span style="color:#005cc5;">11.3</span>, <span style="color:#005cc5;">13.1</span>,
+  <span style="color:#005cc5;">15.4</span>, <span style="color:#005cc5;">18.2</span>, <span style="color:#005cc5;">21.9</span>, <span style="color:#005cc5;">26.8</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(failure_time = failure_time_hours),
+  <span style="color:#6f42c1;">aes</span>(x = failure_time)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">2</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Component failure times"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/histogram_failure_times.png" alt="Histogram of component failure times" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Histogram of component failure times</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> A histogram of shaft diameters shows one tall bar in the middle, indicating that most diameters are near the target.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+shaft_diameter_mm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">50.9</span>, <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">51</span>, <span style="color:#005cc5;">50.2</span>,
+  <span style="color:#005cc5;">51.3</span>, <span style="color:#005cc5;">50</span>, <span style="color:#005cc5;">50.7</span>, <span style="color:#005cc5;">50.1</span>,
+  <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">49.5</span>,
+  <span style="color:#005cc5;">49.4</span>, <span style="color:#005cc5;">51.3</span>, <span style="color:#005cc5;">49.5</span>, <span style="color:#005cc5;">50.9</span>,
+  <span style="color:#005cc5;">50.1</span>, <span style="color:#005cc5;">50.2</span>, <span style="color:#005cc5;">50.3</span>, <span style="color:#005cc5;">49.4</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(shaft_diameter = shaft_diameter_mm),
+  <span style="color:#6f42c1;">aes</span>(x = shaft_diameter)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">0.3</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Shaft diameters"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/histogram_shaft_diameter.png" alt="Histogram of shaft diameters" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Histogram of shaft diameters</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A histogram of household energy use reveals a right-skewed distribution with a few very high users.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+household_kwh_day &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">16</span>, <span style="color:#005cc5;">17</span>, <span style="color:#005cc5;">18.1</span>, <span style="color:#005cc5;">19.3</span>,
+  <span style="color:#005cc5;">20.6</span>, <span style="color:#005cc5;">22</span>, <span style="color:#005cc5;">23.5</span>, <span style="color:#005cc5;">25.2</span>,
+  <span style="color:#005cc5;">27.1</span>, <span style="color:#005cc5;">29.2</span>, <span style="color:#005cc5;">31.5</span>, <span style="color:#005cc5;">34.1</span>,
+  <span style="color:#005cc5;">37</span>, <span style="color:#005cc5;">40.3</span>, <span style="color:#005cc5;">44.1</span>, <span style="color:#005cc5;">48.5</span>,
+  <span style="color:#005cc5;">53.6</span>, <span style="color:#005cc5;">59.8</span>, <span style="color:#005cc5;">67.3</span>, <span style="color:#005cc5;">76.9</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(energy_kwh = household_kwh_day),
+  <span style="color:#6f42c1;">aes</span>(x = energy_kwh)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">6</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Household energy use"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/histogram_household_energy.png" alt="Histogram of household energy use" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Histogram of household energy use</p></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">I</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Interquartile Range (IQR)</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The interquartile range (IQR) is the distance between the first quartile (Q1) and the third quartile (Q3), so it measures the spread of the middle 50% of the data.<br/>$$\text{IQR} = Q_3 - Q_1$$<br/> Because it ignores the extreme values, it is the preferred measure of variability when the distribution is skewed or has outliers.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 99; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.3 &quot;Spread&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The IQR of battery lifetimes is 33 hours, meaning the middle half of the batteries fall within a 33-hour span.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">IQR</span>(battery_lifetime_hours)
+<span style="color:#6f42c1;">quantile</span>(battery_lifetime_hours, probs = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.25</span>,
+  <span style="color:#005cc5;">0.75</span>))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> For yield strengths, the IQR is 17 MPa, so the middle half of the specimens fall within a 17 MPa span.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+yield_strength_mpa &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">393.5</span>, <span style="color:#005cc5;">395.0</span>, <span style="color:#005cc5;">396.4</span>, <span style="color:#005cc5;">397.8</span>,
+  <span style="color:#005cc5;">399.0</span>, <span style="color:#005cc5;">400.2</span>, <span style="color:#005cc5;">401.5</span>, <span style="color:#005cc5;">402.8</span>,
+  <span style="color:#005cc5;">404.0</span>, <span style="color:#005cc5;">405.1</span>, <span style="color:#005cc5;">406.3</span>, <span style="color:#005cc5;">407.4</span>,
+  <span style="color:#005cc5;">408.2</span>, <span style="color:#005cc5;">409.1</span>, <span style="color:#005cc5;">410.3</span>, <span style="color:#005cc5;">411.0</span>,
+  <span style="color:#005cc5;">412.4</span>, <span style="color:#005cc5;">413.6</span>, <span style="color:#005cc5;">415.2</span>, <span style="color:#005cc5;">417.0</span>,
+)
+<span style="color:#6f42c1;">IQR</span>(yield_strength_mpa)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A narrow IQR for sensor temperatures shows the process is stable in its middle half.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+sensor_temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">23.8</span>, <span style="color:#005cc5;">23.9</span>, <span style="color:#005cc5;">24.0</span>, <span style="color:#005cc5;">24.1</span>,
+  <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">24.3</span>,
+)
+<span style="color:#6f42c1;">IQR</span>(sensor_temp_c)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 4:</span> The IQR of hardness is computed separately within each annealing-temperature group.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+specimens &lt;- data.<span style="color:#6f42c1;">frame</span>(
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+)
+                          levels = <span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  <span style="color:#032f62;">"High"</span>)),
+  hardness_hrb   = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">66.0</span>, <span style="color:#005cc5;">67.1</span>, <span style="color:#005cc5;">68.2</span>, <span style="color:#005cc5;">69.0</span>, <span style="color:#005cc5;">69.8</span>,
+  <span style="color:#005cc5;">70.5</span>, <span style="color:#005cc5;">71.3</span>, <span style="color:#005cc5;">72.0</span>, <span style="color:#005cc5;">72.8</span>, <span style="color:#005cc5;">73.5</span>,
+                     <span style="color:#005cc5;">74.0</span>, <span style="color:#005cc5;">74.8</span>, <span style="color:#005cc5;">75.5</span>, <span style="color:#005cc5;">76.2</span>, <span style="color:#005cc5;">76.9</span>,
+  <span style="color:#005cc5;">77.6</span>, <span style="color:#005cc5;">78.3</span>, <span style="color:#005cc5;">79.0</span>, <span style="color:#005cc5;">79.8</span>, <span style="color:#005cc5;">80.5</span>,
+                     <span style="color:#005cc5;">81.0</span>, <span style="color:#005cc5;">81.8</span>, <span style="color:#005cc5;">82.5</span>, <span style="color:#005cc5;">83.2</span>, <span style="color:#005cc5;">83.9</span>,
+  <span style="color:#005cc5;">84.6</span>, <span style="color:#005cc5;">85.3</span>, <span style="color:#005cc5;">86.0</span>, <span style="color:#005cc5;">86.8</span>, <span style="color:#005cc5;">87.5</span>)
+)
+
+specimens %&gt;%
+  <span style="color:#6f42c1;">group_by</span>(annealing_temp) %&gt;%
+  <span style="color:#6f42c1;">summarize</span>(iqr_hardness = <span style="color:#6f42c1;">IQR</span>(hardness_hrb))
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">M</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Mean</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The mean (arithmetic average) of a dataset is the sum of all values divided by the number of values.<br/>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$<br/> It is the appropriate measure of centrality when the distribution is approximately symmetric, because it uses every observation; it can be pulled away from the center by skewness or outliers.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 15 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.1 &quot;Center&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The mean resting heart rate of 73.9 bpm describes a symmetric distribution of athlete heart rates.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+resting_heart_rate_bpm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>,
+  <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">76</span>, <span style="color:#005cc5;">76</span>,
+  <span style="color:#005cc5;">77</span>, <span style="color:#005cc5;">78</span>, <span style="color:#005cc5;">79</span>, <span style="color:#005cc5;">81</span>,
+  <span style="color:#005cc5;">82</span>, <span style="color:#005cc5;">86</span>,
+)
+<span style="color:#6f42c1;">mean</span>(resting_heart_rate_bpm)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The mean BMI of 24.9 summarizes a nearly symmetric sample of adults.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+bmi &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">24.4</span>, <span style="color:#005cc5;">24.7</span>, <span style="color:#005cc5;">25.0</span>, <span style="color:#005cc5;">25.3</span>,
+  <span style="color:#005cc5;">25.6</span>, <span style="color:#005cc5;">25.9</span>, <span style="color:#005cc5;">26.3</span>, <span style="color:#005cc5;">26.7</span>,
+  <span style="color:#005cc5;">27.1</span>, <span style="color:#005cc5;">27.6</span>, <span style="color:#005cc5;">28.2</span>, <span style="color:#005cc5;">28.9</span>,
+  <span style="color:#005cc5;">29.7</span>, <span style="color:#005cc5;">30.7</span>,
+)
+<span style="color:#6f42c1;">mean</span>(bmi)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The mean hardness of a sample of annealed specimens represents the typical hardness when the distribution is symmetric.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+hardness_hrb &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#6f42c1;">mean</span>(hardness_hrb,
+)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 4:</span> The mean hardness is computed separately within each annealing-temperature group, showing that hardness increases with temperature.</p>
+</div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Median</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The median is the middle value of a dataset when the values are arranged in order; half of the observations fall below it and half above.<br/>$$\text{Median} = \begin{cases} x_{(n+1)/2} & \text{if } n \text{ odd} \\ \frac{x_{n/2} + x_{n/2+1}}{2} & \text{if } n \text{ even} \end{cases}$$<br/> It is a robust measure of centrality that is preferred for skewed distributions, because it is not pulled toward the tail by outliers.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 16 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.1 &quot;Center&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The median battery lifetime of 26.6 hours describes the center of a strongly right-skewed distribution better than the mean does.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">median</span>(battery_lifetime_hours)
+<span style="color:#6f42c1;">mean</span>(battery_lifetime_hours)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The mean (40.0 hours) is pulled toward the few very long-lived batteries.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The median wait time of 3 minutes is typical for a help desk where a few callers wait very long.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+wait_time_min &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">2.1</span>, <span style="color:#005cc5;">2.3</span>, <span style="color:#005cc5;">2.5</span>, <span style="color:#005cc5;">2.8</span>,
+  <span style="color:#005cc5;">3.1</span>, <span style="color:#005cc5;">3.5</span>, <span style="color:#005cc5;">3.9</span>, <span style="color:#005cc5;">4.4</span>,
+  <span style="color:#005cc5;">5.0</span>, <span style="color:#005cc5;">5.7</span>, <span style="color:#005cc5;">6.5</span>, <span style="color:#005cc5;">7.4</span>,
+  <span style="color:#005cc5;">8.5</span>, <span style="color:#005cc5;">9.8</span>, <span style="color:#005cc5;">11.3</span>, <span style="color:#005cc5;">13.1</span>,
+  <span style="color:#005cc5;">15.4</span>, <span style="color:#005cc5;">18.2</span>,
+)
+<span style="color:#6f42c1;">median</span>(wait_time_min)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The median particle diameter of 9.0 µm represents the center of a right-skewed particle-size distribution.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+particle_diameter_um &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">8.5</span>, <span style="color:#005cc5;">8.8</span>, <span style="color:#005cc5;">9.2</span>, <span style="color:#005cc5;">9.7</span>,
+  <span style="color:#005cc5;">10.3</span>, <span style="color:#005cc5;">11.0</span>, <span style="color:#005cc5;">11.8</span>, <span style="color:#005cc5;">12.7</span>,
+  <span style="color:#005cc5;">13.8</span>, <span style="color:#005cc5;">15.1</span>, <span style="color:#005cc5;">16.6</span>, <span style="color:#005cc5;">18.4</span>,
+  <span style="color:#005cc5;">20.6</span>, <span style="color:#005cc5;">23.3</span>,
+)
+<span style="color:#6f42c1;">median</span>(particle_diameter_um)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 4:</span> The median hardness is computed separately within each annealing-temperature group.</p>
+</div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Maximum</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The maximum is the largest value in a dataset. It is the value at the very top of the ordered list and, together with the minimum, it defines the range of the data. Because it is one of the two most extreme values, it is not robust: a single unusually large observation can pull it far from the rest of the data.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.2 &quot;Minimum, maximum, and quantiles&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The maximum battery lifetime is 209.8 hours, the longest any battery in the sample survived.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">max</span>(battery_lifetime_hours)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The maximum furnace temperature reading is 169.1°C — an outlier far above the readings clustered near 150°C.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+furnace_temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">151.8</span>, <span style="color:#005cc5;">152.4</span>, <span style="color:#005cc5;">153.1</span>, <span style="color:#005cc5;">153.9</span>,
+  <span style="color:#005cc5;">154.8</span>, <span style="color:#005cc5;">165.8</span>, <span style="color:#005cc5;">169.1</span>,
+)
+<span style="color:#6f42c1;">max</span>(furnace_temp_c)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The maximum pH reading is 7.69, the most basic site in the sample.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+ph_reading &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">7.11</span>, <span style="color:#005cc5;">7.14</span>, <span style="color:#005cc5;">7.18</span>, <span style="color:#005cc5;">7.23</span>,
+  <span style="color:#005cc5;">7.29</span>, <span style="color:#005cc5;">7.35</span>, <span style="color:#005cc5;">7.42</span>, <span style="color:#005cc5;">7.50</span>,
+  <span style="color:#005cc5;">7.59</span>, <span style="color:#005cc5;">7.69</span>,
+)
+<span style="color:#6f42c1;">max</span>(ph_reading)
+</pre></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Minimum</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The minimum is the smallest value in a dataset. It is the value at the very bottom of the ordered list and, together with the maximum, it defines the range of the data. Like the maximum, it is not robust, because it depends on a single extreme observation.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.2 &quot;Minimum, maximum, and quantiles&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The minimum battery lifetime is 0.2 hours, the shortest any battery in the sample survived.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">min</span>(battery_lifetime_hours)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The minimum bottle fill is 445 mL, an outlier below the lower fence in a sample filled near 500 mL.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+bottle_fill_ml &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">501</span>, <span style="color:#005cc5;">501</span>, <span style="color:#005cc5;">502</span>, <span style="color:#005cc5;">502</span>,
+  <span style="color:#005cc5;">503</span>, <span style="color:#005cc5;">504</span>, <span style="color:#005cc5;">505</span>, <span style="color:#005cc5;">445</span>,
+  <span style="color:#005cc5;">453</span>,
+)
+<span style="color:#6f42c1;">min</span>(bottle_fill_ml)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The minimum pH reading is 6.54, the most acidic site in the sample. Together the minimum and the maximum give the range.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+ph_reading &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">7.11</span>, <span style="color:#005cc5;">7.14</span>, <span style="color:#005cc5;">7.18</span>, <span style="color:#005cc5;">7.23</span>,
+  <span style="color:#005cc5;">7.29</span>, <span style="color:#005cc5;">7.35</span>, <span style="color:#005cc5;">7.42</span>, <span style="color:#005cc5;">7.50</span>,
+  <span style="color:#005cc5;">7.59</span>, <span style="color:#005cc5;">7.69</span>,
+)
+<span style="color:#6f42c1;">max</span>(ph_reading) - <span style="color:#6f42c1;">min</span>(ph_reading)
+</pre></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Modality</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> Modality describes the number of distinct peaks (modes) in the distribution of a quantitative variable. A distribution is unimodal when its histogram has a single distinct peak, so most observations cluster around one central value; a distribution is multimodal when its histogram has multiple distinct peaks, indicating several separated clusters of values.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 93; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.2 &quot;A numerical variable&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The histogram below shows resistance readings from a single batch, which are unimodal: most readings cluster around one central value.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+batch_resistance_ohms &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">100</span>, <span style="color:#005cc5;">101</span>, <span style="color:#005cc5;">101</span>, <span style="color:#005cc5;">102</span>,
+  <span style="color:#005cc5;">102</span>, <span style="color:#005cc5;">103</span>, <span style="color:#005cc5;">104</span>, <span style="color:#005cc5;">105</span>,
+  <span style="color:#005cc5;">106</span>, <span style="color:#005cc5;">107</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(resistance = batch_resistance_ohms),
+  <span style="color:#6f42c1;">aes</span>(x = resistance)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">2</span>, fill = <span style="color:#032f62;">"slateblue"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Resistance from a single batch"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/unimodal.png" alt="Histogram of resistance readings from a single batch (unimodal)" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Histogram of resistance readings from a single batch (unimodal)</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The histogram below shows outside-diameter measurements pooled from several machines, which are multimodal: the readings form several distinct clusters.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+pooled_diameter_mm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">103</span>, <span style="color:#005cc5;">104</span>, <span style="color:#005cc5;">105</span>, <span style="color:#005cc5;">105</span>,
+  <span style="color:#005cc5;">106</span>, <span style="color:#005cc5;">107</span>, <span style="color:#005cc5;">108</span>, <span style="color:#005cc5;">118</span>,
+  <span style="color:#005cc5;">119</span>, <span style="color:#005cc5;">120</span>, <span style="color:#005cc5;">120</span>, <span style="color:#005cc5;">121</span>,
+  <span style="color:#005cc5;">122</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(diameter = pooled_diameter_mm),
+  <span style="color:#6f42c1;">aes</span>(x = diameter)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">4</span>, fill = <span style="color:#032f62;">"slateblue"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Diameters pooled from several</span>
+  machines<span style="color:#032f62;">") +</span>
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/multimodal.png" alt="Histogram of diameters pooled from several machines (multimodal)" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Histogram of diameters pooled from several machines (multimodal)</p></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Mode</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The mode is the value that occurs most frequently in a dataset. It is the only appropriate measure of central tendency for categorical data, because categorical data cannot be averaged; it can also be used for quantitative data, but it is less common there.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 14 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.1 &quot;Center&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Ductile is the mode of a sample of failure modes because more specimens failed ductile than any other way.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+failure_mode &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Mixed"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+)
+<span style="color:#6f42c1;">table</span>(failure_mode)
+<span style="color:#6f42c1;">names</span>(which.<span style="color:#6f42c1;">max</span>(<span style="color:#6f42c1;">table</span>(failure_mode)))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Succeeded is the mode of a set of build statuses because most builds succeeded.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+build_status &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Failed"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>,
+  <span style="color:#032f62;">"Failed"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>,
+  <span style="color:#032f62;">"Failed"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Failed"</span>,
+  <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>,
+)
+<span style="color:#6f42c1;">table</span>(build_status)
+<span style="color:#6f42c1;">names</span>(which.<span style="color:#6f42c1;">max</span>(<span style="color:#6f42c1;">table</span>(build_status)))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> Forest is the mode of a sample of habitat types because it appeared most often.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+habitat_type &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Shrubland"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Grassland"</span>, <span style="color:#032f62;">"Forest"</span>,
+  <span style="color:#032f62;">"Wetland"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Shrubland"</span>,
+  <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Grassland"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Forest"</span>,
+  <span style="color:#032f62;">"Wetland"</span>, <span style="color:#032f62;">"Forest"</span>,
+)
+<span style="color:#6f42c1;">table</span>(habitat_type)
+<span style="color:#6f42c1;">names</span>(which.<span style="color:#6f42c1;">max</span>(<span style="color:#6f42c1;">table</span>(habitat_type)))
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">O</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Outlier</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> An outlier is an observation that lies unusually far from the rest of the data and does not fit the general pattern. Using the 1.5 × IQR rule, a value is an outlier if it falls below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR<br/>$$Q_1 - 1.5 \times \text{IQR} \quad \text{or} \quad Q_3 + 1.5 \times \text{IQR}$$<br/>, where Q1 and Q3 are the first and third quartiles and IQR is their difference.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 15 ; Introductory Statistics 2e, p. 79; R for Data Science (2e), ch. 10 &quot;Exploratory data analysis&quot;, §10.3.2 &quot;Unusual values&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Two furnace temperature readings of 165.8°C and 169.1°C lie above the upper fence, so they are outliers among readings clustered near 150°C.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+furnace_temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">151.8</span>, <span style="color:#005cc5;">152.4</span>, <span style="color:#005cc5;">153.1</span>, <span style="color:#005cc5;">153.9</span>,
+  <span style="color:#005cc5;">154.8</span>, <span style="color:#005cc5;">165.8</span>, <span style="color:#005cc5;">169.1</span>,
+)
+Q1 &lt;- <span style="color:#6f42c1;">quantile</span>(furnace_temp_c, <span style="color:#005cc5;">0.25</span>)
+Q3 &lt;- <span style="color:#6f42c1;">quantile</span>(furnace_temp_c, <span style="color:#005cc5;">0.75</span>)
+lower_fence &lt;- Q1 - <span style="color:#005cc5;">1.5</span> * <span style="color:#6f42c1;">IQR</span>(furnace_temp_c)
+upper_fence &lt;- Q3 + <span style="color:#005cc5;">1.5</span> * <span style="color:#6f42c1;">IQR</span>(furnace_temp_c)
+furnace_temp_c[furnace_temp_c &lt; lower_fence |
+  furnace_temp_c &gt; upper_fence]
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Two bottles filled to 445 mL and 453 mL fall below the lower fence and are outliers in a sample of bottles filled near 500 mL.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+bottle_fill_ml &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">501</span>, <span style="color:#005cc5;">501</span>, <span style="color:#005cc5;">502</span>, <span style="color:#005cc5;">502</span>,
+  <span style="color:#005cc5;">503</span>, <span style="color:#005cc5;">504</span>, <span style="color:#005cc5;">505</span>, <span style="color:#005cc5;">445</span>,
+  <span style="color:#005cc5;">453</span>,
+)
+Q1 &lt;- <span style="color:#6f42c1;">quantile</span>(bottle_fill_ml, <span style="color:#005cc5;">0.25</span>)
+Q3 &lt;- <span style="color:#6f42c1;">quantile</span>(bottle_fill_ml, <span style="color:#005cc5;">0.75</span>)
+lower_fence &lt;- Q1 - <span style="color:#005cc5;">1.5</span> * <span style="color:#6f42c1;">IQR</span>(bottle_fill_ml)
+upper_fence &lt;- Q3 + <span style="color:#005cc5;">1.5</span> * <span style="color:#6f42c1;">IQR</span>(bottle_fill_ml)
+bottle_fill_ml[bottle_fill_ml &lt; lower_fence |
+  bottle_fill_ml &gt; upper_fence]
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A stream site with a pH reading far above the other sites is flagged as an outlier.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+stream_pH &lt;- <span style="color:#6f42c1;">c</span>(
+  Q1 &lt;- <span style="color:#6f42c1;">quantile</span>(stream_pH, <span style="color:#005cc5;">0.25</span>,
+)
+Q3 &lt;- <span style="color:#6f42c1;">quantile</span>(stream_pH, <span style="color:#005cc5;">0.75</span>)
+lower_fence &lt;- Q1 - <span style="color:#005cc5;">1.5</span> * <span style="color:#6f42c1;">IQR</span>(stream_pH)
+upper_fence &lt;- Q3 + <span style="color:#005cc5;">1.5</span> * <span style="color:#6f42c1;">IQR</span>(stream_pH)
+stream_pH[stream_pH &lt; lower_fence | stream_pH &gt;
+  upper_fence]
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">P</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Proportion</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A proportion (relative frequency) is the fraction of observations in a category, computed as the category count divided by the total number of observations.<br/>$$p = \frac{\text{count in category}}{\text{total observations}}$$<br/> Proportions are the standard way to summarize the variability of a categorical variable.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 39; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.3 &quot;Counts&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Ductile failures make up 0.68 (68%) of all specimens, and Brittle and Mixed make up 0.18 and 0.14.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+failure_mode &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Mixed"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+)
+<span style="color:#6f42c1;">table</span>(failure_mode) / <span style="color:#6f42c1;">length</span>(failure_mode)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Succeeded builds account for a proportion of 0.65 of all nightly builds.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+build_status &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Failed"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>,
+  <span style="color:#032f62;">"Failed"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>,
+  <span style="color:#032f62;">"Failed"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Failed"</span>,
+  <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>, <span style="color:#032f62;">"Succeeded"</span>,
+)
+<span style="color:#6f42c1;">table</span>(build_status) / <span style="color:#6f42c1;">length</span>(build_status)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> Forest sites make up 0.35 of all sampled habitat sites.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+habitat_type &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Shrubland"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Grassland"</span>, <span style="color:#032f62;">"Forest"</span>,
+  <span style="color:#032f62;">"Wetland"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Shrubland"</span>,
+  <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Grassland"</span>, <span style="color:#032f62;">"Forest"</span>, <span style="color:#032f62;">"Forest"</span>,
+  <span style="color:#032f62;">"Wetland"</span>, <span style="color:#032f62;">"Forest"</span>,
+)
+<span style="color:#6f42c1;">table</span>(habitat_type) / <span style="color:#6f42c1;">length</span>(habitat_type)
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Q</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Quantitative Variable</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A quantitative (numerical) variable records a measured or counted amount for each observation; its values are numbers on which arithmetic such as averaging makes sense.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 38; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.4.2 &quot;A numerical variable&quot;; Hands-On Programming with R, ch. 5 &quot;R Objects&quot;, §5.1 &quot;Atomic Vectors&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Tensile strength in megapascals is a quantitative variable because it is a measured amount.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Arithmetic such as averaging makes sense for these numbers.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> Weekly exercise minutes is a quantitative variable because it is a counted or measured amount.</p>
+
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> Resting heart rate in beats per minute is a quantitative variable because it is a measured number.</p>
+</div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Quartiles</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> Quartiles divide an ordered dataset into four equal parts: the first quartile (Q1) separates the lowest 25% of the data from the rest, the median separates the lower half from the upper half, and the third quartile (Q3) separates the lowest 75% from the top 25%. The interquartile range is the distance Q3 − Q1.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.2 &quot;Minimum, maximum, and quantiles&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> For battery lifetimes, Q1 is 12.5 hours and Q3 is 45.5 hours, so the middle half of lifetimes span 33 hours.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">quantile</span>(battery_lifetime_hours, probs = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.25</span>, <span style="color:#005cc5;">0.5</span>,
+  <span style="color:#005cc5;">0.75</span>))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> For yield strengths, Q1 is 391.4 MPa and Q3 is 408.4 MPa.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+yield_strength_mpa &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">393.5</span>, <span style="color:#005cc5;">395.0</span>, <span style="color:#005cc5;">396.4</span>, <span style="color:#005cc5;">397.8</span>,
+  <span style="color:#005cc5;">399.0</span>, <span style="color:#005cc5;">400.2</span>, <span style="color:#005cc5;">401.5</span>, <span style="color:#005cc5;">402.8</span>,
+  <span style="color:#005cc5;">404.0</span>, <span style="color:#005cc5;">405.1</span>, <span style="color:#005cc5;">406.3</span>, <span style="color:#005cc5;">407.4</span>,
+  <span style="color:#005cc5;">408.2</span>, <span style="color:#005cc5;">409.1</span>, <span style="color:#005cc5;">410.3</span>, <span style="color:#005cc5;">411.0</span>,
+  <span style="color:#005cc5;">412.4</span>, <span style="color:#005cc5;">413.6</span>, <span style="color:#005cc5;">415.2</span>, <span style="color:#005cc5;">417.0</span>,
+)
+<span style="color:#6f42c1;">quantile</span>(yield_strength_mpa, probs = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.25</span>, <span style="color:#005cc5;">0.5</span>,
+  <span style="color:#005cc5;">0.75</span>))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> For pH readings, Q1 and Q3 are both near 7.1, showing very little spread.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+ph_reading &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">7.11</span>, <span style="color:#005cc5;">7.14</span>, <span style="color:#005cc5;">7.18</span>, <span style="color:#005cc5;">7.23</span>,
+  <span style="color:#005cc5;">7.29</span>, <span style="color:#005cc5;">7.35</span>, <span style="color:#005cc5;">7.42</span>, <span style="color:#005cc5;">7.50</span>,
+  <span style="color:#005cc5;">7.59</span>, <span style="color:#005cc5;">7.69</span>,
+)
+<span style="color:#6f42c1;">quantile</span>(ph_reading, probs = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">0.25</span>, <span style="color:#005cc5;">0.5</span>, <span style="color:#005cc5;">0.75</span>))
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">R</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Range</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The range is the difference between the maximum and the minimum values in a dataset.<br/>$$\text{Range} = \max - \min$$<br/> It is a simple but non-robust measure of spread, because it depends only on the two most extreme values and can be inflated by a single outlier.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.2 &quot;Minimum, maximum, and quantiles&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> Battery lifetimes run from 0.2 to 209.8 hours, a range of 209.6 hours.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">range</span>(battery_lifetime_hours)
+<span style="color:#6f42c1;">diff</span>(<span style="color:#6f42c1;">range</span>(battery_lifetime_hours))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The range of furnace temperatures is large only because of two extreme readings, so it overstates the typical spread.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+furnace_temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">151.8</span>, <span style="color:#005cc5;">152.4</span>, <span style="color:#005cc5;">153.1</span>, <span style="color:#005cc5;">153.9</span>,
+  <span style="color:#005cc5;">154.8</span>, <span style="color:#005cc5;">165.8</span>, <span style="color:#005cc5;">169.1</span>,
+)
+<span style="color:#6f42c1;">diff</span>(<span style="color:#6f42c1;">range</span>(furnace_temp_c))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">Most readings sit within a few degrees of 150°C, so the 20.9°C range is driven by the two high outliers.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The range of pH readings is 1.15, from 6.54 to 7.69.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+ph_reading &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">7.11</span>, <span style="color:#005cc5;">7.14</span>, <span style="color:#005cc5;">7.18</span>, <span style="color:#005cc5;">7.23</span>,
+  <span style="color:#005cc5;">7.29</span>, <span style="color:#005cc5;">7.35</span>, <span style="color:#005cc5;">7.42</span>, <span style="color:#005cc5;">7.50</span>,
+  <span style="color:#005cc5;">7.59</span>, <span style="color:#005cc5;">7.69</span>,
+)
+<span style="color:#6f42c1;">diff</span>(<span style="color:#6f42c1;">range</span>(ph_reading))
+</pre></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Robust (Resistant) Measure</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A robust (resistant) measure is a statistic that is not greatly affected by outliers or by skewness. The median is a robust measure of centrality and the interquartile range is a robust measure of spread; the mean and standard deviation are not robust because they use every observation.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.1 &quot;Center&quot;; ch. 13 §13.6.3 &quot;Spread&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The median battery lifetime changes little when a single very long-lived battery is added, so it is robust.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">median</span>(battery_lifetime_hours)
+
+battery_with_extreme &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#6f42c1;">median</span>(battery_with_extreme,
+)
+<span style="color:#6f42c1;">mean</span>(battery_with_extreme)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The median barely moves, while the mean jumps from 40.0 to 57.7 hours.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The IQR of yield strengths is barely changed by one very weak specimen, unlike the range.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+yield_strength_mpa &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">393.5</span>, <span style="color:#005cc5;">395.0</span>, <span style="color:#005cc5;">396.4</span>, <span style="color:#005cc5;">397.8</span>,
+  <span style="color:#005cc5;">399.0</span>, <span style="color:#005cc5;">400.2</span>, <span style="color:#005cc5;">401.5</span>, <span style="color:#005cc5;">402.8</span>,
+  <span style="color:#005cc5;">404.0</span>, <span style="color:#005cc5;">405.1</span>, <span style="color:#005cc5;">406.3</span>, <span style="color:#005cc5;">407.4</span>,
+  <span style="color:#005cc5;">408.2</span>, <span style="color:#005cc5;">409.1</span>, <span style="color:#005cc5;">410.3</span>, <span style="color:#005cc5;">411.0</span>,
+  <span style="color:#005cc5;">412.4</span>, <span style="color:#005cc5;">413.6</span>, <span style="color:#005cc5;">415.2</span>, <span style="color:#005cc5;">417.0</span>,
+)
+<span style="color:#6f42c1;">IQR</span>(yield_strength_mpa)
+<span style="color:#6f42c1;">diff</span>(<span style="color:#6f42c1;">range</span>(yield_strength_mpa))
+
+yield_with_weak &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#6f42c1;">IQR</span>(yield_with_weak,
+)
+<span style="color:#6f42c1;">diff</span>(<span style="color:#6f42c1;">range</span>(yield_with_weak))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A single extreme temperature reading inflates the mean and standard deviation but leaves the median and IQR almost unchanged.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+furnace_temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">151.8</span>, <span style="color:#005cc5;">152.4</span>, <span style="color:#005cc5;">153.1</span>, <span style="color:#005cc5;">153.9</span>,
+  <span style="color:#005cc5;">154.8</span>, <span style="color:#005cc5;">165.8</span>, <span style="color:#005cc5;">169.1</span>,
+)
+<span style="color:#6f42c1;">mean</span>(furnace_temp_c)
+<span style="color:#6f42c1;">sd</span>(furnace_temp_c)
+
+furnace_typical &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">151.8</span>, <span style="color:#005cc5;">152.4</span>, <span style="color:#005cc5;">153.1</span>, <span style="color:#005cc5;">153.9</span>,
+  <span style="color:#005cc5;">154.8</span>,
+)
+<span style="color:#6f42c1;">mean</span>(furnace_typical)
+<span style="color:#6f42c1;">median</span>(furnace_typical)
+<span style="color:#6f42c1;">IQR</span>(furnace_typical)
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">S</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Scatterplot</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> A scatterplot is a graphical display that plots one quantitative variable on the horizontal axis and another on the vertical axis, with one point per observation; it is used to see the form, direction, and strength of the relationship between the two variables. The form describes the overall shape of the cloud of points: linear when the points tend to fall along a straight line, nonlinear when they follow a curve. The direction is positive when larger values of one variable go with larger values of the other and negative when they move in opposite ways. The strength describes how tightly the points cluster around the line or curve: weak (widely scattered), moderate (a clear but loose trend), or strong (tightly clustered).</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 632; R for Data Science (2e), ch. 1 &quot;Data visualization&quot;, §1.5.3 &quot;Two numerical variables&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> A scatterplot of deflection against applied load shows a tight rising cloud of points.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+load_kn &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">57.4</span>, <span style="color:#005cc5;">62.1</span>, <span style="color:#005cc5;">66.8</span>, <span style="color:#005cc5;">71.6</span>,
+  <span style="color:#005cc5;">76.3</span>, <span style="color:#005cc5;">81.1</span>, <span style="color:#005cc5;">85.8</span>, <span style="color:#005cc5;">90.5</span>,
+  <span style="color:#005cc5;">95.3</span>, <span style="color:#005cc5;">100</span>,
+)
+deflection_mm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">26.1</span>, <span style="color:#005cc5;">31.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">34.4</span>,
+  <span style="color:#005cc5;">39.6</span>, <span style="color:#005cc5;">40</span>, <span style="color:#005cc5;">39.4</span>, <span style="color:#005cc5;">46.7</span>,
+  <span style="color:#005cc5;">48.8</span>, <span style="color:#005cc5;">50.4</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(load_kn, deflection_mm),
+  <span style="color:#6f42c1;">aes</span>(x = load_kn, y = deflection_mm)) +
+  <span style="color:#6f42c1;">geom_point</span>(color = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Deflection vs. applied load"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/scatterplot_load_deflection.png" alt="Scatterplot of deflection against applied load" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Scatterplot of deflection against applied load</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> A scatterplot of heating energy use against outdoor temperature shows a falling band of points.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+temp_c &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">14.9</span>, <span style="color:#005cc5;">11.1</span>, <span style="color:#005cc5;">4</span>, <span style="color:#005cc5;">2.2</span>,
+  <span style="color:#005cc5;">14.5</span>, -<span style="color:#005cc5;">1.8</span>, <span style="color:#005cc5;">6.9</span>, <span style="color:#005cc5;">8.7</span>,
+  <span style="color:#005cc5;">16.7</span>, <span style="color:#005cc5;">9.4</span>,
+)
+heating_kwh &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">13.4</span>, <span style="color:#005cc5;">11.2</span>, <span style="color:#005cc5;">25.1</span>, <span style="color:#005cc5;">18.3</span>,
+  <span style="color:#005cc5;">7.7</span>, <span style="color:#005cc5;">28</span>, <span style="color:#005cc5;">16.1</span>, <span style="color:#005cc5;">22</span>,
+  <span style="color:#005cc5;">4.7</span>, <span style="color:#005cc5;">16.4</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(temp_c, heating_kwh),
+  <span style="color:#6f42c1;">aes</span>(x = temp_c, y = heating_kwh)) +
+  <span style="color:#6f42c1;">geom_point</span>(color = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Heating energy vs. temperature"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/scatterplot_temp_heating.png" alt="Scatterplot of heating energy use against outdoor temperature" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Scatterplot of heating energy use against outdoor temperature</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> A scatterplot of enzyme reaction rate against wind speed reveals a scattered cloud with no clear trend.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+wind_mps &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">8.8</span>, <span style="color:#005cc5;">6</span>, <span style="color:#005cc5;">2.6</span>, <span style="color:#005cc5;">9.4</span>,
+  <span style="color:#005cc5;">8.2</span>, <span style="color:#005cc5;">8.3</span>, <span style="color:#005cc5;">7.7</span>, <span style="color:#005cc5;">9.9</span>,
+  <span style="color:#005cc5;">3.8</span>, <span style="color:#005cc5;">10.3</span>,
+)
+enzyme_rate &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">5.26</span>, <span style="color:#005cc5;">4.45</span>, <span style="color:#005cc5;">4.63</span>, <span style="color:#005cc5;">4.48</span>,
+  <span style="color:#005cc5;">4.02</span>, <span style="color:#005cc5;">4.2</span>, <span style="color:#005cc5;">4.47</span>, <span style="color:#005cc5;">4.67</span>,
+  <span style="color:#005cc5;">4.96</span>, <span style="color:#005cc5;">6.45</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(wind_mps, enzyme_rate),
+  <span style="color:#6f42c1;">aes</span>(x = wind_mps, y = enzyme_rate)) +
+  <span style="color:#6f42c1;">geom_point</span>(color = <span style="color:#032f62;">"steelblue"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Enzyme rate vs. wind speed"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/scatterplot_wind_enzyme.png" alt="Scatterplot of enzyme reaction rate against wind speed" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Scatterplot of enzyme reaction rate against wind speed</p></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Skew</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> Skew describes the asymmetry of a distribution, determined by which tail stretches out farther. A distribution is right-skewed (positively skewed) when its right tail stretches toward the larger values while the bulk of the observations pile up on the left; a distribution is left-skewed (negatively skewed) when its left tail stretches toward the smaller values while the bulk of the observations pile up on the right; and a distribution is approximately symmetric when the two sides fall away from the center at about the same rate and the mean and median are close together. In a skewed distribution the mean is pulled toward the tail (larger than the median when right-skewed, smaller when left-skewed), so the median is the preferred measure of centrality.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Introductory Statistics 2e, p. 93; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.1 &quot;Center&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The histogram below shows battery lifetimes, which are strongly right-skewed: most batteries last a short time and a few last much longer.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(lifetime = battery_lifetime_hours),
+  <span style="color:#6f42c1;">aes</span>(x = lifetime)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">20</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Battery lifetimes (right-skewed)"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/right-skewed.png" alt="Right-skewed histogram of battery lifetimes" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Right-skewed histogram of battery lifetimes</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The mean (40.0 hours) is larger than the median (26.6 hours), as expected for right-skewed data.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The histogram below shows yield strengths, which are left-skewed: most specimens cluster near the high end and a few weak specimens stretch the tail toward smaller values.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+yield_strength_mpa &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">393.5</span>, <span style="color:#005cc5;">395.0</span>, <span style="color:#005cc5;">396.4</span>, <span style="color:#005cc5;">397.8</span>,
+  <span style="color:#005cc5;">399.0</span>, <span style="color:#005cc5;">400.2</span>, <span style="color:#005cc5;">401.5</span>, <span style="color:#005cc5;">402.8</span>,
+  <span style="color:#005cc5;">404.0</span>, <span style="color:#005cc5;">405.1</span>, <span style="color:#005cc5;">406.3</span>, <span style="color:#005cc5;">407.4</span>,
+  <span style="color:#005cc5;">408.2</span>, <span style="color:#005cc5;">409.1</span>, <span style="color:#005cc5;">410.3</span>, <span style="color:#005cc5;">411.0</span>,
+  <span style="color:#005cc5;">412.4</span>, <span style="color:#005cc5;">413.6</span>, <span style="color:#005cc5;">415.2</span>, <span style="color:#005cc5;">417.0</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(yield = yield_strength_mpa),
+  <span style="color:#6f42c1;">aes</span>(x = yield)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">5</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Yield strengths (left-skewed)"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/left-skewed.png" alt="Left-skewed histogram of yield strengths" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Left-skewed histogram of yield strengths</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The mean (398.9 MPa) is smaller than the median (400.9 MPa), as expected for left-skewed data.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The histogram below shows shaft diameters, which are approximately symmetric: the two sides balance around the center.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The sample dataset and the ggplot2 code that created this figure:</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+shaft_diameter_mm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">50.9</span>, <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">51</span>, <span style="color:#005cc5;">50.2</span>,
+  <span style="color:#005cc5;">51.3</span>, <span style="color:#005cc5;">50</span>, <span style="color:#005cc5;">50.7</span>, <span style="color:#005cc5;">50.1</span>,
+  <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">50.5</span>, <span style="color:#005cc5;">49.5</span>,
+  <span style="color:#005cc5;">49.4</span>, <span style="color:#005cc5;">51.3</span>, <span style="color:#005cc5;">49.5</span>, <span style="color:#005cc5;">50.9</span>,
+  <span style="color:#005cc5;">50.1</span>, <span style="color:#005cc5;">50.2</span>, <span style="color:#005cc5;">50.3</span>, <span style="color:#005cc5;">49.4</span>,
+)
+
+<span style="color:#6f42c1;">ggplot</span>(data.<span style="color:#6f42c1;">frame</span>(diameter = shaft_diameter_mm),
+  <span style="color:#6f42c1;">aes</span>(x = diameter)) +
+  <span style="color:#6f42c1;">geom_histogram</span>(binwidth = <span style="color:#005cc5;">0.3</span>, fill = <span style="color:#032f62;">"tomato"</span>,
+  color = <span style="color:#032f62;">"white"</span>) +
+  <span style="color:#6f42c1;">labs</span>(title = <span style="color:#032f62;">"Shaft diameters (symmetric)"</span>) +
+  <span style="color:#6f42c1;">theme_minimal</span>()
+</pre>
+<img src="/courses/1923070/file_contents/course%20files/Figures/approximately-symmetric.png" alt="Approximately symmetric histogram of shaft diameters" style="display:block; margin:1rem auto 0.3rem; max-width:70%; height:auto; border:1px solid #92aeba; border-radius:8px;">
+<p style="font-style:italic; font-size:0.85rem; color:#5b6e7a; margin:0 auto 1.5rem; text-align:center; max-width:70%;">Approximately symmetric histogram of shaft diameters</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The mean and median of the shaft diameters are close together (50.3 and 50.2 mm).</p></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Standard Deviation</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The standard deviation (s) measures the typical distance of observations from the mean.<br/>$$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2}$$<br/> It is the square root of the variance and is the preferred measure of variability when the distribution is approximately symmetric, but it is not robust and is inflated by outliers and skewness.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.3 &quot;Spread&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The standard deviation of resting heart rates is 5.4 bpm, meaning athletes typically vary about 5 bpm around the mean.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+resting_heart_rate_bpm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>,
+  <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">76</span>, <span style="color:#005cc5;">76</span>,
+  <span style="color:#005cc5;">77</span>, <span style="color:#005cc5;">78</span>, <span style="color:#005cc5;">79</span>, <span style="color:#005cc5;">81</span>,
+  <span style="color:#005cc5;">82</span>, <span style="color:#005cc5;">86</span>,
+)
+<span style="color:#6f42c1;">sd</span>(resting_heart_rate_bpm)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The standard deviation of BMI is 2.9, a reasonable summary for a nearly symmetric distribution.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+bmi &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">24.4</span>, <span style="color:#005cc5;">24.7</span>, <span style="color:#005cc5;">25.0</span>, <span style="color:#005cc5;">25.3</span>,
+  <span style="color:#005cc5;">25.6</span>, <span style="color:#005cc5;">25.9</span>, <span style="color:#005cc5;">26.3</span>, <span style="color:#005cc5;">26.7</span>,
+  <span style="color:#005cc5;">27.1</span>, <span style="color:#005cc5;">27.6</span>, <span style="color:#005cc5;">28.2</span>, <span style="color:#005cc5;">28.9</span>,
+  <span style="color:#005cc5;">29.7</span>, <span style="color:#005cc5;">30.7</span>,
+)
+<span style="color:#6f42c1;">sd</span>(bmi)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> For a symmetric sample of resistance readings, the standard deviation of 18.0 Ω summarizes the spread.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+resistance_ohms &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">120</span>, <span style="color:#005cc5;">122</span>, <span style="color:#005cc5;">123</span>, <span style="color:#005cc5;">125</span>,
+  <span style="color:#005cc5;">128</span>, <span style="color:#005cc5;">131</span>, <span style="color:#005cc5;">134</span>, <span style="color:#005cc5;">137</span>,
+  <span style="color:#005cc5;">141</span>, <span style="color:#005cc5;">146</span>, <span style="color:#005cc5;">151</span>, <span style="color:#005cc5;">157</span>,
+)
+<span style="color:#6f42c1;">sd</span>(resistance_ohms)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 4:</span> The standard deviation of hardness is computed separately within each annealing-temperature group.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+specimens &lt;- data.<span style="color:#6f42c1;">frame</span>(
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+)
+                          levels = <span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  <span style="color:#032f62;">"High"</span>)),
+  hardness_hrb   = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">66.0</span>, <span style="color:#005cc5;">67.1</span>, <span style="color:#005cc5;">68.2</span>, <span style="color:#005cc5;">69.0</span>, <span style="color:#005cc5;">69.8</span>,
+  <span style="color:#005cc5;">70.5</span>, <span style="color:#005cc5;">71.3</span>, <span style="color:#005cc5;">72.0</span>, <span style="color:#005cc5;">72.8</span>, <span style="color:#005cc5;">73.5</span>,
+                     <span style="color:#005cc5;">74.0</span>, <span style="color:#005cc5;">74.8</span>, <span style="color:#005cc5;">75.5</span>, <span style="color:#005cc5;">76.2</span>, <span style="color:#005cc5;">76.9</span>,
+  <span style="color:#005cc5;">77.6</span>, <span style="color:#005cc5;">78.3</span>, <span style="color:#005cc5;">79.0</span>, <span style="color:#005cc5;">79.8</span>, <span style="color:#005cc5;">80.5</span>,
+                     <span style="color:#005cc5;">81.0</span>, <span style="color:#005cc5;">81.8</span>, <span style="color:#005cc5;">82.5</span>, <span style="color:#005cc5;">83.2</span>, <span style="color:#005cc5;">83.9</span>,
+  <span style="color:#005cc5;">84.6</span>, <span style="color:#005cc5;">85.3</span>, <span style="color:#005cc5;">86.0</span>, <span style="color:#005cc5;">86.8</span>, <span style="color:#005cc5;">87.5</span>)
+)
+
+specimens %&gt;%
+  <span style="color:#6f42c1;">group_by</span>(annealing_temp) %&gt;%
+  <span style="color:#6f42c1;">summarize</span>(sd_hardness = <span style="color:#6f42c1;">sd</span>(hardness_hrb))
+</pre></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">V</h2>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Variability</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> Variability (spread) describes how spread out the values of a distribution are. The most common measures are the range, the interquartile range, the variance, and the standard deviation; the appropriate measure depends on the shape of the distribution. For categorical variables, variability is summarized with the proportions in each category.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6 &quot;Numeric summaries&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The IQR of 33 hours describes the variability of skewed battery lifetimes.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">IQR</span>(battery_lifetime_hours)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The standard deviation of 5.4 bpm describes the variability of symmetric heart rates.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+resting_heart_rate_bpm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>,
+  <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">76</span>, <span style="color:#005cc5;">76</span>,
+  <span style="color:#005cc5;">77</span>, <span style="color:#005cc5;">78</span>, <span style="color:#005cc5;">79</span>, <span style="color:#005cc5;">81</span>,
+  <span style="color:#005cc5;">82</span>, <span style="color:#005cc5;">86</span>,
+)
+<span style="color:#6f42c1;">sd</span>(resting_heart_rate_bpm)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> The proportions (Ductile = 0.68, Brittle = 0.18, Mixed = 0.14) describe the variability of the categorical failure modes.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+failure_mode &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Mixed"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>, <span style="color:#032f62;">"Ductile"</span>,
+  <span style="color:#032f62;">"Mixed"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Brittle"</span>,
+  <span style="color:#032f62;">"Ductile"</span>, <span style="color:#032f62;">"Ductile"</span>,
+)
+<span style="color:#6f42c1;">table</span>(failure_mode) / <span style="color:#6f42c1;">length</span>(failure_mode)
+</pre></div>
+<div style="margin:0 0 1.1rem; padding:1rem 1.2rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;"><h3 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; font-weight:700; color:#245364; margin:0 0 0.5rem;">Variance</h3>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Definition:</span> The variance (s²) is the average of the squared deviations of the observations from the mean; it measures spread in squared units<br/>$$s^2 = \frac{1}{n-1}\sum_{i=1}^{n} (x_i - \bar{x})^2$$<br/> and is the square of the standard deviation.</p>
+<p style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; color:#5b6e7a; margin:0 0 0.6rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Source:</span> Mathematical Statistics with Applications in R, p. 20 ; Introductory Statistics 2e, p. 77; R for Data Science (2e), ch. 13 &quot;Numbers&quot;, §13.6.3 &quot;Spread&quot;</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 1:</span> The variance of resting heart rates is 28.8 bpm², whose square root gives the more interpretable standard deviation.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+resting_heart_rate_bpm &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>, <span style="color:#005cc5;">74</span>,
+  <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">75</span>, <span style="color:#005cc5;">76</span>, <span style="color:#005cc5;">76</span>,
+  <span style="color:#005cc5;">77</span>, <span style="color:#005cc5;">78</span>, <span style="color:#005cc5;">79</span>, <span style="color:#005cc5;">81</span>,
+  <span style="color:#005cc5;">82</span>, <span style="color:#005cc5;">86</span>,
+)
+<span style="color:#6f42c1;">var</span>(resting_heart_rate_bpm)
+<span style="color:#6f42c1;">sqrt</span>(<span style="color:#6f42c1;">var</span>(resting_heart_rate_bpm))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 2:</span> The variance of BMI is 8.4, again more interpretable as its square root.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+bmi &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">24.4</span>, <span style="color:#005cc5;">24.7</span>, <span style="color:#005cc5;">25.0</span>, <span style="color:#005cc5;">25.3</span>,
+  <span style="color:#005cc5;">25.6</span>, <span style="color:#005cc5;">25.9</span>, <span style="color:#005cc5;">26.3</span>, <span style="color:#005cc5;">26.7</span>,
+  <span style="color:#005cc5;">27.1</span>, <span style="color:#005cc5;">27.6</span>, <span style="color:#005cc5;">28.2</span>, <span style="color:#005cc5;">28.9</span>,
+  <span style="color:#005cc5;">29.7</span>, <span style="color:#005cc5;">30.7</span>,
+)
+<span style="color:#6f42c1;">var</span>(bmi)
+<span style="color:#6f42c1;">sqrt</span>(<span style="color:#6f42c1;">var</span>(bmi))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 3:</span> For a skewed variable, the variance is inflated by the long tail and is usually not reported.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+battery_lifetime_hours &lt;- <span style="color:#6f42c1;">c</span>(
+  <span style="color:#005cc5;">21.6</span>, <span style="color:#005cc5;">24.2</span>, <span style="color:#005cc5;">26.6</span>, <span style="color:#005cc5;">29.5</span>,
+  <span style="color:#005cc5;">32.1</span>, <span style="color:#005cc5;">34.8</span>, <span style="color:#005cc5;">37.9</span>, <span style="color:#005cc5;">41.4</span>,
+  <span style="color:#005cc5;">45.5</span>, <span style="color:#005cc5;">52.8</span>, <span style="color:#005cc5;">61.7</span>, <span style="color:#005cc5;">74.3</span>,
+  <span style="color:#005cc5;">92.5</span>, <span style="color:#005cc5;">138.4</span>, <span style="color:#005cc5;">209.8</span>,
+)
+<span style="color:#6f42c1;">var</span>(battery_lifetime_hours)
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">The variance is measured in squared hours, which is why the standard deviation (its square root) is reported instead.</p>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;"><span style="font-family:Arial, Helvetica, sans-serif; font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#346678;">Example 4:</span> The variance of hardness is computed separately within each annealing-temperature group.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+specimens &lt;- data.<span style="color:#6f42c1;">frame</span>(
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  annealing_temp = <span style="color:#6f42c1;">factor</span>(<span style="color:#6f42c1;">rep</span>(<span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+)
+                          levels = <span style="color:#6f42c1;">c</span>(<span style="color:#032f62;">"Low"</span>, <span style="color:#032f62;">"Medium"</span>,
+  <span style="color:#032f62;">"High"</span>)),
+  hardness_hrb   = <span style="color:#6f42c1;">c</span>(<span style="color:#005cc5;">66.0</span>, <span style="color:#005cc5;">67.1</span>, <span style="color:#005cc5;">68.2</span>, <span style="color:#005cc5;">69.0</span>, <span style="color:#005cc5;">69.8</span>,
+  <span style="color:#005cc5;">70.5</span>, <span style="color:#005cc5;">71.3</span>, <span style="color:#005cc5;">72.0</span>, <span style="color:#005cc5;">72.8</span>, <span style="color:#005cc5;">73.5</span>,
+                     <span style="color:#005cc5;">74.0</span>, <span style="color:#005cc5;">74.8</span>, <span style="color:#005cc5;">75.5</span>, <span style="color:#005cc5;">76.2</span>, <span style="color:#005cc5;">76.9</span>,
+  <span style="color:#005cc5;">77.6</span>, <span style="color:#005cc5;">78.3</span>, <span style="color:#005cc5;">79.0</span>, <span style="color:#005cc5;">79.8</span>, <span style="color:#005cc5;">80.5</span>,
+                     <span style="color:#005cc5;">81.0</span>, <span style="color:#005cc5;">81.8</span>, <span style="color:#005cc5;">82.5</span>, <span style="color:#005cc5;">83.2</span>, <span style="color:#005cc5;">83.9</span>,
+  <span style="color:#005cc5;">84.6</span>, <span style="color:#005cc5;">85.3</span>, <span style="color:#005cc5;">86.0</span>, <span style="color:#005cc5;">86.8</span>, <span style="color:#005cc5;">87.5</span>)
+)
+
+specimens %&gt;%
+  <span style="color:#6f42c1;">group_by</span>(annealing_temp) %&gt;%
+  <span style="color:#6f42c1;">summarize</span>(var_hardness = <span style="color:#6f42c1;">var</span>(hardness_hrb))
+</pre>
+<p style="line-height:1.6; color:#1f2937; margin:0 0 0.7rem;">---</p></div>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">R Reference: Reading and Working with Data in R</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The definitions in this glossary show the R code that computes each summary, and the module narratives show that code working on a real dataset. This reference collects the pieces of R that appear throughout — reading data, the tidyverse pipe, and the grammar of ggplot2 — with short explanations of what each piece does.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Reading a dataset into R</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A data file is usually a CSV: a table of rows (observations) and columns (variables). <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">read.csv()</code> reads it into a <strong>data frame</strong>, the tidy table R uses for statistics. <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">names()</code> lists the columns, <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">nrow()</code> counts the rows, and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">$</code> pulls out a single column.</p>
+<pre style="background:#ffffff;border:2px solid #92aeba;border-radius:4px;padding:1rem 1.2rem;font-family:'Consolas','Menlo',monospace;font-size:0.9rem;line-height:1.5;color:#1f2937;overflow-x:auto;white-space:pre-wrap;word-wrap:break-word;">
+<span style="color:#008000;"># Load the tidyverse (data wrangling) and ggplot2</span>
+  (plotting) packages
+<span style="color:#6f42c1;">library</span>(dplyr)
+<span style="color:#6f42c1;">library</span>(ggplot2)
+
+<span style="color:#008000;"># Read a CSV file saved in your working directory</span>
+gas &lt;- read.<span style="color:#6f42c1;">csv</span>(<span style="color:#032f62;">"data/gas-prices-states.csv"</span>)
+
+<span style="color:#008000;"># List the columns and count the rows</span>
+<span style="color:#6f42c1;">names</span>(gas)
+<span style="color:#6f42c1;">nrow</span>(gas)
+
+<span style="color:#008000;"># Pull out a single column with $</span>
+<span style="color:#6f42c1;">mean</span>(gas$regular_price)
+</pre>
+<p style="line-height:1.6; color:#245364; background:#eaf0f6; border:1px solid #92aeba; border-radius:8px; padding:0.7rem 1rem; margin:0 0 1.1rem;"><strong>Dataset:</strong> This reading uses the <a href="/courses/1923070/file_contents/course%20files/Datasets/gas-prices-states.csv" style="color:#346678; font-weight:700;">gas-prices-states.csv</a> file, available in the Canvas course files.</p>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">summary()</code> is a quick all-in-one: for a numeric column it prints the minimum, first quartile, median, mean, third quartile, and maximum.</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">
+<span style="color:#6f42c1;">summary</span>(gas$regular_price)
+</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">The tidyverse pipe</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The pipe <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">%&gt;%</code> takes whatever is on its left and hands it to the function on its right, so a chain of pipes reads like a recipe: <em>take the data, keep these rows, keep these columns, count them.</em> The most common verbs are:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:0.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">filter()</code> keeps the rows that meet a condition</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">select()</code> keeps only the named columns</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">arrange()</code> sorts the rows</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">slice_head()</code> / <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">slice_tail()</code> take the first / last rows</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">mutate()</code> adds a new column</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">count()</code> counts the rows in each group</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">group_by()</code> + <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">summarize()</code> compute a summary within each group</li>
+</ul>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">
+<span style="color:#008000;"># Keep only cheap states, then count them</span>
+gas %&gt;%
+<span style="color:#6f42c1;">filter</span>(regular_price &lt; <span style="color:#005cc5;">4.00</span>) %&gt;%
+<span style="color:#6f42c1;">count</span>()
+</pre>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">Drawing plots with ggplot2</h2>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">A ggplot2 plot is built by adding layers to <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">ggplot()</code>. The first call names the data and maps columns to parts of the plot with <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">aes()</code>; each <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_*()</code> layer draws something. <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">labs()</code> sets titles and axis labels, and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">theme_minimal()</code> gives a clean look.</p>
+<pre style="background:#ffffff; border:2px solid #92aeba; border-radius:4px; padding:1rem 1.2rem; font-family:'Consolas','Menlo',monospace; font-size:0.9rem; line-height:1.5; color:#1f2937; overflow-x:auto; white-space:pre-wrap; word-wrap:break-word;">
+<span style="color:#6f42c1;">summary</span>(gas$regular_price)
+</pre>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_*()</code> layers used in this course are:</p>
+<ul style="line-height:1.75; color:#1f2937; margin:0.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_histogram()</code> — a histogram for one quantitative variable</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_boxplot()</code> — a boxplot for one or more quantitative variables</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_bar()</code> — a bar chart for a categorical variable</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_point()</code> — a scatterplot for two quantitative variables</li>
+</ul>
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">binwidth</code> in <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">geom_histogram()</code> sets the width of the bins, and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">fill</code> / <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">color</code> set the fill and outline colors.</p>
+<h2 style="font-family:Arial, Helvetica, sans-serif; font-size:1.05rem; text-transform:uppercase; letter-spacing:0.06em; color:#346678; border-bottom:1px solid #92aeba; padding-bottom:0.3rem; margin:2.4rem 0 0.9rem;">A few helpers</h2>
+<ul style="line-height:1.75; color:#1f2937; margin:0.5rem 0 1rem; padding-left:1.5rem;">
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">round(x, digits)</code> rounds a number to the requested number of decimal places (used to find the mode of a rounded variable)</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">min(x)</code> and <code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">max(x)</code> give the smallest and largest values (defined under Minimum and Maximum)</li>
+<li style="margin:0 0 0.6rem;"><code style="font-family:'Consolas','Menlo',monospace; background:#eaf0f6; color:#000000; padding:0.1em 0.35em; border-radius:4px; font-size:0.9em;">cor(x, y)</code> measures the strength and direction of a linear relationship (defined under Correlation)</li>
+</ul>
+
+</body>
+</html>

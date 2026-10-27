@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>What's the Chance You Get at Least One?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+</head>
+<body>
+
+<h1 style="font-family:Arial, Helvetica, sans-serif; color:#245364; line-height:1.3; margin:0 0 1.5rem;">What's the Chance You Get at Least One?</h1>
+
+<p style="font-style:italic; color:#5b6e7a; margin:0 0 2rem;">Why the easiest way to find what you want is to count what you don't.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Roll five standard dice. What is the probability you get at least one 6? You could try to add up every way to get a 6 — exactly one 6, exactly two 6s, exactly three, exactly four, exactly five. That is a lot of work for a simple question. There is a much easier path: instead of counting what you <em>want</em>, count what you <em>do not want</em> and subtract from 1.</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">Using the Fundamental Theorem of Counting, the total number of possible outcomes for five dice is \(6^5 = 7776\). The only outcome you want to avoid is rolling no 6s at all, which means each die shows one of the other five faces: \(5^5 = 3125\) outcomes. Since classical probability says \(P(E) = |E| / |S|\), the probability of the opposite event is</p>
+
+<p style="text-align:center;">
+$$
+P(\text{at least one 6}) = 1 - \frac{3125}{7776} \approx 1 - 0.402 = 0.598.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">This is the <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The probability that an event does not occur is one minus the probability that it does occur: P(not E) = 1 &minus; P(E) or P(Ec) = 1 &minus; P(E).">complement rule</span>. For any event \(E\), the event that \(E\) does <em>not</em> occur is called its <span style="background:#eaf0f6; color:#5b6e7a; font-weight:700; border-radius:6px; padding:0.08em 0.5em; border-bottom:1px dotted #92aeba;" title="The event that E does not occur, denoted Ec or E&prime;.">complement</span>, denoted \(E^c\) (or sometimes \(E'\)). Because \(E\) and \(E^c\) are mutually exclusive and together cover the entire sample space,</p>
+
+<p style="text-align:center;">
+$$
+P(E^c) = 1 - P(E) \qquad \text{or} \qquad P(\text{not } E) = 1 - P(E).
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The complement rule turns hard problems into easy ones. Draw three cards from a standard deck without replacement. What is the probability of at least one heart? Computing the probability of exactly one heart, exactly two, and exactly three would take several steps. The complement — no hearts at all — is simpler. The total number of three-card hands is \(\binom{52}{3}\), and the number with no hearts is \(\binom{39}{3}\). So</p>
+
+<p style="text-align:center;">
+$$
+P(\text{at least one heart}) = 1 - \frac{\binom{39}{3}}{\binom{52}{3}} \approx 1 - 0.414 = 0.586.
+$$
+</p>
+
+<p style="line-height:1.75; color:#1f2937; margin:0 0 1.1rem;">The next time a probability question asks for "at least one," stop before you start adding. Ask yourself: what is the one thing I <em>do not</em> want to happen? If that is easier to calculate, the complement rule gives you the rest for free. Sometimes the easiest way to find what you want is to look at what you do not.</p>
+
+<hr style="border:none; text-align:center; margin:2rem auto 2rem; color:#92aeba;">
+
+<div style="margin:2.5rem 0 1rem; padding:1.4rem 1.6rem; background:#eef4f8; border:1px solid #92aeba; border-radius:10px;">
+  <h3 style="font-family:Arial, Helvetica, sans-serif; font-size:0.95rem; text-transform:uppercase; letter-spacing:0.08em; color:#5b6e7a; margin:0 0 0.9rem;">Key terms in this reading</h3>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">complement rule</span>
+  <span style="display:inline-block; background:#fff; color:#245364; border:1px solid #92aeba; border-radius:999px; padding:0.25em 0.8em; font-family:Arial, Helvetica, sans-serif; font-size:0.85rem; margin:0 0.35rem 0.5rem 0;">complement</span>
+</div>
+
+</body>
+</html>
