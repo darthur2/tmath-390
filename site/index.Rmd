@@ -1,0 +1,12 @@
+---
+title: "TMath 390 Module 5"
+---
+
+This is a pilot of the Module 5 readings built with R Markdown and served through GitHub Pages.
+
+## Readings
+
+- [What Does the Likelihood Tell Us?](module_5/what_does_the_likelihood_tell_us.html)
+- [How Do We Find the Maximum Likelihood Estimate?](module_5/how_do_we_find_the_maximum_likelihood_estimate.html)
+
+The older Markdown/HTML readings remain in `docs/module_5/reading_materials/` until this pilot is validated.

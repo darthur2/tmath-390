@@ -1,0 +1,10 @@
+---
+title: "Module 5: Maximum Likelihood Estimation"
+---
+
+These readings introduce likelihood functions, log-likelihoods, and maximum likelihood estimation.
+
+## Readings
+
+- [What Does the Likelihood Tell Us?](what_does_the_likelihood_tell_us.html)
+- [How Do We Find the Maximum Likelihood Estimate?](how_do_we_find_the_maximum_likelihood_estimate.html)
