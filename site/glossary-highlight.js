@@ -9,8 +9,25 @@
   var pageTerms = glossary[key];
   if (!pageTerms) return;
 
+  var isGlossaryPage = /definitions_and_examples\.html$/.test(key);
+
   function escapeRegex(value) {
     return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
+  function normalizeTerm(value) {
+    return value
+      .replace(/[’‘]/g, "'")
+      .replace(/[“”]/g, '"')
+      .replace(/\s+/g, " ")
+      .trim()
+      .toLowerCase();
+  }
+
+  function regexTerm(value) {
+    return escapeRegex(value)
+      .replace(/['’]/g, "['’]")
+      .replace(/["“”]/g, '["“”]');
   }
 
   var terms = Object.keys(pageTerms).map(function (term) {
@@ -28,12 +45,13 @@
 
   var byLower = {};
   terms.forEach(function (entry) {
-    if (!byLower[entry.lower]) byLower[entry.lower] = entry;
+    var key = normalizeTerm(entry.term);
+    if (!byLower[key]) byLower[key] = entry;
   });
 
   var pattern = new RegExp(
     "(?<![A-Za-z0-9])(" + terms.map(function (entry) {
-      return escapeRegex(entry.term);
+      return regexTerm(entry.term);
     }).join("|") + ")(?![A-Za-z0-9])",
     "gi"
   );
@@ -75,14 +93,13 @@
 
     while ((m = localPattern.exec(text)) !== null) {
       var matched = m[0];
-      var entry = byLower[matched.toLowerCase()];
-      if (!entry || entry.remaining <= 0) continue;
+      var entry = byLower[normalizeTerm(matched)];
+      if (!entry) continue;
 
       if (m.index > lastIndex) {
         fragment.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
       }
       fragment.appendChild(makeSpan(matched, entry.text));
-      entry.remaining -= 1;
       lastIndex = m.index + matched.length;
       found = true;
     }
@@ -95,8 +112,10 @@
   }
 
   function processTextNode(node) {
-    var value = node.nodeValue;
+    var value = node.nodeValue.replace(/\s+/g, " ");
     if (!value || !value.trim() || isSkipped(node)) return;
+    if (!isGlossaryPage && (!node.parentElement || !node.parentElement.closest("strong, b"))) return;
+    node.nodeValue = value;
 
     var mathPattern = /(\$\$[\s\S]*?\$\$|\\\([\s\S]*?\\\))/g;
     var parts = value.split(mathPattern);
@@ -127,6 +146,20 @@
     if (changed) node.parentNode.replaceChild(fragment, node);
   }
 
+  function wrapGlossaryHeadings(root) {
+    if (!/definitions_and_examples\.html$/.test(key)) return;
+    var headings = root.querySelectorAll("h2");
+    Array.prototype.forEach.call(headings, function (heading) {
+      var text = heading.textContent.replace(/\s+/g, " ").trim();
+      var entry = byLower[normalizeTerm(text)];
+      if (!entry) return;
+      heading.textContent = "";
+      var span = makeSpan(text, entry.text);
+      span.classList.add("glossary-heading-term");
+      heading.appendChild(span);
+    });
+  }
+
   function run() {
     var root = document.querySelector(".wrap") || document.body;
     if (!root) return;
@@ -134,6 +167,7 @@
     var nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(processTextNode);
+    wrapGlossaryHeadings(root);
   }
 
   if (document.readyState === "loading") {
