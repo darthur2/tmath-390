@@ -129,7 +129,18 @@ a {
 }
 
 .glossary-heading-term {
+  display: inline-block;
+  background: #eaf0f6;
   color: #346678;
+  border-radius: 6px;
+  padding: 0.1em 0.6em;
+  border-bottom: none;
   font-size: inherit;
-  padding: 0.04em 0.4em;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+h2.glossary-entry-heading {
+  border-bottom: none;
+  padding-bottom: 0;
 }

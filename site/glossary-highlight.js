@@ -113,9 +113,10 @@
   }
 
   function processTextNode(node) {
+    if (isGlossaryPage) return;
     var value = node.nodeValue.replace(/\s+/g, " ");
     if (!value || !value.trim() || isSkipped(node)) return;
-    if (!isGlossaryPage && (!node.parentElement || !node.parentElement.closest("strong, b"))) return;
+    if (!node.parentElement || !node.parentElement.closest("strong, b")) return;
     node.nodeValue = value;
 
     var mathPattern = /(\$\$[\s\S]*?\$\$|\\\([\s\S]*?\\\))/g;
@@ -180,6 +181,7 @@
       var entry = byLower[normalizeTerm(text)];
       if (!entry) return;
       heading.textContent = "";
+      heading.classList.add("glossary-entry-heading");
       var span = makeSpan(text, entry.text);
       span.classList.add("glossary-heading-term");
       heading.appendChild(span);
@@ -193,7 +195,9 @@
     var nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(processTextNode);
-    unboldRepeatedTerms(root);
+    if (!isGlossaryPage) {
+      unboldRepeatedTerms(root);
+    }
     wrapGlossaryHeadings(root);
   }
 
