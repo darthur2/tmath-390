@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Do We Find the Maximum Likelihood Estimate?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2937;
+      margin: 0;
+      padding: 2rem 1rem;
+      line-height: 1.75;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #245364;
+      line-height: 1.3;
+      margin: 0 0 1.2rem;
+    }
+    h1 + p em { color: #5b6e7a; }
+    h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #346678;
+      border-bottom: 1px solid #92aeba;
+      padding-bottom: 0.3rem;
+      margin: 2.4rem 0 0.9rem;
+    }
+    p { line-height: 1.75; color: #1f2937; margin: 0 0 1.1rem; }
+    li { margin: 0 0 0.6rem; line-height: 1.75; color: #1f2937; }
+    ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+    code {
+      font-family: Consolas, Menlo, monospace;
+      background: #eaf0f6;
+      color: #000000;
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    pre {
+      background: #f4f6f8;
+      border: 1px solid #d7e2e8;
+      border-radius: 6px;
+      padding: 0.9rem;
+      overflow-x: auto;
+      line-height: 1.45;
+    }
+    pre code { background: none; padding: 0; }
+    table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+    th, td { border: 1px solid #cbd5e1; padding: 0.5rem 0.7rem; }
+    th { background: #eaf0f6; color: #245364; text-align: left; }
+    .math.display { display: block; text-align: center; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="how-do-we-find-the-maximum-likelihood-estimate">How Do We Find the Maximum Likelihood Estimate?</h1>
+<p><em>Deriving estimates by hand—and using R when no formula exists.</em></p>
+<p>The campus coffee shop from the previous reading wants the best estimate of its average mobile-order rate \(\lambda\). A bike-share maintenance team has a different problem: it records repair times and models them with a Gamma distribution. The team knows the rate parameter but needs to estimate the shape parameter \(\alpha\). The first problem has a clean formula. The second does not. Both require the same central idea: find the parameter value that makes the observed data most plausible.</p>
+<p>That value is the <strong>maximum likelihood estimate</strong>, or MLE.</p>
+<h2 id="the-maximum-likelihood-idea">The maximum likelihood idea</h2>
+<p>The likelihood \(L(\theta)\) scores each possible parameter value. The MLE is the value that maximizes it:</p>
+<p>$$
+\hat\theta=\arg\max_\theta L(\theta).
+$$</p>
+<p>Because the natural logarithm is increasing, we can maximize the log-likelihood instead:</p>
+<p>$$
+\hat\theta=\arg\max_\theta \ell(\theta).
+$$</p>
+<p>The peak of \(\ell(\theta)\) is the same as the peak of \(L(\theta)\), but the log-likelihood is easier to differentiate and numerically safer to work with.</p>
+<p>For a one-parameter model, we can often see the MLE as the highest point of a curve. The next sections show how to find that point analytically when a formula is available, and numerically when it is not.</p>
+<h2 id="finding-the-poisson-mle-by-hand">Finding the Poisson MLE by hand</h2>
+<p>Return to the coffee-shop data:</p>
+<pre class="r"><code>orders &lt;- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)</code></pre>
+<p>With \(n=10\) observations and \(\sum x_i=37\), the Poisson log-likelihood is</p>
+<p>$$
+\ell(\lambda)=-n\lambda+\left(\sum_{i=1}^n x_i\right)\ln\lambda
+-\sum_{i=1}^n \ln x_i!.
+$$</p>
+<p>To find the maximum, differentiate with respect to \(\lambda\):</p>
+<p>$$
+\ell&#39;(\lambda)=-n+\frac{\sum_{i=1}^n x_i}{\lambda}.
+$$</p>
+<p>Set the derivative equal to zero and solve:</p>
+<p>$$
+-n+\frac{\sum x_i}{\lambda}=0
+\quad\Longrightarrow\quad
+\hat\lambda=\frac{\sum_{i=1}^n x_i}{n}=\bar x.
+$$</p>
+<p>The second derivative is</p>
+<p>$$
+\ell&#39;&#39;(\lambda)=-\frac{\sum x_i}{\lambda^2}&lt;0,
+$$</p>
+<p>so this critical point is a maximum. For the coffee-shop data, \(\hat\lambda=3.7\). The estimate is simply the average number of orders per hour.</p>
+<p>The following R code computes the estimate and plots the log-likelihood.</p>
+<pre class="r"><code>orders &lt;- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)
+n &lt;- length(orders)
+lambda_hat &lt;- mean(orders)
+
+loglik &lt;- function(lambda) {
+  -n * lambda + sum(orders) * log(lambda) -
+    sum(lgamma(orders + 1))
+}
+
+lambda &lt;- seq(0.5, 8, by = 0.01)
+plot(lambda, loglik(lambda), type = &quot;l&quot;, lwd = 2,
+     xlab = expression(lambda), ylab = &quot;Log-likelihood&quot;,
+     main = &quot;Poisson log-likelihood&quot;)
+abline(v = lambda_hat, lty = 2)
+lambda_hat</code></pre>
+<p>The dashed line marks the peak at \(\hat\lambda=3.7\).</p>
+<h2 id="when-there-is-no-closed-form-gamma-shape">When there is no closed form: Gamma shape</h2>
+<p>Now consider the bike-share repair times. Suppose the times \(X_i\) are modeled as independent observations from a Gamma distribution with unknown shape \(\alpha&gt;0\) and known rate \(\beta=0.8\). The PDF is</p>
+<p>$$
+f_X(x)=\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta x},
+\qquad x&gt;0.
+$$</p>
+<p>The log-likelihood for \(n\) independent observations is</p>
+<p>$$
+\ell(\alpha)=n\alpha\ln\beta-n\ln\Gamma(\alpha)
++(\alpha-1)\sum_{i=1}^n\ln x_i-\beta\sum_{i=1}^n x_i.
+$$</p>
+<p>Differentiating with respect to \(\alpha\) gives</p>
+<p>$$
+\ell&#39;(\alpha)=n\ln\beta-n\psi(\alpha)+\sum_{i=1}^n\ln x_i,
+$$</p>
+<p>where \(\psi(\alpha)\) is the digamma function. Setting the derivative equal to zero gives</p>
+<p>$$
+\psi(\alpha)=\ln\beta+\frac{1}{n}\sum_{i=1}^n\ln x_i.
+$$</p>
+<p>This equation has no algebraic solution for \(\alpha\). The digamma function cannot be inverted with elementary operations. We therefore need a numerical method to find the maximum. Notice that the rate parameter \(\beta\) would have a closed-form estimate if \(\alpha\) were known; it is the shape parameter that creates the difficulty here.</p>
+<h2 id="finding-the-gamma-shape-mle-numerically-in-r">Finding the Gamma shape MLE numerically in R</h2>
+<p>Here are 90 repair times, in hours:</p>
+<pre class="r"><code>repair_time &lt;- c(4.148, 1.522, 2.977, 0.842, 2.06, 3.539, 0.143, 1.521,
+  4.127, 2.472, 1.076, 4.858, 4.899, 1.629, 1.559, 2.471, 5.056, 2.37,
+  1.998, 0.906, 2.527, 0.591, 1.825, 1.583, 3.194, 6.149, 0.687, 5.548,
+  0.815, 3.616, 3.64, 2.66, 2.899, 1.571, 8.644, 1.47, 3.249, 1.202,
+  3.344, 1.448, 0.309, 2.395, 6.531, 1.78, 2.417, 1.828, 1.82, 1.595,
+  4.037, 2.367, 3.369, 1.015, 1.178, 4.3, 1.697, 4.133, 1.402, 1.884,
+  6.049, 3.355, 4.37, 0.271, 1.81, 1.755, 1.113, 2.395, 1.501, 2.473,
+  0.909, 1.021, 3.19, 3.6, 2.28, 7.34, 2.538, 1.144, 3.795, 3.891,
+  7.593, 1.465, 1.958, 1.941, 1.578, 1.271, 1.148, 1.949, 1.901, 4.236,
+  3.368, 2.859)</code></pre>
+<p>We first write the log-likelihood as an R function. Then we can either maximize it directly or minimize its negative.</p>
+<pre class="r"><code>n &lt;- length(repair_time)
+beta &lt;- 0.8
+
+loglik &lt;- function(alpha) {
+  n * alpha * log(beta) - n * lgamma(alpha) +
+    (alpha - 1) * sum(log(repair_time)) - beta * sum(repair_time)
+}
+
+nll &lt;- function(alpha) -loglik(alpha)
+
+optimize(loglik, interval = c(0.1, 10), maximum = TRUE)
+optimize(nll, interval = c(0.1, 10))</code></pre>
+<p>Both calls return the same estimate. The first reports <code>$maximum</code>, the value of \(\alpha\) that maximizes the log-likelihood. The second reports <code>$minimum</code>, the value that minimizes the negative log-likelihood. For these data, both give</p>
+<p>$$
+\hat\alpha\approx 2.174.
+$$</p>
+<p>The optimized log-likelihood is approximately \(-161.19\). We can plot the log-likelihood to confirm that the peak is inside the interval and not at an endpoint.</p>
+<pre class="r"><code>alpha &lt;- seq(1, 4, by = 0.01)
+plot(alpha, loglik(alpha), type = &quot;l&quot;, lwd = 2,
+     xlab = expression(alpha), ylab = &quot;Log-likelihood&quot;,
+     main = &quot;Gamma shape log-likelihood&quot;)
+abline(v = 2.174, lty = 2)</code></pre>
+<p>The curve rises to a single peak and then falls, so the numerical solution is a genuine maximum.</p>
+<p>When using <code>optimize()</code>, keep a few practical points in mind:</p>
+<ul>
+<li>The <code>interval</code> must be finite and must contain the optimum.</li>
+<li>Use an interval consistent with the parameter’s constraints. For a positive shape parameter, the lower endpoint must be positive.</li>
+<li>If the optimum lands on an endpoint, the interval may be too narrow or the model may be pushing against a boundary.</li>
+<li>Plotting the log-likelihood or evaluating it on a grid is a quick way to check that the result is sensible.</li>
+<li><code>optimize()</code> is for one-dimensional problems. This module focuses on one unknown parameter at a time.</li>
+</ul>
+<h2 id="analytical-versus-numerical-a-decision-tree">Analytical versus numerical: a decision tree</h2>
+<p>The two examples suggest a simple decision rule:</p>
+<ol type="1">
+<li>Write the log-likelihood.</li>
+<li>Differentiate and set the derivative equal to zero.</li>
+<li>If you can solve the equation algebraically, use the closed-form estimate.</li>
+<li>If you cannot, use <code>optimize()</code> in R.</li>
+</ol>
+<p>The Poisson rate has a closed form, \(\hat\lambda=\bar x\). The Gamma shape does not, so we optimize numerically. The same split appears throughout the assessments. For example, a Bernoulli probability, a Poisson rate, an exponential rate, a Normal mean with known variance, a Gamma rate with known shape, a Geometric probability, a Negative Binomial probability with known \(r\), and a log-normal standard deviation with known mean all have closed-form estimates. A Gamma shape, a Weibull shape, a Beta shape, and a Negative Binomial \(r\) generally require numerical optimization.</p>
+<p>The recipes do not change from one distribution to the next. Write the log-likelihood, differentiate when possible, and use <code>optimize()</code> when necessary.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>Watch for these errors when finding MLEs:</p>
+<ul>
+<li>Confusing a rate parameter with a mean or scale parameter. Check the parameterization before using a formula.</li>
+<li>Forgetting constants or factors of \(n\) when differentiating.</li>
+<li>Solving the derivative equation without checking that the solution is a maximum.</li>
+<li>Forgetting to transform an estimate when the question asks for a standard deviation or another function of the parameter.</li>
+<li>Using a search interval that includes invalid parameter values or does not contain the optimum.</li>
+<li>Using the wrong sign in the negative log-likelihood.</li>
+<li>Reading the wrong part of the <code>optimize()</code> output.</li>
+<li>Not checking whether the optimum is inside the interval rather than at an endpoint.</li>
+</ul>
+<h2 id="putting-the-pieces-together">Putting the pieces together</h2>
+<p>The maximum likelihood estimate is the parameter value that maximizes the likelihood or, equivalently, the log-likelihood. When the derivative equation can be solved algebraically, we get a closed-form estimate. When it cannot, we use <code>optimize()</code> in R to search over a sensible interval. The Poisson rate and the Gamma shape illustrate the two cases, but the same workflow applies to the other distributions in the quizzes and knowledge checks.</p>
+
+</div>
+</body>
+</html>

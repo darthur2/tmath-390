@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What Does the Likelihood Tell Us?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #1f2937;
+      margin: 0;
+      padding: 2rem 1rem;
+      line-height: 1.75;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      color: #245364;
+      line-height: 1.3;
+      margin: 0 0 1.2rem;
+    }
+    h1 + p em { color: #5b6e7a; }
+    h2 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.05rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #346678;
+      border-bottom: 1px solid #92aeba;
+      padding-bottom: 0.3rem;
+      margin: 2.4rem 0 0.9rem;
+    }
+    p { line-height: 1.75; color: #1f2937; margin: 0 0 1.1rem; }
+    li { margin: 0 0 0.6rem; line-height: 1.75; color: #1f2937; }
+    ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+    code {
+      font-family: Consolas, Menlo, monospace;
+      background: #eaf0f6;
+      color: #000000;
+      padding: 0.1em 0.35em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+    pre {
+      background: #f4f6f8;
+      border: 1px solid #d7e2e8;
+      border-radius: 6px;
+      padding: 0.9rem;
+      overflow-x: auto;
+      line-height: 1.45;
+    }
+    pre code { background: none; padding: 0; }
+    table { border-collapse: collapse; margin: 1rem 0; width: 100%; }
+    th, td { border: 1px solid #cbd5e1; padding: 0.5rem 0.7rem; }
+    th { background: #eaf0f6; color: #245364; text-align: left; }
+    .math.display { display: block; text-align: center; margin: 1rem 0; }
+  </style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="what-does-the-likelihood-tell-us">What Does the Likelihood Tell Us?</h1>
+<p><em>How observed data rank possible parameter values—and why we often work with the log-likelihood.</em></p>
+<p>A campus coffee shop records the number of mobile orders that arrive each hour. The counts vary from hour to hour, and the manager wants to estimate the average arrival rate \(\lambda\). A quality engineer at a solar-panel factory inspects 20 panels and counts how many are defective; they want to estimate the defect probability \(p\). In both cases, we have data and a model with an unknown parameter. The question is: which parameter values are most plausible in light of the data?</p>
+<p>The likelihood function answers that question. It takes a model and a data set, and scores each possible parameter value by how well it explains the observed data.</p>
+<h2 id="from-probability-to-likelihood">From probability to likelihood</h2>
+<p>In probability, we fix the parameter and ask about possible data. For a Bernoulli random variable with success probability \(p\), the PMF is</p>
+<p>$$
+P_X(x)=p^x(1-p)^{1-x},\qquad x\in\{0,1\}.
+$$</p>
+<p>For a Poisson random variable with rate \(\lambda\), the PMF is</p>
+<p>$$
+P_X(x)=e^{-\lambda}\frac{\lambda^x}{x!},\qquad x=0,1,2,\ldots.
+$$</p>
+<p>These functions tell us how likely different data values are when the parameter is known.</p>
+<p>In statistics, we reverse the roles. The data are now fixed—we have already observed them—and the parameter is unknown. The <strong>likelihood function</strong> is the probability (or density) of the observed data, viewed as a function of the parameter.</p>
+<p>For independent observations \(x_1,\ldots,x_n\) from a model with PMF \(P_X(x;\theta)\) or PDF \(f_X(x;\theta)\), the likelihood is</p>
+<p>$$
+L(\theta)=\prod_{i=1}^n p_\theta(x_i),
+$$</p>
+<p>where \(p_\theta(x_i)\) denotes the PMF value \(P_X(x_i;\theta)\) for discrete data or the PDF value \(f_X(x_i;\theta)\) for continuous data.</p>
+<p>For discrete data, \(L(\theta)\) is the joint probability of the observed sample. For continuous data, it is a product of densities. In either case, larger values of \(L(\theta)\) mean the parameter value \(\theta\) does a better job of explaining the data.</p>
+<p>The likelihood is not a probability distribution over \(\theta\). It does not integrate or sum to \(1\) over the parameter space. It is a relative measure of fit: we can compare \(L(\theta_1)\) and \(L(\theta_2)\), but the individual values are not probabilities of the parameters.</p>
+<p>For example, suppose the quality engineer observes 14 defective panels out of 20. With \(x=14\) and \(n=20\), the Bernoulli likelihood is</p>
+<p>$$
+L(p)=p^{14}(1-p)^6,\qquad 0&lt;p&lt;1.
+$$</p>
+<p>At \(p=0.5\), \(L(0.5)\approx 9.54\times 10^{-7}\). At \(p=0.7\), \(L(0.7)\approx 4.94\times 10^{-6}\). The likelihood is larger at \(p=0.7\), so a 70% defect rate explains the observed data better than a 50% defect rate.</p>
+<h2 id="building-likelihoods-for-the-two-scenarios">Building likelihoods for the two scenarios</h2>
+<p>Let’s derive the likelihood for each scenario from the PMF.</p>
+<p>For the panel inspections, let \(X_i=1\) if panel \(i\) is defective and \(X_i=0\) otherwise, with success probability \(p\). The PMF is</p>
+<p>$$
+P_X(x_i)=p^{x_i}(1-p)^{1-x_i}.
+$$</p>
+<p>Multiplying over the \(n\) independent inspections gives</p>
+<p>$$
+L(p)=\prod_{i=1}^n p^{x_i}(1-p)^{1-x_i}
+=p^{\sum_{i=1}^n x_i}(1-p)^{n-\sum_{i=1}^n x_i}.
+$$</p>
+<p>The exponent on \(p\) is the total number of defective panels, and the exponent on \(1-p\) is the number of non-defective panels.</p>
+<p>For the coffee shop, let \(X_i\) be the number of mobile orders in hour \(i\), with \(X_i\sim\operatorname{Poisson}(\lambda)\). The PMF is</p>
+<p>$$
+P_X(x_i)=e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}.
+$$</p>
+<p>Multiplying over the \(n\) hours gives</p>
+<p>$$
+L(\lambda)=\prod_{i=1}^n e^{-\lambda}\frac{\lambda^{x_i}}{x_i!}
+=e^{-n\lambda}\frac{\lambda^{\sum_{i=1}^n x_i}}{\prod_{i=1}^n x_i!}.
+$$</p>
+<p>The factor \(e^{-n\lambda}\) comes from multiplying \(e^{-\lambda}\) once for each observation, and the exponent on \(\lambda\) is the total number of orders.</p>
+<p>The same product rule applies to any PMF or PDF. The assessments use other distributions, but the steps are identical: write the PMF or PDF for one observation, multiply over the independent observations, and simplify.</p>
+<p>Some factors in a likelihood do not depend on the parameter. In the Poisson likelihood, \(\prod x_i!\) is a constant. Constants can be dropped when comparing parameter values, but the full expression is still the likelihood. In this course, keep the full expression unless you are explicitly told that constants may be ignored.</p>
+<h2 id="why-take-the-log">Why take the log?</h2>
+<p>Likelihoods are products, and products become hard to work with. The values can be extremely small: a likelihood for 90 observations might be \(10^{-100}\) or smaller. Differentiating a product of many terms is also cumbersome. The log-likelihood solves both problems.</p>
+<p>The <strong>log-likelihood</strong> is</p>
+<p>$$
+\ell(\theta)=\ln L(\theta)
+=\ln\left(\prod_{i=1}^n p_\theta(x_i)\right)
+=\sum_{i=1}^n \ln p_\theta(x_i).
+$$</p>
+<p>Taking the log turns a product into a sum. It turns powers into multipliers and exponentials into linear terms. It also makes the numbers much more manageable. Because the natural logarithm is an increasing function, \(\ell(\theta)\) and \(L(\theta)\) reach their maximum at the same parameter value. Maximizing the log-likelihood is therefore equivalent to maximizing the likelihood.</p>
+<p>For the Bernoulli example,</p>
+<p>$$
+\ell(p)=\ln\left[p^{\sum x_i}(1-p)^{n-\sum x_i}\right]
+=\left(\sum_{i=1}^n x_i\right)\ln p
++\left(n-\sum_{i=1}^n x_i\right)\ln(1-p).
+$$</p>
+<p>For the Poisson example,</p>
+<p>$$
+\ell(\lambda)=\ln\left[e^{-n\lambda}\frac{\lambda^{\sum x_i}}{\prod x_i!}\right]
+=-n\lambda+\left(\sum_{i=1}^n x_i\right)\ln\lambda
+-\sum_{i=1}^n \ln x_i!.
+$$</p>
+<p>The last term, \(-\sum \ln x_i!\), does not depend on \(\lambda\), so it does not affect the location of the maximum. It is still part of the full log-likelihood.</p>
+<p>The following R code evaluates and plots the Bernoulli likelihood and log-likelihood for the 14-out-of-20 example.</p>
+<pre class="r"><code>p &lt;- seq(0.01, 0.99, by = 0.01)
+x &lt;- 14
+n &lt;- 20
+
+lik &lt;- p^x * (1 - p)^(n - x)
+loglik &lt;- x * log(p) + (n - x) * log(1 - p)
+
+plot(p, lik, type = &quot;l&quot;, lwd = 2,
+     xlab = &quot;p&quot;, ylab = &quot;Likelihood&quot;,
+     main = &quot;Bernoulli likelihood&quot;)
+plot(p, loglik, type = &quot;l&quot;, lwd = 2,
+     xlab = &quot;p&quot;, ylab = &quot;Log-likelihood&quot;,
+     main = &quot;Bernoulli log-likelihood&quot;)</code></pre>
+<p>Both curves peak near \(p=0.7\). The likelihood scale is tiny, while the log-likelihood scale is easier to read. The peak is in the same place.</p>
+<h2 id="worked-example-coffee-shop-orders">Worked example: coffee shop orders</h2>
+<p>Suppose the coffee shop records these order counts over 10 hours:</p>
+<pre class="r"><code>orders &lt;- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)</code></pre>
+<p>There are \(n=10\) observations and \(\sum x_i=37\) total orders. The Poisson likelihood is</p>
+<p>$$
+L(\lambda)=e^{-10\lambda}\frac{\lambda^{37}}{\prod x_i!}.
+$$</p>
+<p>The log-likelihood is</p>
+<p>$$
+\ell(\lambda)=-10\lambda+37\ln\lambda-\sum_{i=1}^{10}\ln x_i!.
+$$</p>
+<p>The term \(-\sum \ln x_i!\) is constant with respect to \(\lambda\). Evaluating the full log-likelihood at a few values gives:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">\(\lambda\)</th>
+<th style="text-align: right;">\(\ell(\lambda)\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">3.0</td>
+<td style="text-align: right;">\(-18.62\)</td>
+</tr>
+<tr>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">\(-17.86\)</td>
+</tr>
+<tr>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">\(-17.98\)</td>
+</tr>
+<tr>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">\(-19.72\)</td>
+</tr>
+</tbody>
+</table>
+<p>The largest value among these is at \(\lambda=3.7\), which is the sample mean. The log-likelihood is highest there, so \(3.7\) is the most plausible order rate among the values considered. We will see in the next reading how to find this value systematically.</p>
+<p>The following code evaluates the full log-likelihood over a grid and plots it.</p>
+<pre class="r"><code>orders &lt;- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)
+n &lt;- length(orders)
+lambda &lt;- seq(0.5, 8, by = 0.01)
+
+loglik &lt;- -n * lambda + sum(orders) * log(lambda) -
+  sum(lgamma(orders + 1))
+
+plot(lambda, loglik, type = &quot;l&quot;, lwd = 2,
+     xlab = expression(lambda), ylab = &quot;Log-likelihood&quot;,
+     main = &quot;Poisson log-likelihood&quot;)
+abline(v = mean(orders), lty = 2)</code></pre>
+<p>The dashed line marks \(\bar x=3.7\), the peak of the curve.</p>
+<h2 id="worked-example-panel-defects">Worked example: panel defects</h2>
+<p>Return to the 14 defective panels out of 20. The likelihood and log-likelihood are</p>
+<p>$$
+L(p)=p^{14}(1-p)^6,
+\qquad
+\ell(p)=14\ln p+6\ln(1-p).
+$$</p>
+<p>Evaluating the log-likelihood at a few values:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">\(p\)</th>
+<th style="text-align: right;">\(L(p)\)</th>
+<th style="text-align: right;">\(\ell(p)\)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">\(9.54\times 10^{-7}\)</td>
+<td style="text-align: right;">\(-13.86\)</td>
+</tr>
+<tr>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">\(3.21\times 10^{-6}\)</td>
+<td style="text-align: right;">\(-12.65\)</td>
+</tr>
+<tr>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">\(4.94\times 10^{-6}\)</td>
+<td style="text-align: right;">\(-12.22\)</td>
+</tr>
+<tr>
+<td style="text-align: right;">0.8</td>
+<td style="text-align: right;">\(2.81\times 10^{-6}\)</td>
+<td style="text-align: right;">\(-12.78\)</td>
+</tr>
+</tbody>
+</table>
+<p>The log-likelihood increases from \(p=0.5\) to \(p=0.6\) to \(p=0.7\), peaks at \(p=0.7\), and then decreases at \(p=0.8\). The peak occurs at the observed proportion of defective panels. This is the same peak we saw in the plots. The likelihood values are all tiny, but their relative sizes are what matter, and the log-likelihood makes those relative sizes easier to see.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>When building a likelihood or log-likelihood, watch for these errors:</p>
+<ul>
+<li>Mixing up the role of the data and the parameter. The data are fixed, and the parameter varies.</li>
+<li>Using the sample size where a sum of observations belongs, or vice versa. A product of \(n\) factors often introduces an exponent of \(n\).</li>
+<li>Dropping a term that still depends on the parameter. Constants can be dropped for optimization, but parameter-dependent terms cannot.</li>
+<li>Treating the likelihood as a probability distribution over the parameter. Likelihood values are relative measures of fit, not probabilities of parameter values.</li>
+<li>Confusing the PMF or PDF with the likelihood. The PMF or PDF describes the data for a fixed parameter; the likelihood views the same expression as a function of the parameter for fixed data.</li>
+<li>Forgetting to multiply over all independent observations before simplifying.</li>
+</ul>
+<h2 id="putting-the-pieces-together">Putting the pieces together</h2>
+<p>The likelihood function turns a probability model around: instead of asking how likely the data are for a known parameter, it asks how plausible each parameter value is for the data we actually observed. For independent observations, the likelihood is the product of the PMF or PDF values. The log-likelihood is the sum of the logs, which is easier to work with and has the same maximum. In the next reading, we will find that maximum by hand when a formula exists, and with R when it does not.</p>
+
+</div>
+</body>
+</html>
