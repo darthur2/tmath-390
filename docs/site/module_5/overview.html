@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Module 5 Overview</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Module 5 Overview</h1>
+
+
+
+<div id="why-this-module-matters" class="section level2">
+<h2>Why This Module Matters</h2>
+<p>Module 5 is about estimation: using observed data to choose plausible
+values for unknown model parameters. Probability tells us how likely
+data are for a known model; estimation reverses that question and asks
+which parameter values best explain the data we actually observed. The
+ideas in this module support the confidence intervals, hypothesis tests,
+and regression models that come later in the course.</p>
+</div>
+<div id="what-youll-learn" class="section level2">
+<h2>What You’ll Learn</h2>
+<p>You will learn how to build a <strong>likelihood function</strong>
+from a PMF or PDF, how to work with the <strong>log-likelihood</strong>,
+and why taking logs makes the calculations easier. You will then learn
+how to find a <strong>maximum likelihood estimate</strong> by
+differentiating the log-likelihood in closed-form cases, and how to use
+R’s <code>optimize()</code> function when no closed-form solution
+exists. The module uses realistic examples such as mobile-order counts,
+panel defects, waiting times, and repair times to connect the
+mathematics to data analysis.</p>
+</div>
+<div id="by-the-end-of-this-module-you-should-be-able-to" class="section level2">
+<h2>By the End of This Module, You Should Be Able To</h2>
+<p>After completing this module, you should be able to:</p>
+<ul>
+<li>Construct and simplify a likelihood function for independent
+observations.</li>
+<li>Construct the corresponding log-likelihood.</li>
+<li>Derive closed-form maximum likelihood estimators by
+differentiation.</li>
+<li>Recognize when a parameter has no closed-form MLE.</li>
+<li>Use <code>optimize()</code> in R to find an MLE numerically and
+interpret the result.</li>
+</ul>
+</div>
+<div id="whats-inside" class="section level2">
+<h2>What’s Inside</h2>
+<ul>
+<li><strong>Readings</strong> — two connected readings: <em>What Does
+the Likelihood Tell Us?</em> and <em>How Do We Find the Maximum
+Likelihood Estimate?</em>.</li>
+<li><strong>Definitions and Examples</strong> — a glossary of key
+estimation terms with examples and R code.</li>
+<li><strong>Assessments</strong> — quizzes and knowledge checks in
+Canvas.</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+</body>
+</html>

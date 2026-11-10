@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Module 2 Overview</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Module 2 Overview</h1>
+
+
+
+<div id="why-this-module-matters" class="section level2">
+<h2>Why This Module Matters</h2>
+<p>Module 2 is about exploratory data analysis (EDA): looking carefully
+at data before drawing conclusions. Whether the data describe gas
+prices, material strengths, or wait times, the goal is the same —
+understand what the numbers look like, summarize them honestly, and see
+how variables are related. The topics in this module matter because the
+wrong summary or the wrong plot can quietly mislead you, while the right
+one can turn a table of numbers into a clear story. In this module, that
+table of numbers is real: a dataset of regular gas prices from every
+state and the District of Columbia, collected on a single day, together
+with each state’s population, gasoline tax, and refining capacity.</p>
+</div>
+<div id="what-youll-learn" class="section level2">
+<h2>What You’ll Learn</h2>
+<p>By the end of this module, you will understand the difference between
+<strong>categorical variables</strong> and <strong>quantitative
+variables</strong>, and between <strong>continuous variables</strong>
+and <strong>discrete variables</strong>. You will learn to describe the
+<strong>distribution</strong> of a variable and to choose the
+appropriate measure of <strong>central tendency</strong> — the
+<strong>mean</strong>, the <strong>median</strong>, or the
+<strong>mode</strong> — for the shape of the data. You will learn the
+measures of <strong>variability</strong>: <strong>quartiles</strong>,
+the <strong>interquartile range (IQR)</strong>, the
+<strong>range</strong>, the <strong>variance</strong>, the
+<strong>standard deviation</strong>, and the <strong>minimum</strong>
+and <strong>maximum</strong>, along with the 1.5 × IQR rule for flagging
+<strong>outliers</strong>. You will learn when to summarize a
+categorical variable with <strong>proportions</strong>. And you will
+learn which visualizations fit which variables —
+<strong>histograms</strong>, <strong>boxplots</strong>, <strong>bar
+charts</strong>, and <strong>scatterplots</strong> — and how to compute
+grouped numeric summaries such as the mean, median, and standard
+deviation within groups.</p>
+</div>
+<div id="by-the-end-of-this-module-you-should-be-able-to" class="section level2">
+<h2>By the End of This Module, You Should Be Able To</h2>
+<p>After completing this module, you should be able to work with a
+quantitative or categorical dataset and do several things with
+confidence:</p>
+<ul>
+<li>Identify <strong>categorical</strong> and
+<strong>quantitative</strong> variables, and tell
+<strong>continuous</strong> variables from <strong>discrete</strong>
+ones.</li>
+<li>Describe the <strong>distribution</strong> of a variable and
+recognize when it is skewed.</li>
+<li>Choose and compute the appropriate measure of <strong>central
+tendency</strong> — the <strong>mean</strong>, the
+<strong>median</strong>, or the <strong>mode</strong> — for the shape of
+the data.</li>
+<li>Compute and interpret <strong>quartiles</strong>, the
+<strong>interquartile range (IQR)</strong>, the <strong>range</strong>,
+the <strong>variance</strong>, the <strong>standard deviation</strong>,
+and the <strong>minimum</strong> and <strong>maximum</strong>.</li>
+<li>Use the 1.5 × IQR rule to identify <strong>outliers</strong>.</li>
+<li>Summarize <strong>categorical</strong> variables with
+<strong>proportions</strong>.</li>
+<li>Choose the right plot — a <strong>histogram</strong>, a
+<strong>boxplot</strong>, a <strong>bar chart</strong>, or a
+<strong>scatterplot</strong> — for the variables at hand.</li>
+<li>Compute grouped numeric summaries (such as the mean, median, and
+standard deviation) within groups.</li>
+</ul>
+</div>
+<div id="whats-inside" class="section level2">
+<h2>What’s Inside</h2>
+<ul>
+<li><strong>Readings</strong> — two short stories built around the gas
+price dataset: <em>How Much Does Gas Cost Across the United States?</em>
+and <em>What Do Gas Prices Look Like? Visualizing the Data</em>.</li>
+<li><strong>Definitions and Examples</strong> — a glossary of every key
+term with sources from <em>Mathematical Statistics with Applications in
+R</em>, <em>Introductory Statistics 2e</em>, <em>R for Data Science
+(2e)</em>, and <em>Hands-On Programming with R</em>.</li>
+<li><strong>Knowledge Checks</strong> — short practice questions that
+test each concept as you go.</li>
+<li><strong>Quiz</strong> — a full scenario-based check of everything
+you’ve learned in the module.</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+</body>
+</html>

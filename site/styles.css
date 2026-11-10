@@ -117,3 +117,13 @@ figcaption {
 a {
   color: #346678;
 }
+
+.glossary-term {
+  background: #eaf0f6;
+  color: #5b6e7a;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.08em 0.5em;
+  border-bottom: 1px dotted #92aeba;
+  cursor: help;
+}

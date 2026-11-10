@@ -61,12 +61,21 @@ for (input in rmd_files) {
   )
   html <- gsub("<span class=\"math display\">\\[", "$$", html, fixed = TRUE)
   html <- gsub("\\]</span>", "$$", html, fixed = TRUE)
+
+  rel_dir <- dirname(relative)
+  depth <- if (identical(rel_dir, ".")) 0L else length(strsplit(rel_dir, "/")[[1]])
+  prefix <- strrep("../", depth)
+  script_tags <- paste0(
+    '<script src="', prefix, 'glossary-terms.js"></script>\n',
+    '<script src="', prefix, 'glossary-highlight.js"></script>\n'
+  )
+  html <- sub("</body>", paste0(script_tags, "</body>"), html, fixed = TRUE)
   writeLines(html, html_path, useBytes = TRUE)
 }
 
 invisible(file.copy(
-  "site/styles.css",
-  file.path(out_root, "styles.css"),
+  c("site/styles.css", "site/glossary-terms.js", "site/glossary-highlight.js"),
+  out_root,
   overwrite = TRUE
 ))
 

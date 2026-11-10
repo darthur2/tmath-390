@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Module 4 Overview</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Module 4 Overview</h1>
+
+
+
+<div id="why-this-module-matters" class="section level2">
+<h2>Why This Module Matters</h2>
+<p>Module 4 is about distributions and statistical models: ways to
+describe uncertainty, answer probability questions, and summarize how
+random variables behave. Module 3 introduced the rules of probability;
+now we use those rules to model numerical outcomes. Whether we are
+counting defects, estimating a waiting time, or studying how two
+measurements vary together, a useful distribution helps us calculate
+probabilities, describe typical values and spread, and understand
+relationships between variables. These ideas support the statistical
+modeling and inference that come later in the course.</p>
+</div>
+<div id="what-youll-learn" class="section level2">
+<h2>What You’ll Learn</h2>
+<p>You will learn how a <strong>random variable</strong> maps uncertain
+outcomes to numbers and how its <strong>support</strong>,
+<strong>probability mass function (PMF)</strong>, <strong>probability
+density function (PDF)</strong>, and <strong>cumulative distribution
+function (CDF)</strong> describe its possible values and probabilities.
+You will work with common discrete and continuous distributions,
+including Bernoulli, binomial, multinomial, Poisson, geometric, negative
+binomial, exponential, Gamma, Beta, Normal, and log-normal models. You
+will use <strong>expectation</strong> and <strong>variance</strong> to
+describe a variable’s average and spread.</p>
+<p>You will also study how <strong>linear</strong> and <strong>nonlinear
+transformations</strong> change a distribution, as well as how joint
+models describe two variables together. From a joint model, you will
+find <strong>marginal</strong> and <strong>conditional
+distributions</strong>, calculate <strong>conditional
+expectations</strong>, and use <strong>covariance</strong> and
+<strong>correlation</strong> to summarize associations. Throughout the
+module, R provides ways to calculate probabilities, moments, and
+relationships from these models.</p>
+</div>
+<div id="by-the-end-of-this-module-you-should-be-able-to" class="section level2">
+<h2>By the End of This Module, You Should Be Able To</h2>
+<p>After completing this module, you should be able to work with a
+probability model and do several things with confidence:</p>
+<ul>
+<li>Describe a random variable’s support and distinguish its PMF, PDF,
+and CDF.</li>
+<li>Choose an appropriate discrete or continuous distribution for a
+scenario or observed data.</li>
+<li>Calculate probabilities, expectations, and variances from a
+distribution, using R when helpful.</li>
+<li>Determine how a monotonic, one-to-one transformation changes a
+random variable’s distribution, expectation, and variance.</li>
+<li>Find marginal and conditional distributions from a joint PMF or PDF,
+and calculate conditional expectations.</li>
+<li>Calculate and interpret covariance and correlation from a joint
+distribution.</li>
+</ul>
+</div>
+<div id="whats-inside" class="section level2">
+<h2>What’s Inside</h2>
+<ul>
+<li><strong>Readings</strong> — seven connected readings in sequence:
+<em>How Do We Model Data?</em>, <em>How Do We Model Counts and
+Successes?</em>, <em>How Do We Model Measurements and Waiting
+Times?</em>, <em>What Happens When You Shift or Rescale a
+Variable?</em>, <em>What Happens When You Square or Take the Log of a
+Variable?</em>, <em>How Does Knowing One Outcome Change the Chances of
+Another?</em>, and <em>How Strongly Do Two Variables Move
+Together?</em>.</li>
+<li><strong>Definitions and Examples</strong> — an alphabetical glossary
+of Module 4 terms, with sourced definitions, fresh examples, and R code
+where it helps with calculations.</li>
+<li><strong>Knowledge Checks</strong> — practice with distribution
+choice, probabilities and moments, transformations, conditional
+distributions, and correlation.</li>
+<li><strong>Quizzes</strong> — three scenario-based checks of the Module
+4 material.</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+</body>
+</html>

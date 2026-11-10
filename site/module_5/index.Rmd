@@ -2,7 +2,11 @@
 title: "Module 5: Maximum Likelihood Estimation"
 ---
 
-This page lists the readings for Module 5.
+This page lists the overview and readings for Module 5.
+
+## Overview
+
+- [Module Overview](overview.html)
 
 ## Readings
 

@@ -2,7 +2,7 @@
 title: "TMath 390 Readings"
 ---
 
-This site hosts the course readings as R Markdown-generated HTML pages.
+This site hosts the course overviews and readings as R Markdown-generated HTML pages.
 
 ## Modules
 

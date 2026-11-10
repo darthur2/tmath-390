@@ -1,0 +1,41 @@
+---
+title: "Module 5 Overview"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+## Why This Module Matters
+
+Module 5 is about estimation: using observed data to choose plausible values for unknown model parameters. Probability tells us how likely data are for a known model; estimation reverses that question and asks which parameter values best explain the data we actually observed. The ideas in this module support the confidence intervals, hypothesis tests, and regression models that come later in the course.
+
+## What You'll Learn
+
+You will learn how to build a **likelihood function** from a PMF or PDF, how to work with the **log-likelihood**, and why taking logs makes the calculations easier. You will then learn how to find a **maximum likelihood estimate** by differentiating the log-likelihood in closed-form cases, and how to use R's `optimize()` function when no closed-form solution exists. The module uses realistic examples such as mobile-order counts, panel defects, waiting times, and repair times to connect the mathematics to data analysis.
+
+## By the End of This Module, You Should Be Able To
+
+After completing this module, you should be able to:
+
+- Construct and simplify a likelihood function for independent observations.
+- Construct the corresponding log-likelihood.
+- Derive closed-form maximum likelihood estimators by differentiation.
+- Recognize when a parameter has no closed-form MLE.
+- Use `optimize()` in R to find an MLE numerically and interpret the result.
+
+## What's Inside
+
+- **Readings** — two connected readings: *What Does the Likelihood Tell Us?* and *How Do We Find the Maximum Likelihood Estimate?*.
+- **Definitions and Examples** — a glossary of key estimation terms with examples and R code.
+- **Assessments** — quizzes and knowledge checks in Canvas.

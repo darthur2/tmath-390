@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Module 3 Overview</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Module 3 Overview</h1>
+
+
+
+<div id="why-this-module-matters" class="section level2">
+<h2>Why This Module Matters</h2>
+<p>Module 3 is about probability: the mathematical language of
+uncertainty. Whether we are deciding how many drinks a menu can produce,
+calculating the chance of drawing a good hand, or interpreting a medical
+test result, probability gives us a precise way to answer “how likely?”
+The topics in this module matter because probability is the foundation
+for statistical inference — without it, we cannot quantify uncertainty,
+measure risk, or evaluate evidence. Every confidence interval, every
+hypothesis test, and every prediction interval in later modules rests on
+the rules developed here.</p>
+</div>
+<div id="what-youll-learn" class="section level2">
+<h2>What You’ll Learn</h2>
+<p>By the end of this module, you will understand the
+<strong>fundamental theorem of counting</strong>,
+<strong>permutations</strong>, and <strong>combinations</strong>, and
+how to use them to count possibilities in equally likely scenarios. You
+will learn <strong>classical probability</strong> and <strong>empirical
+probability</strong>, the three basic <strong>axioms of
+probability</strong>, and the <strong>complement rule</strong>. You will
+learn the <strong>inclusion-exclusion principle</strong> for “or”
+problems and the <strong>joint</strong>, <strong>marginal</strong>, and
+<strong>conditional probabilities</strong> that flow from a
+<strong>two-way table</strong>. You will learn the
+<strong>multiplication rule</strong> for “and” problems, the meaning of
+<strong>independence</strong>, the <strong>law of total
+probability</strong>, and <strong>Bayes’ Theorem</strong> for reversing
+conditional probabilities. Key concepts such as <strong>mutually
+exclusive</strong> events, <strong>sample spaces</strong>,
+<strong>outcomes</strong>, <strong>events</strong>,
+<strong>sensitivity</strong>, and <strong>specificity</strong> will be
+defined along the way.</p>
+</div>
+<div id="by-the-end-of-this-module-you-should-be-able-to" class="section level2">
+<h2>By the End of This Module, You Should Be Able To</h2>
+<p>After completing this module, you should be able to work with a
+probability scenario and do several things with confidence:</p>
+<ul>
+<li>Count the number of possible outcomes using the <strong>fundamental
+theorem of counting</strong>, <strong>permutations</strong>, and
+<strong>combinations</strong>.</li>
+<li>Compute probabilities using both the <strong>classical</strong> and
+<strong>empirical</strong> approaches.</li>
+<li>Apply the <strong>complement rule</strong> to find the probability
+that an event does not occur.</li>
+<li>Use the <strong>inclusion-exclusion principle</strong> to find the
+probability of one event or another.</li>
+<li>Read <strong>joint</strong>, <strong>marginal</strong>, and
+<strong>conditional probabilities</strong> from a <strong>two-way
+table</strong>.</li>
+<li>Apply the <strong>multiplication rule</strong> to find the
+probability that two events both occur.</li>
+<li>Determine whether two events are <strong>independent</strong>.</li>
+<li>Use the <strong>law of total probability</strong> and <strong>Bayes’
+Theorem</strong> to update probabilities given new evidence.</li>
+<li>Interpret <strong>sensitivity</strong> and
+<strong>specificity</strong> in the context of diagnostic testing.</li>
+<li>Recognize when events are <strong>mutually exclusive</strong>.</li>
+</ul>
+</div>
+<div id="whats-inside" class="section level2">
+<h2>What’s Inside</h2>
+<ul>
+<li><strong>Readings</strong> — seven short stories that introduce each
+concept in context: <em>How Many Unique Cups of Coffee Can You Make at
+Starbucks?</em>, <em>How Many Ways Can You Pick a Team?</em>, <em>What
+Are the Chances?</em>, <em>What’s the Chance You Get at Least One?</em>,
+<em>How Many Students Take Both?</em>, <em>How Reliable Is That
+Test?</em>, and <em>How Likely Is That Transaction Really
+Fraud?</em></li>
+<li><strong>Definitions and Examples</strong> — a glossary of every key
+term with sources from <em>Mathematical Statistics with Applications in
+R</em> and <em>Introductory Statistics 2e</em>.</li>
+<li><strong>Knowledge Checks</strong> — short practice questions that
+test each concept as you go.</li>
+<li><strong>Quizzes</strong> — three scenario-based checks of everything
+you’ve learned in the module.</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+</body>
+</html>
