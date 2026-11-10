@@ -1,19 +1,12 @@
 <!DOCTYPE html>
-
 <html>
-
 <head>
-
-<meta charset="utf-8" />
-<meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-
-
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Glossary</title>
-
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
 document.addEventListener('DOMContentLoaded', function(e) {
@@ -26,9 +19,7 @@ document.addEventListener('DOMContentLoaded', function(e) {
     while (a.length > 0) h.removeAttribute(a[0].name);
   }
 });
-</script>
-
-<style type="text/css">
+</script><style type="text/css">
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 span.underline{text-decoration: underline;}
@@ -36,9 +27,6 @@ div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 </style>
-
-
-
 <style type="text/css">
 code {
 white-space: pre;
@@ -139,12 +127,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; }
     }
   }
 })();
-</script>
-
-
-
-
-<style type="text/css">body {
+</script><style type="text/css">body {
 font-family: Arial, Helvetica, sans-serif;
 color: #1f2937;
 line-height: 1.75;
@@ -253,29 +236,40 @@ padding: 0.08em 0.5em;
 border-bottom: 1px dotted #92aeba;
 cursor: help;
 }
-.glossary-heading-term {
-display: inline-block;
-background: #eaf0f6;
-color: #346678;
-border-radius: 6px;
-padding: 0.1em 0.6em;
-border-bottom: none;
-font-size: inherit;
-letter-spacing: inherit;
-text-transform: inherit;
+.glossary-page .glossary-entry {
+margin: 0 0 1.1rem;
+padding: 1rem 1.2rem;
+background: #eef4f8;
+border: 1px solid #92aeba;
+border-radius: 10px;
 }
-h2.glossary-entry-heading {
-border-bottom: none;
-padding-bottom: 0;
+.glossary-page .glossary-entry h3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.98rem;
+color: #245364;
+margin: 1.8rem 0 0.7rem;
+}
+.glossary-page .glossary-entry p {
+line-height: 1.6;
+margin: 0 0 0.7rem;
+}
+.glossary-page .glossary-label {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #5b6e7a;
+}
+.glossary-page .glossary-entry p.glossary-source {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+color: #5b6e7a;
+margin: 0 0 0.6rem;
 }
 </style>
-
-
-
-
 </head>
-
-<body>
+<body class="glossary-page">
 
 
 
@@ -291,12 +285,13 @@ realistic scenario and question, a by-hand derivation, and matching R
 code so students can connect the two calculations. The examples use
 fresh contexts and values so they extend, rather than repeat, the course
 materials.</p>
-<div id="bernoulli-distribution" class="section level2">
-<h2>Bernoulli Distribution</h2>
-<p><strong>Definition:</strong> A discrete model for a single trial with
+<h2 class="glossary-letter">B</h2>
+<div id="bernoulli-distribution" class="section level2 glossary-entry">
+<h3>Bernoulli Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A discrete model for a single trial with
 two possible outcomes. If success has probability \(p\), then \(X=1\) for success and \(X=0\) otherwise. Use it when each
 observation is one yes/no event with a constant success probability.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 237-241; <em>Mathematical Statistics with Applications in R</em>,
 pp. 90-93.</p>
 <p>$$
@@ -311,50 +306,50 @@ F_X(x)=
 \end{cases}
 \qquad E[X]=p,\qquad \operatorname{Var}[X]=p(1-p)
 $$</p>
-<p><strong>Example 1:</strong> A beekeeper inspects one hive and finds
+<p><span class="glossary-label">Example 1:</span> A beekeeper inspects one hive and finds
 the queen with probability \(0.78\).
 How often will a single inspection miss her?</p>
-<p><strong>By hand:</strong> Let \(X=1\) mean the queen is found. Then \(X\sim\operatorname{Bernoulli}(0.78)\), so
+<p><span class="glossary-label">By hand:</span> Let \(X=1\) mean the queen is found. Then \(X\sim\operatorname{Bernoulli}(0.78)\), so
 \(P(X=0)=1-0.78=0.22\). In R,
 <code>dbinom</code> with <code>size = 1</code> gives the Bernoulli
 PMF.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.78</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> p</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.22</span></span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.22</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A website shows one ad impression, and a
+<p><span class="glossary-label">Example 2:</span> A website shows one ad impression, and a
 click occurs with probability \(0.04\).
 What is the expected number of clicks per impression, and how variable
 is it?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Bernoulli}(0.04)\),
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Bernoulli}(0.04)\),
 \(E[X]=p=0.04\) and \(\operatorname{Var}[X]=p(1-p)=0.04(0.96)=0.0384\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.04</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> p, <span class="at">variance =</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    mean variance </span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="fl">0.0400</span>   <span class="fl">0.0384</span> </span></code></pre></div>
-<p><strong>Example 3:</strong> A factory checks one part, and the chance
+<p><span class="glossary-label">Example 3:</span> A factory checks one part, and the chance
 it is defective is \(0.03\). What is
 the probability the part passes?</p>
-<p><strong>By hand:</strong> Let \(X=1\) mean defective. Then \(P(X=0)=1-P(X=1)=1-0.03=0.97\). In R,
+<p><span class="glossary-label">By hand:</span> Let \(X=1\) mean defective. Then \(P(X=0)=1-P(X=1)=1-0.03=0.97\). In R,
 <code>pbinom</code> gives the Bernoulli CDF directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.03</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> p</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.97</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.97</span></span></code></pre></div>
 </div>
-<div id="beta-distribution" class="section level2">
-<h2>Beta Distribution</h2>
-<p><strong>Definition:</strong> A continuous model for proportions or
+<div id="beta-distribution" class="section level2 glossary-entry">
+<h3>Beta Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A continuous model for proportions or
 fractions on \(0&lt;X&lt;1\). Its shape
 parameters \(\alpha\) and \(\beta\) let it represent symmetric, skewed,
 or U-shaped proportions. Use it when the data are percentages or rates
 bounded between zero and one.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 108-109.</p>
 <p>$$
 f_X(x)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)},\qquad
@@ -370,28 +365,28 @@ I_x(\alpha,\beta), &amp; 0&lt;x&lt;1,\\
 \qquad E[X]=\frac{\alpha}{\alpha+\beta},\qquad
 \operatorname{Var}[X]=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}
 $$</p>
-<p><strong>Example 1:</strong> A marine biologist records the fraction
+<p><span class="glossary-label">Example 1:</span> A marine biologist records the fraction
 of a coral reef that is bleached, and a Beta\((4,2)\) model fits the observed
 proportions. What is the chance that more than 70% of the reef is
 bleached?</p>
-<p><strong>By hand:</strong> Here \(B(4,2)=\Gamma(4)\Gamma(2)/\Gamma(6)=6/120=1/20\),
+<p><span class="glossary-label">By hand:</span> Here \(B(4,2)=\Gamma(4)\Gamma(2)/\Gamma(6)=6/120=1/20\),
 so \(f(x)=20x^3(1-x)\). Thus $$
 P(X&gt;0.7)=20\int_{0.7}^{1}(x^3-x^4)\,dx
 =20\left[\frac{x^4}{4}-\frac{x^5}{5}\right]_{0.7}^{1}=0.4718.
 $$ R evaluates this beta-tail integral with
 <code>pbeta</code>.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">pbeta</span>(<span class="fl">0.7</span>, <span class="at">shape1 =</span> <span class="dv">4</span>, <span class="at">shape2 =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.47178</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A device’s battery charge at a random
+<p><span class="glossary-label">Example 2:</span> A device’s battery charge at a random
 time is modeled as Beta\((2,5)\), a
 proportion between empty and full. What is the height of the density
 curve at 30% charge?</p>
-<p><strong>By hand:</strong> Here \(B(2,5)=\Gamma(2)\Gamma(5)/\Gamma(7)=24/720=1/30\),
+<p><span class="glossary-label">By hand:</span> Here \(B(2,5)=\Gamma(2)\Gamma(5)/\Gamma(7)=24/720=1/30\),
 so $$
 f(0.3)=\frac{(0.3)^{1}(0.7)^{4}}{1/30}=30(0.3)(0.7)^4=2.1609.
 $$ In R, <code>dbeta</code> evaluates this density.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>beta_shape <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
@@ -399,24 +394,24 @@ $$ In R, <code>dbeta</code> evaluates this density.</p>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.1609</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">dbeta</span>(x, <span class="at">shape1 =</span> alpha, <span class="at">shape2 =</span> beta_shape)</span>
 <span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.1609</span></span></code></pre></div>
-<p><strong>Example 3:</strong> An urban ecologist models the share of a
+<p><span class="glossary-label">Example 3:</span> An urban ecologist models the share of a
 neighborhood covered by trees as Beta\((3,4)\). What is the chance the tree cover
 is between 30% and 70%?</p>
-<p><strong>By hand:</strong> Since \(B(3,4)=1/60\), \(f(x)=60x^2(1-x)^3\). Expanding, $$
+<p><span class="glossary-label">By hand:</span> Since \(B(3,4)=1/60\), \(f(x)=60x^2(1-x)^3\). Expanding, $$
 P(0.3&lt;X&lt;0.7)=60\int_{0.3}^{0.7}(x^2-3x^3+3x^4-x^5)\,dx
 =60\left[\frac{x^3}{3}-\frac{3x^4}{4}+\frac{3x^5}{5}-\frac{x^6}{6}\right]_{0.3}^{0.7}=0.6738.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">pbeta</span>(<span class="fl">0.7</span>, <span class="at">shape1 =</span> <span class="dv">3</span>, <span class="at">shape2 =</span> <span class="dv">4</span>) <span class="sc">-</span> <span class="fu">pbeta</span>(<span class="fl">0.3</span>, <span class="at">shape1 =</span> <span class="dv">3</span>, <span class="at">shape2 =</span> <span class="dv">4</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.67384</span></span></code></pre></div>
 </div>
-<div id="binomial-distribution" class="section level2">
-<h2>Binomial Distribution</h2>
-<p><strong>Definition:</strong> A discrete model for the number of
+<div id="binomial-distribution" class="section level2 glossary-entry">
+<h3>Binomial Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A discrete model for the number of
 successes in a fixed number \(n\) of
 independent trials, each with the same success probability \(p\). Use it when the total number of trials
 is known in advance and each trial is binary.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 237-241; <em>Mathematical Statistics with Applications in R</em>,
 pp. 90-94.</p>
 <p>$$
@@ -426,40 +421,40 @@ $$</p>
 F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\binom{n}{k}p^k(1-p)^{n-k},\qquad
 E[X]=np,\qquad \operatorname{Var}[X]=np(1-p)
 $$</p>
-<p><strong>Example 1:</strong> A biologist monitors 12 eggs in a clutch,
+<p><span class="glossary-label">Example 1:</span> A biologist monitors 12 eggs in a clutch,
 each hatching independently with probability \(0.75\). What is the chance that at least 9
 hatch?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Binomial}(12,0.75)\),
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Binomial}(12,0.75)\),
 $$
 P(X\geq9)=\sum_{x=9}^{12}\binom{12}{x}(0.75)^x(0.25)^{12-x}=0.6488.
 $$ In R, <code>dbinom</code> gives the individual PMF values and
 <code>pbinom</code> gives the accumulated tail probability.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">12</span></span>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.75</span></span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dbinom</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">12</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p))</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6487786</span></span>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">8</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6487786</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A basketball player takes 20 free throws,
+<p><span class="glossary-label">Example 2:</span> A basketball player takes 20 free throws,
 each made independently with probability \(0.8\). What are the expected number made
 and the variance?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Binomial}(20,0.8)\),
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Binomial}(20,0.8)\),
 \(E[X]=np=20(0.8)=16\) and \(\operatorname{Var}[X]=np(1-p)=20(0.8)(0.2)=3.2\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.8</span></span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> n <span class="sc">*</span> p, <span class="at">variance =</span> n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>    mean variance </span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    <span class="fl">16.0</span>      <span class="fl">3.2</span> </span></code></pre></div>
-<p><strong>Example 3:</strong> An airline offers upgrades to 30
+<p><span class="glossary-label">Example 3:</span> An airline offers upgrades to 30
 passengers, each accepting independently with probability \(0.6\). What is the chance that at most 15
 accept?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Binomial}(30,0.6)\),
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Binomial}(30,0.6)\),
 $$
 P(X\leq15)=\sum_{x=0}^{15}\binom{30}{x}(0.6)^x(0.4)^{30-x}=0.1754.
 $$ In R, <code>pbinom</code> evaluates this CDF directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">30</span></span>
 <span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.6</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p))</span>
@@ -467,14 +462,15 @@ $$ In R, <code>pbinom</code> evaluates this CDF directly.</p>
 <span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">15</span>, <span class="at">size =</span> n, <span class="at">prob =</span> p)</span>
 <span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1753691</span></span></code></pre></div>
 </div>
-<div id="conditional-distribution" class="section level2">
-<h2>Conditional Distribution</h2>
-<p><strong>Definition:</strong> The distribution of one variable after
+<h2 class="glossary-letter">C</h2>
+<div id="conditional-distribution" class="section level2 glossary-entry">
+<h3>Conditional Distribution</h3>
+<p><span class="glossary-label">Definition:</span> The distribution of one variable after
 the value of another variable is known. For discrete variables, divide
 the joint PMF by the marginal PMF of the conditioning variable; for
 continuous variables, divide the joint PDF by the marginal PDF. Use it
 to describe one variable within a subgroup defined by the other.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 114-117.</p>
 <p>$$
 P_{Y\mid X}(y\mid x)=\frac{P_{X,Y}(x,y)}{P_X(x)},\qquad
@@ -484,18 +480,16 @@ $$</p>
 E[Y\mid X=x]=\sum_y yP_{Y\mid X}(y\mid x)\quad\text{or}\quad
 E[Y\mid X=x]=\int yf_{Y\mid X}(y\mid x)\,dy
 $$</p>
-<p><strong>Example 1:</strong> A gym model records whether a visitor
+<p><span class="glossary-label">Example 1:</span> A gym model records whether a visitor
 takes a group class (\(X=1\) if yes)
 and how many equipment stations they use (\(Y=0,1,2\)). The joint PMF is</p>
 <table>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th></th>
 <th align="right">\(Y=0\)</th>
 <th align="right">\(Y=1\)</th>
 <th align="right">\(Y=2\)</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>\(X=0\)</td>
@@ -513,7 +507,7 @@ and how many equipment stations they use (\(Y=0,1,2\)). The joint PMF is</p>
 </table>
 <p>What is the conditional distribution of equipment use given that the
 visitor takes a group class?</p>
-<p><strong>By hand:</strong> The marginal probability of a group class
+<p><span class="glossary-label">By hand:</span> The marginal probability of a group class
 is $$
 P_X(1)=0.05+0.30+0.15=0.50.
 $$ Dividing each cell in the \(X=1\) row by \(0.50\) gives $$
@@ -521,7 +515,7 @@ P_{Y\mid X}(0\mid1)=\frac{0.05}{0.50}=0.10,\quad
 P_{Y\mid X}(1\mid1)=\frac{0.30}{0.50}=0.60,\quad
 P_{Y\mid X}(2\mid1)=\frac{0.15}{0.50}=0.30.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.15</span>, <span class="fl">0.25</span>, <span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="fl">0.30</span>, <span class="fl">0.15</span>)</span>
@@ -531,11 +525,11 @@ $$</p>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>  <span class="at">Y2 =</span> <span class="fu">sum</span>(joint[x <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> y <span class="sc">==</span> <span class="dv">2</span>]) <span class="sc">/</span> p_x1)</span>
 <span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a> Y0  Y1  Y2 </span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="fl">0.1</span> <span class="fl">0.6</span> <span class="fl">0.3</span> </span></code></pre></div>
-<p><strong>Example 2:</strong> A lab models normalized temperature \(X\) and normalized pressure \(Y\) with joint density $$
+<p><span class="glossary-label">Example 2:</span> A lab models normalized temperature \(X\) and normalized pressure \(Y\) with joint density $$
 f_{X,Y}(x,y)=x+y,\qquad 0&lt;x&lt;1,\;0&lt;y&lt;1.
 $$ What is the probability that pressure is below 0.5 given that
 temperature is 0.25?</p>
-<p><strong>By hand:</strong> The marginal density at \(x=0.25\) is $$
+<p><span class="glossary-label">By hand:</span> The marginal density at \(x=0.25\) is $$
 f_X(0.25)=\int_{0}^{1}(0.25+y)\,dy=0.25+0.5=0.75.
 $$ Thus $$
 f_{Y\mid X}(y\mid0.25)=\frac{0.25+y}{0.75},\qquad 0&lt;y&lt;1.
@@ -544,7 +538,7 @@ P(Y&lt;0.5\mid X=0.25)
 =\int_{0}^{0.5}\frac{0.25+y}{0.75}\,dy
 =\frac{0.125+0.125}{0.75}=\frac{1}{3}.
 $$</p>
-<p><strong>In R:</strong> The marginal density divides out the joint
+<p><span class="glossary-label">In R:</span> The marginal density divides out the joint
 density, and the conditional probability integrates that result.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x <span class="sc">+</span> y</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>marginal_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
@@ -555,84 +549,84 @@ density, and the conditional probability integrates that result.</p>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.75</span></span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(y) <span class="fu">conditional_y</span>(y, <span class="fl">0.25</span>), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="fl">0.5</span>)<span class="sc">$</span>value</span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3333333</span></span></code></pre></div>
-<p><strong>Example 3:</strong> Using the gym model from Example 1, what
+<p><span class="glossary-label">Example 3:</span> Using the gym model from Example 1, what
 is the expected number of equipment stations used by a visitor who takes
 a group class?</p>
-<p><strong>By hand:</strong> Use the conditional distribution from
+<p><span class="glossary-label">By hand:</span> Use the conditional distribution from
 Example 1: $$
 E[Y\mid X=1]=0(0.10)+1(0.60)+2(0.30)=0+0.60+0.60=1.20.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>p_y_given_x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.60</span>, <span class="fl">0.30</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">sum</span>(y <span class="sc">*</span> p_y_given_x1)</span>
 <span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.2</span></span></code></pre></div>
 </div>
-<div id="continuous-random-variable" class="section level2">
-<h2>Continuous Random Variable</h2>
-<p><strong>Definition:</strong> A random variable whose values are
+<div id="continuous-random-variable" class="section level2 glossary-entry">
+<h3>Continuous Random Variable</h3>
+<p><span class="glossary-label">Definition:</span> A random variable whose values are
 measurements on a continuous scale. Probabilities are areas under a
 density, so the probability of any exact value is zero. Use it for
 quantities such as time, length, mass, or temperature.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 291-292; <em>Mathematical Statistics with Applications in R</em>,
 pp. 65-66.</p>
-<p><strong>Example 1:</strong> A weather station models daily rainfall
+<p><span class="glossary-label">Example 1:</span> A weather station models daily rainfall
 as Normal with mean 30 mm and standard deviation 8 mm. What is the
 chance that a day exceeds 40 mm?</p>
-<p><strong>By hand:</strong> Standardize: \(z=(40-30)/8=1.25\). Then \(P(X&gt;40)=P(Z&gt;1.25)=1-\Phi(1.25)=0.1056\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">By hand:</span> Standardize: \(z=(40-30)/8=1.25\). Then \(P(X&gt;40)=P(Z&gt;1.25)=1-\Phi(1.25)=0.1056\).</p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">40</span> <span class="sc">-</span> <span class="dv">30</span>) <span class="sc">/</span> <span class="dv">8</span></span>
 <span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1056498</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A commuter’s travel time is modeled as
+<p><span class="glossary-label">Example 2:</span> A commuter’s travel time is modeled as
 Normal with mean 22 minutes and standard deviation 5 minutes. What is
 the chance the trip takes between 18 and 26 minutes?</p>
-<p><strong>By hand:</strong> The endpoints standardize to \(z_1=(18-22)/5=-0.8\) and \(z_2=(26-22)/5=0.8\). Thus \(P(18&lt;X&lt;26)=\Phi(0.8)-\Phi(-0.8)=0.5763\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">By hand:</span> The endpoints standardize to \(z_1=(18-22)/5=-0.8\) and \(z_2=(26-22)/5=0.8\). Thus \(P(18&lt;X&lt;26)=\Phi(0.8)-\Phi(-0.8)=0.5763\).</p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> (<span class="dv">18</span> <span class="sc">-</span> <span class="dv">22</span>) <span class="sc">/</span> <span class="dv">5</span></span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> (<span class="dv">26</span> <span class="sc">-</span> <span class="dv">22</span>) <span class="sc">/</span> <span class="dv">5</span></span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="fu">pnorm</span>(z2) <span class="sc">-</span> <span class="fu">pnorm</span>(z1)</span>
 <span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5762892</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A delivery service models order-to-door
+<p><span class="glossary-label">Example 3:</span> A delivery service models order-to-door
 time as Normal with mean 120 minutes and standard deviation 20 minutes.
 What is the density at 150 minutes?</p>
-<p><strong>By hand:</strong> Here \(z=(150-120)/20=1.5\), so $$
+<p><span class="glossary-label">By hand:</span> Here \(z=(150-120)/20=1.5\), so $$
 f(150)=\frac{1}{20\sqrt{2\pi}}e^{-(1.5)^2/2}=0.006475.
 $$ In R, <code>dnorm</code> evaluates this density.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">150</span> <span class="sc">-</span> <span class="dv">120</span>) <span class="sc">/</span> <span class="dv">20</span></span>
 <span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">150</span>, <span class="at">mean =</span> <span class="dv">120</span>, <span class="at">sd =</span> <span class="dv">20</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.00647588</span></span></code></pre></div>
 </div>
-<div id="correlation" class="section level2">
-<h2>Correlation</h2>
-<p><strong>Definition:</strong> A standardized measure of the direction
+<div id="correlation" class="section level2 glossary-entry">
+<h3>Correlation</h3>
+<p><span class="glossary-label">Definition:</span> A standardized measure of the direction
 and strength of the linear association between two variables, \(\operatorname{Corr}(X,Y)=\operatorname{Cov}(X,Y)/\sqrt{\operatorname{Var}[X]\operatorname{Var}[Y]}\).
 It ranges from \(-1\) to \(1\). Use it to summarize linear
 association, not to prove causation or independence.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 630-631; <em>Mathematical Statistics with Applications in R</em>,
 p. 119.</p>
-<p><strong>Example 1:</strong> A solar engineer records sunlight hours
+<p><span class="glossary-label">Example 1:</span> A solar engineer records sunlight hours
 and panel output for five days. Do long sunny days tend to produce more
 energy?</p>
-<p><strong>By hand:</strong> The means are \(\bar x=4\) and \(\bar y=18.6\). The summaries are $$
+<p><span class="glossary-label">By hand:</span> The means are \(\bar x=4\) and \(\bar y=18.6\). The summaries are $$
 \sum (x_i-\bar x)(y_i-\bar y)=41,\quad
 \sum (x_i-\bar x)^2=10,\quad
 \sum (y_i-\bar y)^2=169.2.
 $$ Thus $$
 r=\frac{41}{\sqrt{(10)(169.2)}}=0.9967.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>sunlight <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">11</span>, <span class="dv">14</span>, <span class="dv">18</span>, <span class="dv">23</span>, <span class="dv">27</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="fu">cor</span>(sunlight, output)</span>
 <span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9967441</span></span></code></pre></div>
-<p><strong>Example 2:</strong> An automotive engineer measures engine
+<p><span class="glossary-label">Example 2:</span> An automotive engineer measures engine
 torque and fuel consumption at a fixed speed for five engines. Are the
 two quantities positively associated?</p>
-<p><strong>By hand:</strong> Here \(\bar
+<p><span class="glossary-label">By hand:</span> Here \(\bar
 x=130\) and \(\bar y=7.44\),
 with $$
 \sum (x_i-\bar x)(y_i-\bar y)=122,\quad
@@ -641,22 +635,22 @@ with $$
 $$ Therefore $$
 r=\frac{122}{\sqrt{(4000)(3.732)}}=0.9985.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>torque <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">90</span>, <span class="dv">110</span>, <span class="dv">130</span>, <span class="dv">150</span>, <span class="dv">170</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>fuel <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">6.2</span>, <span class="fl">6.8</span>, <span class="fl">7.5</span>, <span class="fl">8.1</span>, <span class="fl">8.6</span>)</span>
 <span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a><span class="fu">cor</span>(torque, fuel)</span>
 <span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9985252</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A model pairs two binary indicators with
+<p><span class="glossary-label">Example 3:</span> A model pairs two binary indicators with
 joint probabilities \(P(0,0)=0.4\),
 \(P(0,1)=0.1\), \(P(1,0)=0.1\), and \(P(1,1)=0.4\). What is the model
 correlation?</p>
-<p><strong>By hand:</strong> The marginals are both \(0.5\), so \(E[X]=E[Y]=0.5\) and \(\operatorname{Var}[X]=\operatorname{Var}[Y]=(0.5)(0.5)=0.25\).
+<p><span class="glossary-label">By hand:</span> The marginals are both \(0.5\), so \(E[X]=E[Y]=0.5\) and \(\operatorname{Var}[X]=\operatorname{Var}[Y]=(0.5)(0.5)=0.25\).
 Also \(E[XY]=P(X=1,Y=1)=0.4\), hence
 \(\operatorname{Cov}(X,Y)=0.4-(0.5)(0.5)=0.15\).
 Therefore $$
 \operatorname{Corr}(X,Y)=\frac{0.15}{\sqrt{(0.25)(0.25)}}=0.6.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">0.4</span>)</span>
@@ -668,23 +662,23 @@ $$</p>
 <span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a>cov_xy <span class="sc">/</span> <span class="fu">sqrt</span>(var_x <span class="sc">*</span> var_y)</span>
 <span id="cb18-10"><a href="#cb18-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6</span></span></code></pre></div>
 </div>
-<div id="covariance" class="section level2">
-<h2>Covariance</h2>
-<p><strong>Definition:</strong> A measure of whether two variables tend
+<div id="covariance" class="section level2 glossary-entry">
+<h3>Covariance</h3>
+<p><span class="glossary-label">Definition:</span> A measure of whether two variables tend
 to move above or below their means together, \(\operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y]\).
 Its sign gives the direction of association, while its size depends on
 the units. Use it as a building block for correlation and variance
 calculations.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 119-120.</p>
-<p><strong>Example 1:</strong> A downtown garage records whether it is
+<p><span class="glossary-label">Example 1:</span> A downtown garage records whether it is
 peak hours and whether the garage is full, with joint probabilities
 \(P(0,0)=0.25\), \(P(0,1)=0.15\), \(P(1,0)=0.15\), and \(P(1,1)=0.45\). Do peak hours and fullness
 tend to occur together?</p>
-<p><strong>By hand:</strong> The marginals give \(E[X]=0.15+0.45=0.6\) and \(E[Y]=0.15+0.45=0.6\). Also \(E[XY]=(1)(1)(0.45)=0.45\). Thus $$
+<p><span class="glossary-label">By hand:</span> The marginals give \(E[X]=0.15+0.45=0.6\) and \(E[Y]=0.15+0.45=0.6\). Also \(E[XY]=(1)(1)(0.45)=0.45\). Thus $$
 \operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y]=0.45-(0.6)(0.6)=0.09.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.15</span>, <span class="fl">0.15</span>, <span class="fl">0.45</span>)</span>
@@ -692,25 +686,25 @@ $$</p>
 <span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="fu">sum</span>(y <span class="sc">*</span> joint)</span>
 <span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">*</span> y <span class="sc">*</span> joint) <span class="sc">-</span> mean_x <span class="sc">*</span> mean_y</span>
 <span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.09</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A chemical engineer measures reactor
+<p><span class="glossary-label">Example 2:</span> A chemical engineer measures reactor
 temperature and product viscosity for five batches. Does viscosity tend
 to fall as temperature rises?</p>
-<p><strong>By hand:</strong> The means are \(\bar x=170\) and \(\bar y=34.8\). The deviations give $$
+<p><span class="glossary-label">By hand:</span> The means are \(\bar x=170\) and \(\bar y=34.8\). The deviations give $$
 \sum (x_i-\bar x)(y_i-\bar y)=-350,
 $$ so the sample covariance is $$
 s_{xy}=\frac{-350}{5-1}=-87.5.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>temperature <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">150</span>, <span class="dv">160</span>, <span class="dv">170</span>, <span class="dv">180</span>, <span class="dv">190</span>)</span>
 <span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>viscosity <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">42</span>, <span class="dv">38</span>, <span class="dv">35</span>, <span class="dv">31</span>, <span class="dv">28</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a><span class="fu">cov</span>(temperature, viscosity)</span>
 <span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">87.5</span></span></code></pre></div>
-<p><strong>Example 3:</strong> Two independent indicators have \(P(X=1)=0.5\) and \(P(Y=1)=0.4\). What is their covariance?</p>
-<p><strong>By hand:</strong> Independence gives \(E[XY]=E[X]E[Y]=(0.5)(0.4)=0.2\). Since
+<p><span class="glossary-label">Example 3:</span> Two independent indicators have \(P(X=1)=0.5\) and \(P(Y=1)=0.4\). What is their covariance?</p>
+<p><span class="glossary-label">By hand:</span> Independence gives \(E[XY]=E[X]E[Y]=(0.5)(0.4)=0.2\). Since
 \(E[X]=0.5\) and \(E[Y]=0.4\), $$
 \operatorname{Cov}(X,Y)=0.2-(0.5)(0.4)=0.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>)</span>
@@ -719,89 +713,89 @@ $$</p>
 <span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">*</span> y <span class="sc">*</span> joint) <span class="sc">-</span> mean_x <span class="sc">*</span> mean_y</span>
 <span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span></code></pre></div>
 </div>
-<div id="cross-moment" class="section level2">
-<h2>Cross-Moment</h2>
-<p><strong>Definition:</strong> The expectation of the product of two
+<div id="cross-moment" class="section level2 glossary-entry">
+<h3>Cross-Moment</h3>
+<p><span class="glossary-label">Definition:</span> The expectation of the product of two
 random variables, \(E[XY]\). For
 discrete variables, sum \(xyP_{X,Y}(x,y)\) over the joint support;
 for continuous variables, integrate \(xyf_{X,Y}(x,y)\). Use it with \(E[X]\) and \(E[Y]\) to compute covariance.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, p. 119.</p>
-<p><strong>Example 1:</strong> A travel survey records whether a
+<p><span class="glossary-label">Example 1:</span> A travel survey records whether a
 passenger uses a rail pass (\(X=1\))
 and whether the trip includes a transfer (\(Y=1\)), with joint probabilities \(P(0,0)=0.5\), \(P(0,1)=0.2\), \(P(1,0)=0.1\), and \(P(1,1)=0.2\). What is \(E[XY]\)?</p>
-<p><strong>By hand:</strong> Only the \((1,1)\) cell has \(xy=1\), so $$
+<p><span class="glossary-label">By hand:</span> Only the \((1,1)\) cell has \(xy=1\), so $$
 E[XY]=\sum_x\sum_y xyP(x,y)=1(1)(0.2)=0.2.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>, <span class="fl">0.2</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">*</span> y <span class="sc">*</span> joint)</span>
 <span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2</span></span></code></pre></div>
-<p><strong>Example 2:</strong> Two independent waiting times have \(X\sim\operatorname{Exponential}(2)\) and
+<p><span class="glossary-label">Example 2:</span> Two independent waiting times have \(X\sim\operatorname{Exponential}(2)\) and
 \(Y\sim\operatorname{Exponential}(4)\),
 so \(E[X]=0.5\) and \(E[Y]=0.25\). What is \(E[XY]\)?</p>
-<p><strong>By hand:</strong> Independence lets the expectation factor:
+<p><span class="glossary-label">By hand:</span> Independence lets the expectation factor:
 $$
 E[XY]=E[X]E[Y]=\frac{1}{2}\cdot\frac{1}{4}=0.125.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span></span>
 <span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">4</span></span>
 <span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>mean_x <span class="sc">*</span> mean_y</span>
 <span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.125</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A delivery study lets \(Y=1\) indicate an express order and \(X\) be delivery distance. If \(P(Y=1)=0.4\) and \(E[X\mid Y=1]=3\), what is \(E[XY]\)?</p>
-<p><strong>By hand:</strong> Only express orders contribute, so $$
+<p><span class="glossary-label">Example 3:</span> A delivery study lets \(Y=1\) indicate an express order and \(X\) be delivery distance. If \(P(Y=1)=0.4\) and \(E[X\mid Y=1]=3\), what is \(E[XY]\)?</p>
+<p><span class="glossary-label">By hand:</span> Only express orders contribute, so $$
 E[XY]=E[X\mid Y=1]P(Y=1)=(3)(0.4)=1.2.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>p_express <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
 <span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a>mean_distance_express <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>p_express <span class="sc">*</span> mean_distance_express</span>
 <span id="cb24-4"><a href="#cb24-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.2</span></span></code></pre></div>
 </div>
-<div id="cumulative-distribution-function-cdf" class="section level2">
-<h2>Cumulative Distribution Function (CDF)</h2>
-<p><strong>Definition:</strong> The function \(F_X(x)=P(X\leq x)\), which gives the
+<div id="cumulative-distribution-function-cdf" class="section level2 glossary-entry">
+<h3>Cumulative Distribution Function (CDF)</h3>
+<p><span class="glossary-label">Definition:</span> The function \(F_X(x)=P(X\leq x)\), which gives the
 probability that a random variable is at most \(x\). It is nondecreasing and contains the
 same information as a PMF or PDF. Use it to accumulate probability up to
 a threshold.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 291-294; <em>Mathematical Statistics with Applications in R</em>,
 pp. 64-66.</p>
-<p><strong>Example 1:</strong> A quality inspector counts successes
+<p><span class="glossary-label">Example 1:</span> A quality inspector counts successes
 among 8 independent trials with success probability \(0.4\). What is the probability of at most 3
 successes?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Binomial}(8,0.4)\),
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Binomial}(8,0.4)\),
 $$
 F_X(3)=P(X\leq3)=\sum_{x=0}^{3}\binom{8}{x}(0.4)^x(0.6)^{8-x}=0.5941.
 $$ In R, the CDF function <code>pbinom</code> returns this
 accumulated probability directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">prob =</span> <span class="fl">0.4</span>))</span>
 <span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5940864</span></span>
 <span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">3</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span>
 <span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5940864</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A hydrologist models river depth as
+<p><span class="glossary-label">Example 2:</span> A hydrologist models river depth as
 Normal with mean 4 m and standard deviation 1.2 m. What is the
 probability the depth is at most 5 m?</p>
-<p><strong>By hand:</strong> Standardize: \(z=(5-4)/1.2=0.8333\). Then \(F_X(5)=\Phi(0.8333)=0.7977\). In R,
+<p><span class="glossary-label">By hand:</span> Standardize: \(z=(5-4)/1.2=0.8333\). Then \(F_X(5)=\Phi(0.8333)=0.7977\). In R,
 <code>pnorm</code> evaluates this CDF.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">5</span> <span class="sc">-</span> <span class="dv">4</span>) <span class="sc">/</span> <span class="fl">1.2</span></span>
 <span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="fu">pnorm</span>(z)</span>
 <span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7976716</span></span>
 <span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">5</span>, <span class="at">mean =</span> <span class="dv">4</span>, <span class="at">sd =</span> <span class="fl">1.2</span>)</span>
 <span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7976716</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A piano tuner models a note’s frequency
+<p><span class="glossary-label">Example 3:</span> A piano tuner models a note’s frequency
 as Normal with mean 440 Hz and standard deviation 2 Hz. What is the
 probability the frequency lands between 439.5 and 440.5 Hz?</p>
-<p><strong>By hand:</strong> The endpoints give \(z_1=(439.5-440)/2=-0.25\) and \(z_2=(440.5-440)/2=0.25\). Thus $$
+<p><span class="glossary-label">By hand:</span> The endpoints give \(z_1=(439.5-440)/2=-0.25\) and \(z_2=(440.5-440)/2=0.25\). Thus $$
 P(439.5&lt;X&lt;440.5)=\Phi(0.25)-\Phi(-0.25)=0.1974.
 $$ In R, subtracting two <code>pnorm</code> CDF values gives the
 interval probability.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> (<span class="fl">439.5</span> <span class="sc">-</span> <span class="dv">440</span>) <span class="sc">/</span> <span class="dv">2</span></span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> (<span class="fl">440.5</span> <span class="sc">-</span> <span class="dv">440</span>) <span class="sc">/</span> <span class="dv">2</span></span>
 <span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a><span class="fu">pnorm</span>(z2) <span class="sc">-</span> <span class="fu">pnorm</span>(z1)</span>
@@ -809,108 +803,110 @@ interval probability.</p>
 <span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">440.5</span>, <span class="at">mean =</span> <span class="dv">440</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fl">439.5</span>, <span class="at">mean =</span> <span class="dv">440</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1974127</span></span></code></pre></div>
 </div>
-<div id="discrete-random-variable" class="section level2">
-<h2>Discrete Random Variable</h2>
-<p><strong>Definition:</strong> A random variable that takes a finite or
+<h2 class="glossary-letter">D</h2>
+<div id="discrete-random-variable" class="section level2 glossary-entry">
+<h3>Discrete Random Variable</h3>
+<p><span class="glossary-label">Definition:</span> A random variable that takes a finite or
 countable set of separate values, usually counts. A PMF assigns
 probability to each value in its support. Use it when the outcomes can
 be listed and counted.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 227-229; <em>Mathematical Statistics with Applications in R</em>,
 p. 64.</p>
-<p><strong>Example 1:</strong> A library models the number of books a
+<p><span class="glossary-label">Example 1:</span> A library models the number of books a
 member borrows in one visit as Poisson with mean 2.5. What is the
 probability the member borrows exactly 2 books?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Poisson}(2.5)\), $$
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Poisson}(2.5)\), $$
 P(X=2)=\frac{e^{-2.5}(2.5)^2}{2!}=0.2565.
 $$ In R, the PMF function <code>dpois</code> evaluates this
 exact-value probability.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">2.5</span></span>
 <span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda) <span class="sc">*</span> lambda<span class="sc">^</span>x <span class="sc">/</span> <span class="fu">factorial</span>(x)</span>
 <span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2565156</span></span>
 <span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="fu">dpois</span>(x, <span class="at">lambda =</span> lambda)</span>
 <span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2565156</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A soccer analyst models goals per match
+<p><span class="glossary-label">Example 2:</span> A soccer analyst models goals per match
 as Poisson with mean 1.6. What is the probability a match has at least
 one goal?</p>
-<p><strong>By hand:</strong> Using the complement, $$
+<p><span class="glossary-label">By hand:</span> Using the complement, $$
 P(X\geq1)=1-P(X=0)=1-e^{-1.6}=0.7981.
 $$ In R, <code>ppois</code> evaluates the CDF, and
 <code>lower.tail = FALSE</code> gives the upper tail.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">1.6</span></span>
 <span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda)</span>
 <span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7981035</span></span>
 <span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> lambda, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7981035</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A utility models household power
+<p><span class="glossary-label">Example 3:</span> A utility models household power
 interruptions per month as Poisson with mean 0.8. What is the
 probability of no interruptions in a month?</p>
-<p><strong>By hand:</strong> \(P(X=0)=e^{-0.8}(0.8)^0/0!=e^{-0.8}=0.4493\).
+<p><span class="glossary-label">By hand:</span> \(P(X=0)=e^{-0.8}(0.8)^0/0!=e^{-0.8}=0.4493\).
 In R, <code>dpois</code> gives this PMF value directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">0.8</span></span>
 <span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda)</span>
 <span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.449329</span></span>
 <span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> lambda)</span>
 <span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.449329</span></span></code></pre></div>
 </div>
-<div id="expected-value-expectation" class="section level2">
-<h2>Expected Value (Expectation)</h2>
-<p><strong>Definition:</strong> The probability-weighted average of a
+<h2 class="glossary-letter">E</h2>
+<div id="expected-value-expectation" class="section level2 glossary-entry">
+<h3>Expected Value (Expectation)</h3>
+<p><span class="glossary-label">Definition:</span> The probability-weighted average of a
 random variable. For discrete \(X\),
 \(E[X]=\sum_x xP_X(x)\); for continuous
 \(X\), \(E[X]=\int x f_X(x)\,dx\). Use it to
 describe the long-run average outcome of a model.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 230-234; <em>Mathematical Statistics with Applications in R</em>,
 pp. 71-73.</p>
-<p><strong>Example 1:</strong> A museum records maps borrowed per
+<p><span class="glossary-label">Example 1:</span> A museum records maps borrowed per
 visitor with probabilities \(P(0)=0.2\), \(P(1)=0.5\), and \(P(2)=0.3\). What is the expected number of
 maps borrowed?</p>
-<p><strong>By hand:</strong> Weight each value by its probability: $$
+<p><span class="glossary-label">By hand:</span> Weight each value by its probability: $$
 E[X]=0(0.2)+1(0.5)+2(0.3)=0+0.5+0.6=1.1.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>items <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>probability <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.3</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a><span class="fu">sum</span>(items <span class="sc">*</span> probability)</span>
 <span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.1</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A shuttle arrives equally often at any
+<p><span class="glossary-label">Example 2:</span> A shuttle arrives equally often at any
 time between 4 and 16 minutes after a rider reaches the stop. What is
 the expected wait?</p>
-<p><strong>By hand:</strong> The density is \(f(x)=1/(16-4)=1/12\) on \([4,16]\), so $$
+<p><span class="glossary-label">By hand:</span> The density is \(f(x)=1/(16-4)=1/12\) on \([4,16]\), so $$
 E[X]=\int_{4}^{16}x\frac{1}{12}\,dx
 =\left[\frac{x^2}{24}\right]_{4}^{16}
 =\frac{256-16}{24}=10.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="dv">16</span></span>
 <span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>density <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (upper <span class="sc">-</span> lower)</span>
 <span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) x <span class="sc">*</span> density, <span class="at">lower =</span> lower, <span class="at">upper =</span> upper)</span>
 <span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="dv">10</span> with absolute error <span class="sc">&lt;</span> <span class="fl">1.1e-13</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A call center models the time between
+<p><span class="glossary-label">Example 3:</span> A call center models the time between
 calls as Exponential with rate \(1/4\)
 per minute. What is the expected time between calls?</p>
-<p><strong>By hand:</strong> Integration by parts with \(u=x\) and \(dv=(1/4)e^{-x/4}\,dx\) gives $$
+<p><span class="glossary-label">By hand:</span> Integration by parts with \(u=x\) and \(dv=(1/4)e^{-x/4}\,dx\) gives $$
 E[X]=\int_{0}^{\infty}x\frac{1}{4}e^{-x/4}\,dx
 =\left[-xe^{-x/4}\right]_{0}^{\infty}+\int_{0}^{\infty}e^{-x/4}\,dx
 =0+4=4.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">4</span></span>
 <span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) x <span class="sc">*</span> rate <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>rate <span class="sc">*</span> x), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="cn">Inf</span>)</span>
 <span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="dv">4</span> with absolute error <span class="sc">&lt;</span> <span class="fl">1.2e-05</span></span></code></pre></div>
 </div>
-<div id="exponential-distribution" class="section level2">
-<h2>Exponential Distribution</h2>
-<p><strong>Definition:</strong> A continuous model for nonnegative
+<div id="exponential-distribution" class="section level2 glossary-entry">
+<h3>Exponential Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A continuous model for nonnegative
 waiting times between events that occur at a constant rate \(\lambda\). Its mean is \(1/\lambda\) and its variance is \(1/\lambda^2\). Use it for time-until-event
 data with a constant hazard rate.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 302-311; <em>Mathematical Statistics with Applications in R</em>,
 p. 106.</p>
 <p>$$
@@ -925,41 +921,41 @@ F_X(x)=
 \qquad E[X]=\frac{1}{\lambda},\qquad
 \operatorname{Var}[X]=\frac{1}{\lambda^2}
 $$</p>
-<p><strong>Example 1:</strong> Buses reach a remote stop at an average
+<p><span class="glossary-label">Example 1:</span> Buses reach a remote stop at an average
 rate of 3 per hour. What is the probability the next bus takes longer
 than 20 minutes?</p>
-<p><strong>By hand:</strong> Convert 20 minutes to \(1/3\) hour. For \(X\sim\operatorname{Exponential}(3)\), $$
+<p><span class="glossary-label">By hand:</span> Convert 20 minutes to \(1/3\) hour. For \(X\sim\operatorname{Exponential}(3)\), $$
 P(X&gt;1/3)=e^{-3(1/3)}=e^{-1}=0.3679.
 $$ In R, <code>pexp</code> evaluates the exponential
 CDF/tail.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">3</span></span>
 <span id="cb34-3"><a href="#cb34-3" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>rate <span class="sc">*</span> x)</span>
 <span id="cb34-4"><a href="#cb34-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3678794</span></span>
 <span id="cb34-5"><a href="#cb34-5" tabindex="-1"></a><span class="fu">pexp</span>(x, <span class="at">rate =</span> rate, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb34-6"><a href="#cb34-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3678794</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A radioactive isotope decays at an
+<p><span class="glossary-label">Example 2:</span> A radioactive isotope decays at an
 average rate of one atom per 8 years. What is the probability a
 particular atom survives more than 5 years?</p>
-<p><strong>By hand:</strong> Here \(\lambda=1/8\), so $$
+<p><span class="glossary-label">By hand:</span> Here \(\lambda=1/8\), so $$
 P(X&gt;5)=e^{-(1/8)(5)}=e^{-0.625}=0.5353.
 $$ In R, <code>pexp</code> gives this survival probability
 directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">8</span></span>
 <span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">5</span></span>
 <span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>rate <span class="sc">*</span> x)</span>
 <span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5352614</span></span>
 <span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="fu">pexp</span>(x, <span class="at">rate =</span> rate, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5352614</span></span></code></pre></div>
-<p><strong>Example 3:</strong> Visitors enter a quiet museum at an
+<p><span class="glossary-label">Example 3:</span> Visitors enter a quiet museum at an
 average rate of 0.2 per minute. What is the density of the waiting time
 at 3 minutes?</p>
-<p><strong>By hand:</strong> For \(\lambda=0.2\), $$
+<p><span class="glossary-label">By hand:</span> For \(\lambda=0.2\), $$
 f(3)=(0.2)e^{-(0.2)(3)}=0.2e^{-0.6}=0.1098.
 $$ In R, <code>dexp</code> evaluates this density.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
 <span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>rate <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>rate <span class="sc">*</span> x)</span>
@@ -967,14 +963,15 @@ $$ In R, <code>dexp</code> evaluates this density.</p>
 <span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a><span class="fu">dexp</span>(x, <span class="at">rate =</span> rate)</span>
 <span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1097623</span></span></code></pre></div>
 </div>
-<div id="gamma-distribution" class="section level2">
-<h2>Gamma Distribution</h2>
-<p><strong>Definition:</strong> A continuous model for nonnegative
+<h2 class="glossary-letter">G</h2>
+<div id="gamma-distribution" class="section level2 glossary-entry">
+<h3>Gamma Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A continuous model for nonnegative
 waiting times or positive amounts, with shape \(\alpha&gt;0\) and rate \(\beta&gt;0\). It generalizes the
 Exponential and can model sums of waiting times or right-skewed positive
 data. Use it when positive data are skewed and not well described by a
 symmetric model.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 104-108.</p>
 <p>$$
 f_X(x)=\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta
@@ -989,38 +986,38 @@ F_X(x)=
 \qquad E[X]=\frac{\alpha}{\beta},\qquad
 \operatorname{Var}[X]=\frac{\alpha}{\beta^2}
 $$</p>
-<p><strong>Example 1:</strong> A geochemist models dissolved mineral
+<p><span class="glossary-label">Example 1:</span> A geochemist models dissolved mineral
 concentration as Gamma\((4,0.5)\). What
 is the chance a sample exceeds 10 units?</p>
-<p><strong>By hand:</strong> For \(\alpha=4\) and \(\beta=0.5\), $$
+<p><span class="glossary-label">By hand:</span> For \(\alpha=4\) and \(\beta=0.5\), $$
 P(X&gt;10)=\int_{10}^{\infty}\frac{(0.5)^4}{\Gamma(4)}x^{3}e^{-0.5x}\,dx=0.2650.
 $$ The integral is the upper gamma-tail probability, which is
 evaluated directly in R below.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
 <span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="dv">10</span>, <span class="at">shape =</span> shape, <span class="at">rate =</span> rate, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2650259</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A climatologist models seasonal
+<p><span class="glossary-label">Example 2:</span> A climatologist models seasonal
 precipitation as Gamma\((3,2)\) in
 meters. What are the mean and variance?</p>
-<p><strong>By hand:</strong> Using \(\alpha=3\) and \(\beta=2\), $$
+<p><span class="glossary-label">By hand:</span> Using \(\alpha=3\) and \(\beta=2\), $$
 E[X]=\frac{\alpha}{\beta}=\frac{3}{2}=1.5,\qquad
 \operatorname{Var}[X]=\frac{\alpha}{\beta^2}=\frac{3}{4}=0.75.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> shape <span class="sc">/</span> rate, <span class="at">variance =</span> shape <span class="sc">/</span> rate<span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a>    mean variance </span>
 <span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a>    <span class="fl">1.50</span>     <span class="fl">0.75</span> </span></code></pre></div>
-<p><strong>Example 3:</strong> A chemist models reagent concentration as
+<p><span class="glossary-label">Example 3:</span> A chemist models reagent concentration as
 Gamma\((2,4)\) in suitable units. What
 is the density at 1 unit?</p>
-<p><strong>By hand:</strong> Here \(\alpha=2\) and \(\beta=4\), so $$
+<p><span class="glossary-label">By hand:</span> Here \(\alpha=2\) and \(\beta=4\), so $$
 f(1)=\frac{4^2}{\Gamma(2)}(1)^{1}e^{-4}=16e^{-4}=0.2931.
 $$ In R, <code>dgamma</code> evaluates this density.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -1029,14 +1026,14 @@ $$ In R, <code>dgamma</code> evaluates this density.</p>
 <span id="cb39-6"><a href="#cb39-6" tabindex="-1"></a><span class="fu">dgamma</span>(x, <span class="at">shape =</span> shape, <span class="at">rate =</span> rate)</span>
 <span id="cb39-7"><a href="#cb39-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2930502</span></span></code></pre></div>
 </div>
-<div id="geometric-distribution" class="section level2">
-<h2>Geometric Distribution</h2>
-<p><strong>Definition:</strong> A discrete model for the number of
+<div id="geometric-distribution" class="section level2 glossary-entry">
+<h3>Geometric Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A discrete model for the number of
 failures before the first success in independent trials with success
 probability \(p\). Its support is \(0,1,2,\ldots\) and \(E[X]=(1-p)/p\). Use it when trials repeat
 until the first success and the number of trials is not fixed in
 advance.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 242-245; <em>Mathematical Statistics with Applications in R</em>,
 pp. 187-189.</p>
 <p>$$
@@ -1050,74 +1047,75 @@ F_X(x)=
 \end{cases}
 \qquad E[X]=\frac{1-p}{p},\qquad \operatorname{Var}[X]=\frac{1-p}{p^2}
 $$</p>
-<p><strong>Example 1:</strong> A basketball player makes each free throw
+<p><span class="glossary-label">Example 1:</span> A basketball player makes each free throw
 independently with probability \(0.7\).
 What is the probability of at least 3 misses before the first make?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Geometric}(0.7)\), $$
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Geometric}(0.7)\), $$
 P(X\geq3)=P(X&gt;2)=(1-0.7)^3=0.3^3=0.027.
 $$ In R, <code>pgeom</code> evaluates this geometric tail
 probability.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
 <span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span><span class="dv">3</span></span>
 <span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.027</span></span>
 <span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="dv">2</span>, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.027</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A photographer’s shots are in focus
+<p><span class="glossary-label">Example 2:</span> A photographer’s shots are in focus
 independently with probability \(0.5\).
 What is the probability exactly 2 shots are out of focus before the
 first good one?</p>
-<p><strong>By hand:</strong> Using \(P(X=x)=(1-p)^x p\), $$
+<p><span class="glossary-label">By hand:</span> Using \(P(X=x)=(1-p)^x p\), $$
 P(X=2)=(1-0.5)^2(0.5)=0.5^2(0.5)=0.125.
 $$ In R, <code>dgeom</code> evaluates this PMF value.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
 <span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span>x <span class="sc">*</span> p</span>
 <span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.125</span></span>
 <span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a><span class="fu">dgeom</span>(x, <span class="at">prob =</span> p)</span>
 <span id="cb41-6"><a href="#cb41-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.125</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A driver finds an available parking stall
+<p><span class="glossary-label">Example 3:</span> A driver finds an available parking stall
 with probability \(0.3\) at each
 independently checked stall. How many occupied stalls does the driver
 expect before the first available one?</p>
-<p><strong>By hand:</strong> The geometric mean is $$
+<p><span class="glossary-label">By hand:</span> The geometric mean is $$
 E[X]=\frac{1-p}{p}=\frac{1-0.3}{0.3}=2.333.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
 <span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> p</span>
 <span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.333333</span></span></code></pre></div>
 </div>
-<div id="independence-of-random-variables" class="section level2">
-<h2>Independence of Random Variables</h2>
-<p><strong>Definition:</strong> Two random variables are independent
+<h2 class="glossary-letter">I</h2>
+<div id="independence-of-random-variables" class="section level2 glossary-entry">
+<h3>Independence of Random Variables</h3>
+<p><span class="glossary-label">Definition:</span> Two random variables are independent
 when their joint distribution factors into their marginals: \(P_{X,Y}(x,y)=P_X(x)P_Y(y)\) for discrete
 variables, or \(f_{X,Y}(x,y)=f_X(x)f_Y(y)\) for continuous
 variables. Use independence to multiply probabilities, but remember that
 zero correlation alone does not prove it.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, p. 114.</p>
-<p><strong>Example 1:</strong> Two fair dice are rolled. What is the
+<p><span class="glossary-label">Example 1:</span> Two fair dice are rolled. What is the
 probability the first shows 3 and the second shows 4?</p>
-<p><strong>By hand:</strong> Independence multiplies the marginal
+<p><span class="glossary-label">By hand:</span> Independence multiplies the marginal
 probabilities: $$
 P(X=3,Y=4)=P(X=3)P(Y=4)=\frac{1}{6}\cdot\frac{1}{6}=0.0278.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>(<span class="dv">1</span> <span class="sc">/</span> <span class="dv">6</span>) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">/</span> <span class="dv">6</span>)</span>
 <span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.02777778</span></span></code></pre></div>
-<p><strong>Example 2:</strong> Two fair coins are tossed. What is the
+<p><span class="glossary-label">Example 2:</span> Two fair coins are tossed. What is the
 probability both land heads?</p>
-<p><strong>By hand:</strong> The tosses are independent, so $$
+<p><span class="glossary-label">By hand:</span> The tosses are independent, so $$
 P(\text{both heads})=(0.5)(0.5)=0.25.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fl">0.5</span> <span class="sc">*</span> <span class="fl">0.5</span></span>
 <span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.25</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A model lets \(X\) take values \(-1\), \(0\), and \(1\) with equal probability, and sets \(Y=X^2\). Can we conclude independence from
+<p><span class="glossary-label">Example 3:</span> A model lets \(X\) take values \(-1\), \(0\), and \(1\) with equal probability, and sets \(Y=X^2\). Can we conclude independence from
 zero correlation?</p>
-<p><strong>By hand:</strong> \(E[X]=0\)
+<p><span class="glossary-label">By hand:</span> \(E[X]=0\)
 and \(E[Y]=E[X^2]=2/3\). Also \(E[XY]=E[X^3]=0\), so $$
 \operatorname{Cov}(X,Y)=0-(0)\left(\frac{2}{3}\right)=0.
 $$ Moreover \(\operatorname{Var}[X]=E[X^2]-(E[X])^2=2/3\)
@@ -1125,7 +1123,7 @@ and $$
 \operatorname{Var}[Y]=E[Y^2]-(E[Y])^2=\frac{2}{3}-\frac{4}{9}=\frac{2}{9},
 $$ so the correlation is \(0/\sqrt{(2/3)(2/9)}=0\). But \(Y\) is completely determined by \(X\), so the variables are dependent despite
 zero correlation.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>)</span>
@@ -1138,16 +1136,17 @@ zero correlation.</p>
 <span id="cb45-10"><a href="#cb45-10" tabindex="-1"></a> covariance correlation </span>
 <span id="cb45-11"><a href="#cb45-11" tabindex="-1"></a>          <span class="dv">0</span>           <span class="dv">0</span> </span></code></pre></div>
 </div>
-<div id="joint-distribution" class="section level2">
-<h2>Joint Distribution</h2>
-<p><strong>Definition:</strong> A PMF, PDF, or mixed model that
+<h2 class="glossary-letter">J</h2>
+<div id="joint-distribution" class="section level2 glossary-entry">
+<h3>Joint Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A PMF, PDF, or mixed model that
 describes two or more random variables together. It assigns probability
 to combinations of values and sums or integrates to one over the joint
 support. Use it when two variables are measured on the same unit and
 their relationship matters.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 112-113.</p>
-<p><strong>Example 1:</strong> A delivery hub uses two scanners to read
+<p><span class="glossary-label">Example 1:</span> A delivery hub uses two scanners to read
 each parcel label. Let \(X=1\) if the
 first scanner reads the label and \(Y=1\) if the second scanner does. Their
 joint PMF is $$
@@ -1158,28 +1157,26 @@ P_{X,Y}(x,y)=
 0, &amp; \text{otherwise}.
 \end{cases}
 $$ What is the probability the two scanners disagree?</p>
-<p><strong>By hand:</strong> The scanners disagree in the cells \((0,1)\) and \((1,0)\), so $$
+<p><span class="glossary-label">By hand:</span> The scanners disagree in the cells \((0,1)\) and \((1,0)\), so $$
 P(X\neq Y)=P(0,1)+P(1,0)=0.05+0.05=0.10.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb46-2"><a href="#cb46-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb46-3"><a href="#cb46-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.55</span>, <span class="fl">0.05</span>, <span class="fl">0.05</span>, <span class="fl">0.35</span>)</span>
 <span id="cb46-4"><a href="#cb46-4" tabindex="-1"></a><span class="fu">sum</span>(joint[x <span class="sc">!=</span> y])</span>
 <span id="cb46-5"><a href="#cb46-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A farm stand records whether a customer
+<p><span class="glossary-label">Example 2:</span> A farm stand records whether a customer
 buys fruit (\(X=1\) if yes) and how
 many vegetables they buy (\(Y=0,1,2\)).
 The joint PMF is</p>
 <table>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th></th>
 <th align="right">\(Y=0\)</th>
 <th align="right">\(Y=1\)</th>
 <th align="right">\(Y=2\)</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>\(X=0\)</td>
@@ -1197,28 +1194,28 @@ The joint PMF is</p>
 </table>
 <p>What is the probability a customer buys fruit and at least one
 vegetable?</p>
-<p><strong>By hand:</strong> The event is \(X=1\) and \(Y\geq1\), so add the two relevant cells:
+<p><span class="glossary-label">By hand:</span> The event is \(X=1\) and \(Y\geq1\), so add the two relevant cells:
 $$
 P(X=1,Y\geq1)=0.25+0.15=0.40.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb47-2"><a href="#cb47-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb47-3"><a href="#cb47-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.30</span>, <span class="fl">0.15</span>, <span class="fl">0.05</span>, <span class="fl">0.10</span>, <span class="fl">0.25</span>, <span class="fl">0.15</span>)</span>
 <span id="cb47-4"><a href="#cb47-4" tabindex="-1"></a><span class="fu">sum</span>(joint[x <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> y <span class="sc">&gt;=</span> <span class="dv">1</span>])</span>
 <span id="cb47-5"><a href="#cb47-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A lab records normalized temperature
+<p><span class="glossary-label">Example 3:</span> A lab records normalized temperature
 \(X\) and normalized pressure \(Y\), both between 0 and 1. Their joint
 density is $$
 f_{X,Y}(x,y)=x+y,\qquad 0&lt;x&lt;1,\;0&lt;y&lt;1.
 $$ What is the probability that the two normalized readings sum
 to less than 1?</p>
-<p><strong>By hand:</strong> The region is \(0&lt;x&lt;1\) and \(0&lt;y&lt;1-x\), so $$
+<p><span class="glossary-label">By hand:</span> The region is \(0&lt;x&lt;1\) and \(0&lt;y&lt;1-x\), so $$
 P(X+Y&lt;1)=\int_{0}^{1}\int_{0}^{1-x}(x+y)\,dy\,dx
 =\int_{0}^{1}\frac{1-x^2}{2}\,dx
 =\frac{1}{3}.
 $$</p>
-<p><strong>In R:</strong> The indicator restricts the unit square to the
+<p><span class="glossary-label">In R:</span> The indicator restricts the unit square to the
 triangular region \(y&lt;1-x\), and
 <code>cubature</code> evaluates the double integral directly.</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" tabindex="-1"></a><span class="fu">library</span>(cubature)</span>
@@ -1230,58 +1227,59 @@ triangular region \(y&lt;1-x\), and
 <span id="cb48-7"><a href="#cb48-7" tabindex="-1"></a><span class="fu">hcubature</span>(joint, <span class="at">lowerLimit =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">upperLimit =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>))<span class="sc">$</span>integral</span>
 <span id="cb48-8"><a href="#cb48-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3333306</span></span></code></pre></div>
 </div>
-<div id="linear-transformation" class="section level2">
-<h2>Linear Transformation</h2>
-<p><strong>Definition:</strong> A transformation of the form \(Y=aX+b\) with \(a\neq0\). It shifts the mean to \(E[Y]=aE[X]+b\) and scales the variance to
+<h2 class="glossary-letter">L</h2>
+<div id="linear-transformation" class="section level2 glossary-entry">
+<h3>Linear Transformation</h3>
+<p><span class="glossary-label">Definition:</span> A transformation of the form \(Y=aX+b\) with \(a\neq0\). It shifts the mean to \(E[Y]=aE[X]+b\) and scales the variance to
 \(\operatorname{Var}[Y]=a^2\operatorname{Var}[X]\).
 Use it when changing units, rescaling scores, or applying a fixed
 fee.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>, p. 351;
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>, p. 351;
 <em>Mathematical Statistics with Applications in R</em>, pp. 73-75.</p>
-<p><strong>Example 1:</strong> A lab records temperature in Celsius as
+<p><span class="glossary-label">Example 1:</span> A lab records temperature in Celsius as
 \(X\sim\operatorname{Normal}(20,4)\)
 and converts it to Fahrenheit with \(Y=1.8X+32\). What are the mean and variance
 of \(Y\)?</p>
-<p><strong>By hand:</strong> Apply the linear rules with \(a=1.8\) and \(b=32\): $$
+<p><span class="glossary-label">By hand:</span> Apply the linear rules with \(a=1.8\) and \(b=32\): $$
 E[Y]=1.8(20)+32=68,\qquad
 \operatorname{Var}[Y]=(1.8)^2(16)=51.84.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="dv">20</span></span>
 <span id="cb49-2"><a href="#cb49-2" tabindex="-1"></a>var_x <span class="ot">&lt;-</span> <span class="dv">16</span></span>
 <span id="cb49-3"><a href="#cb49-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="fl">1.8</span> <span class="sc">*</span> mean_x <span class="sc">+</span> <span class="dv">32</span>, <span class="at">variance =</span> <span class="fl">1.8</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> var_x)</span>
 <span id="cb49-4"><a href="#cb49-4" tabindex="-1"></a>    mean variance </span>
 <span id="cb49-5"><a href="#cb49-5" tabindex="-1"></a>   <span class="fl">68.00</span>    <span class="fl">51.84</span> </span></code></pre></div>
-<p><strong>Example 2:</strong> A recipe doubles the serving count from 2
+<p><span class="glossary-label">Example 2:</span> A recipe doubles the serving count from 2
 to 6, multiplying each ingredient amount by 3. If the original amount
 has mean 2 and variance 4, what are the new mean and variance?</p>
-<p><strong>By hand:</strong> Here \(a=3\) and \(b=0\), so $$
+<p><span class="glossary-label">By hand:</span> Here \(a=3\) and \(b=0\), so $$
 E[Y]=3(2)=6,\qquad \operatorname{Var}[Y]=3^2(4)=36.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="dv">3</span> <span class="sc">*</span> <span class="dv">2</span>, <span class="at">variance =</span> <span class="dv">3</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span>)</span>
 <span id="cb50-2"><a href="#cb50-2" tabindex="-1"></a>    mean variance </span>
 <span id="cb50-3"><a href="#cb50-3" tabindex="-1"></a>       <span class="dv">6</span>       <span class="dv">36</span> </span></code></pre></div>
-<p><strong>Example 3:</strong> A tutor reports a course score as \(Y=1.25X+2.5\), where \(X\) has mean 80 and variance 36. What are
+<p><span class="glossary-label">Example 3:</span> A tutor reports a course score as \(Y=1.25X+2.5\), where \(X\) has mean 80 and variance 36. What are
 the mean and variance of the reported score?</p>
-<p><strong>By hand:</strong> With \(a=1.25\) and \(b=2.5\), $$
+<p><span class="glossary-label">By hand:</span> With \(a=1.25\) and \(b=2.5\), $$
 E[Y]=1.25(80)+2.5=102.5,\qquad
 \operatorname{Var}[Y]=(1.25)^2(36)=56.25.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="dv">80</span></span>
 <span id="cb51-2"><a href="#cb51-2" tabindex="-1"></a>var_x <span class="ot">&lt;-</span> <span class="dv">36</span></span>
 <span id="cb51-3"><a href="#cb51-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="fl">1.25</span> <span class="sc">*</span> mean_x <span class="sc">+</span> <span class="fl">2.5</span>, <span class="at">variance =</span> <span class="fl">1.25</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> var_x)</span>
 <span id="cb51-4"><a href="#cb51-4" tabindex="-1"></a>    mean variance </span>
 <span id="cb51-5"><a href="#cb51-5" tabindex="-1"></a>  <span class="fl">102.50</span>    <span class="fl">56.25</span> </span></code></pre></div>
 </div>
-<div id="log-normal-distribution" class="section level2">
-<h2>Log-Normal Distribution</h2>
-<p><strong>Definition:</strong> A positive continuous variable \(X\) is log-normal when \(\ln X\) is Normal. The parameters \(\mu_{\log}\) and \(\sigma_{\log}\) describe the logarithm, not
+<div id="log-normal-distribution" class="section level2 glossary-entry">
+<h3>Log-Normal Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A positive continuous variable \(X\) is log-normal when \(\ln X\) is Normal. The parameters \(\mu_{\log}\) and \(\sigma_{\log}\) describe the logarithm, not
 \(X\) itself. Use it for positive,
 right-skewed data that vary multiplicatively, such as incomes, prices,
 or sizes.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 103-104.</p>
 <p>$$
 f_X(x)=\frac{1}{x\sigma_{\log}\sqrt{2\pi}}\exp\!\left(-\frac{(\ln
@@ -1292,31 +1290,31 @@ F_X(x)=\Phi\!\left(\frac{\ln x-\mu_{\log}}{\sigma_{\log}}\right),\qquad
 E[X]=e^{\mu_{\log}+\sigma_{\log}^2/2},\qquad
 \operatorname{Var}[X]=\left(e^{\sigma_{\log}^2}-1\right)e^{2\mu_{\log}+\sigma_{\log}^2}
 $$</p>
-<p><strong>Example 1:</strong> An architect models tall-building heights
+<p><span class="glossary-label">Example 1:</span> An architect models tall-building heights
 as log-normal with \(\mu_{\log}=5\) and
 \(\sigma_{\log}=0.6\). What is the
 chance a building exceeds 200 m?</p>
-<p><strong>By hand:</strong> Take logarithms: $$
+<p><span class="glossary-label">By hand:</span> Take logarithms: $$
 P(X&gt;200)=P\!\left(Z&gt;\frac{\ln 200-5}{0.6}\right)
 =P(Z&gt;0.4972)=1-\Phi(0.4972)=0.3095.
 $$ In R, <code>plnorm</code> evaluates the log-normal CDF/tail
 directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fu">log</span>(<span class="dv">200</span>) <span class="sc">-</span> <span class="dv">5</span>) <span class="sc">/</span> <span class="fl">0.6</span></span>
 <span id="cb52-2"><a href="#cb52-2" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb52-3"><a href="#cb52-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3095256</span></span>
 <span id="cb52-4"><a href="#cb52-4" tabindex="-1"></a><span class="fu">plnorm</span>(<span class="dv">200</span>, <span class="at">meanlog =</span> <span class="dv">5</span>, <span class="at">sdlog =</span> <span class="fl">0.6</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb52-5"><a href="#cb52-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3095256</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A mineralogist models crystal sizes as
+<p><span class="glossary-label">Example 2:</span> A mineralogist models crystal sizes as
 log-normal with \(\mu_{\log}=1\) and
 \(\sigma_{\log}=0.5\). What is the
 density at a size of 1 unit?</p>
-<p><strong>By hand:</strong> Apply the log-normal density formula with
+<p><span class="glossary-label">By hand:</span> Apply the log-normal density formula with
 \(\ln 1=0\): $$
 f(1)=\frac{1}{(1)(0.5)\sqrt{2\pi}}\exp\!\left(-\frac{(0-1)^2}{2(0.5)^2}\right)
 =0.7979e^{-2}=0.1080.
 $$ In R, <code>dlnorm</code> evaluates this density.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" tabindex="-1"></a>mu_log <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb53-2"><a href="#cb53-2" tabindex="-1"></a>sigma_log <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
 <span id="cb53-3"><a href="#cb53-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span></span>
@@ -1325,43 +1323,42 @@ $$ In R, <code>dlnorm</code> evaluates this density.</p>
 <span id="cb53-6"><a href="#cb53-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1079819</span></span>
 <span id="cb53-7"><a href="#cb53-7" tabindex="-1"></a><span class="fu">dlnorm</span>(x, <span class="at">meanlog =</span> mu_log, <span class="at">sdlog =</span> sigma_log)</span>
 <span id="cb53-8"><a href="#cb53-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1079819</span></span></code></pre></div>
-<p><strong>Example 3:</strong> An analyst models online sale values as
+<p><span class="glossary-label">Example 3:</span> An analyst models online sale values as
 log-normal with \(\mu_{\log}=3\) and
 \(\sigma_{\log}=1\). What is the chance
 a sale exceeds 100 units of currency?</p>
-<p><strong>By hand:</strong> Standardize the logarithm: $$
+<p><span class="glossary-label">By hand:</span> Standardize the logarithm: $$
 P(X&gt;100)=P\!\left(Z&gt;\frac{\ln 100-3}{1}\right)
 =P(Z&gt;1.6052)=1-\Phi(1.6052)=0.0542.
 $$ In R, <code>plnorm</code> evaluates this tail probability
 directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fu">log</span>(<span class="dv">100</span>) <span class="sc">-</span> <span class="dv">3</span>) <span class="sc">/</span> <span class="dv">1</span></span>
 <span id="cb54-2"><a href="#cb54-2" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb54-3"><a href="#cb54-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.05422818</span></span>
 <span id="cb54-4"><a href="#cb54-4" tabindex="-1"></a><span class="fu">plnorm</span>(<span class="dv">100</span>, <span class="at">meanlog =</span> <span class="dv">3</span>, <span class="at">sdlog =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb54-5"><a href="#cb54-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.05422818</span></span></code></pre></div>
 </div>
-<div id="marginal-distribution" class="section level2">
-<h2>Marginal Distribution</h2>
-<p><strong>Definition:</strong> The distribution of one variable on its
+<h2 class="glossary-letter">M</h2>
+<div id="marginal-distribution" class="section level2 glossary-entry">
+<h3>Marginal Distribution</h3>
+<p><span class="glossary-label">Definition:</span> The distribution of one variable on its
 own, ignoring the others in a joint model. Obtain a discrete marginal by
 summing the joint PMF over the other variable, or a continuous marginal
 by integrating the joint PDF. Use it to study one variable without
 conditioning on another.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 113-116.</p>
-<p><strong>Example 1:</strong> An event planner models whether a visitor
+<p><span class="glossary-label">Example 1:</span> An event planner models whether a visitor
 attends the morning session (\(X=1\) if
 yes) and how many workshops they join (\(Y=0,1,2\)). The joint PMF is</p>
 <table>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th></th>
 <th align="right">\(Y=0\)</th>
 <th align="right">\(Y=1\)</th>
 <th align="right">\(Y=2\)</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td>\(X=0\)</td>
@@ -1378,24 +1375,24 @@ yes) and how many workshops they join (\(Y=0,1,2\)). The joint PMF is</p>
 </tbody>
 </table>
 <p>What is the marginal distribution of morning attendance?</p>
-<p><strong>By hand:</strong> Sum the joint PMF across the workshop
+<p><span class="glossary-label">By hand:</span> Sum the joint PMF across the workshop
 counts: $$
 P_X(0)=0.10+0.20+0.10=0.40,\qquad
 P_X(1)=0.15+0.30+0.15=0.60.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
 <span id="cb55-2"><a href="#cb55-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb55-3"><a href="#cb55-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.10</span>, <span class="fl">0.20</span>, <span class="fl">0.10</span>, <span class="fl">0.15</span>, <span class="fl">0.30</span>, <span class="fl">0.15</span>)</span>
 <span id="cb55-4"><a href="#cb55-4" tabindex="-1"></a><span class="fu">c</span>(<span class="at">P_X_0 =</span> <span class="fu">sum</span>(joint[x <span class="sc">==</span> <span class="dv">0</span>]), <span class="at">P_X_1 =</span> <span class="fu">sum</span>(joint[x <span class="sc">==</span> <span class="dv">1</span>]))</span>
 <span id="cb55-5"><a href="#cb55-5" tabindex="-1"></a>P_X_0 P_X_1 </span>
 <span id="cb55-6"><a href="#cb55-6" tabindex="-1"></a>  <span class="fl">0.4</span>   <span class="fl">0.6</span> </span></code></pre></div>
-<p><strong>Example 2:</strong> A service model describes normalized
+<p><span class="glossary-label">Example 2:</span> A service model describes normalized
 arrival rate \(X\) and normalized
 capacity \(Y\) with joint density $$
 f_{X,Y}(x,y)=4xy,\qquad 0&lt;x&lt;1,\;0&lt;y&lt;1.
 $$ Find the marginal density of \(X\) and use it to compute \(P(X&lt;0.5)\).</p>
-<p><strong>By hand:</strong> Integrate the joint density over all
+<p><span class="glossary-label">By hand:</span> Integrate the joint density over all
 possible values of \(Y\): $$
 f_X(x)=\int_{0}^{1}4xy\,dy
 =4x\left[\frac{y^2}{2}\right]_{0}^{1}=2x,\qquad 0&lt;x&lt;1.
@@ -1403,7 +1400,7 @@ $$ Therefore $$
 P(X&lt;0.5)=\int_{0}^{0.5}2x\,dx
 =\left[x^2\right]_{0}^{0.5}=0.25.
 $$</p>
-<p><strong>In R:</strong> A single integral gives the marginal density
+<p><span class="glossary-label">In R:</span> A single integral gives the marginal density
 at \(x=0.5\), and <code>cubature</code>
 evaluates the double integral for \(P(X&lt;0.5)\) directly.</p>
 <div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" tabindex="-1"></a><span class="fu">library</span>(cubature)</span>
@@ -1416,25 +1413,25 @@ evaluates the double integral for \(P(X&lt;0.5)\) directly.</p>
 <span id="cb56-8"><a href="#cb56-8" tabindex="-1"></a><span class="fu">hcubature</span>(<span class="cf">function</span>(v) <span class="fu">joint</span>(v[<span class="dv">1</span>], v[<span class="dv">2</span>]),</span>
 <span id="cb56-9"><a href="#cb56-9" tabindex="-1"></a>          <span class="at">lowerLimit =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">upperLimit =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="dv">1</span>))<span class="sc">$</span>integral</span>
 <span id="cb56-10"><a href="#cb56-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.25</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A joint model pairs a continuous
+<p><span class="glossary-label">Example 3:</span> A joint model pairs a continuous
 measurement \(X\) with a binary
 indicator \(Y\). If \(P(X\leq2\mid Y=0)=0.6\), \(P(Y=0)=0.6\), \(P(X\leq2\mid Y=1)=0.3\), and \(P(Y=1)=0.4\), what is the marginal
 probability \(P(X\leq2)\)?</p>
-<p><strong>By hand:</strong> Sum over the two values of \(Y\): $$
+<p><span class="glossary-label">By hand:</span> Sum over the two values of \(Y\): $$
 P(X\leq2)=(0.6)(0.6)+(0.3)(0.4)=0.36+0.12=0.48.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" tabindex="-1"></a><span class="fl">0.6</span> <span class="sc">*</span> <span class="fl">0.6</span> <span class="sc">+</span> <span class="fl">0.3</span> <span class="sc">*</span> <span class="fl">0.4</span></span>
 <span id="cb57-2"><a href="#cb57-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.48</span></span></code></pre></div>
 </div>
-<div id="multinomial-distribution" class="section level2">
-<h2>Multinomial Distribution</h2>
-<p><strong>Definition:</strong> A distribution for the counts in \(m\) mutually exclusive categories across
+<div id="multinomial-distribution" class="section level2 glossary-entry">
+<h3>Multinomial Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A distribution for the counts in \(m\) mutually exclusive categories across
 \(n\) independent trials. The category
 probabilities sum to one and the counts sum to \(n\). Use it when each unit falls into
 exactly one of several categories and you record all category counts
 together.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 469-470.</p>
 <p>$$
 P_{\mathbf X}(x_1,\ldots,x_m)=\frac{n!}{x_1!\cdots
@@ -1446,14 +1443,14 @@ x_i\rfloor\\ k_1+\cdots+k_m=n}}\frac{n!}{k_1!\cdots
 k_m!}\prod_{i=1}^{m}p_i^{k_i},\qquad E[X_i]=np_i,\qquad
 \operatorname{Var}[X_i]=np_i(1-p_i)
 $$</p>
-<p><strong>Example 1:</strong> In a community ballot, 30 participants
+<p><span class="glossary-label">Example 1:</span> In a community ballot, 30 participants
 independently choose one of three park projects with probabilities \(0.4\), \(0.35\), and \(0.25\). What is the probability of the
 counts \((12,10,8)\)?</p>
-<p><strong>By hand:</strong> Apply the multinomial PMF: $$
+<p><span class="glossary-label">By hand:</span> Apply the multinomial PMF: $$
 P(12,10,8)=\frac{30!}{12!\,10!\,8!}(0.4)^{12}(0.35)^{10}(0.25)^{8}=0.0267.
 $$ In R, <code>dmultinom</code> evaluates this PMF; base R does
 not provide a <code>pmultinom</code> function.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">8</span>)</span>
 <span id="cb58-2"><a href="#cb58-2" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.35</span>, <span class="fl">0.25</span>)</span>
 <span id="cb58-3"><a href="#cb58-3" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">30</span>) <span class="sc">/</span> (<span class="fu">factorial</span>(<span class="dv">12</span>) <span class="sc">*</span> <span class="fu">factorial</span>(<span class="dv">10</span>) <span class="sc">*</span> <span class="fu">factorial</span>(<span class="dv">8</span>)) <span class="sc">*</span></span>
@@ -1461,13 +1458,13 @@ not provide a <code>pmultinom</code> function.</p>
 <span id="cb58-5"><a href="#cb58-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.0267276</span></span>
 <span id="cb58-6"><a href="#cb58-6" tabindex="-1"></a><span class="fu">dmultinom</span>(counts, <span class="at">prob =</span> probs)</span>
 <span id="cb58-7"><a href="#cb58-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.0267276</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A bookstore classifies 20 buyers into
+<p><span class="glossary-label">Example 2:</span> A bookstore classifies 20 buyers into
 print, audio, or e-book with probabilities \(0.5\), \(0.3\), and \(0.2\). What is the probability of counts
 \((10,6,4)\)?</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 P(10,6,4)=\frac{20!}{10!\,6!\,4!}(0.5)^{10}(0.3)^{6}(0.2)^{4}=0.0442.
 $$ In R, <code>dmultinom</code> gives the same PMF value.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">4</span>)</span>
 <span id="cb59-2"><a href="#cb59-2" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>)</span>
 <span id="cb59-3"><a href="#cb59-3" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">20</span>) <span class="sc">/</span> (<span class="fu">factorial</span>(<span class="dv">10</span>) <span class="sc">*</span> <span class="fu">factorial</span>(<span class="dv">6</span>) <span class="sc">*</span> <span class="fu">factorial</span>(<span class="dv">4</span>)) <span class="sc">*</span></span>
@@ -1475,14 +1472,14 @@ $$ In R, <code>dmultinom</code> gives the same PMF value.</p>
 <span id="cb59-5"><a href="#cb59-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04419421</span></span>
 <span id="cb59-6"><a href="#cb59-6" tabindex="-1"></a><span class="fu">dmultinom</span>(counts, <span class="at">prob =</span> probs)</span>
 <span id="cb59-7"><a href="#cb59-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04419421</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A theater polls 100 patrons about three
+<p><span class="glossary-label">Example 3:</span> A theater polls 100 patrons about three
 showtimes with probabilities \(0.5\),
 \(0.3\), and \(0.2\). What is the probability of counts
 \((60,30,10)\)?</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 P(60,30,10)=\frac{100!}{60!\,30!\,10!}(0.5)^{60}(0.3)^{30}(0.2)^{10}=0.0002131.
 $$ In R, <code>dmultinom</code> gives the same PMF value.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">60</span>, <span class="dv">30</span>, <span class="dv">10</span>)</span>
 <span id="cb60-2"><a href="#cb60-2" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>)</span>
 <span id="cb60-3"><a href="#cb60-3" tabindex="-1"></a><span class="fu">factorial</span>(<span class="dv">100</span>) <span class="sc">/</span> (<span class="fu">factorial</span>(<span class="dv">60</span>) <span class="sc">*</span> <span class="fu">factorial</span>(<span class="dv">30</span>) <span class="sc">*</span> <span class="fu">factorial</span>(<span class="dv">10</span>)) <span class="sc">*</span></span>
@@ -1491,13 +1488,14 @@ $$ In R, <code>dmultinom</code> gives the same PMF value.</p>
 <span id="cb60-6"><a href="#cb60-6" tabindex="-1"></a><span class="fu">dmultinom</span>(counts, <span class="at">prob =</span> probs)</span>
 <span id="cb60-7"><a href="#cb60-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.0002130804</span></span></code></pre></div>
 </div>
-<div id="negative-binomial-distribution" class="section level2">
-<h2>Negative Binomial Distribution</h2>
-<p><strong>Definition:</strong> A discrete model for the number of
+<h2 class="glossary-letter">N</h2>
+<div id="negative-binomial-distribution" class="section level2 glossary-entry">
+<h3>Negative Binomial Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A discrete model for the number of
 failures before the \(r\)th success in
 independent trials with success probability \(p\). Its support is \(0,1,2,\ldots\) and \(E[X]=r(1-p)/p\). Use it when trials
 continue until a fixed number of successes is reached.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, p. 198.</p>
 <p>$$
 P_X(x)=\binom{x+r-1}{x}(1-p)^x p^r,\qquad x=0,1,2,\ldots
@@ -1506,17 +1504,17 @@ $$</p>
 F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\binom{k+r-1}{k}(1-p)^k p^r,\qquad
 E[X]=\frac{r(1-p)}{p},\qquad \operatorname{Var}[X]=\frac{r(1-p)}{p^2}
 $$</p>
-<p><strong>Example 1:</strong> A survey team contacts households until 4
+<p><span class="glossary-label">Example 1:</span> A survey team contacts households until 4
 agree to participate, and each contact succeeds independently with
 probability \(0.3\). What is the
 probability of exactly 3 refusals before the fourth agreement?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{NegativeBinomial}(r=4,p=0.3)\),
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{NegativeBinomial}(r=4,p=0.3)\),
 $$
 P(X=3)=\binom{3+4-1}{3}(1-0.3)^3(0.3)^4
 =\binom{6}{3}(0.7)^3(0.3)^4=0.0556.
 $$ In R, <code>dnbinom</code> evaluates this negative binomial
 PMF.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb61-2"><a href="#cb61-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
 <span id="cb61-3"><a href="#cb61-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
@@ -1524,25 +1522,25 @@ PMF.</p>
 <span id="cb61-5"><a href="#cb61-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.055566</span></span>
 <span id="cb61-6"><a href="#cb61-6" tabindex="-1"></a><span class="fu">dnbinom</span>(x, <span class="at">size =</span> r, <span class="at">prob =</span> p)</span>
 <span id="cb61-7"><a href="#cb61-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.055566</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A field team digs until it finds a fourth
+<p><span class="glossary-label">Example 2:</span> A field team digs until it finds a fourth
 site with a target mineral, with success probability \(0.2\) per site. How many failed sites does
 the team expect before the fourth success?</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 E[X]=\frac{r(1-p)}{p}=\frac{4(0.8)}{0.2}=16.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="dv">4</span></span>
 <span id="cb62-2"><a href="#cb62-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
 <span id="cb62-3"><a href="#cb62-3" tabindex="-1"></a>r <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> p</span>
 <span id="cb62-4"><a href="#cb62-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">16</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A job seeker keeps applying until
+<p><span class="glossary-label">Example 3:</span> A job seeker keeps applying until
 receiving a third offer, with offer probability \(0.15\) per application. What is the
 probability of at most 5 unsuccessful applications before the third
 offer?</p>
-<p><strong>By hand:</strong> Sum the PMF for \(x=0,\ldots,5\): $$
+<p><span class="glossary-label">By hand:</span> Sum the PMF for \(x=0,\ldots,5\): $$
 P(X\leq5)=\sum_{x=0}^{5}\binom{x+2}{x}(0.85)^x(0.15)^3=0.1052.
 $$ In R, <code>pnbinom</code> evaluates this CDF directly.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="dv">3</span></span>
 <span id="cb63-2"><a href="#cb63-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.15</span></span>
 <span id="cb63-3"><a href="#cb63-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span></span>
@@ -1551,24 +1549,24 @@ $$ In R, <code>pnbinom</code> evaluates this CDF directly.</p>
 <span id="cb63-6"><a href="#cb63-6" tabindex="-1"></a><span class="fu">pnbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> r, <span class="at">prob =</span> p)</span>
 <span id="cb63-7"><a href="#cb63-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1052128</span></span></code></pre></div>
 </div>
-<div id="nonlinear-transformation" class="section level2">
-<h2>Nonlinear Transformation</h2>
-<p><strong>Definition:</strong> A transformation \(Y=g(X)\) that is not of the form \(aX+b\). For discrete \(X\), compute \(E[g(X)]=\sum_x g(x)P_X(x)\); for continuous
+<div id="nonlinear-transformation" class="section level2 glossary-entry">
+<h3>Nonlinear Transformation</h3>
+<p><span class="glossary-label">Definition:</span> A transformation \(Y=g(X)\) that is not of the form \(aX+b\). For discrete \(X\), compute \(E[g(X)]=\sum_x g(x)P_X(x)\); for continuous
 \(X\), compute \(E[g(X)]=\int g(x)f_X(x)\,dx\). Use it when
 a measured quantity is converted through a nonlinear rule such as a
 power, reciprocal, or exponential.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, pp. 124-129.</p>
-<p><strong>Example 1:</strong> A signal processor transforms intensity
+<p><span class="glossary-label">Example 1:</span> A signal processor transforms intensity
 \(X\in\{0,1,2\}\) with probabilities
 \(0.2\), \(0.5\), and \(0.3\) into \(Y=X^3\). What are the mean and variance of
 \(Y\)?</p>
-<p><strong>By hand:</strong> The transformed values are \(0\), \(1\), and \(8\). Thus $$
+<p><span class="glossary-label">By hand:</span> The transformed values are \(0\), \(1\), and \(8\). Thus $$
 E[Y]=0(0.2)+1(0.5)+8(0.3)=2.9,
 $$ and $$
 E[Y^2]=0^2(0.2)+1^2(0.5)+8^2(0.3)=19.7,
 $$ so \(\operatorname{Var}[Y]=19.7-(2.9)^2=11.29\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>)</span>
 <span id="cb64-2"><a href="#cb64-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.3</span>)</span>
 <span id="cb64-3"><a href="#cb64-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">3</span></span>
@@ -1577,14 +1575,14 @@ $$ so \(\operatorname{Var}[Y]=19.7-(2.9)^2=11.29\).</p>
 <span id="cb64-6"><a href="#cb64-6" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> mean_y, <span class="at">variance =</span> variance_y)</span>
 <span id="cb64-7"><a href="#cb64-7" tabindex="-1"></a>    mean variance </span>
 <span id="cb64-8"><a href="#cb64-8" tabindex="-1"></a>    <span class="fl">2.90</span>    <span class="fl">11.29</span> </span></code></pre></div>
-<p><strong>Example 2:</strong> A score is defined as \(Y=1/X\) for a duration \(X\in\{1,2,4\}\) with probabilities \(0.2\), \(0.5\), and \(0.3\). What are the mean and variance of
+<p><span class="glossary-label">Example 2:</span> A score is defined as \(Y=1/X\) for a duration \(X\in\{1,2,4\}\) with probabilities \(0.2\), \(0.5\), and \(0.3\). What are the mean and variance of
 \(Y\)?</p>
-<p><strong>By hand:</strong> The transformed values are \(1\), \(1/2\), and \(1/4\). Hence $$
+<p><span class="glossary-label">By hand:</span> The transformed values are \(1\), \(1/2\), and \(1/4\). Hence $$
 E[Y]=1(0.2)+0.5(0.5)+0.25(0.3)=0.525,
 $$ and $$
 E[Y^2]=1^2(0.2)+0.5^2(0.5)+0.25^2(0.3)=0.34375,
 $$ so \(\operatorname{Var}[Y]=0.34375-(0.525)^2=0.068125\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb65-2"><a href="#cb65-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.5</span>, <span class="fl">0.3</span>)</span>
 <span id="cb65-3"><a href="#cb65-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> x</span>
@@ -1593,10 +1591,10 @@ $$ so \(\operatorname{Var}[Y]=0.34375-(0.525)^2=0.068125\).</p>
 <span id="cb65-6"><a href="#cb65-6" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> mean_y, <span class="at">variance =</span> variance_y)</span>
 <span id="cb65-7"><a href="#cb65-7" tabindex="-1"></a>    mean variance </span>
 <span id="cb65-8"><a href="#cb65-8" tabindex="-1"></a><span class="fl">0.525000</span> <span class="fl">0.068125</span> </span></code></pre></div>
-<p><strong>Example 3:</strong> A service model uses waiting time \(X\sim\mathrm{Exponential}(\lambda=2)\) and
+<p><span class="glossary-label">Example 3:</span> A service model uses waiting time \(X\sim\mathrm{Exponential}(\lambda=2)\) and
 a penalty \(Y=X^2\). What are the mean
 and variance of \(Y\)?</p>
-<p><strong>By hand:</strong> The density is \(f_X(x)=2e^{-2x}\) for \(x&gt;0\). Using $$
+<p><span class="glossary-label">By hand:</span> The density is \(f_X(x)=2e^{-2x}\) for \(x&gt;0\). Using $$
 \int_{0}^{\infty}x^n e^{-ax}\,dx=\frac{n!}{a^{n+1}},
 $$ we get $$
 E[Y]=\int_{0}^{\infty}x^2(2e^{-2x})\,dx
@@ -1608,7 +1606,7 @@ $$ Therefore $$
 \operatorname{Var}[Y]=\frac{3}{2}-\left(\frac{1}{2}\right)^2
 =\frac{5}{4}=1.25.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" tabindex="-1"></a>density <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">dexp</span>(x, <span class="at">rate =</span> <span class="dv">2</span>)</span>
 <span id="cb66-2"><a href="#cb66-2" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">density</span>(x), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
 <span id="cb66-3"><a href="#cb66-3" tabindex="-1"></a>second_y <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">4</span> <span class="sc">*</span> <span class="fu">density</span>(x), <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="cn">Inf</span>)<span class="sc">$</span>value</span>
@@ -1616,13 +1614,13 @@ $$</p>
 <span id="cb66-5"><a href="#cb66-5" tabindex="-1"></a>    mean variance </span>
 <span id="cb66-6"><a href="#cb66-6" tabindex="-1"></a>    <span class="fl">0.50</span>     <span class="fl">1.25</span> </span></code></pre></div>
 </div>
-<div id="normal-distribution" class="section level2">
-<h2>Normal Distribution</h2>
-<p><strong>Definition:</strong> A continuous model for measurement data
+<div id="normal-distribution" class="section level2 glossary-entry">
+<h3>Normal Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A continuous model for measurement data
 that are symmetric and bell-shaped around a mean \(\mu\), with standard deviation \(\sigma\). Its support is all real numbers.
 Use it for roughly symmetric measurement errors or sums of many small
 effects.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 335-348; <em>Mathematical Statistics with Applications in R</em>,
 pp. 98-104.</p>
 <p>$$
@@ -1633,46 +1631,47 @@ $$</p>
 F_X(x)=\Phi\!\left(\frac{x-\mu}{\sigma}\right),\qquad E[X]=\mu,\qquad
 \operatorname{Var}[X]=\sigma^2
 $$</p>
-<p><strong>Example 1:</strong> Repeated tuning-fork measurements are
+<p><span class="glossary-label">Example 1:</span> Repeated tuning-fork measurements are
 Normal with mean 500 Hz and standard deviation 8 Hz. What is the chance
 a measurement is below 512 Hz?</p>
-<p><strong>By hand:</strong> Standardize: \(z=(512-500)/8=1.5\). Then $$
+<p><span class="glossary-label">By hand:</span> Standardize: \(z=(512-500)/8=1.5\). Then $$
 P(X&lt;512)=\Phi(1.5)=0.9332.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">512</span> <span class="sc">-</span> <span class="dv">500</span>) <span class="sc">/</span> <span class="dv">8</span></span>
 <span id="cb67-2"><a href="#cb67-2" tabindex="-1"></a><span class="fu">pnorm</span>(z)</span>
 <span id="cb67-3"><a href="#cb67-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9331928</span></span></code></pre></div>
-<p><strong>Example 2:</strong> Resting pulse rates in a homogeneous
+<p><span class="glossary-label">Example 2:</span> Resting pulse rates in a homogeneous
 group are Normal with mean 70 bpm and standard deviation 10 bpm. What is
 the chance a rate falls between 60 and 80 bpm?</p>
-<p><strong>By hand:</strong> The endpoints give \(z_1=(60-70)/10=-1\) and \(z_2=(80-70)/10=1\). Thus $$
+<p><span class="glossary-label">By hand:</span> The endpoints give \(z_1=(60-70)/10=-1\) and \(z_2=(80-70)/10=1\). Thus $$
 P(60&lt;X&lt;80)=\Phi(1)-\Phi(-1)=0.6827.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> (<span class="dv">60</span> <span class="sc">-</span> <span class="dv">70</span>) <span class="sc">/</span> <span class="dv">10</span></span>
 <span id="cb68-2"><a href="#cb68-2" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> (<span class="dv">80</span> <span class="sc">-</span> <span class="dv">70</span>) <span class="sc">/</span> <span class="dv">10</span></span>
 <span id="cb68-3"><a href="#cb68-3" tabindex="-1"></a><span class="fu">pnorm</span>(z2) <span class="sc">-</span> <span class="fu">pnorm</span>(z1)</span>
 <span id="cb68-4"><a href="#cb68-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6826895</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A test score is Normal with mean 70 and
+<p><span class="glossary-label">Example 3:</span> A test score is Normal with mean 70 and
 standard deviation 10. What is the density at 85?</p>
-<p><strong>By hand:</strong> Standardize: \(z=(85-70)/10=1.5\). Then $$
+<p><span class="glossary-label">By hand:</span> Standardize: \(z=(85-70)/10=1.5\). Then $$
 f(85)=\frac{1}{10\sqrt{2\pi}}e^{-(1.5)^2/2}=0.01295.
 $$ In R, <code>dnorm</code> evaluates this density.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">85</span> <span class="sc">-</span> <span class="dv">70</span>) <span class="sc">/</span> <span class="dv">10</span></span>
 <span id="cb69-2"><a href="#cb69-2" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">85</span>, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
 <span id="cb69-3"><a href="#cb69-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.01295176</span></span></code></pre></div>
 </div>
-<div id="poisson-distribution" class="section level2">
-<h2>Poisson Distribution</h2>
-<p><strong>Definition:</strong> A discrete model for the number of
+<h2 class="glossary-letter">P</h2>
+<div id="poisson-distribution" class="section level2 glossary-entry">
+<h3>Poisson Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A discrete model for the number of
 events in a fixed interval when events occur independently at a steady
 average rate \(\lambda\). Its support
 is \(0,1,2,\ldots\) and its mean equals
 its variance. Use it for counts of rare or independent events in time,
 space, or volume.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 250-253; <em>Mathematical Statistics with Applications in R</em>,
 pp. 94-96.</p>
 <p>$$
@@ -1683,51 +1682,51 @@ F_X(x)=\sum_{k=0}^{\lfloor
 x\rfloor}\frac{e^{-\lambda}\lambda^k}{k!},\qquad E[X]=\lambda,\qquad
 \operatorname{Var}[X]=\lambda
 $$</p>
-<p><strong>Example 1:</strong> An observatory counts meteors during
+<p><span class="glossary-label">Example 1:</span> An observatory counts meteors during
 30-minute watches, averaging 1.7 per watch. What is the probability of
 exactly 2 meteors in a watch?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Poisson}(1.7)\), $$
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Poisson}(1.7)\), $$
 P(X=2)=\frac{e^{-1.7}(1.7)^2}{2!}=0.2640.
 $$ In R, <code>dpois</code> evaluates this PMF value.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">1.7</span></span>
 <span id="cb70-2"><a href="#cb70-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb70-3"><a href="#cb70-3" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda) <span class="sc">*</span> lambda<span class="sc">^</span>x <span class="sc">/</span> <span class="fu">factorial</span>(x)</span>
 <span id="cb70-4"><a href="#cb70-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2639777</span></span>
 <span id="cb70-5"><a href="#cb70-5" tabindex="-1"></a><span class="fu">dpois</span>(x, <span class="at">lambda =</span> lambda)</span>
 <span id="cb70-6"><a href="#cb70-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2639777</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A printer produces small blemishes at an
+<p><span class="glossary-label">Example 2:</span> A printer produces small blemishes at an
 average of 0.5 per page. What is the probability a page has no
 blemishes?</p>
-<p><strong>By hand:</strong> \(P(X=0)=e^{-0.5}(0.5)^0/0!=e^{-0.5}=0.6065\).
+<p><span class="glossary-label">By hand:</span> \(P(X=0)=e^{-0.5}(0.5)^0/0!=e^{-0.5}=0.6065\).
 In R, <code>dpois</code> gives this PMF value.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
 <span id="cb71-2"><a href="#cb71-2" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda)</span>
 <span id="cb71-3"><a href="#cb71-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6065307</span></span>
 <span id="cb71-4"><a href="#cb71-4" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> lambda)</span>
 <span id="cb71-5"><a href="#cb71-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6065307</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A mailroom averages 2 damaged envelopes
+<p><span class="glossary-label">Example 3:</span> A mailroom averages 2 damaged envelopes
 per batch. What is the probability a batch has at least one damaged
 envelope?</p>
-<p><strong>By hand:</strong> Use the complement: $$
+<p><span class="glossary-label">By hand:</span> Use the complement: $$
 P(X\geq1)=1-P(X=0)=1-e^{-2}=0.8647.
 $$ In R, <code>ppois</code> with <code>lower.tail = FALSE</code>
 gives this upper-tail probability.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb72-2"><a href="#cb72-2" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> <span class="fu">exp</span>(<span class="sc">-</span>lambda)</span>
 <span id="cb72-3"><a href="#cb72-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.8646647</span></span>
 <span id="cb72-4"><a href="#cb72-4" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> lambda, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb72-5"><a href="#cb72-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.8646647</span></span></code></pre></div>
 </div>
-<div id="probability-density-function-pdf" class="section level2">
-<h2>Probability Density Function (PDF)</h2>
-<p><strong>Definition:</strong> A nonnegative function \(f_X(x)\) that gives the density of a
+<div id="probability-density-function-pdf" class="section level2 glossary-entry">
+<h3>Probability Density Function (PDF)</h3>
+<p><span class="glossary-label">Definition:</span> A nonnegative function \(f_X(x)\) that gives the density of a
 continuous random variable. Probability is area under the density: \(P(a&lt;X&lt;b)=\int_a^b f_X(x)\,dx\), and
 the total area is one. Use it to compute interval probabilities for
 continuous measurements.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 291-292; <em>Mathematical Statistics with Applications in R</em>,
 pp. 65-66.</p>
 <p>$$
@@ -1737,53 +1736,53 @@ $$</p>
 P(a&lt;X&lt;b)=\int_a^b f_X(x)\,dx,\qquad F_X(x)=\int_{-\infty}^x
 f_X(t)\,dt
 $$</p>
-<p><strong>Example 1:</strong> A material’s impurity fraction is modeled
+<p><span class="glossary-label">Example 1:</span> A material’s impurity fraction is modeled
 as Beta\((2,1)\) with density \(f(x)=2x\) on \(0&lt;x&lt;1\). What is the probability the
 fraction is between 0.2 and 0.6?</p>
-<p><strong>By hand:</strong> Integrate the density over the interval:
+<p><span class="glossary-label">By hand:</span> Integrate the density over the interval:
 $$
 P(0.2&lt;X&lt;0.6)=\int_{0.2}^{0.6}2x\,dx
 =\left[x^2\right]_{0.2}^{0.6}=0.36-0.04=0.32.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">2</span> <span class="sc">*</span> x, <span class="at">lower =</span> <span class="fl">0.2</span>, <span class="at">upper =</span> <span class="fl">0.6</span>)<span class="sc">$</span>value</span>
 <span id="cb73-2"><a href="#cb73-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.32</span></span>
 <span id="cb73-3"><a href="#cb73-3" tabindex="-1"></a><span class="fu">pbeta</span>(<span class="fl">0.6</span>, <span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">1</span>) <span class="sc">-</span> <span class="fu">pbeta</span>(<span class="fl">0.2</span>, <span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">1</span>)</span>
 <span id="cb73-4"><a href="#cb73-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.32</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A call center models the time between
+<p><span class="glossary-label">Example 2:</span> A call center models the time between
 calls as Exponential with rate 3 per minute. What are the density at 1
 minute and the probability the wait exceeds 1 minute?</p>
-<p><strong>By hand:</strong> For \(f(x)=3e^{-3x}\), $$
+<p><span class="glossary-label">By hand:</span> For \(f(x)=3e^{-3x}\), $$
 f(1)=3e^{-3}=0.1494,
 \qquad
 P(X&gt;1)=\int_{1}^{\infty}3e^{-3x}\,dx=e^{-3}=0.0498.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" tabindex="-1"></a><span class="fu">dexp</span>(<span class="dv">1</span>, <span class="at">rate =</span> <span class="dv">3</span>)</span>
 <span id="cb74-2"><a href="#cb74-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1493612</span></span>
 <span id="cb74-3"><a href="#cb74-3" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">1</span>, <span class="at">rate =</span> <span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb74-4"><a href="#cb74-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04978707</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A measurement is Normal with mean 10 and
+<p><span class="glossary-label">Example 3:</span> A measurement is Normal with mean 10 and
 standard deviation 2. What are the density at 12 and the probability the
 measurement falls between 9 and 11?</p>
-<p><strong>By hand:</strong> Standardize: \(z=(12-10)/2=1\). The density is $$
+<p><span class="glossary-label">By hand:</span> Standardize: \(z=(12-10)/2=1\). The density is $$
 f(12)=\frac{1}{2\sqrt{2\pi}}e^{-1^2/2}=0.1210.
 $$ For the interval, \(z_1=(9-10)/2=-0.5\) and \(z_2=(11-10)/2=0.5\), so $$
 P(9&lt;X&lt;11)=\Phi(0.5)-\Phi(-0.5)=0.3829.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">12</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb75-2"><a href="#cb75-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1209854</span></span>
 <span id="cb75-3"><a href="#cb75-3" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">11</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="dv">9</span>, <span class="at">mean =</span> <span class="dv">10</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
 <span id="cb75-4"><a href="#cb75-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3829249</span></span></code></pre></div>
 </div>
-<div id="probability-mass-function-pmf" class="section level2">
-<h2>Probability Mass Function (PMF)</h2>
-<p><strong>Definition:</strong> A function \(P_X(x)=P(X=x)\) that assigns probability to
+<div id="probability-mass-function-pmf" class="section level2 glossary-entry">
+<h3>Probability Mass Function (PMF)</h3>
+<p><span class="glossary-label">Definition:</span> A function \(P_X(x)=P(X=x)\) that assigns probability to
 each possible value of a discrete random variable. Values are
 nonnegative and sum to one over the support. Use it to answer
 exact-value questions for counts or categories.</p>
-<p><strong>Source:</strong> <em>Mathematical Statistics with
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
 Applications in R</em>, p. 64.</p>
 <p>$$
 P_X(x)=P(X=x)
@@ -1792,39 +1791,39 @@ $$</p>
 F_X(x)=\sum_{k\leq x}P_X(k),\qquad E[X]=\sum_x xP_X(x),\qquad
 \operatorname{Var}[X]=\sum_x (x-E[X])^2P_X(x)
 $$</p>
-<p><strong>Example 1:</strong> Misrouted postcards arrive at a mean rate
+<p><span class="glossary-label">Example 1:</span> Misrouted postcards arrive at a mean rate
 of 1.4 per day. What is the probability of exactly 2 on a day?</p>
-<p><strong>By hand:</strong> For \(X\sim\operatorname{Poisson}(1.4)\), $$
+<p><span class="glossary-label">By hand:</span> For \(X\sim\operatorname{Poisson}(1.4)\), $$
 P(X=2)=\frac{e^{-1.4}(1.4)^2}{2!}=0.2417.
 $$ In R, <code>dpois</code> evaluates this PMF value.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">1.4</span></span>
 <span id="cb76-2"><a href="#cb76-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
 <span id="cb76-3"><a href="#cb76-3" tabindex="-1"></a><span class="fu">exp</span>(<span class="sc">-</span>lambda) <span class="sc">*</span> lambda<span class="sc">^</span>x <span class="sc">/</span> <span class="fu">factorial</span>(x)</span>
 <span id="cb76-4"><a href="#cb76-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.241665</span></span>
 <span id="cb76-5"><a href="#cb76-5" tabindex="-1"></a><span class="fu">dpois</span>(x, <span class="at">lambda =</span> lambda)</span>
 <span id="cb76-6"><a href="#cb76-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.241665</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A parcel arrives intact with probability
+<p><span class="glossary-label">Example 2:</span> A parcel arrives intact with probability
 \(0.93\). What is the probability it
 arrives intact?</p>
-<p><strong>By hand:</strong> With \(X\sim\operatorname{Bernoulli}(0.93)\),
+<p><span class="glossary-label">By hand:</span> With \(X\sim\operatorname{Bernoulli}(0.93)\),
 $$
 P(X=1)=p^1(1-p)^0=0.93.
 $$ In R, <code>dbinom</code> with <code>size = 1</code> evaluates
 this Bernoulli PMF.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.93</span></span>
 <span id="cb77-2"><a href="#cb77-2" tabindex="-1"></a>p<span class="sc">^</span><span class="dv">1</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span><span class="dv">0</span></span>
 <span id="cb77-3"><a href="#cb77-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.93</span></span>
 <span id="cb77-4"><a href="#cb77-4" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p)</span>
 <span id="cb77-5"><a href="#cb77-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.93</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A count has a Poisson\((2.1)\) PMF. What is the probability it
+<p><span class="glossary-label">Example 3:</span> A count has a Poisson\((2.1)\) PMF. What is the probability it
 falls between 1 and 3?</p>
-<p><strong>By hand:</strong> Add the three PMF values: $$
+<p><span class="glossary-label">By hand:</span> Add the three PMF values: $$
 P(1\leq X\leq3)=\sum_{x=1}^{3}\frac{e^{-2.1}(2.1)^x}{x!}=0.7162.
 $$ In R, <code>dpois</code> gives the PMF values and
 <code>ppois</code> differences give the same interval probability.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fl">2.1</span></span>
 <span id="cb78-2"><a href="#cb78-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span></span>
 <span id="cb78-3"><a href="#cb78-3" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">exp</span>(<span class="sc">-</span>lambda) <span class="sc">*</span> lambda<span class="sc">^</span>x <span class="sc">/</span> <span class="fu">factorial</span>(x))</span>
@@ -1834,261 +1833,264 @@ $$ In R, <code>dpois</code> gives the PMF values and
 <span id="cb78-7"><a href="#cb78-7" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">3</span>, <span class="at">lambda =</span> lambda) <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">0</span>, <span class="at">lambda =</span> lambda)</span>
 <span id="cb78-8"><a href="#cb78-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7161864</span></span></code></pre></div>
 </div>
-<div id="random-variable" class="section level2">
-<h2>Random Variable</h2>
-<p><strong>Definition:</strong> A function that assigns a real number to
+<h2 class="glossary-letter">R</h2>
+<div id="random-variable" class="section level2 glossary-entry">
+<h3>Random Variable</h3>
+<p><span class="glossary-label">Definition:</span> A function that assigns a real number to
 every outcome of a random process. Uppercase \(X\) names the variable and lowercase \(x\) names a value it can take. Use it to
 translate outcomes such as “apartment” or “apple” into numbers that can
 be modeled.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 227-229; <em>Mathematical Statistics with Applications in R</em>,
 p. 63.</p>
-<p><strong>Example 1:</strong> A housing inspector records the number of
+<p><span class="glossary-label">Example 1:</span> A housing inspector records the number of
 potted plants in a randomly chosen apartment, with counts \(1\), \(2\), and \(4\) occurring with probabilities \(0.4\), \(0.4\), and \(0.2\). What is the expected plant
 count?</p>
-<p><strong>By hand:</strong> Weight each value by its probability: $$
+<p><span class="glossary-label">By hand:</span> Weight each value by its probability: $$
 E[X]=1(0.4)+2(0.4)+4(0.2)=0.4+0.8+0.8=2.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" tabindex="-1"></a>plants <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
 <span id="cb79-2"><a href="#cb79-2" tabindex="-1"></a>probability <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.4</span>, <span class="fl">0.4</span>, <span class="fl">0.2</span>)</span>
 <span id="cb79-3"><a href="#cb79-3" tabindex="-1"></a><span class="fu">sum</span>(plants <span class="sc">*</span> probability)</span>
 <span id="cb79-4"><a href="#cb79-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
-<p><strong>Example 2:</strong> An orchard models apple mass as Normal
+<p><span class="glossary-label">Example 2:</span> An orchard models apple mass as Normal
 with mean 140 g and standard deviation 15 g. What is the probability an
 apple exceeds 150 g?</p>
-<p><strong>By hand:</strong> Standardize: \(z=(150-140)/15=0.6667\). Then $$
+<p><span class="glossary-label">By hand:</span> Standardize: \(z=(150-140)/15=0.6667\). Then $$
 P(X&gt;150)=1-\Phi(0.6667)=0.2525.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">150</span> <span class="sc">-</span> <span class="dv">140</span>) <span class="sc">/</span> <span class="dv">15</span></span>
 <span id="cb80-2"><a href="#cb80-2" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb80-3"><a href="#cb80-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2524925</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A realtor records the number of windows
+<p><span class="glossary-label">Example 3:</span> A realtor records the number of windows
 in randomly chosen houses, with counts \(4\), \(6\), and \(8\) occurring with probabilities \(0.3\), \(0.5\), and \(0.2\). What is the expected window
 count?</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 E[X]=4(0.3)+6(0.5)+8(0.2)=1.2+3+1.6=5.8.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" tabindex="-1"></a>windows <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>)</span>
 <span id="cb81-2"><a href="#cb81-2" tabindex="-1"></a>probability <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.3</span>, <span class="fl">0.5</span>, <span class="fl">0.2</span>)</span>
 <span id="cb81-3"><a href="#cb81-3" tabindex="-1"></a><span class="fu">sum</span>(windows <span class="sc">*</span> probability)</span>
 <span id="cb81-4"><a href="#cb81-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">5.8</span></span></code></pre></div>
 </div>
-<div id="sample-space" class="section level2">
-<h2>Sample Space</h2>
-<p><strong>Definition:</strong> The set \(S\) of all possible outcomes of a random
+<h2 class="glossary-letter">S</h2>
+<div id="sample-space" class="section level2 glossary-entry">
+<h3>Sample Space</h3>
+<p><span class="glossary-label">Definition:</span> The set \(S\) of all possible outcomes of a random
 process. A random variable assigns a real number to each outcome in
 \(S\). Use it to list outcomes before
 defining events or random variables.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 227-229; <em>Mathematical Statistics with Applications in R</em>,
 p. 63.</p>
 <p>$$
 S=\{\text{all possible outcomes}\},\qquad X:S\to\mathbb{R}
 $$</p>
-<p><strong>Example 1:</strong> A quality check records two independent
+<p><span class="glossary-label">Example 1:</span> A quality check records two independent
 light bulbs as working (\(W\)) or
 failed (\(F\)). What is the sample
 space, and what is the probability exactly one works?</p>
-<p><strong>By hand:</strong> The sample space lists every ordered pair:
+<p><span class="glossary-label">By hand:</span> The sample space lists every ordered pair:
 $$
 S=\{WW,WF,FW,FF\}.
 $$ Exactly one works in \(WF\)
 and \(FW\), so the probability is \(2/4=0.5\).</p>
-<p><strong>In R:</strong></p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;WW&quot;</span>, <span class="st">&quot;WF&quot;</span>, <span class="st">&quot;FW&quot;</span>, <span class="st">&quot;FF&quot;</span>)</span>
-<span id="cb82-2"><a href="#cb82-2" tabindex="-1"></a><span class="fu">sum</span>(outcomes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;WF&quot;</span>, <span class="st">&quot;FW&quot;</span>)) <span class="sc">/</span> <span class="fu">length</span>(outcomes)</span>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" tabindex="-1"></a>outcomes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"WW"</span>, <span class="st">"WF"</span>, <span class="st">"FW"</span>, <span class="st">"FF"</span>)</span>
+<span id="cb82-2"><a href="#cb82-2" tabindex="-1"></a><span class="fu">sum</span>(outcomes <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"WF"</span>, <span class="st">"FW"</span>)) <span class="sc">/</span> <span class="fu">length</span>(outcomes)</span>
 <span id="cb82-3"><a href="#cb82-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5</span></span></code></pre></div>
-<p><strong>Example 2:</strong> Two fair dice are rolled. What is the
+<p><span class="glossary-label">Example 2:</span> Two fair dice are rolled. What is the
 probability the sum is 7?</p>
-<p><strong>By hand:</strong> There are \(6\cdot6=36\) ordered outcomes in \(S\). The sum 7 occurs for \((1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\), so
+<p><span class="glossary-label">By hand:</span> There are \(6\cdot6=36\) ordered outcomes in \(S\). The sum 7 occurs for \((1,6),(2,5),(3,4),(4,3),(5,2),(6,1)\), so
 $$
 P(\text{sum}=7)=\frac{6}{36}=\frac{1}{6}.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" tabindex="-1"></a>rolls <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(<span class="at">first =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">second =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span>
 <span id="cb83-2"><a href="#cb83-2" tabindex="-1"></a><span class="fu">sum</span>(rolls<span class="sc">$</span>first <span class="sc">+</span> rolls<span class="sc">$</span>second <span class="sc">==</span> <span class="dv">7</span>) <span class="sc">/</span> <span class="fu">nrow</span>(rolls)</span>
 <span id="cb83-3"><a href="#cb83-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1666667</span></span></code></pre></div>
-<p><strong>Example 3:</strong> One card is drawn from a standard 52-card
+<p><span class="glossary-label">Example 3:</span> One card is drawn from a standard 52-card
 deck. What is the probability it is a heart?</p>
-<p><strong>By hand:</strong> The sample space has one outcome for each
+<p><span class="glossary-label">By hand:</span> The sample space has one outcome for each
 card, so \(|S|=52\). There are 13
 hearts, hence $$
 P(\text{heart})=\frac{13}{52}=0.25.
 $$</p>
-<p><strong>In R:</strong></p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a>suits <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;hearts&quot;</span>, <span class="st">&quot;diamonds&quot;</span>, <span class="st">&quot;clubs&quot;</span>, <span class="st">&quot;spades&quot;</span>), <span class="at">each =</span> <span class="dv">13</span>)</span>
-<span id="cb84-2"><a href="#cb84-2" tabindex="-1"></a><span class="fu">sum</span>(suits <span class="sc">==</span> <span class="st">&quot;hearts&quot;</span>) <span class="sc">/</span> <span class="fu">length</span>(suits)</span>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" tabindex="-1"></a>suits <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"hearts"</span>, <span class="st">"diamonds"</span>, <span class="st">"clubs"</span>, <span class="st">"spades"</span>), <span class="at">each =</span> <span class="dv">13</span>)</span>
+<span id="cb84-2"><a href="#cb84-2" tabindex="-1"></a><span class="fu">sum</span>(suits <span class="sc">==</span> <span class="st">"hearts"</span>) <span class="sc">/</span> <span class="fu">length</span>(suits)</span>
 <span id="cb84-3"><a href="#cb84-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.25</span></span></code></pre></div>
 </div>
-<div id="standard-deviation" class="section level2">
-<h2>Standard Deviation</h2>
-<p><strong>Definition:</strong> The square root of the variance, \(\sqrt{\operatorname{Var}[X]}\). It measures
+<div id="standard-deviation" class="section level2 glossary-entry">
+<h3>Standard Deviation</h3>
+<p><span class="glossary-label">Definition:</span> The square root of the variance, \(\sqrt{\operatorname{Var}[X]}\). It measures
 spread in the same units as the variable, while variance is measured in
 squared units. Use it to report variability on the original scale.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 230-234; <em>Mathematical Statistics with Applications in R</em>,
 p. 73.</p>
-<p><strong>Example 1:</strong> An audio recording’s duration has
+<p><span class="glossary-label">Example 1:</span> An audio recording’s duration has
 variance \(16\) seconds\(^2\). What is its standard deviation?</p>
-<p><strong>By hand:</strong> The standard deviation is the square root
+<p><span class="glossary-label">By hand:</span> The standard deviation is the square root
 of the variance: $$
 \sigma=\sqrt{16}=4.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>)</span>
 <span id="cb85-2"><a href="#cb85-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A Normal variable has standard deviation
+<p><span class="glossary-label">Example 2:</span> A Normal variable has standard deviation
 \(\sigma=3\). What is its variance?</p>
-<p><strong>By hand:</strong> Square the standard deviation: $$
+<p><span class="glossary-label">By hand:</span> Square the standard deviation: $$
 \sigma^2=3^2=9.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="#cb86-1" tabindex="-1"></a><span class="dv">3</span><span class="sc">^</span><span class="dv">2</span></span>
 <span id="cb86-2"><a href="#cb86-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">9</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A measurement with standard deviation
+<p><span class="glossary-label">Example 3:</span> A measurement with standard deviation
 \(2.5\) is multiplied by 100 to change
 units. What are the new standard deviation and variance?</p>
-<p><strong>By hand:</strong> Multiplying by \(a=100\) changes the standard deviation to
+<p><span class="glossary-label">By hand:</span> Multiplying by \(a=100\) changes the standard deviation to
 \(|a|\sigma=100(2.5)=250\) and the
 variance to \(a^2\sigma^2=100^2(2.5)^2=62{,}500\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">sd =</span> <span class="fl">2.5</span> <span class="sc">*</span> <span class="dv">100</span>, <span class="at">variance =</span> <span class="fl">2.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">100</span><span class="sc">^</span><span class="dv">2</span>)</span>
 <span id="cb87-2"><a href="#cb87-2" tabindex="-1"></a>      sd variance </span>
 <span id="cb87-3"><a href="#cb87-3" tabindex="-1"></a>     <span class="dv">250</span>    <span class="dv">62500</span> </span></code></pre></div>
 </div>
-<div id="standardization" class="section level2">
-<h2>Standardization</h2>
-<p><strong>Definition:</strong> The conversion of a value to a z-score
+<div id="standardization" class="section level2 glossary-entry">
+<h3>Standardization</h3>
+<p><span class="glossary-label">Definition:</span> The conversion of a value to a z-score
 by subtracting its mean and dividing by its standard deviation, \(z=(x-\mu)/\sigma\). For a Normal variable,
 the standardized variable has the standard Normal distribution. Use it
 to compare values from different Normal models or to use standard Normal
 probabilities.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 335-348; <em>Mathematical Statistics with Applications in R</em>,
 pp. 98-104.</p>
 <p>$$
 z=\frac{x-\mu}{\sigma},\qquad
 Z=\frac{X-\mu}{\sigma}\sim\operatorname{Normal}(0,1)
 $$</p>
-<p><strong>Example 1:</strong> Exam scores are Normal with mean 72 and
+<p><span class="glossary-label">Example 1:</span> Exam scores are Normal with mean 72 and
 standard deviation 8. Standardize a score of 84 and find \(P(X&lt;84)\).</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 z=\frac{84-72}{8}=1.5,
 \qquad P(X&lt;84)=\Phi(1.5)=0.9332.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="#cb88-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">84</span> <span class="sc">-</span> <span class="dv">72</span>) <span class="sc">/</span> <span class="dv">8</span></span>
 <span id="cb88-2"><a href="#cb88-2" tabindex="-1"></a>z</span>
 <span id="cb88-3"><a href="#cb88-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.5</span></span>
 <span id="cb88-4"><a href="#cb88-4" tabindex="-1"></a><span class="fu">pnorm</span>(z)</span>
 <span id="cb88-5"><a href="#cb88-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9331928</span></span></code></pre></div>
-<p><strong>Example 2:</strong> Battery life is Normal with mean 500
+<p><span class="glossary-label">Example 2:</span> Battery life is Normal with mean 500
 hours and standard deviation 40 hours. Standardize 560 hours and find
 \(P(X&gt;560)\).</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 z=\frac{560-500}{40}=1.5,
 \qquad P(X&gt;560)=1-\Phi(1.5)=0.0668.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="dv">560</span> <span class="sc">-</span> <span class="dv">500</span>) <span class="sc">/</span> <span class="dv">40</span></span>
 <span id="cb89-2"><a href="#cb89-2" tabindex="-1"></a>z</span>
 <span id="cb89-3"><a href="#cb89-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.5</span></span>
 <span id="cb89-4"><a href="#cb89-4" tabindex="-1"></a><span class="fu">pnorm</span>(z, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb89-5"><a href="#cb89-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.0668072</span></span></code></pre></div>
-<p><strong>Example 3:</strong> Two Normal models are \(X\sim\operatorname{Normal}(70,10)\) and
+<p><span class="glossary-label">Example 3:</span> Two Normal models are \(X\sim\operatorname{Normal}(70,10)\) and
 \(Y\sim\operatorname{Normal}(50,5)\).
 Compare \(x=85\) and \(y=57.5\) on the standardized scale.</p>
-<p><strong>By hand:</strong> $$
+<p><span class="glossary-label">By hand:</span> $$
 z_X=\frac{85-70}{10}=1.5,
 \qquad
 z_Y=\frac{57.5-50}{5}=1.5.
 $$ Both values sit 1.5 standard deviations above their means.</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="#cb90-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">x =</span> (<span class="dv">85</span> <span class="sc">-</span> <span class="dv">70</span>) <span class="sc">/</span> <span class="dv">10</span>, <span class="at">y =</span> (<span class="fl">57.5</span> <span class="sc">-</span> <span class="dv">50</span>) <span class="sc">/</span> <span class="dv">5</span>)</span>
 <span id="cb90-2"><a href="#cb90-2" tabindex="-1"></a>  x   y </span>
 <span id="cb90-3"><a href="#cb90-3" tabindex="-1"></a><span class="fl">1.5</span> <span class="fl">1.5</span> </span></code></pre></div>
 </div>
-<div id="support" class="section level2">
-<h2>Support</h2>
-<p><strong>Definition:</strong> The set of values a random variable can
+<div id="support" class="section level2 glossary-entry">
+<h3>Support</h3>
+<p><span class="glossary-label">Definition:</span> The set of values a random variable can
 take with positive probability or density. A transformation can change
 the support, so it must be tracked carefully. Use the support to check
 whether a model is even possible for the data at hand.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 227-229; <em>Mathematical Statistics with Applications in R</em>,
 p. 64.</p>
-<p><strong>Example 1:</strong> A hive inspection records whether the
+<p><span class="glossary-label">Example 1:</span> A hive inspection records whether the
 queen is present, coded as 1 or 0. What is the support of this random
 variable?</p>
-<p><strong>By hand:</strong> A Bernoulli outcome can only be failure or
+<p><span class="glossary-label">By hand:</span> A Bernoulli outcome can only be failure or
 success, so the support is \(\{0,1\}\).
 Both values have positive probability when \(0&lt;p&lt;1\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" tabindex="-1"></a>support <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
 <span id="cb91-2"><a href="#cb91-2" tabindex="-1"></a>support</span>
 <span id="cb91-3"><a href="#cb91-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span></span>
 <span id="cb91-4"><a href="#cb91-4" tabindex="-1"></a><span class="fu">dbinom</span>(support, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.78</span>)</span>
 <span id="cb91-5"><a href="#cb91-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.22</span> <span class="fl">0.78</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A quality count records successes in 8
+<p><span class="glossary-label">Example 2:</span> A quality count records successes in 8
 trials. What values can the count take?</p>
-<p><strong>By hand:</strong> A Binomial\((8,p)\) count can be any whole number from
+<p><span class="glossary-label">By hand:</span> A Binomial\((8,p)\) count can be any whole number from
 0 through 8 successes, so the support is \(\{0,1,\ldots,8\}\).</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="#cb92-1" tabindex="-1"></a><span class="dv">0</span><span class="sc">:</span><span class="dv">8</span></span>
 <span id="cb92-2"><a href="#cb92-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A Normal model has support on all real
+<p><span class="glossary-label">Example 3:</span> A Normal model has support on all real
 numbers, while an Exponential model is restricted to nonnegative values.
 What is the probability an Exponential\((2)\) variable is negative?</p>
-<p><strong>By hand:</strong> The Exponential support is \([0,\infty)\), so negative values are
+<p><span class="glossary-label">By hand:</span> The Exponential support is \([0,\infty)\), so negative values are
 impossible: $$
 P(X&lt;0)=0.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">0</span>, <span class="at">rate =</span> <span class="dv">2</span>)</span>
 <span id="cb93-2"><a href="#cb93-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span></code></pre></div>
 </div>
-<div id="variance" class="section level2">
-<h2>Variance</h2>
-<p><strong>Definition:</strong> The probability-weighted mean squared
+<h2 class="glossary-letter">V</h2>
+<div id="variance" class="section level2 glossary-entry">
+<h3>Variance</h3>
+<p><span class="glossary-label">Definition:</span> The probability-weighted mean squared
 distance from the expectation, \(\operatorname{Var}[X]=E[(X-E[X])^2]=E[X^2]-(E[X])^2\).
 It measures spread in squared units. Use it to compare variability and
 to derive the variance of transformed variables.</p>
-<p><strong>Source:</strong> <em>Introductory Statistics</em>,
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Introductory Statistics</em>,
 pp. 230-234; <em>Mathematical Statistics with Applications in R</em>,
 p. 73.</p>
-<p><strong>Example 1:</strong> A game awards \(0\), \(2\), or \(5\) bonus credits with probabilities \(0.25\), \(0.5\), and \(0.25\). What is the variance of the
+<p><span class="glossary-label">Example 1:</span> A game awards \(0\), \(2\), or \(5\) bonus credits with probabilities \(0.25\), \(0.5\), and \(0.25\). What is the variance of the
 award?</p>
-<p><strong>By hand:</strong> First, $$
+<p><span class="glossary-label">By hand:</span> First, $$
 E[X]=0(0.25)+2(0.5)+5(0.25)=2.25.
 $$ Then $$
 E[X^2]=0^2(0.25)+2^2(0.5)+5^2(0.25)=8.25,
 $$ so $$
 \operatorname{Var}[X]=8.25-(2.25)^2=3.1875.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="#cb94-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">5</span>)</span>
 <span id="cb94-2"><a href="#cb94-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>)</span>
 <span id="cb94-3"><a href="#cb94-3" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> p)</span>
 <span id="cb94-4"><a href="#cb94-4" tabindex="-1"></a><span class="fu">sum</span>((x <span class="sc">-</span> mean_x)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p)</span>
 <span id="cb94-5"><a href="#cb94-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.1875</span></span></code></pre></div>
-<p><strong>Example 2:</strong> A random variable always equals \(7\). What is its variance?</p>
-<p><strong>By hand:</strong> There is no spread, so $$
+<p><span class="glossary-label">Example 2:</span> A random variable always equals \(7\). What is its variance?</p>
+<p><span class="glossary-label">By hand:</span> There is no spread, so $$
 \operatorname{Var}[X]=E[(7-7)^2]=0.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">7</span></span>
 <span id="cb95-2"><a href="#cb95-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="dv">1</span></span>
 <span id="cb95-3"><a href="#cb95-3" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> p)</span>
 <span id="cb95-4"><a href="#cb95-4" tabindex="-1"></a><span class="fu">sum</span>((x <span class="sc">-</span> mean_x)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p)</span>
 <span id="cb95-5"><a href="#cb95-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">0</span></span></code></pre></div>
-<p><strong>Example 3:</strong> A random variable with variance \(9\) is multiplied by \(3\). What is the new variance?</p>
-<p><strong>By hand:</strong> For \(Y=3X\), the variance scales by \(3^2\): $$
+<p><span class="glossary-label">Example 3:</span> A random variable with variance \(9\) is multiplied by \(3\). What is the new variance?</p>
+<p><span class="glossary-label">By hand:</span> For \(Y=3X\), the variance scales by \(3^2\): $$
 \operatorname{Var}[Y]=3^2\operatorname{Var}[X]=9(9)=81.
 $$</p>
-<p><strong>In R:</strong></p>
+<p><span class="glossary-label">In R:</span></p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="#cb96-1" tabindex="-1"></a><span class="dv">3</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">9</span></span>
 <span id="cb96-2"><a href="#cb96-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">81</span></span></code></pre></div>
 </div>
@@ -2099,8 +2101,8 @@ $$</p>
 
 
 <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
-
 <script src="../glossary-terms.js"></script>
 <script src="../glossary-highlight.js"></script>
 </body>
 </html>
+

@@ -173,21 +173,6 @@
     });
   }
 
-  function wrapGlossaryHeadings(root) {
-    if (!/definitions_and_examples\.html$/.test(key)) return;
-    var headings = root.querySelectorAll("h2");
-    Array.prototype.forEach.call(headings, function (heading) {
-      var text = heading.textContent.replace(/\s+/g, " ").trim();
-      var entry = byLower[normalizeTerm(text)];
-      if (!entry) return;
-      heading.textContent = "";
-      heading.classList.add("glossary-entry-heading");
-      var span = makeSpan(text, entry.text);
-      span.classList.add("glossary-heading-term");
-      heading.appendChild(span);
-    });
-  }
-
   function run() {
     var root = document.querySelector(".wrap") || document.body;
     if (!root) return;
@@ -198,7 +183,6 @@
     if (!isGlossaryPage) {
       unboldRepeatedTerms(root);
     }
-    wrapGlossaryHeadings(root);
   }
 
   if (document.readyState === "loading") {

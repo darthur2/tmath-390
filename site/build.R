@@ -14,6 +14,84 @@ if (!requireNamespace("rmarkdown", quietly = TRUE)) {
 if (!requireNamespace("yaml", quietly = TRUE)) {
   stop("The yaml package is required to build the site.")
 }
+if (!requireNamespace("xml2", quietly = TRUE)) {
+  stop("The xml2 package is required to build the site.")
+}
+
+add_class <- function(node, cls) {
+  existing <- xml2::xml_attr(node, "class")
+  if (is.na(existing) || !nzchar(existing)) {
+    xml2::xml_set_attr(node, "class", cls)
+  } else if (!grepl(paste0("(^|\\s)", cls, "(\\s|$)"), existing)) {
+    xml2::xml_set_attr(node, "class", trimws(paste(existing, cls)))
+  }
+}
+
+transform_glossary <- function(html) {
+  doc <- xml2::read_html(html)
+
+  body <- xml2::xml_find_first(doc, "//body")
+  if (inherits(body, "xml_missing")) {
+    return(html)
+  }
+  add_class(body, "glossary-page")
+
+  entries <- xml2::xml_find_all(
+    doc,
+    "//div[contains(@class, 'section') and contains(@class, 'level2')]"
+  )
+
+  last_letter <- ""
+  for (entry in entries) {
+    h2 <- xml2::xml_find_first(entry, "./h2")
+    if (inherits(h2, "xml_missing")) {
+      next
+    }
+
+    term <- trimws(xml2::xml_text(h2))
+    if (!nzchar(term)) {
+      next
+    }
+
+    letter <- toupper(substr(term, 1, 1))
+    if (!identical(letter, last_letter)) {
+      node <- xml2::read_xml(
+        paste0('<h2 class="glossary-letter">', letter, "</h2>")
+      )
+      xml2::xml_add_sibling(entry, node, .where = "before")
+      last_letter <- letter
+    }
+
+    xml2::xml_set_name(h2, "h3")
+    add_class(entry, "glossary-entry")
+  }
+
+  labels <- xml2::xml_find_all(
+    doc,
+    "//div[contains(@class, 'glossary-entry')]//strong"
+  )
+  for (node in labels) {
+    text <- trimws(xml2::xml_text(node))
+    if (grepl("^(Definition|Source|Example [0-9]+|By hand|In R):$", text)) {
+      xml2::xml_set_name(node, "span")
+      add_class(node, "glossary-label")
+    }
+  }
+
+  source_labels <- xml2::xml_find_all(
+    doc,
+    paste0(
+      "//div[contains(@class, 'glossary-entry')]//p/",
+      "span[contains(@class, 'glossary-label') and ",
+      "starts-with(normalize-space(.), 'Source:')]"
+    )
+  )
+  for (node in source_labels) {
+    add_class(xml2::xml_parent(node), "glossary-source")
+  }
+
+  as.character(doc)
+}
 
 config <- yaml::read_yaml("site/_site.yml")
 output_options <- config$output$html_document
@@ -61,6 +139,10 @@ for (input in rmd_files) {
   )
   html <- gsub("<span class=\"math display\">\\[", "$$", html, fixed = TRUE)
   html <- gsub("\\]</span>", "$$", html, fixed = TRUE)
+
+  if (grepl("definitions_and_examples\\.html$", html_path)) {
+    html <- transform_glossary(html)
+  }
 
   rel_dir <- dirname(relative)
   depth <- if (identical(rel_dir, ".")) 0L else length(strsplit(rel_dir, "/")[[1]])
