@@ -35,7 +35,7 @@
       term: term,
       lower: term.toLowerCase(),
       text: pageTerms[term].text,
-      remaining: pageTerms[term].count
+      remaining: 1
     };
   }).sort(function (a, b) {
     return b.term.length - a.term.length;
@@ -94,12 +94,13 @@
     while ((m = localPattern.exec(text)) !== null) {
       var matched = m[0];
       var entry = byLower[normalizeTerm(matched)];
-      if (!entry) continue;
+      if (!entry || entry.remaining <= 0) continue;
 
       if (m.index > lastIndex) {
         fragment.appendChild(document.createTextNode(text.slice(lastIndex, m.index)));
       }
       fragment.appendChild(makeSpan(matched, entry.text));
+      entry.remaining -= 1;
       lastIndex = m.index + matched.length;
       found = true;
     }
@@ -146,6 +147,31 @@
     if (changed) node.parentNode.replaceChild(fragment, node);
   }
 
+  function unboldRepeatedTerms(root) {
+    var highlighted = terms
+      .filter(function (entry) { return entry.remaining === 0; })
+      .map(function (entry) { return normalizeTerm(entry.term); });
+
+    var bolds = root.querySelectorAll("strong, b");
+    Array.prototype.forEach.call(bolds, function (element) {
+      if (element.querySelector(".glossary-term")) return;
+      var text = element.textContent.replace(/\s+/g, " ").trim();
+      var normalized = normalizeTerm(text);
+      var entry = byLower[normalized];
+      var shouldUnbold = entry && entry.remaining === 0;
+
+      if (!shouldUnbold && normalized.indexOf(" ") === -1) {
+        shouldUnbold = highlighted.some(function (term) {
+          return term.indexOf(normalized + " ") === 0;
+        });
+      }
+
+      if (shouldUnbold) {
+        element.style.fontWeight = "normal";
+      }
+    });
+  }
+
   function wrapGlossaryHeadings(root) {
     if (!/definitions_and_examples\.html$/.test(key)) return;
     var headings = root.querySelectorAll("h2");
@@ -167,6 +193,7 @@
     var nodes = [];
     while (walker.nextNode()) nodes.push(walker.currentNode);
     nodes.forEach(processTextNode);
+    unboldRepeatedTerms(root);
     wrapGlossaryHeadings(root);
   }
 

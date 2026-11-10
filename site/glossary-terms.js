@@ -56,6 +56,10 @@ window.TMATH_GLOSSARY = {
       "text": "Multiphase or multistage sampling involves collection of some information from the whole sample and additional information either at the same time or later from subsamples of the whole sample.",
       "count": 1
     },
+    "Non-Response": {
+      "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
+      "count": 1
+    },
     "Non-Response Bias": {
       "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
       "count": 1
@@ -88,6 +92,10 @@ window.TMATH_GLOSSARY = {
       "text": "A subset of data selected from a population.",
       "count": 1
     },
+    "Sampling": {
+      "text": "Bias in selection of elements of the sample.",
+      "count": 1
+    },
     "Sampling Bias": {
       "text": "Bias in selection of elements of the sample.",
       "count": 1
@@ -97,6 +105,10 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Self-Selection Bias": {
+      "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
+      "count": 1
+    },
+    "Self-Selection": {
       "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
       "count": 1
     },
@@ -121,6 +133,10 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Undercoverage Bias": {
+      "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
+      "count": 1
+    },
+    "Undercoverage": {
       "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
       "count": 1
     }
@@ -254,6 +270,10 @@ window.TMATH_GLOSSARY = {
       "text": "The methods of drawing inferences and making decisions about the population using the sample.",
       "count": 1
     },
+    "Non-Response": {
+      "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
+      "count": 1
+    },
     "Observational Study": {
       "text": "A study in which the analyst is just an observer of the treatments on a sample of experimental units.",
       "count": 1
@@ -266,12 +286,24 @@ window.TMATH_GLOSSARY = {
       "text": "The same treatment is applied several times to the same experimental units or one time to several similar experimental units.",
       "count": 1
     },
+    "Sampling": {
+      "text": "Bias in selection of elements of the sample.",
+      "count": 1
+    },
+    "Self-Selection": {
+      "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
+      "count": 1
+    },
     "Simple Random Sampling": {
       "text": "A sample selected in such a way that every element of the population has an equal chance of being chosen.",
       "count": 1
     },
     "Treatment": {
       "text": "A treatment is a specific condition or intervention applied to the experimental units in an experiment.",
+      "count": 1
+    },
+    "Undercoverage": {
+      "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
       "count": 1
     }
   },
@@ -356,6 +388,10 @@ window.TMATH_GLOSSARY = {
       "text": "Multiphase or multistage sampling involves collection of some information from the whole sample and additional information either at the same time or later from subsamples of the whole sample.",
       "count": 1
     },
+    "Non-Response": {
+      "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
+      "count": 1
+    },
     "Non-Response Bias": {
       "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
       "count": 1
@@ -372,11 +408,19 @@ window.TMATH_GLOSSARY = {
       "text": "The same treatment is applied several times to the same experimental units or one time to several similar experimental units.",
       "count": 1
     },
+    "Sampling": {
+      "text": "Bias in selection of elements of the sample.",
+      "count": 1
+    },
     "Sampling Bias": {
       "text": "Bias in selection of elements of the sample.",
       "count": 1
     },
     "Self-Selection Bias": {
+      "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
+      "count": 1
+    },
+    "Self-Selection": {
       "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
       "count": 1
     },
@@ -397,6 +441,10 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Undercoverage Bias": {
+      "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
+      "count": 1
+    },
+    "Undercoverage": {
       "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
       "count": 1
     }
@@ -436,6 +484,18 @@ window.TMATH_GLOSSARY = {
     },
     "sampling methods": {
       "text": "Different procedures for selecting a sample.",
+      "count": 1
+    },
+    "undercoverage": {
+      "text": "Bias that occurs when part of the population has little or no chance of being selected.",
+      "count": 1
+    },
+    "self-selection": {
+      "text": "Bias that occurs when people decide for themselves whether to join the sample.",
+      "count": 1
+    },
+    "non-response": {
+      "text": "Bias from selected people failing to provide data.",
       "count": 1
     },
     "observational studies": {
@@ -544,6 +604,10 @@ window.TMATH_GLOSSARY = {
     },
     "Replication": {
       "text": "The same treatment is applied several times to the same experimental units or one time to several similar experimental units.",
+      "count": 1
+    },
+    "Sampling": {
+      "text": "Bias in selection of elements of the sample.",
       "count": 1
     },
     "Sampling Bias": {
@@ -676,8 +740,16 @@ window.TMATH_GLOSSARY = {
       "text": "Multiphase or multistage sampling involves collection of some information from the whole sample and additional information either at the same time or later from subsamples of the whole sample.",
       "count": 1
     },
+    "Non-Response": {
+      "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
+      "count": 1
+    },
     "Non-Response Bias": {
       "text": "A bias that occurs when selected individuals do not provide data or refuse to participate, so the collected responses may no longer be representative of the population.",
+      "count": 1
+    },
+    "Sampling": {
+      "text": "Bias in selection of elements of the sample.",
       "count": 1
     },
     "Sampling Bias": {
@@ -685,6 +757,10 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Self-Selection Bias": {
+      "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
+      "count": 1
+    },
+    "Self-Selection": {
       "text": "A type of sampling bias that occurs when people decide for themselves whether to become part of the sample.",
       "count": 1
     },
@@ -701,6 +777,10 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Undercoverage Bias": {
+      "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
+      "count": 1
+    },
+    "Undercoverage": {
       "text": "A type of sampling bias that occurs when some members of the target population have little or no chance of being selected.",
       "count": 1
     }
@@ -742,11 +822,11 @@ window.TMATH_GLOSSARY = {
       "text": "A histogram is a graphical display of the distribution of a quantitative variable that divides the range of values into intervals (bins) and uses bars whose heights show how many observations fall in each interval.",
       "count": 1
     },
-    "IQR": {
+    "Interquartile Range (IQR)": {
       "text": "The interquartile range (IQR) is the distance between the first quartile (Q1) and the third quartile (Q3), so it measures the spread of the middle 50% of the data.",
       "count": 1
     },
-    "Interquartile Range (IQR)": {
+    "IQR": {
       "text": "The interquartile range (IQR) is the distance between the first quartile (Q1) and the third quartile (Q3), so it measures the spread of the middle 50% of the data.",
       "count": 1
     },
@@ -1385,6 +1465,10 @@ window.TMATH_GLOSSARY = {
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
       "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
+      "count": 1
     }
   },
   "module_3/how_likely_is_that_transaction_really_fraud.html": {
@@ -1474,6 +1558,10 @@ window.TMATH_GLOSSARY = {
     },
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
+      "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
       "count": 1
     }
   },
@@ -1565,6 +1653,10 @@ window.TMATH_GLOSSARY = {
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
       "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
+      "count": 1
     }
   },
   "module_3/how_many_students_take_both.html": {
@@ -1654,6 +1746,10 @@ window.TMATH_GLOSSARY = {
     },
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
+      "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
       "count": 1
     }
   },
@@ -1748,6 +1844,10 @@ window.TMATH_GLOSSARY = {
     },
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
+      "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
       "count": 1
     }
   },
@@ -1850,6 +1950,10 @@ window.TMATH_GLOSSARY = {
     },
     "Sample Space": {
       "text": "The sample space of a random phenomenon is the set of all possible outcomes.",
+      "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
       "count": 1
     }
   },
@@ -1973,6 +2077,10 @@ window.TMATH_GLOSSARY = {
     "Sample Space": {
       "text": "The sample space of a random phenomenon is the set of all possible outcomes.",
       "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
+      "count": 1
     }
   },
   "module_3/what_are_the_chances.html": {
@@ -2067,6 +2175,10 @@ window.TMATH_GLOSSARY = {
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
       "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
+      "count": 1
     }
   },
   "module_3/whats_the_chance_you_get_at_least_one.html": {
@@ -2157,6 +2269,10 @@ window.TMATH_GLOSSARY = {
     "Two-Way Table": {
       "text": "A two-way table (contingency table) displays the frequencies or proportions of observations that fall into each combination of two categorical variables.",
       "count": 1
+    },
+    "axioms of probability": {
+      "text": "The three basic rules that every probability assignment must satisfy: non-negativity, normalization, and additivity.",
+      "count": 1
     }
   },
   "module_4/continuous_distributions.html": {
@@ -2200,11 +2316,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -2232,6 +2348,10 @@ window.TMATH_GLOSSARY = {
       "text": "The expectation of the product of two random variables, .",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -2240,12 +2360,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -2253,10 +2373,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -2268,11 +2384,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -2280,11 +2396,11 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
+    "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Joint": {
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -2296,11 +2412,11 @@ window.TMATH_GLOSSARY = {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
+    "Marginal Distribution": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
-    "Marginal Distribution": {
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -2328,11 +2444,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
+    "Poisson Distribution": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
-    "Poisson Distribution": {
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -2340,11 +2456,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -2352,11 +2468,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -2379,6 +2495,10 @@ window.TMATH_GLOSSARY = {
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
       "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
+      "count": 1
     }
   },
   "module_4/definitions_and_examples.html": {
@@ -2398,11 +2518,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -2430,6 +2550,10 @@ window.TMATH_GLOSSARY = {
       "text": "The expectation of the product of two random variables, .",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -2438,12 +2562,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -2451,10 +2575,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -2474,11 +2594,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -2486,11 +2606,11 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
+    "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Joint": {
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -2498,19 +2618,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
-      "text": "A positive continuous variable is log-normal when is Normal.",
-      "count": 1
-    },
     "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
-      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+    "Log-Normal Distribution": {
+      "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
     "Marginal Distribution": {
+      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+      "count": 1
+    },
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -2534,19 +2654,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -2554,11 +2674,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -2566,11 +2686,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -2596,6 +2716,10 @@ window.TMATH_GLOSSARY = {
     },
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   },
@@ -2664,6 +2788,10 @@ window.TMATH_GLOSSARY = {
       "text": "The expectation of the product of two random variables, .",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -2672,12 +2800,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -2685,10 +2813,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -2716,11 +2840,11 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
+    "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Joint": {
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -2728,19 +2852,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
-      "text": "A positive continuous variable is log-normal when is Normal.",
-      "count": 1
-    },
     "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
-      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+    "Log-Normal Distribution": {
+      "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
     "Marginal Distribution": {
+      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+      "count": 1
+    },
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -2756,11 +2880,11 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
+    "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Normal Distribution": {
+    "Normal": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
@@ -2772,11 +2896,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -2784,11 +2908,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -2814,6 +2938,10 @@ window.TMATH_GLOSSARY = {
     },
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   },
@@ -2850,11 +2978,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -2870,6 +2998,10 @@ window.TMATH_GLOSSARY = {
       "text": "A random variable whose values are measurements on a continuous scale.",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -2878,12 +3010,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -2891,10 +3023,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -2914,19 +3042,19 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
-      "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
-      "count": 1
-    },
     "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Joint Distribution": {
-      "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
+    "Geometric": {
+      "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
     "Joint": {
+      "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
+      "count": 1
+    },
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -2934,19 +3062,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
-      "text": "A positive continuous variable is log-normal when is Normal.",
-      "count": 1
-    },
     "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
-      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+    "Log-Normal Distribution": {
+      "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
     "Marginal Distribution": {
+      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+      "count": 1
+    },
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -2970,19 +3098,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -2990,11 +3118,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -3002,11 +3130,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -3032,6 +3160,10 @@ window.TMATH_GLOSSARY = {
     },
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   },
@@ -3072,11 +3204,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -3100,6 +3232,10 @@ window.TMATH_GLOSSARY = {
       "text": "The expectation of the product of two random variables, .",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -3108,12 +3244,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -3121,10 +3257,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -3144,11 +3276,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -3164,11 +3296,11 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
+    "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Log-Normal": {
+    "Log-Normal Distribution": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
@@ -3196,19 +3328,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -3216,11 +3348,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -3228,11 +3360,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -3258,6 +3390,10 @@ window.TMATH_GLOSSARY = {
     },
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   },
@@ -3282,11 +3418,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -3314,6 +3450,10 @@ window.TMATH_GLOSSARY = {
       "text": "The expectation of the product of two random variables, .",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -3322,12 +3462,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -3335,10 +3475,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -3358,11 +3494,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -3370,27 +3506,27 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
-      "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
-      "count": 1
-    },
     "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Log-Normal Distribution": {
-      "text": "A positive continuous variable is log-normal when is Normal.",
+    "Joint Distribution": {
+      "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
     "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
-      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+    "Log-Normal Distribution": {
+      "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
     "Marginal Distribution": {
+      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+      "count": 1
+    },
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -3414,19 +3550,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -3434,11 +3570,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -3446,11 +3582,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -3476,6 +3612,10 @@ window.TMATH_GLOSSARY = {
     },
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   },
@@ -3500,11 +3640,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -3532,6 +3672,10 @@ window.TMATH_GLOSSARY = {
       "text": "The expectation of the product of two random variables, .",
       "count": 1
     },
+    "Cumulative Distribution Function (CDF)": {
+      "text": "The function , which gives the probability that a random variable is at most .",
+      "count": 1
+    },
     "Cumulative Distribution Function": {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
@@ -3540,12 +3684,12 @@ window.TMATH_GLOSSARY = {
       "text": "The function , which gives the probability that a random variable is at most .",
       "count": 1
     },
-    "Cumulative Distribution Function (CDF)": {
-      "text": "The function , which gives the probability that a random variable is at most .",
-      "count": 1
-    },
     "Discrete Random Variable": {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
+      "count": 1
+    },
+    "Expected Value": {
+      "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
     "Expectation": {
@@ -3553,10 +3697,6 @@ window.TMATH_GLOSSARY = {
       "count": 1
     },
     "Expected Value (Expectation)": {
-      "text": "The probability-weighted average of a random variable.",
-      "count": 1
-    },
-    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -3576,11 +3716,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -3588,11 +3728,11 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
+    "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Joint": {
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -3600,19 +3740,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
-      "text": "A positive continuous variable is log-normal when is Normal.",
-      "count": 1
-    },
     "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
-      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+    "Log-Normal Distribution": {
+      "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
     "Marginal Distribution": {
+      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+      "count": 1
+    },
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -3632,19 +3772,19 @@ window.TMATH_GLOSSARY = {
       "text": "A discrete model for the number of failures before the th success in independent trials with success probability .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -3652,11 +3792,11 @@ window.TMATH_GLOSSARY = {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "PDF": {
+    "Probability Density Function (PDF)": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
-    "Probability Density Function (PDF)": {
+    "PDF": {
       "text": "A nonnegative function that gives the density of a continuous random variable.",
       "count": 1
     },
@@ -3664,11 +3804,11 @@ window.TMATH_GLOSSARY = {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function": {
+    "Probability Mass Function (PMF)": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
-    "Probability Mass Function (PMF)": {
+    "Probability Mass Function": {
       "text": "A function that assigns probability to each possible value of a discrete random variable.",
       "count": 1
     },
@@ -3694,6 +3834,10 @@ window.TMATH_GLOSSARY = {
     },
     "Variance": {
       "text": "The probability-weighted mean squared distance from the expectation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   },
@@ -3724,6 +3868,10 @@ window.TMATH_GLOSSARY = {
     },
     "variance": {
       "text": "The probability-weighted average squared distance from the expectation.",
+      "count": 1
+    },
+    "linear": {
+      "text": "A transformation of the form Y = aX + b with a not equal to 0.",
       "count": 1
     },
     "nonlinear transformations": {
@@ -3766,11 +3914,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -3802,11 +3950,11 @@ window.TMATH_GLOSSARY = {
       "text": "A random variable that takes a finite or countable set of separate values, usually counts.",
       "count": 1
     },
-    "Expected Value (Expectation)": {
+    "Expected Value": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
-    "Expected Value": {
+    "Expected Value (Expectation)": {
       "text": "The probability-weighted average of a random variable.",
       "count": 1
     },
@@ -3826,11 +3974,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -3838,11 +3986,11 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
+    "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Joint": {
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -3850,11 +3998,11 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
+    "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Log-Normal": {
+    "Log-Normal Distribution": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
@@ -3882,19 +4030,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -4004,11 +4152,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for proportions or fractions on .",
       "count": 1
     },
-    "Binomial Distribution": {
+    "Binomial": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
-    "Binomial": {
+    "Binomial Distribution": {
       "text": "A discrete model for the number of successes in a fixed number of independent trials, each with the same success probability .",
       "count": 1
     },
@@ -4056,11 +4204,11 @@ window.TMATH_GLOSSARY = {
       "text": "A continuous model for nonnegative waiting times or positive amounts, with shape and rate .",
       "count": 1
     },
-    "Geometric": {
+    "Geometric Distribution": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
-    "Geometric Distribution": {
+    "Geometric": {
       "text": "A discrete model for the number of failures before the first success in independent trials with success probability .",
       "count": 1
     },
@@ -4068,11 +4216,11 @@ window.TMATH_GLOSSARY = {
       "text": "Two random variables are independent when their joint distribution factors into their marginals: for discrete variables, or for continuous variables.",
       "count": 1
     },
-    "Joint Distribution": {
+    "Joint": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
-    "Joint": {
+    "Joint Distribution": {
       "text": "A PMF, PDF, or mixed model that describes two or more random variables together.",
       "count": 1
     },
@@ -4080,19 +4228,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation of the form with .",
       "count": 1
     },
-    "Log-Normal Distribution": {
-      "text": "A positive continuous variable is log-normal when is Normal.",
-      "count": 1
-    },
     "Log-Normal": {
       "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
-    "Marginal": {
-      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+    "Log-Normal Distribution": {
+      "text": "A positive continuous variable is log-normal when is Normal.",
       "count": 1
     },
     "Marginal Distribution": {
+      "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
+      "count": 1
+    },
+    "Marginal": {
       "text": "The distribution of one variable on its own, ignoring the others in a joint model.",
       "count": 1
     },
@@ -4116,19 +4264,19 @@ window.TMATH_GLOSSARY = {
       "text": "A transformation that is not of the form .",
       "count": 1
     },
-    "Normal": {
-      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
-      "count": 1
-    },
     "Normal Distribution": {
       "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
-    "Poisson": {
-      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+    "Normal": {
+      "text": "A continuous model for measurement data that are symmetric and bell-shaped around a mean , with standard deviation .",
       "count": 1
     },
     "Poisson Distribution": {
+      "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
+      "count": 1
+    },
+    "Poisson": {
       "text": "A discrete model for the number of events in a fixed interval when events occur independently at a steady average rate .",
       "count": 1
     },
@@ -4142,6 +4290,10 @@ window.TMATH_GLOSSARY = {
     },
     "Standardization": {
       "text": "The conversion of a value to a z-score by subtracting its mean and dividing by its standard deviation, .",
+      "count": 1
+    },
+    "linear": {
+      "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
   }
