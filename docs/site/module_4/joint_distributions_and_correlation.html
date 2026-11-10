@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Strongly Do Two Variables Move Together?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Strongly Do Two Variables Move
+Together?</h1>
+
+
+
+<p>At a community sustainability event, organizers record whether each
+visitor arrives by bike and whether they bring a reusable cup. They
+notice that the choices often occur together. <strong>How strongly are
+these two choices associated?</strong> A numerical summary could help
+organizers understand whether the same outreach is reaching people who
+make several lower-waste choices.</p>
+<p>A small online shop compares how much of a product page visitors read
+with whether they make a purchase. Visitors who read more details seem
+more likely to buy. <strong>How strongly are page engagement and
+purchase associated?</strong> A numerical summary could help the shop
+evaluate product pages.</p>
+<p>In both problems, we need a joint distribution for the pair. From it,
+we can find the marginal means and variances and the
+<strong>cross-moment</strong>, then calculate
+<strong>covariance</strong> and <strong>correlation</strong>.</p>
+<div id="from-a-joint-model-to-correlation" class="section level2">
+<h2>From a joint model to correlation</h2>
+<p>For discrete variables with joint PMF \(P_{X,Y}(x,y)\), the marginal PMFs and
+cross-moment are</p>
+<p>$$
+P_X(x)=\sum_y P_{X,Y}(x,y),\qquad
+P_Y(y)=\sum_x P_{X,Y}(x,y),\qquad
+E[XY]=\sum_x\sum_y xy\,P_{X,Y}(x,y).
+$$</p>
+<p>For continuous variables with joint density \(f_{X,Y}(x,y)\), the marginal PDFs and
+cross-moment are found by integration:</p>
+<p>$$
+f_X(x)=\int f_{X,Y}(x,y)\,dy,\qquad
+f_Y(y)=\int f_{X,Y}(x,y)\,dx,\qquad
+E[XY]=\int\!\int xy f_{X,Y}(x,y)\,dx\,dy.
+$$</p>
+<p>If \(X\) is continuous and \(Y\) is discrete, the joint model is a
+density-mass function. Sum over \(Y\)
+to obtain \(f_X\), and integrate over
+\(X\) to obtain \(P_Y\):</p>
+<p>$$
+f_X(x)=\sum_y f_{X,Y}(x,y),\qquad
+P_Y(y)=\int f_{X,Y}(x,y)\,dx,\qquad
+E[XY]=\sum_y\int xy f_{X,Y}(x,y)\,dx.
+$$</p>
+<p>Once the means, variances, and cross-moment are known, covariance and
+correlation are</p>
+<p>$$
+\operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y],
+\qquad
+\rho_{X,Y}=\operatorname{Corr}(X,Y)
+=\frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}[X]\operatorname{Var}[Y]}}.
+$$</p>
+<p>For a continuous example, take \(f_{X,Y}(x,y)=x+y\) on \((0,1)^2\). Its marginal densities are \(f_X(x)=x+\frac12\) and \(f_Y(y)=y+\frac12\), so</p>
+<p>$$
+E[X]=E[Y]=\frac{7}{12},\qquad
+E[X^2]=E[Y^2]=\frac{5}{12},\qquad
+\operatorname{Var}[X]=\operatorname{Var}[Y]=\frac{11}{144}.
+$$</p>
+<p>The cross-moment is \(E[XY]=\frac13\), giving \(\operatorname{Cov}(X,Y)=-\frac{1}{144}\)
+and \(\operatorname{Corr}(X,Y)=-\frac{1}{11}\). R
+can calculate this correlation using the same marginal and cross-moment
+formulas:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(cubature)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>joint_pdf <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y) x <span class="sc">+</span> y</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Integrating the joint PDF over the other variable gives these marginals.</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>marginal_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) x <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>marginal_y <span class="ot">&lt;-</span> <span class="cf">function</span>(y) y <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x <span class="sc">*</span> <span class="fu">marginal_x</span>(x),</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>                     <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) y <span class="sc">*</span> <span class="fu">marginal_y</span>(y),</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>                     <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>second_x <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">marginal_x</span>(x),</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>                       <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>second_y <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(y) y<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="fu">marginal_y</span>(y),</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>                       <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>mean_xy <span class="ot">&lt;-</span> <span class="fu">hcubature</span>(</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="cf">function</span>(v) v[<span class="dv">1</span>] <span class="sc">*</span> v[<span class="dv">2</span>] <span class="sc">*</span> <span class="fu">joint_pdf</span>(v[<span class="dv">1</span>], v[<span class="dv">2</span>]),</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="at">lowerLimit =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>  <span class="at">upperLimit =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>)<span class="sc">$</span>integral</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>variance_x <span class="ot">&lt;-</span> second_x <span class="sc">-</span> mean_x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>variance_y <span class="ot">&lt;-</span> second_y <span class="sc">-</span> mean_y<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>covariance_xy <span class="ot">&lt;-</span> mean_xy <span class="sc">-</span> mean_x <span class="sc">*</span> mean_y</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>correlation_xy <span class="ot">&lt;-</span> covariance_xy <span class="sc">/</span> <span class="fu">sqrt</span>(variance_x <span class="sc">*</span> variance_y)</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>correlation_xy</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">0.09090909</span></span></code></pre></div>
+<p>Covariance describes whether the variables tend to be above or below
+their means together, but its size depends on their units. Correlation
+standardizes covariance and lies between \(-1\) and \(1\). <strong>Independence of random
+variables</strong> means that the joint model factors into the product
+of the marginals: \(P_{X,Y}(x,y)=P_X(x)P_Y(y)\) for discrete
+variables, or \(f_{X,Y}(x,y)=f_X(x)f_Y(y)\) for continuous
+variables. Independence implies zero correlation when the variances are
+finite, but zero correlation alone does not generally imply
+independence.</p>
+</div>
+<div id="bike-commuting-and-reusable-cups-a-simple-joint-pmf" class="section level2">
+<h2>Bike commuting and reusable cups: a simple joint PMF</h2>
+<p>Let \(X=1\) if a visitor arrived by
+bike and \(X=0\) otherwise. Let \(Y=1\) if the visitor brought a reusable cup
+and \(Y=0\) otherwise. All four
+combinations occur, and event records suggest that the two choices often
+occur together. A simple custom joint PMF representing that pattern
+is</p>
+<p>$$
+P_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{3}{8},&amp;(x,y)=(0,0)\text{ or }(1,1),\\
+\dfrac{1}{8},&amp;(x,y)=(0,1)\text{ or }(1,0),\\
+0,&amp;\text{otherwise}.
+\end{cases}
+$$</p>
+<p>The support is the full product \(\{0,1\}\times\{0,1\}\). Summing the joint
+PMF over the other variable gives</p>
+<p>$$
+P_X(0)=P_X(1)=\frac12,
+\qquad
+P_Y(0)=P_Y(1)=\frac12.
+$$</p>
+<p>Find the means and second moments from these marginal PMFs:</p>
+<p>$$
+E[X]=E[Y]=\frac12,
+\qquad
+E[X^2]=E[Y^2]=\frac12.
+$$</p>
+<p>Therefore,</p>
+<p>$$
+\operatorname{Var}[X]=\operatorname{Var}[Y]
+=\frac12-\left(\frac12\right)^2
+=\frac14.
+$$</p>
+<p>The cross-moment comes directly from the joint PMF. Only the outcome
+\((1,1)\) contributes a nonzero
+value:</p>
+<p>$$
+E[XY]=\sum_x\sum_y xy\,P_{X,Y}(x,y)=\frac38.
+$$</p>
+<p>Thus</p>
+<p>$$
+\operatorname{Cov}(X,Y)=\frac38-\frac12\cdot\frac12=\frac18,
+\qquad
+\operatorname{Corr}(X,Y)=\frac{1/8}{\sqrt{(1/4)(1/4)}}=0.5.
+$$</p>
+<p>In this model, visitors who arrive by bike are more likely to bring a
+reusable cup, and the two choices have a moderate positive
+correlation.</p>
+<p>R can calculate the marginal distributions, means, variances, and
+correlation from the joint PMF:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>joint <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                  <span class="dv">1</span><span class="sc">/</span><span class="dv">8</span>, <span class="dv">3</span><span class="sc">/</span><span class="dv">8</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>px <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(joint)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>py <span class="ot">&lt;-</span> <span class="fu">colSums</span>(joint)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> px)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> <span class="fu">sum</span>(y <span class="sc">*</span> py)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>variance_x <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> mean_x)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> px)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>variance_y <span class="ot">&lt;-</span> <span class="fu">sum</span>((y <span class="sc">-</span> mean_y)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> py)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>mean_xy <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">outer</span>(x, y, <span class="st">&quot;*&quot;</span>) <span class="sc">*</span> joint)</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>covariance_xy <span class="ot">&lt;-</span> mean_xy <span class="sc">-</span> mean_x <span class="sc">*</span> mean_y</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>correlation_xy <span class="ot">&lt;-</span> covariance_xy <span class="sc">/</span> <span class="fu">sqrt</span>(variance_x <span class="sc">*</span> variance_y)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>correlation_xy</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5</span></span></code></pre></div>
+</div>
+<div id="page-engagement-and-purchases-a-mixed-joint-model" class="section level2">
+<h2>Page engagement and purchases: a mixed joint model</h2>
+<p>Let \(X\) be the fraction of a
+product page a visitor reads, measured on a scale from \(0\) to \(1\), and let \(Y=1\) if the visitor purchases the product
+and \(Y=0\) otherwise. The engagement
+measurements are continuous and tend to be higher, while the outcome is
+a yes/no purchase. As a simple model, use a Beta\((2,1)\) marginal density for engagement,
+\(f_X(x)=2x\), and let the purchase
+probability given engagement \(x\) be
+\(P(Y=1\mid X=x)=x\).</p>
+<p>Multiplying the marginal density by the conditional probability gives
+the joint density-mass function:</p>
+<p>$$
+f_{X,Y}(x,y)=
+\begin{cases}
+2x^2,&amp;0&lt;x&lt;1,\;y=1,\\
+2x(1-x),&amp;0&lt;x&lt;1,\;y=0,\\
+0,&amp;\text{otherwise}.
+\end{cases}
+$$</p>
+<p>The support is the full product \((0,1)\times\{0,1\}\). Sum over the two
+purchase outcomes to recover the marginal density of engagement:</p>
+<p>$$
+f_X(x)=f_{X,Y}(x,0)+f_{X,Y}(x,1)
+=2x(1-x)+2x^2=2x,
+\qquad 0&lt;x&lt;1.
+$$</p>
+<p>Integrate over engagement to find the purchase PMF:</p>
+<p>$$
+P_Y(1)=\int_0^1 2x^2\,dx=\frac23,
+\qquad
+P_Y(0)=\int_0^1 2x(1-x)\,dx=\frac13.
+$$</p>
+<p>Calculate the marginal moments directly. For page engagement,</p>
+<p>$$
+E[X]=\int_0^1 x(2x)\,dx=\frac23,
+\qquad
+E[X^2]=\int_0^1 x^2(2x)\,dx=\frac12,
+$$</p>
+<p>so \(\operatorname{Var}[X]=\frac12-(\frac23)^2=\frac1{18}\).
+For purchase status,</p>
+<p>$$
+E[Y]=\frac23,\qquad E[Y^2]=\frac23,
+\qquad \operatorname{Var}[Y]=\frac23-\left(\frac23\right)^2=\frac29.
+$$</p>
+<p>Only purchases (\(Y=1\)) contribute
+to the cross-moment:</p>
+<p>$$
+E[XY]=\int_0^1 x\,f_{X,Y}(x,1)\,dx
+=\int_0^1 2x^3\,dx=\frac12.
+$$</p>
+<p>The covariance and correlation are therefore</p>
+<p>$$
+\operatorname{Cov}(X,Y)=\frac12-\frac23\cdot\frac23=\frac1{18},
+\qquad
+\operatorname{Corr}(X,Y)=\frac{1/18}{\sqrt{(1/18)(2/9)}}=\frac12.
+$$</p>
+<p>This model describes a positive association: visitors who read more
+of the product page are more likely to buy it.</p>
+</div>
+<div id="the-pattern" class="section level2">
+<h2>The pattern</h2>
+<p>Start with a joint PMF or PDF for the pair. Find each marginal
+distribution, calculate the marginal means and variances from their
+definitions, and evaluate \(E[XY]\)
+from the joint model. Covariance and correlation then summarize the
+direction and strength of the linear association.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

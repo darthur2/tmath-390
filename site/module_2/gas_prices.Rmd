@@ -1,0 +1,215 @@
+---
+title: "How Much Does Gas Cost Across the United States?"
+---
+
+```{r setup, include=FALSE}
+# Set the working directory to the course repository root so that
+# paths such as data/gas_prices_states_original.csv work when knitting
+knitr::opts_knit$set(root.dir = normalizePath(file.path(dirname(knitr::current_input()), "..", "..")))
+
+# Plot settings
+knitr::opts_chunk$set(fig.width = 5.5, fig.height = 4, fig.align = "center", message = FALSE)
+
+# Load the packages used throughout
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+})
+```
+
+
+You know the drill. You pull up to the pump, swipe your card, and let out a long sigh before the numbers on the screen start climbing like it is a game of high-stakes bingo. But have you ever wondered how much a gallon of regular gas actually costs across the country — not the national average from the evening news, but state by state? That is the question behind this dataset. On a single day we collected the average price of a gallon of regular unleaded gas in every state and the District of Columbia, along with each state's population, gasoline tax, and refining capacity. That gives us 51 observations and a surprisingly rich story. The tools for telling that story are the quiet workhorses of statistics, and they all start with one simple idea: we want to summarize 51 numbers without losing what they are trying to tell us.
+
+The dataset is stored as a CSV file, so the first step is to read it into R and take a look at what we are holding:
+
+```{r}
+# Load the tidyverse functions we will use
+library(dplyr)
+
+# Read the gas price data into a data frame
+gas <- read.csv("data/gas_prices_states_original.csv")
+
+# List the columns (price, tax, population, region, ...)
+names(gas)
+
+# Count the rows: 50 states + D.C. = 51 observations
+nrow(gas)
+```
+
+Before we do any adding, we need to know what kind of numbers we are holding. The price of gas is a **quantitative variable**: it is a measured amount, a number we can add, subtract, and average. Texas at \$3.90 a gallon and California at \$6.38 are both speaking the language of dollars and cents. The gasoline tax and the state population are quantitative variables too. But not everything in the dataset is a number that can be averaged. The region a state belongs to — Northeast, Midwest, South, or West — is a **categorical variable**. It records a label rather than an amount. Adding "South" to "West" would be nonsense, which is the first clue that categorical and quantitative variables have to be summarized in very different ways.
+
+```{r}
+# Start with the full gas dataset
+gas %>%
+  # Keep only the rows for Texas and California
+  filter(state %in% c("Texas", "California")) %>%
+  # Keep just the state name and its price
+  select(state, regular_price)
+```
+
+The quantitative variables can be split even further. The price of gas is a **continuous variable**, because in principle it can take any value within a range. Between two stations charging \$4.289 and \$4.291 there is always room for another price; the measurements are limited only by how precisely we can read the sign. Population, on the other hand, is a **discrete variable**: it comes from counting people, so it takes only whole numbers. Wyoming has 588,753 residents and California has 39,355,309. No state can have "half a person," no matter how much a governor might wish otherwise. A count is a different kind of number than a measurement, and the difference shows up in how we summarize it.
+
+```{r}
+# Start with the full gas dataset
+gas %>%
+  # Keep only the rows for Wyoming and California
+  filter(state %in% c("Wyoming", "California")) %>%
+  # Keep just the state name and its population
+  select(state, population)
+```
+
+Lay all 51 prices out in a row and squint, and a pattern begins to emerge. That pattern — which values appear and how often — is called the **distribution** of the variable. A quick count confirms that most of the country lives in a fairly narrow band:
+
+```{r}
+# Keep only states priced between $3.90 and $4.50
+gas %>%
+  filter(regular_price >= 3.90 & regular_price <= 4.50) %>%
+  # Count how many states remain: 37 of the 51
+  count()
+```
+
+Indeed, 37 of the 51 states charge between about \$3.90 and \$4.50. Indiana sits at the cheap end at \$3.72, followed by Ohio at \$3.78 and Georgia at \$3.85. Then comes the long climb to the top: Oregon at \$5.04, Nevada at \$5.48, Washington at \$5.48, Hawaii at \$5.63, and finally California at \$6.38. Sorting the prices shows both ends of that climb:
+
+```{r}
+# Sort from cheapest to most expensive
+gas %>%
+  arrange(regular_price) %>%
+  # Keep just the state name and its price
+  select(state, regular_price) %>%
+  # Take the five cheapest states
+  slice_head(n = 5)
+
+# Sort from cheapest to most expensive
+gas %>%
+  arrange(regular_price) %>%
+  # Keep just the state name and its price
+  select(state, regular_price) %>%
+  # Take the five most expensive states
+  slice_tail(n = 5)
+```
+
+The distribution is a dense crowd on the left with a few states stretching far to the right, and that lopsided shape shapes every summary we are about to compute.
+
+The first thing we usually want from a dataset is a sense of the center — the one number that can stand in for the crowd. That is **central tendency**. There are several ways to measure it, and they do not always agree. The **mean** is the arithmetic average: add all 51 prices, divide by 51, and you get about \$4.39. It uses every single observation, which sounds fair until you remember that California is in the room. The **median** is the middle value when the prices are lined up from cheapest to most expensive. With 51 states, the 26th price in line is about \$4.29 — half the states charge less, and half charge more.
+
+```{r}
+# The average price across all 51 states: $4.39
+# The middle price when sorted: $4.29
+gas %>%
+  summarize(
+    mean_price   = mean(regular_price),
+    median_price = median(regular_price)
+  )
+```
+
+Notice that the mean, \$4.39, is a little higher than the median, \$4.29. That gap is not an accident. A few very expensive states pull the mean up toward them, while the median simply shrugs and stays in the middle. When a distribution has a long tail of unusually large values, the mean gets dragged along while the median holds its ground.
+
+There is a third measure of central tendency, the **mode**, which is simply the most frequently occurring value. For a continuous variable like price, no two states charge exactly the same amount, so the mode is easiest to see after rounding: round every price to the nearest ten cents, and the most common price is about \$4.30, shared by seven states. The mode really comes into its own with categorical data. What is the most common region in the dataset? The South, with 17 of the 51 states. If someone asks for the "typical" region, the South is the answer — the mode of a categorical variable is simply the category that appears most often.
+
+```{r}
+# Round each price to the nearest ten cents
+gas %>%
+  mutate(price_rounded = round(regular_price, 1)) %>%
+  # Count states at each rounded price, most common first
+  count(price_rounded, sort = TRUE)
+
+# Count states in each region, most common first: South = 17
+gas %>%
+  count(region, sort = TRUE)
+```
+
+The median splits the data in half, but we can split it further. **Quartiles** divide the ordered data into four equal parts. The first quartile (Q1) is the value below which the cheapest 25% of states fall — about \$4.06. The second quartile is the median itself, \$4.29. The third quartile (Q3) is the value below which 75% of states fall — about \$4.47. A quarter of states pay less than \$4.06, half pay less than \$4.29, and three-quarters pay less than \$4.47. Quartiles give us a quick map of where the whole country sits.
+
+```{r}
+# Q1: 25% of states pay less than this: $4.06
+# Median: the middle price: $4.29
+# Q3: 75% of states pay less than this: $4.47
+gas %>%
+  summarize(
+    q1     = quantile(regular_price, 0.25),
+    median = quantile(regular_price, 0.50),
+    q3     = quantile(regular_price, 0.75)
+  )
+```
+
+Two numbers describe how far apart those quartiles reach. The **interquartile range (IQR)** is the distance from Q1 to Q3: \$4.47 minus \$4.06, about \$0.42. It tells us that the middle half of the states fit within a 42-cent window. Because it ignores the extreme values, the IQR is a sturdy, resistant measure of spread — California's \$6.38 barely moves it. The **range** is the distance from the very cheapest to the very most expensive: \$6.38 minus \$3.72, about \$2.66. That is a much bigger number, and it is entirely at the mercy of the two most extreme states. The range tells you the whole span, but the IQR tells you where most of the action really is.
+
+```{r}
+# IQR: Q3 - Q1, the span of the middle 50%: $0.42
+# Range: max price - min price, the full span: $2.66
+gas %>%
+  summarize(
+    iqr   = IQR(regular_price),
+    range = diff(range(regular_price))
+  )
+```
+
+Some states sit so far from the rest that they deserve a special label. An **outlier** is an observation that lies unusually far from the rest of the data and does not fit the general pattern. A common rule for flagging outliers is the 1.5 × IQR rule: a value is an outlier if it falls below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR. For the gas prices, Q1 is about \$4.06, Q3 is about \$4.47, and the IQR is about \$0.42, so the upper fence is Q3 + 1.5 × IQR, about \$5.09. Any state above that fence is an outlier:
+
+```{r}
+# Compute the fences from the quartiles and the IQR
+fences <- gas %>%
+  summarize(
+    low  = quantile(regular_price, 0.25) - 1.5 * IQR(regular_price),
+    high = quantile(regular_price, 0.75) + 1.5 * IQR(regular_price)
+  )
+
+# Keep only the states whose price falls outside the fences
+gas %>%
+  filter(regular_price < fences$low | regular_price > fences$high) %>%
+  select(state, regular_price)
+```
+
+The rule picks out exactly four states: California at \$6.38, Hawaii at \$5.63, Washington at \$5.48, and Nevada at \$5.48. These are the same expensive states that stretch the tail of the distribution. They are also the reason the range, at \$2.66, is so wide, and why the mean, \$4.39, sits above the median, \$4.29 — an outlier tugs at every summary that uses all the observations, while the median and the IQR, which ignore the extremes, are barely moved.
+
+Quartiles describe spread with distances, but there is a whole family of measures built around how far each observation sits from the mean. Together they describe the **variability** — how spread out the values are, how much prices differ from one another and from the center. The **variance** is the average squared distance from the mean: about 0.26 for our prices. It is mathematically tidy, but its units are square dollars, which is about as natural as square pizza. That is why we take its square root. The **standard deviation** is the square root of the variance, about \$0.51. In plain terms, a typical state's price sits roughly 51 cents away from the mean of \$4.39. The standard deviation is the measure we can point to and explain to a friend: most states are within about half a dollar of the middle.
+
+```{r}
+# Variance: average squared distance from the mean: 0.26
+# Standard deviation: square root of the variance: $0.51
+gas %>%
+  summarize(
+    variance = var(regular_price),
+    sd       = sd(regular_price)
+  )
+```
+
+Quantitative variables get means, medians, and standard deviations, but categorical variables need a summary of their own. For a label like region or party, the natural summary is the **proportion** — the fraction of observations in each category. Of the 51 observations, 29 states have at least one operating refinery, a proportion of about 0.57, or 57%. About 0.61 of the states voted for the Republican candidate in the last presidential election. And the region proportions echo what we saw with the mode: the South holds 17 of the 51 states, roughly one-third of the dataset. Proportions are to categorical variables what the mean is to a quantitative one — a single number that captures the balance of the whole.
+
+```{r}
+# Mark each state as having a refinery or not: TRUE or FALSE
+gas %>%
+  mutate(has_refinery = refining_capacity_bpd > 0) %>%
+  # Count each group: 29 TRUE, 22 FALSE
+  count(has_refinery)
+
+# Count states by the 2024 presidential winner
+gas %>%
+  count(party) %>%
+  # Divide by 51 for the proportion: Republican 0.61
+  mutate(proportion = n / sum(n))
+
+# Count states in each region
+gas %>%
+  count(region) %>%
+  # South's share of the data: 17/51 = 0.33
+  mutate(proportion = n / sum(n))
+```
+
+Put the pieces together and the dataset tells a coherent story. The typical gallon of regular gas costs somewhere around \$4.29 to \$4.39, and the middle half of the country fits within a 42-cent band. But behind that tidy center is real variability: a state's price can drift about half a dollar from the mean, and the extremes — California at \$6.38, Indiana at \$3.72 — stretch the range to nearly three dollars. Geography explains a good part of it: the West averages about \$5.02 a gallon while the South averages about \$4.07. And woven through it all is population, a discrete count that is itself wildly spread, from Wyoming's 588,753 people to California's 39 million. These numbers do not tell us why gas is expensive. But they give us a precise, honest map of what the prices are — and that is where every good statistical question begins.
+
+```{r}
+# Split the data into the four regions
+gas %>%
+  group_by(region) %>%
+  # Average price by region: West $5.02, South $4.07
+  summarize(mean_price = mean(regular_price))
+
+# The least populous state: Wyoming, 588,753
+# The most populous state: California, 39,355,309
+gas %>%
+  summarize(
+    min_pop = min(population),
+    max_pop = max(population)
+  )
+```

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Many Ways Can You Pick a Team?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Many Ways Can You Pick a Team?</h1>
+
+
+
+<p>A science fair has 30 students, and the organizers need to pick 3 to
+present at the regional competition. Simple enough: put all 30 names in
+a hat and draw 3. But here is the question — how many different groups
+of 3 could possibly be chosen? Not just the one that actually gets
+picked, but every possible combination of students that could end up on
+that stage.</p>
+<p>The answer is not 30 times 3, and it is not 30 plus 3 either. The
+trick is to think about it this way: for the first pick, there are 30
+choices. For the second, there are 29 left. For the third, there are 28
+left. That gives \(30 \times 29 \times 28 =
+24,\!360\) ways to draw three names in order. But here is the
+catch: the order of the three names does not matter for the committee.
+The group {Alice, Bob, Carlos} is the same as {Bob, Carlos, Alice} —
+they are all going to the same competition. When you counted \(30 \times 29 \times 28\), you counted each
+group multiple times. How many times? Exactly \(3 \times 2 \times 1 = 6\), which is the
+number of ways to arrange three people once you have them. So the actual
+number of distinct groups is</p>
+<p>$$
+\frac{30 \times 29 \times 28}{3 \times 2 \times 1} = \frac{24,\!360}{6}
+= 4,\!060.
+$$</p>
+<p>This kind of count — selecting a group where order does not matter —
+is called a <strong>combination</strong>. The notation is \(C(n,k)\) or \(\binom{n}{k}\), read as “n choose k.” It
+counts the number of ways to pick \(k\)
+items from \(n\) without caring about
+the order:</p>
+<p>$$
+C(30,3) = \binom{30}{3} = \frac{30!}{3!\,27!} = 4,\!060.
+$$</p>
+<p>The exclamation mark is a <strong>factorial</strong>: \(30!\) means \(30
+\times 29 \times 28 \times \cdots \times 1\). It is just a
+shorthand for multiplying a number by every positive integer below
+it.</p>
+<p>Now change the scenario. Suppose the fair needs a president, a
+treasurer, and a secretary — three distinct jobs. Now order matters.
+Picking Alice as president and Bob as treasurer is different from
+picking Bob as president and Alice as treasurer. When order matters, the
+count is called a <strong>permutation</strong>, and it is simply</p>
+<p>$$
+P(30,3) = 30 \times 29 \times 28 = 24,\!360.
+$$</p>
+<p>No division by \(3!\), because each
+ordering is a different outcome. The general formula for a permutation
+is</p>
+<p>$$
+P(n,k) = n \times (n-1) \times \cdots \times (n-k+1) =
+\frac{n!}{(n-k)!}.
+$$</p>
+<p>So the same group of 30 students, the same three positions, but
+whether order matters changes the count from 4,060 to 24,360 — a factor
+of 6. That is the difference between a combination and a permutation.
+One says “who is on the team,” and the other says “who sits in which
+chair.”</p>
+<p>Why does any of this matter for probability? Because once you can
+count how many things <em>can</em> happen, you can compute the chance
+that something <em>does</em> happen. If the 3 regional spots are awarded
+by drawing names from a hat, and your name is one of the 30, how likely
+are you to be chosen? You count the total number of possible committees
+— \(C(30,3) = 4,\!060\) — and then
+count how many of those committees include you. If you are on the
+committee, the other 2 spots come from the remaining 29 students: \(C(29,2) = 406\). So the probability you are
+selected is</p>
+<p>$$
+\frac{406}{4,\!060} = \frac{1}{10},
+$$</p>
+<p>or 10%. Not bad. But that is only because you can count the
+possibilities. Without counting, you are guessing. With counting, you
+can calculate.</p>
+<p>This is the bridge from counting to probability. Every probability
+problem starts with the same question: how many things can happen? Once
+you can answer that, you are already most of the way to finding the
+chance that your particular outcome is the one that does. Whether you
+are pulling names from a hat, dealing cards from a deck, or picking
+lottery numbers, the logic is the same — count the total, count the
+favorable, and divide.</p>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

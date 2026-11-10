@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Do We Model Counts and Successes?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Do We Model Counts and Successes?</h1>
+
+
+
+<p>Probability models give us a compact way to describe uncertainty and
+answer questions about it. For each distribution below, we begin with a
+scenario and ask about a probability, an average, and a variance. We
+then summarize the distribution with its PMF or PDF, CDF, expectation,
+and variance, and use those quantities to answer the questions.</p>
+<p>R’s distribution functions use a consistent naming pattern:
+<code>d</code> gives a PMF or PDF, and <code>p</code> gives a CDF.
+Setting <code>lower.tail = FALSE</code> requests an upper-tail
+probability. The examples use these functions for probabilities, and
+show how to calculate expectations and variances in R alongside each
+distribution.</p>
+<div id="bernoulli" class="section level2">
+<h2>Bernoulli</h2>
+<p>A quality technician checks one filter cartridge for a leak. Let
+\(X=1\) if a leak is detected and \(X=0\) otherwise, with detection probability
+\(p=0.08\). The questions are:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that a leak is
+detected?</li>
+<li><strong>(b)</strong> What is the average value of \(X\) over many cartridges?</li>
+<li><strong>(c)</strong> What is the variance of \(X\)?</li>
+</ul>
+<p>A <strong>Bernoulli</strong>\((p)\)
+variable represents one trial with two outcomes. Its PMF, CDF,
+expectation, and variance are</p>
+<p>$$
+P_X(x)=p^x(1-p)^{1-x},\qquad x\in\{0,1\},
+$$</p>
+<p>$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+1-p, &amp; 0\leq x&lt;1,\\
+1, &amp; x\geq1,
+\end{cases}
+\qquad E[X]=p,\qquad \operatorname{Var}[X]=p(1-p).
+$$</p>
+<p>For part (a), \(P(X=1)=p=0.08\). R
+evaluates this PMF value with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.08</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.08</span></span></code></pre></div>
+<p>For part (b), the average value is \(E[X]=p=0.08\). For part (c),</p>
+<p>$$
+\operatorname{Var}[X]=p(1-p)=0.08(0.92)=0.0736.
+$$</p>
+<p>In R, the expectation and variance follow directly from the Bernoulli
+formulas:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.08</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> p, <span class="at">variance =</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    mean variance </span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="fl">0.0800</span>   <span class="fl">0.0736</span> </span></code></pre></div>
+</div>
+<div id="binomial" class="section level2">
+<h2>Binomial</h2>
+<p>A production line packs batches of \(n=10\) chips. Each chip is independently
+defective with probability \(p=0.2\).
+Let \(X\) be the number of defective
+chips in a batch. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that at least three
+chips are defective?</li>
+<li><strong>(b)</strong> What is the average number of defective chips
+per batch?</li>
+<li><strong>(c)</strong> What is the variance in the number of defective
+chips per batch?</li>
+</ul>
+<p>A <strong>Binomial</strong>\((n,p)\)
+variable counts successes in a fixed number of independent trials, each
+with the same success probability. Its PMF, CDF, expectation, and
+variance are</p>
+<p>$$
+P_X(x)=\binom{n}{x}p^x(1-p)^{n-x},\qquad x=0,1,\ldots,n,
+$$</p>
+<p>$$
+F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\binom{n}{k}p^k(1-p)^{n-k},
+\qquad E[X]=np,\qquad \operatorname{Var}[X]=np(1-p),
+$$</p>
+<p>where the CDF sum is understood to include only values from \(0\) to \(n\).</p>
+<p>For part (a), subtract the probability of at most two defective chips
+from \(1\):</p>
+<p>$$
+P(X\geq3)=1-\sum_{x=0}^{2}\binom{10}{x}(0.2)^x(0.8)^{10-x}\approx0.3222.
+$$</p>
+<p>R computes this upper tail directly:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">2</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3222005</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Probability of exactly 2 defective chips</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">2</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3019899</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co"># Probability of exactly 2, 3, or 4 defective chips</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">4</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.2</span>) <span class="sc">-</span> <span class="fu">pbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">prob =</span> <span class="fl">0.2</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5913969</span></span></code></pre></div>
+<p>For part (b), \(E[X]=np=10(0.2)=2\)
+defective chips per batch. For part (c),</p>
+<p>$$
+\operatorname{Var}[X]=np(1-p)=10(0.2)(0.8)=1.6\text{ chips}^2.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> n <span class="sc">*</span> p, <span class="at">variance =</span> n <span class="sc">*</span> p <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p))</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>    mean variance </span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>     <span class="fl">2.0</span>      <span class="fl">1.6</span> </span></code></pre></div>
+</div>
+<div id="multinomial" class="section level2">
+<h2>Multinomial</h2>
+<p>A materials lab inspects \(n=20\)
+turbine blades. Each blade is classified as pass, rework, or reject,
+with probabilities \(0.7\), \(0.2\), and \(0.1\). Let \((X_1,X_2,X_3)\) be the three category
+counts. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability of exactly 14 passes, 4
+blades needing rework, and 2 rejects?</li>
+<li><strong>(b)</strong> What is the average number of blades needing
+rework?</li>
+<li><strong>(c)</strong> What is the variance in the number of blades
+needing rework?</li>
+</ul>
+<p>A <strong>Multinomial</strong>\((n;p_1,\ldots,p_m)\) variable records
+counts in \(m\) mutually exclusive
+categories across \(n\) independent
+trials. The category counts sum to \(n\). Its joint PMF is</p>
+<p>$$
+P_{\mathbf X}(x_1,\ldots,x_m)=
+\frac{n!}{x_1!\cdots x_m!}\prod_{i=1}^{m}p_i^{x_i},
+\qquad x_i\in\{0,1,\ldots,n\},\quad \sum_{i=1}^{m}x_i=n.
+$$</p>
+<p>The joint CDF accumulates the joint PMF over all category-count
+vectors no larger than the given vector:</p>
+<p>$$
+F_{\mathbf X}(x_1,\ldots,x_m)=
+\sum_{\substack{0\leq k_i\leq\lfloor x_i\rfloor\\
+                 k_1+\cdots+k_m=n}}
+\frac{n!}{k_1!\cdots k_m!}\prod_{i=1}^{m}p_i^{k_i}.
+$$</p>
+<p>For each category count \(X_i\),</p>
+<p>$$
+E[X_i]=np_i,\qquad \operatorname{Var}[X_i]=np_i(1-p_i)
+$$</p>
+<p>For part (a),</p>
+<p>$$
+P(X_1=14,X_2=4,X_3=2)=
+\frac{20!}{14!4!2!}(0.7)^{14}(0.2)^4(0.1)^2\approx0.0631.
+$$</p>
+<p>Use <code>dmultinom()</code> for this joint probability:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">dmultinom</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">4</span>, <span class="dv">2</span>), <span class="at">prob =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">0.2</span>, <span class="fl">0.1</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.06309102</span></span></code></pre></div>
+<p>For parts (b) and (c), focus on the rework count \(X_2\). Its average is \(E[X_2]=np_2=20(0.2)=4\) blades per batch,
+and its variance is</p>
+<p>$$
+\operatorname{Var}[X_2]=np_2(1-p_2)=20(0.2)(0.8)=3.2\text{ blades}^2.
+$$</p>
+<p>In R, use the formulas for the rework count \(X_2\):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>p_rework <span class="ot">&lt;-</span> <span class="fl">0.2</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> n <span class="sc">*</span> p_rework,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="at">variance =</span> n <span class="sc">*</span> p_rework <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p_rework))</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>    mean variance </span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>     <span class="fl">4.0</span>      <span class="fl">3.2</span> </span></code></pre></div>
+</div>
+<div id="poisson" class="section level2">
+<h2>Poisson</h2>
+<p>A network relay records packet failures in fixed 15-minute intervals.
+Failures occur independently at an average rate of \(\lambda=3\) per interval. Let \(X\) count failures in one interval. We
+ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability of at least five
+failures in an interval?</li>
+<li><strong>(b)</strong> What is the average number of failures per
+interval?</li>
+<li><strong>(c)</strong> What is the variance in the number of failures
+per interval?</li>
+</ul>
+<p>A <strong>Poisson</strong>\((\lambda)\) distribution models counts of
+events in a fixed interval when they occur independently at a steady
+average rate. Its PMF, CDF, expectation, and variance are</p>
+<p>$$
+P_X(x)=\frac{e^{-\lambda}\lambda^x}{x!},\qquad x=0,1,2,\ldots,
+$$</p>
+<p>$$
+F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\frac{e^{-\lambda}\lambda^k}{k!},
+\qquad E[X]=\lambda,\qquad \operatorname{Var}[X]=\lambda.
+$$</p>
+<p>For part (a),</p>
+<p>$$
+P(X\geq5)=1-\sum_{x=0}^{4}\frac{e^{-3}3^x}{x!}\approx0.1847.
+$$</p>
+<p>R computes the upper tail with:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">4</span>, <span class="at">lambda =</span> <span class="dv">3</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1847368</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co"># Probability of exactly 2 failures</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">2</span>, <span class="at">lambda =</span> <span class="dv">3</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2240418</span></span></code></pre></div>
+<p>For part (b), the average is \(E[X]=\lambda=3\) failures per interval. For
+part (c), the variance is also \(\lambda=3\) failures\(^2\) per interval.</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> lambda, <span class="at">variance =</span> lambda)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>    mean variance </span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>       <span class="dv">3</span>        <span class="dv">3</span> </span></code></pre></div>
+</div>
+<div id="geometric" class="section level2">
+<h2>Geometric</h2>
+<p>A welding process produces welds that pass inspection with
+probability \(p=0.25\), independently
+from weld to weld. Let \(X\) be the
+number of failed welds before the first pass. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that more than four
+welds fail before the first pass?</li>
+<li><strong>(b)</strong> What is the average number of failed welds
+before the first pass?</li>
+<li><strong>(c)</strong> What is the variance in the number of failed
+welds before the first pass?</li>
+</ul>
+<p>Here the <strong>Geometric</strong>\((p)\) distribution counts failures before
+the first success. With this convention, its PMF, CDF, expectation, and
+variance are</p>
+<p>$$
+P_X(x)=(1-p)^x p,\qquad x=0,1,2,\ldots,
+$$</p>
+<p>$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+1-(1-p)^{\lfloor x\rfloor+1}, &amp; x\geq0,
+\end{cases}
+\qquad E[X]=\frac{1-p}{p},\qquad
+\operatorname{Var}[X]=\frac{1-p}{p^2}.
+$$</p>
+<p>For part (a), more than four failures means \(X&gt;4\), so</p>
+<p>$$
+P(X&gt;4)=(1-p)^5=(0.75)^5\approx0.2373.
+$$</p>
+<p>In R, <code>pgeom()</code> uses this same
+failures-before-the-first-success convention:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">pgeom</span>(<span class="dv">4</span>, <span class="at">prob =</span> <span class="fl">0.25</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2373047</span></span></code></pre></div>
+<p>For part (b), \(E[X]=(1-0.25)/0.25=3\) failed welds. For
+part (c),</p>
+<p>$$
+\operatorname{Var}[X]=\frac{1-0.25}{(0.25)^2}=12\text{ failures}^2.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.25</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> p, <span class="at">variance =</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> p<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>    mean variance </span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>       <span class="dv">3</span>       <span class="dv">12</span> </span></code></pre></div>
+</div>
+<div id="negative-binomial" class="section level2">
+<h2>Negative Binomial</h2>
+<p>A lab repeats an assay until it has collected three valid readings.
+Each assay independently yields a valid reading with probability \(p=0.4\). Let \(X\) be the number of failed assays before
+the third valid reading. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that more than five
+assays fail before the third valid reading?</li>
+<li><strong>(b)</strong> What is the average number of failed assays
+before the third valid reading?</li>
+<li><strong>(c)</strong> What is the variance in the number of failed
+assays before the third valid reading?</li>
+</ul>
+<p>The <strong>Negative Binomial</strong>\((r,p)\) distribution here counts failures
+before the \(r\)th success. Its PMF,
+CDF, expectation, and variance are</p>
+<p>$$
+P_X(x)=\binom{x+r-1}{x}(1-p)^x p^r,\qquad x=0,1,2,\ldots,
+$$</p>
+<p>$$
+F_X(x)=\sum_{k=0}^{\lfloor x\rfloor}\binom{k+r-1}{k}(1-p)^k p^r,
+\qquad E[X]=\frac{r(1-p)}{p},\qquad
+\operatorname{Var}[X]=\frac{r(1-p)}{p^2}.
+$$</p>
+<p>For part (a),</p>
+<p>$$
+P(X&gt;5)=1-\sum_{x=0}^{5}\binom{x+2}{x}(0.6)^x(0.4)^3\approx0.3154.
+$$</p>
+<p>Use <code>pnbinom()</code> for this upper-tail probability:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">pnbinom</span>(<span class="dv">5</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">prob =</span> <span class="fl">0.4</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3153946</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co"># Probability of exactly 2 failures before the third success</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="fu">dnbinom</span>(<span class="dv">2</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.13824</span></span></code></pre></div>
+<p>For part (b), \(E[X]=3(0.6)/0.4=4.5\) failed assays. For
+part (c),</p>
+<p>$$
+\operatorname{Var}[X]=\frac{3(0.6)}{(0.4)^2}=11.25\text{ failures}^2.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fl">0.4</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> r <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> p,</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>  <span class="at">variance =</span> r <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p) <span class="sc">/</span> p<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>    mean variance </span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>    <span class="fl">4.50</span>    <span class="fl">11.25</span> </span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+---
+title: "Module 4: Distributions and Statistical Models"
+---
+
+This page lists the readings for Module 4.
+
+## Readings
+
+- [How Do We Model Measurements and Waiting Times?](continuous_distributions.html)
+- [Glossary](definitions_and_examples.html)
+- [How Do We Model Counts and Successes?](discrete_distributions.html)
+- [How Strongly Do Two Variables Move Together?](joint_distributions_and_correlation.html)
+- [How Does Knowing One Outcome Change the Chances of Another?](joint_marginal_conditional.html)
+- [What Happens When You Shift or Rescale a Variable?](linear_transformations.html)
+- [What Happens When You Square or Take the Log of a Variable?](nonlinear_transformations.html)
+- [How Do We Model Data?](random_variables.html)

@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Much Does Gas Cost Across the United States?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Much Does Gas Cost Across the United
+States?</h1>
+
+
+
+<p>You know the drill. You pull up to the pump, swipe your card, and let
+out a long sigh before the numbers on the screen start climbing like it
+is a game of high-stakes bingo. But have you ever wondered how much a
+gallon of regular gas actually costs across the country — not the
+national average from the evening news, but state by state? That is the
+question behind this dataset. On a single day we collected the average
+price of a gallon of regular unleaded gas in every state and the
+District of Columbia, along with each state’s population, gasoline tax,
+and refining capacity. That gives us 51 observations and a surprisingly
+rich story. The tools for telling that story are the quiet workhorses of
+statistics, and they all start with one simple idea: we want to
+summarize 51 numbers without losing what they are trying to tell us.</p>
+<p>The dataset is stored as a CSV file, so the first step is to read it
+into R and take a look at what we are holding:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Load the tidyverse functions we will use</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Read the gas price data into a data frame</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>gas <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/gas_prices_states_original.csv&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># List the columns (price, tax, population, region, ...)</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">names</span>(gas)</span></code></pre></div>
+<pre><code>##  [1] &quot;state&quot;                 &quot;region&quot;                &quot;party&quot;                
+##  [4] &quot;regular_price&quot;         &quot;midgrade_price&quot;        &quot;premium_price&quot;        
+##  [7] &quot;diesel_price&quot;          &quot;gas_tax&quot;               &quot;gas_tax_rank&quot;         
+## [10] &quot;diesel_tax&quot;            &quot;diesel_tax_rank&quot;       &quot;refining_capacity_bpd&quot;
+## [13] &quot;population&quot;</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Count the rows: 50 states + D.C. = 51 observations</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">nrow</span>(gas)</span></code></pre></div>
+<pre><code>## [1] 51</code></pre>
+<p>Before we do any adding, we need to know what kind of numbers we are
+holding. The price of gas is a <strong>quantitative variable</strong>:
+it is a measured amount, a number we can add, subtract, and average.
+Texas at $3.90 a gallon and California at $6.38 are both speaking the
+language of dollars and cents. The gasoline tax and the state population
+are quantitative variables too. But not everything in the dataset is a
+number that can be averaged. The region a state belongs to — Northeast,
+Midwest, South, or West — is a <strong>categorical variable</strong>. It
+records a label rather than an amount. Adding “South” to “West” would be
+nonsense, which is the first clue that categorical and quantitative
+variables have to be summarized in very different ways.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Start with the full gas dataset</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="co"># Keep only the rows for Texas and California</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Texas&quot;</span>, <span class="st">&quot;California&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="co"># Keep just the state name and its price</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  <span class="fu">select</span>(state, regular_price)</span></code></pre></div>
+<pre><code>##        state regular_price
+## 1 California        6.3764
+## 2      Texas        3.9030</code></pre>
+<p>The quantitative variables can be split even further. The price of
+gas is a <strong>continuous variable</strong>, because in principle it
+can take any value within a range. Between two stations charging $4.289
+and $4.291 there is always room for another price; the measurements are
+limited only by how precisely we can read the sign. Population, on the
+other hand, is a <strong>discrete variable</strong>: it comes from
+counting people, so it takes only whole numbers. Wyoming has 588,753
+residents and California has 39,355,309. No state can have “half a
+person,” no matter how much a governor might wish otherwise. A count is
+a different kind of number than a measurement, and the difference shows
+up in how we summarize it.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Start with the full gas dataset</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="co"># Keep only the rows for Wyoming and California</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="fu">filter</span>(state <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Wyoming&quot;</span>, <span class="st">&quot;California&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="co"># Keep just the state name and its population</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="fu">select</span>(state, population)</span></code></pre></div>
+<pre><code>##        state population
+## 1 California   39355309
+## 2    Wyoming     588753</code></pre>
+<p>Lay all 51 prices out in a row and squint, and a pattern begins to
+emerge. That pattern — which values appear and how often — is called the
+<strong>distribution</strong> of the variable. A quick count confirms
+that most of the country lives in a fairly narrow band:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># Keep only states priced between $3.90 and $4.50</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>  <span class="fu">filter</span>(regular_price <span class="sc">&gt;=</span> <span class="fl">3.90</span> <span class="sc">&amp;</span> regular_price <span class="sc">&lt;=</span> <span class="fl">4.50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>  <span class="co"># Count how many states remain: 37 of the 51</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a>  <span class="fu">count</span>()</span></code></pre></div>
+<pre><code>##    n
+## 1 37</code></pre>
+<p>Indeed, 37 of the 51 states charge between about $3.90 and $4.50.
+Indiana sits at the cheap end at $3.72, followed by Ohio at $3.78 and
+Georgia at $3.85. Then comes the long climb to the top: Oregon at $5.04,
+Nevada at $5.48, Washington at $5.48, Hawaii at $5.63, and finally
+California at $6.38. Sorting the prices shows both ends of that
+climb:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Sort from cheapest to most expensive</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="fu">arrange</span>(regular_price) <span class="sc">%&gt;%</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="co"># Keep just the state name and its price</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="fu">select</span>(state, regular_price) <span class="sc">%&gt;%</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="co"># Take the five cheapest states</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>  <span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##       state regular_price
+## 1   Indiana        3.7219
+## 2      Ohio        3.7841
+## 3   Georgia        3.8490
+## 4     Texas        3.9030
+## 5 Louisiana        3.9299</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Sort from cheapest to most expensive</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>  <span class="fu">arrange</span>(regular_price) <span class="sc">%&gt;%</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>  <span class="co"># Keep just the state name and its price</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>  <span class="fu">select</span>(state, regular_price) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>  <span class="co"># Take the five most expensive states</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>  <span class="fu">slice_tail</span>(<span class="at">n =</span> <span class="dv">5</span>)</span></code></pre></div>
+<pre><code>##        state regular_price
+## 1     Oregon        5.0393
+## 2     Nevada        5.4782
+## 3 Washington        5.4823
+## 4     Hawaii        5.6270
+## 5 California        6.3764</code></pre>
+<p>The distribution is a dense crowd on the left with a few states
+stretching far to the right, and that lopsided shape shapes every
+summary we are about to compute.</p>
+<p>The first thing we usually want from a dataset is a sense of the
+center — the one number that can stand in for the crowd. That is
+<strong>central tendency</strong>. There are several ways to measure it,
+and they do not always agree. The <strong>mean</strong> is the
+arithmetic average: add all 51 prices, divide by 51, and you get about
+$4.39. It uses every single observation, which sounds fair until you
+remember that California is in the room. The <strong>median</strong> is
+the middle value when the prices are lined up from cheapest to most
+expensive. With 51 states, the 26th price in line is about $4.29 — half
+the states charge less, and half charge more.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co"># The average price across all 51 states: $4.39</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a><span class="co"># The middle price when sorted: $4.29</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>    <span class="at">mean_price   =</span> <span class="fu">mean</span>(regular_price),</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>    <span class="at">median_price =</span> <span class="fu">median</span>(regular_price)</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>##   mean_price median_price
+## 1   4.389814       4.2874</code></pre>
+<p>Notice that the mean, $4.39, is a little higher than the median,
+$4.29. That gap is not an accident. A few very expensive states pull the
+mean up toward them, while the median simply shrugs and stays in the
+middle. When a distribution has a long tail of unusually large values,
+the mean gets dragged along while the median holds its ground.</p>
+<p>There is a third measure of central tendency, the
+<strong>mode</strong>, which is simply the most frequently occurring
+value. For a continuous variable like price, no two states charge
+exactly the same amount, so the mode is easiest to see after rounding:
+round every price to the nearest ten cents, and the most common price is
+about $4.30, shared by seven states. The mode really comes into its own
+with categorical data. What is the most common region in the dataset?
+The South, with 17 of the 51 states. If someone asks for the “typical”
+region, the South is the answer — the mode of a categorical variable is
+simply the category that appears most often.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co"># Round each price to the nearest ten cents</span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">price_rounded =</span> <span class="fu">round</span>(regular_price, <span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>  <span class="co"># Count states at each rounded price, most common first</span></span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>  <span class="fu">count</span>(price_rounded, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##    price_rounded n
+## 1            4.3 7
+## 2            4.0 6
+## 3            4.1 6
+## 4            4.4 6
+## 5            4.2 5
+## 6            4.5 5
+## 7            3.9 3
+## 8            3.8 2
+## 9            4.9 2
+## 10           5.0 2
+## 11           5.5 2
+## 12           3.7 1
+## 13           4.6 1
+## 14           4.7 1
+## 15           5.6 1
+## 16           6.4 1</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="co"># Count states in each region, most common first: South = 17</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>  <span class="fu">count</span>(region, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##      region  n
+## 1     South 17
+## 2      West 13
+## 3   Midwest 12
+## 4 Northeast  9</code></pre>
+<p>The median splits the data in half, but we can split it further.
+<strong>Quartiles</strong> divide the ordered data into four equal
+parts. The first quartile (Q1) is the value below which the cheapest 25%
+of states fall — about $4.06. The second quartile is the median itself,
+$4.29. The third quartile (Q3) is the value below which 75% of states
+fall — about $4.47. A quarter of states pay less than $4.06, half pay
+less than $4.29, and three-quarters pay less than $4.47. Quartiles give
+us a quick map of where the whole country sits.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co"># Q1: 25% of states pay less than this: $4.06</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="co"># Median: the middle price: $4.29</span></span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="co"># Q3: 75% of states pay less than this: $4.47</span></span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>    <span class="at">q1     =</span> <span class="fu">quantile</span>(regular_price, <span class="fl">0.25</span>),</span>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">quantile</span>(regular_price, <span class="fl">0.50</span>),</span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a>    <span class="at">q3     =</span> <span class="fu">quantile</span>(regular_price, <span class="fl">0.75</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>##        q1 median     q3
+## 1 4.05535 4.2874 4.4712</code></pre>
+<p>Two numbers describe how far apart those quartiles reach. The
+<strong>interquartile range (IQR)</strong> is the distance from Q1 to
+Q3: $4.47 minus $4.06, about $0.42. It tells us that the middle half of
+the states fit within a 42-cent window. Because it ignores the extreme
+values, the IQR is a sturdy, resistant measure of spread — California’s
+$6.38 barely moves it. The <strong>range</strong> is the distance from
+the very cheapest to the very most expensive: $6.38 minus $3.72, about
+$2.66. That is a much bigger number, and it is entirely at the mercy of
+the two most extreme states. The range tells you the whole span, but the
+IQR tells you where most of the action really is.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co"># IQR: Q3 - Q1, the span of the middle 50%: $0.42</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="co"># Range: max price - min price, the full span: $2.66</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>    <span class="at">iqr   =</span> <span class="fu">IQR</span>(regular_price),</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a>    <span class="at">range =</span> <span class="fu">diff</span>(<span class="fu">range</span>(regular_price))</span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>##       iqr  range
+## 1 0.41585 2.6545</code></pre>
+<p>Some states sit so far from the rest that they deserve a special
+label. An <strong>outlier</strong> is an observation that lies unusually
+far from the rest of the data and does not fit the general pattern. A
+common rule for flagging outliers is the 1.5 × IQR rule: a value is an
+outlier if it falls below Q1 − 1.5 × IQR or above Q3 + 1.5 × IQR. For
+the gas prices, Q1 is about $4.06, Q3 is about $4.47, and the IQR is
+about $0.42, so the upper fence is Q3 + 1.5 × IQR, about $5.09. Any
+state above that fence is an outlier:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="co"># Compute the fences from the quartiles and the IQR</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>fences <span class="ot">&lt;-</span> gas <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb25-4"><a href="#cb25-4" tabindex="-1"></a>    <span class="at">low  =</span> <span class="fu">quantile</span>(regular_price, <span class="fl">0.25</span>) <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="fu">IQR</span>(regular_price),</span>
+<span id="cb25-5"><a href="#cb25-5" tabindex="-1"></a>    <span class="at">high =</span> <span class="fu">quantile</span>(regular_price, <span class="fl">0.75</span>) <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> <span class="fu">IQR</span>(regular_price)</span>
+<span id="cb25-6"><a href="#cb25-6" tabindex="-1"></a>  )</span>
+<span id="cb25-7"><a href="#cb25-7" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" tabindex="-1"></a><span class="co"># Keep only the states whose price falls outside the fences</span></span>
+<span id="cb25-9"><a href="#cb25-9" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb25-10"><a href="#cb25-10" tabindex="-1"></a>  <span class="fu">filter</span>(regular_price <span class="sc">&lt;</span> fences<span class="sc">$</span>low <span class="sc">|</span> regular_price <span class="sc">&gt;</span> fences<span class="sc">$</span>high) <span class="sc">%&gt;%</span></span>
+<span id="cb25-11"><a href="#cb25-11" tabindex="-1"></a>  <span class="fu">select</span>(state, regular_price)</span></code></pre></div>
+<pre><code>##        state regular_price
+## 1 California        6.3764
+## 2     Hawaii        5.6270
+## 3     Nevada        5.4782
+## 4 Washington        5.4823</code></pre>
+<p>The rule picks out exactly four states: California at $6.38, Hawaii
+at $5.63, Washington at $5.48, and Nevada at $5.48. These are the same
+expensive states that stretch the tail of the distribution. They are
+also the reason the range, at $2.66, is so wide, and why the mean,
+$4.39, sits above the median, $4.29 — an outlier tugs at every summary
+that uses all the observations, while the median and the IQR, which
+ignore the extremes, are barely moved.</p>
+<p>Quartiles describe spread with distances, but there is a whole family
+of measures built around how far each observation sits from the mean.
+Together they describe the <strong>variability</strong> — how spread out
+the values are, how much prices differ from one another and from the
+center. The <strong>variance</strong> is the average squared distance
+from the mean: about 0.26 for our prices. It is mathematically tidy, but
+its units are square dollars, which is about as natural as square pizza.
+That is why we take its square root. The <strong>standard
+deviation</strong> is the square root of the variance, about $0.51. In
+plain terms, a typical state’s price sits roughly 51 cents away from the
+mean of $4.39. The standard deviation is the measure we can point to and
+explain to a friend: most states are within about half a dollar of the
+middle.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a><span class="co"># Variance: average squared distance from the mean: 0.26</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="co"># Standard deviation: square root of the variance: $0.51</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>    <span class="at">variance =</span> <span class="fu">var</span>(regular_price),</span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>    <span class="at">sd       =</span> <span class="fu">sd</span>(regular_price)</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>##    variance        sd
+## 1 0.2595765 0.5094865</code></pre>
+<p>Quantitative variables get means, medians, and standard deviations,
+but categorical variables need a summary of their own. For a label like
+region or party, the natural summary is the <strong>proportion</strong>
+— the fraction of observations in each category. Of the 51 observations,
+29 states have at least one operating refinery, a proportion of about
+0.57, or 57%. About 0.61 of the states voted for the Republican
+candidate in the last presidential election. And the region proportions
+echo what we saw with the mode: the South holds 17 of the 51 states,
+roughly one-third of the dataset. Proportions are to categorical
+variables what the mean is to a quantitative one — a single number that
+captures the balance of the whole.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a><span class="co"># Mark each state as having a refinery or not: TRUE or FALSE</span></span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">has_refinery =</span> refining_capacity_bpd <span class="sc">&gt;</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="co"># Count each group: 29 TRUE, 22 FALSE</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>  <span class="fu">count</span>(has_refinery)</span></code></pre></div>
+<pre><code>##   has_refinery  n
+## 1        FALSE 22
+## 2         TRUE 29</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="co"># Count states by the 2024 presidential winner</span></span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>  <span class="fu">count</span>(party) <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>  <span class="co"># Divide by 51 for the proportion: Republican 0.61</span></span>
+<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div>
+<pre><code>##        party  n proportion
+## 1 Democratic 20  0.3921569
+## 2 Republican 31  0.6078431</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="co"># Count states in each region</span></span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a>  <span class="fu">count</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a>  <span class="co"># South&#39;s share of the data: 17/51 = 0.33</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">proportion =</span> n <span class="sc">/</span> <span class="fu">sum</span>(n))</span></code></pre></div>
+<pre><code>##      region  n proportion
+## 1   Midwest 12  0.2352941
+## 2 Northeast  9  0.1764706
+## 3     South 17  0.3333333
+## 4      West 13  0.2549020</code></pre>
+<p>Put the pieces together and the dataset tells a coherent story. The
+typical gallon of regular gas costs somewhere around $4.29 to $4.39, and
+the middle half of the country fits within a 42-cent band. But behind
+that tidy center is real variability: a state’s price can drift about
+half a dollar from the mean, and the extremes — California at $6.38,
+Indiana at $3.72 — stretch the range to nearly three dollars. Geography
+explains a good part of it: the West averages about $5.02 a gallon while
+the South averages about $4.07. And woven through it all is population,
+a discrete count that is itself wildly spread, from Wyoming’s 588,753
+people to California’s 39 million. These numbers do not tell us why gas
+is expensive. But they give us a precise, honest map of what the prices
+are — and that is where every good statistical question begins.</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="co"># Split the data into the four regions</span></span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>  <span class="fu">group_by</span>(region) <span class="sc">%&gt;%</span></span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>  <span class="co"># Average price by region: West $5.02, South $4.07</span></span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mean_price =</span> <span class="fu">mean</span>(regular_price))</span></code></pre></div>
+<pre><code>## # A tibble: 4 × 2
+##   region    mean_price
+##   &lt;chr&gt;          &lt;dbl&gt;
+## 1 Midwest         4.17
+## 2 Northeast       4.39
+## 3 South           4.07
+## 4 West            5.02</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a><span class="co"># The least populous state: Wyoming, 588,753</span></span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="co"># The most populous state: California, 39,355,309</span></span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>gas <span class="sc">%&gt;%</span></span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a>    <span class="at">min_pop =</span> <span class="fu">min</span>(population),</span>
+<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a>    <span class="at">max_pop =</span> <span class="fu">max</span>(population)</span>
+<span id="cb37-7"><a href="#cb37-7" tabindex="-1"></a>  )</span></code></pre></div>
+<pre><code>##   min_pop  max_pop
+## 1  588753 39355309</code></pre>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

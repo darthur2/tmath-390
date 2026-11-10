@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Do We Model Data?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Do We Model Data?</h1>
+<h3 class="subtitle">How uncertain outcomes become numbers—and how those
+numbers help us answer practical questions.</h3>
+
+
+
+<p>An electronics lab tests three sensor modules. Each module either
+passes or fails inspection. Before testing, an engineer might ask:
+<strong>How many of the \(3\) modules
+will pass?</strong> A soil scientist faces a different question when
+studying a core sample: <strong>What fraction of the pore space is
+filled with water?</strong> The first answer is a count. The second is a
+measurement that can take any value in \([0,1]\).</p>
+<p>Both questions begin with uncertain outcomes. To reason
+mathematically about them, we first need to turn each outcome into a
+number.</p>
+<div id="from-outcomes-to-numbers" class="section level2">
+<h2>From outcomes to numbers</h2>
+<p>The <strong>sample space</strong>, written \(S\), is the set of all possible outcomes of
+a random process. A <strong>random variable</strong> is a function that
+assigns a real number to each outcome in \(S\):</p>
+<p>$$
+X:S\longrightarrow S_X\subseteq\mathbb{R}.
+$$</p>
+<p>Here, \(X\) is the function and
+\(S_X\) is the set of values it can
+take, called its <strong>support</strong>. If \(s\) is one outcome in \(S\), then \(X(s)\) is the number assigned to that
+outcome. The random variable is the rule; a value such as \(X(s)=2\) is what the rule returns for a
+particular outcome.</p>
+<p>For the sensor test, the sample space is</p>
+<p>$$
+S=\{PPP,PPF,PFP,FPP,PFF,FPF,FFP,FFF\},
+$$</p>
+<p>where \(P\) means a module passes
+and \(F\) means it fails. Define \(X(s)\) to be the number of passes in
+outcome \(s\). For example, \(X(PFP)=2\), while \(X(FFF)=0\). Several different outcomes map
+to the same number, and the support is \(S_X=\{0,1,2,3\}\).</p>
+<p>The soil-core measurement is also a random variable. An outcome \(s\in S\) describes the water occupancy of
+the core’s pores. The rule \(X(s)\)
+returns the water-filled volume divided by the total pore volume. Its
+support is \([0,1]\), and unlike a
+count, it can take infinitely many possible values.</p>
+</div>
+<div id="how-probability-is-assigned" class="section level2">
+<h2>How probability is assigned</h2>
+<p>For a <strong>discrete random variable</strong>, probability is
+assigned to individual possible values. The function that gives these
+probabilities is the <strong>probability mass function</strong>, or
+<strong>PMF</strong>:</p>
+<p>We write the PMF as \(P_X(x)\); this
+is interchangeable with \(P(X=x)\), the
+probability that \(X\) equals \(x\).</p>
+<p>$$
+P_X(x)=P(X=x).
+$$</p>
+<p>Each value \(P_X(x)\) is
+nonnegative, and the probabilities over the support add to \(1\). To find the probability of an event,
+add the PMF values for the outcomes that belong to that event.</p>
+<p>For a <strong>continuous random variable</strong>, probabilities are
+described by a <strong>probability density function</strong>, or
+<strong>PDF</strong>, written \(f_X(x)\). A PDF is nonnegative and has
+total area \(1\):</p>
+<p>$$
+\int_{-\infty}^{\infty} f_X(x)\,dx=1.
+$$</p>
+<p>Probability comes from the area under the PDF over an interval:</p>
+<p>$$
+P(a&lt;X&lt;b)=\int_a^b f_X(x)\,dx.
+$$</p>
+<p>The PDF value at a point is a density, not a probability. For a
+continuous variable, the probability of any one exact value is \(0\).</p>
+<p>Both types of variables also have a <strong>cumulative distribution
+function</strong>, or <strong>CDF</strong>:</p>
+<p>$$
+F_X(x)=P(X\leq x).
+$$</p>
+<p>The CDF accumulates probability up to \(x\). For a discrete variable it adds the
+PMF values up through \(x\); for a
+continuous variable it integrates the PDF up to \(x\):</p>
+<p>$$
+F_X(x)=\sum_{t\leq x}P_X(t)
+\qquad\text{or}\qquad
+F_X(x)=\int_{-\infty}^{x} f_X(t)\,dt,
+$$</p>
+<p>depending on whether \(X\) is
+discrete or continuous. In either case, a probability over an interval
+can be found from the CDF. In general,</p>
+<p>$$
+P(a&lt;X\leq b)=F_X(b)-F_X(a).
+$$</p>
+<p>For continuous variables, including or excluding an endpoint does not
+change the probability. For discrete variables it can, because an
+individual value may have positive probability.</p>
+<p>The CDF and the PMF or PDF carry the same information, and each can
+be recovered from the other. For a continuous variable, the CDF is
+continuous and its derivative is the PDF wherever the derivative
+exists:</p>
+<p>$$
+f_X(x)=\frac{d}{dx}F_X(x).
+$$</p>
+<p>For a discrete variable, the CDF is a step function. Its jump at each
+support point equals the PMF value there:</p>
+<p>$$
+P_X(x)=F_X(x)-F_X(x^-),
+$$</p>
+<p>where \(F_X(x^-)\) is the limit of
+\(F_X(t)\) as \(t\) approaches \(x\) from below.</p>
+</div>
+<div id="what-expectation-and-variance-measure" class="section level2">
+<h2>What expectation and variance measure</h2>
+<p>The <strong>expected value</strong>, also called the
+<strong>expectation</strong>, is the probability-weighted long-run
+average value of a random variable. It does not have to be a value the
+variable can actually take. For a discrete variable, multiply each value
+by its probability and add; for a continuous variable, multiply by the
+density and integrate:</p>
+<p>$$
+E[X]=\sum_x xP_X(x)
+\qquad\text{or}\qquad
+E[X]=\int_{-\infty}^{\infty}x f_X(x)\,dx.
+$$</p>
+<p>The <strong>variance</strong> describes the average squared distance
+from the expectation. It is computed by weighting squared deviations
+from the mean:</p>
+<p>$$
+\operatorname{Var}[X]=\sum_x(x-E[X])^2P_X(x)
+\qquad\text{or}\qquad
+\operatorname{Var}[X]=\int_{-\infty}^{\infty}(x-E[X])^2f_X(x)\,dx.
+$$</p>
+<p>An equivalent shortcut for either type of variable is</p>
+<p>$$
+\operatorname{Var}[X]=E[X^2]-(E[X])^2.
+$$</p>
+<p>The <strong>standard deviation</strong> is the square root of the
+variance, \(\sigma_X=\sqrt{\operatorname{Var}[X]}\),
+and it is measured in the original units.</p>
+</div>
+<div id="counting-passing-sensor-modules" class="section level2">
+<h2>Counting passing sensor modules</h2>
+<p>Suppose each module passes independently with probability \(0.8\) and fails with probability \(0.2\). The PMF for the count \(X\) is</p>
+<p>$$
+P_X(x)=\binom{3}{x}(0.8)^x(0.2)^{3-x},\qquad x\in\{0,1,2,3\}.
+$$</p>
+<p>Exactly two modules pass in three different outcomes: \(PPF\), \(PFP\), and \(FPP\). Each outcome has probability \((0.8)^2(0.2)\), so</p>
+<p>$$
+P_X(2)=3(0.8)^2(0.2)=0.384.
+$$</p>
+<p>The complete PMF is:</p>
+<table>
+<thead>
+<tr class="header">
+<th>\(x\)</th>
+<th align="right">\(0\)</th>
+<th align="right">\(1\)</th>
+<th align="right">\(2\)</th>
+<th align="right">\(3\)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>\(P_X(x)\)</td>
+<td align="right">\(0.008\)</td>
+<td align="right">\(0.096\)</td>
+<td align="right">\(0.384\)</td>
+<td align="right">\(0.512\)</td>
+</tr>
+</tbody>
+</table>
+<p>The probabilities add to \(1\). The
+CDF accumulates these PMF values. For example, \(F_X(1)=P(X\leq1)=P_X(0)+P_X(1)=0.104\); at
+\(x=1\), the CDF has accumulated the
+probability of outcomes with \(0\) or
+\(1\) passing module. The chance that
+at least \(2\) modules pass is the sum
+for \(x=2\) and \(x=3\):</p>
+<p>$$
+P(X\geq 2)=P_X(2)+P_X(3)=0.384+0.512=0.896.
+$$</p>
+<p>The expectation is the long-run average number passing:</p>
+<p>$$
+E[X]=0(0.008)+1(0.096)+2(0.384)+3(0.512)=2.4.
+$$</p>
+<p>Across many groups of \(3\) modules,
+the average number passing will approach \(2.4\). A single group cannot have \(2.4\) passing modules, but the long-run
+average can be \(2.4\).</p>
+<p>The second moment is \(E[X^2]=6.24\), so the variance is</p>
+<p>$$
+\operatorname{Var}[X]=E[X^2]-(E[X])^2=6.24-(2.4)^2=0.48.
+$$</p>
+<p>In R, use the possible counts and their probabilities to compute the
+expectation and variance:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">3</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.008</span>, <span class="fl">0.096</span>, <span class="fl">0.384</span>, <span class="fl">0.512</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>expectation <span class="ot">&lt;-</span> <span class="fu">sum</span>(x <span class="sc">*</span> p)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>variance <span class="ot">&lt;-</span> <span class="fu">sum</span>((x <span class="sc">-</span> expectation)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">c</span>(<span class="at">expectation =</span> expectation, <span class="at">variance =</span> variance)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>expectation    variance </span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>       <span class="fl">2.40</span>        <span class="fl">0.48</span> </span></code></pre></div>
+</div>
+<div id="measuring-water-in-a-soil-core" class="section level2">
+<h2>Measuring water in a soil core</h2>
+<p>Now let \(X\) be the fraction of a
+soil core’s pore volume filled with water. It is continuous and bounded
+between \(0\) and \(1\). Suppose its PDF is</p>
+<p>$$
+f_X(x)=12x(1-x)^2,\qquad x\in(0,1),
+$$</p>
+<p>and \(f_X(x)=0\) outside this
+interval. The total area under the PDF is \(1\):</p>
+<p>$$
+\int_0^1 12x(1-x)^2\,dx=1.
+$$</p>
+<p>The probability that the water-filled fraction is between \(0.25\) and \(0.75\) is the area under the density in
+that interval:</p>
+<p>$$
+P(0.25&lt;X&lt;0.75)=\int_{0.25}^{0.75}12x(1-x)^2\,dx=0.6875.
+$$</p>
+<p>R can evaluate this interval probability directly:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">integrate</span>(<span class="cf">function</span>(x) <span class="dv">12</span> <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>          <span class="at">lower =</span> <span class="fl">0.25</span>, <span class="at">upper =</span> <span class="fl">0.75</span>)<span class="sc">$</span>value</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6875</span></span></code></pre></div>
+<p>Here the CDF is \(0\) below the
+support and \(1\) above it. Within the
+support, it is the accumulated area from \(0\) to \(x\):</p>
+<p>$$
+F_X(x)=\int_0^x12t(1-t)^2\,dt=6x^2-8x^3+3x^4,\qquad 0\leq x\leq1.
+$$</p>
+<p>Differentiating this CDF recovers the PDF, as the general
+relationship predicts:</p>
+<p>$$
+\frac{d}{dx}F_X(x)=\frac{d}{dx}\left(6x^2-8x^3+3x^4\right)=12x-24x^2+12x^3=12x(1-x)^2=f_X(x).
+$$</p>
+<p>The same interval probability can therefore be found by subtracting
+CDF values:</p>
+<p>$$
+P(0.25&lt;X&lt;0.75)=F_X(0.75)-F_X(0.25)=0.6875.
+$$</p>
+<p>Although \(f_X(0.5)=1.5\), the
+probability that \(X\) is exactly \(0.5\) is \(0\). Probability is area over an interval,
+not the density at a point.</p>
+<p>The expectation of the water-filled fraction is</p>
+<p>$$
+E[X]=\int_0^1 x\,12x(1-x)^2\,dx=0.4.
+$$</p>
+<p>Also, \(E[X^2]=0.2\), so</p>
+<p>$$
+\operatorname{Var}[X]=E[X^2]-(E[X])^2=0.2-(0.4)^2=0.04.
+$$</p>
+<p>In R, integrate the density directly to compute the expectation and
+variance:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>expectation <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">12</span> <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>                         <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>variance <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(x) (x <span class="sc">-</span> expectation)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> <span class="dv">12</span> <span class="sc">*</span> x <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> x)<span class="sc">^</span><span class="dv">2</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>                      <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">1</span>)<span class="sc">$</span>value</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">c</span>(<span class="at">expectation =</span> expectation, <span class="at">variance =</span> variance)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>expectation    variance </span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>       <span class="fl">0.40</span>        <span class="fl">0.04</span> </span></code></pre></div>
+</div>
+<div id="putting-the-pieces-together" class="section level2">
+<h2>Putting the pieces together</h2>
+<p>A random variable turns uncertain outcomes in a sample space \(S\) into numbers. Its support tells us
+which values are possible. A PMF assigns probability to each possible
+value of a discrete variable; a PDF describes density for a continuous
+variable, with area giving probability. The CDF accumulates probability
+up to a value. Expectations describe long-run averages, and variances
+describe spread around those averages.</p>
+<p>The next reading will introduce specific distribution families. The
+ideas here—mapping outcomes to numbers and using PMFs, PDFs, CDFs,
+expectations, and variances—are the foundation for working with those
+models.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

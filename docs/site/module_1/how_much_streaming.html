@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Much Do People Spend on Streaming Services?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Much Do People Spend on Streaming
+Services?</h1>
+
+
+
+<p>Open your phone and count your streaming apps. Go ahead — the one you
+actually watch, the one your roommate watches, the one you keep “for the
+kids someday,” and the one you’re fairly sure you’re still paying for
+but can’t quite remember the name of. Now guess: what does all of it
+cost you per month? If you hesitated, you’re in good company. Most
+people can name their subscriptions faster than they can add them up,
+and that sloppy arithmetic is exactly why a market researcher might want
+to know the truth: how much does the average person in the U.S. actually
+spend on streaming services? Not the advertised price of a single plan,
+but the whole messy bundle — the premium tiers, the shared accounts, the
+one nobody in the family admits they still pay for. That question is the
+<strong>research question</strong>. It sets the goal for the study and
+tells us what we are trying to learn.</p>
+<p>The researcher first has to decide on the
+<strong>population</strong>. In this case, the population might be all
+adults in the U.S., or all households in the U.S., depending on exactly
+what the researcher wants to study. This decision matters more than it
+sounds: the answer she gets depends on who she is asking. The
+corresponding <strong>parameter</strong> is the true average amount
+those people spend on streaming services per month. That true average is
+what the researcher wants to know, even though it is usually not
+possible to measure every person directly. It is the number that exists
+in the world, whether or not anyone ever finds it.</p>
+<p>Because the population is too large to measure completely, the
+researcher collects a <strong>sample</strong>, which is a smaller group
+taken from the population and actually observed. The average streaming
+spending in that sample is the <strong>statistic</strong>. The statistic
+is what the researcher can calculate from the sample data. It is the
+number she can hold in her hands, the concrete result of all those
+questions about who pays for which app and whether anyone actually
+watches the cooking channel.</p>
+<p>But to get that sample, you cannot simply wave your hand and hope. To
+get a sample, the researcher needs a <strong>sampling frame</strong>,
+which is the list or source from which the sample is actually drawn. The
+frame should line up well with the population. If the researcher only
+uses a list of people who subscribe to a tech newsletter, that frame
+misses many people who still use streaming services but are not on the
+list. That creates <strong>undercoverage bias</strong>, because part of
+the population has little or no chance of being selected. The frame
+defines who is even eligible to be chosen, and if it is built from the
+wrong people, the sample will be built from the wrong people too.</p>
+<p>Different <strong>sampling methods</strong> have different strengths
+and weaknesses, and the best choice depends on the situation. There is
+no single right answer — only the right question: which approach gets
+you closest to the truth without costing more than the truth is
+worth?</p>
+<p>A <strong>simple random sample</strong> gives every person in the
+sampling frame an equal chance of being selected. Imagine putting every
+household in the country into a giant hat and pulling out names — that
+is the idea, except the hat is a computer and the drawing happens in
+microseconds. This is a good choice when the researcher has a complete
+and accurate list and wants a fair sample. For streaming spending, it
+would work well if the researcher had a full list of households and
+could randomly pick from it. The downside is that it can be expensive or
+hard to carry out if the list is incomplete or hard to access. A perfect
+method is only as good as the list it draws from.</p>
+<p><strong>Stratified sampling</strong> works well when the researcher
+expects important differences across subgroups. For example, streaming
+spending might differ by age group, household income, or whether people
+live alone or with family. In stratified sampling, the population is
+divided into groups and a sample is taken from each group. Think of it
+as sorting a deck of cards by suit before drawing — you make sure every
+suit gets a voice at the table. This can shine when the researcher wants
+each subgroup to be represented well, especially when the groups are
+meaningfully different from one another. It may struggle if the groups
+are hard to define clearly or if the researcher does not know how to
+build good strata. A grandparent and a college freshman live in
+different streaming universes, and stratified sampling makes sure both
+get heard.</p>
+<p><strong>Cluster sampling</strong> is useful when the population is
+spread out and it is easier to sample groups than individuals. For
+example, the researcher might randomly select apartment buildings,
+neighborhoods, or school districts and then survey people in those
+selected clusters. It is the statistical version of taking a shortcut
+through the parking lot: you do not visit every car, you visit every car
+in a few chosen lots. This method can save time and money. It tends to
+work best when each cluster has a good mix of people that looks a lot
+like the population overall, so one cluster can stand in for the larger
+group without introducing too much distortion. Its weakness is that
+people within the same cluster may be too similar to one another —
+everyone in one building might subscribe to the same two services — so
+the sample may be less precise than a simple random sample.</p>
+<p><strong>Systematic sampling</strong> chooses people using a regular
+pattern, such as every 20th name on a list. This method is easy to carry
+out and can give a sample spread across a list instead of bunched
+together at the beginning. It is the statistical equivalent of counting
+off “every tenth house on the street” — quick, tidy, and blessedly
+simple to explain. It works best when the list is not ordered in a way
+that creates hidden patterns. If the list has a pattern that matches the
+sampling interval, systematic sampling can accidentally miss or overuse
+certain groups. If every twentieth name on the list happens to be a
+business address, your “household” survey just became something else
+entirely.</p>
+<p><strong>Multistage sampling</strong> combines more than one sampling
+step. For streaming spending, the researcher might first select states,
+then cities within those states, and then households within those
+cities. It is sampling within sampling within sampling, like zooming in
+on a map until you can see the front doors. This method is helpful when
+the population is large and a full individual-level list is not
+available. It can be efficient, but it also adds complexity and can
+introduce problems at more than one stage if the earlier steps are not
+well designed. Every layer is a chance to drift off course, and drift
+compounds.</p>
+<p><strong>Convenience sampling</strong> is the easiest method to use
+because it relies on people who are easiest to reach. The researcher
+might survey shoppers at a mall or people in a campus cafeteria about
+their streaming bills. It is the “ask whoever is standing closest”
+school of research, and it is tempting for one very human reason: it is
+fast. This can be useful for a quick pilot study, but it is weak for
+representing the population. The people who are easiest to reach are
+often not typical of the full population — mall shoppers are not every
+household, and neither are college students — so convenience sampling
+can create <strong>sampling bias</strong>.</p>
+<p>Another problem is <strong>self-selection bias</strong>. This happens
+when people decide for themselves whether to become part of the sample.
+For example, if the researcher posts a survey online and only people who
+care strongly about streaming costs choose to respond, the sample may be
+very different from the population. The people who click are not the
+population; they are the people with opinions strong enough to click.
+That makes the results harder to trust. It is a little like asking for
+volunteers to judge a baking contest and being surprised that everyone
+who shows up really cares about cake.</p>
+<p>It is also important to distinguish self-selection bias from
+<strong>non-response bias</strong>. Sampling can be done properly, but
+some selected people still may not answer. If the researcher randomly
+selects 500 households from a good frame and then many of those
+households simply do not respond, that is non-response. The sampling
+method itself may still have been fine. The problem comes later, after
+selection, when the chosen people fail to provide data. It is the
+difference between never reaching the right people and reaching them
+only to hear nothing back. That is why non-response bias is not the same
+as sampling bias, even though it can still hurt the study.</p>
+<p>So, which method would work best for the streaming-spending question?
+If the researcher wants a representative estimate of average monthly
+spending, a <strong>stratified sample</strong> often shines because
+streaming spending may differ across age, income, and household type. A
+<strong>simple random sample</strong> would also be strong if the
+sampling frame were complete. A <strong>cluster sample</strong> or
+<strong>multistage sample</strong> might be more practical if the
+population is scattered and hard to list. A <strong>convenience
+sample</strong> would be fastest, but it would be the least trustworthy
+for drawing conclusions about everyone. The fastest answer is rarely the
+truest answer, and in statistics the two are usually in competition.</p>
+<p>In the end, the choice of sampling method matters because it affects
+how representative the sample is. A good sample helps the researcher
+estimate the population <strong>parameter</strong> from the sample
+<strong>statistic</strong> with more confidence. A poor frame, a biased
+selection process, or a self-selected group can make the results
+misleading even before any analysis begins. The math cannot fix a sample
+that was never representative in the first place — but a sample that is,
+can tell you something true about a country that never once opened its
+bills for you.</p>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

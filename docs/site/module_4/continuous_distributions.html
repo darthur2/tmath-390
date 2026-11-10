@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How Do We Model Measurements and Waiting Times?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How Do We Model Measurements and Waiting
+Times?</h1>
+
+
+
+<p>Probability models give us a compact way to describe uncertainty and
+answer questions about it. For each distribution below, we begin with a
+scenario and ask about a probability, an average, and a variance. We
+then summarize the distribution with its PMF or PDF, CDF, expectation,
+and variance, and use those quantities to answer the questions.</p>
+<p>R’s distribution functions use a consistent naming pattern:
+<code>d</code> gives a PMF or PDF, and <code>p</code> gives a CDF.
+Setting <code>lower.tail = FALSE</code> requests an upper-tail
+probability. The examples use these functions for probabilities, and
+show how to calculate expectations and variances in R alongside each
+distribution.</p>
+<div id="exponential" class="section level2">
+<h2>Exponential</h2>
+<p>A detector records photons from a stable source at an average rate of
+\(\lambda=0.5\) photons per minute. Let
+\(X\) be the waiting time, in minutes,
+from one detection to the next. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that the next photon
+takes longer than two minutes to arrive?</li>
+<li><strong>(b)</strong> What is the average waiting time?</li>
+<li><strong>(c)</strong> What is the variance in waiting time?</li>
+</ul>
+<p>An <strong>Exponential</strong>\((\lambda)\) distribution models waiting
+times between events occurring at a constant rate. Its PDF, CDF,
+expectation, and variance are</p>
+<p>$$
+f_X(x)=\lambda e^{-\lambda x},\qquad x\geq0,
+$$</p>
+<p>$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+1-e^{-\lambda x}, &amp; x\geq0,
+\end{cases}
+\qquad E[X]=\frac{1}{\lambda},\qquad
+\operatorname{Var}[X]=\frac{1}{\lambda^2}.
+$$</p>
+<p>For part (a),</p>
+<p>$$
+P(X&gt;2)=e^{-\lambda(2)}=e^{-1}\approx0.3679.
+$$</p>
+<p>R evaluates this upper-tail probability with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">2</span>, <span class="at">rate =</span> <span class="fl">0.5</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3678794</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Probability that the wait is between 1 and 3 minutes</span></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">pexp</span>(<span class="dv">3</span>, <span class="at">rate =</span> <span class="fl">0.5</span>) <span class="sc">-</span> <span class="fu">pexp</span>(<span class="dv">1</span>, <span class="at">rate =</span> <span class="fl">0.5</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.3834005</span></span></code></pre></div>
+<p>For part (b), \(E[X]=1/0.5=2\)
+minutes. For part (c),</p>
+<p>$$
+\operatorname{Var}[X]=1/(0.5)^2=4\text{ minutes}^2.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> <span class="dv">1</span> <span class="sc">/</span> rate, <span class="at">variance =</span> <span class="dv">1</span> <span class="sc">/</span> rate<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    mean variance </span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>       <span class="dv">2</span>        <span class="dv">4</span> </span></code></pre></div>
+</div>
+<div id="gamma" class="section level2">
+<h2>Gamma</h2>
+<p>A curing process has three sequential stages, each with an
+independent \(\operatorname{Exponential}(1)\) completion
+time in hours. Let \(X\) be the total
+processing time. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that the total
+processing time is at most four hours?</li>
+<li><strong>(b)</strong> What is the average total processing time?</li>
+<li><strong>(c)</strong> What is the variance in total processing
+time?</li>
+</ul>
+<p>The total of three independent exponential waiting times with rate
+\(1\) follows a <strong>Gamma</strong>
+distribution with shape \(\alpha=3\)
+and rate \(\beta=1\). Using shape \(\alpha\) and rate \(\beta\), its PDF, CDF, expectation, and
+variance are</p>
+<p>$$
+f_X(x)=\frac{\beta^\alpha}{\Gamma(\alpha)}x^{\alpha-1}e^{-\beta
+x},\qquad x\geq0,
+$$</p>
+<p>$$
+F_X(x)=
+\begin{cases}
+0, &amp; x&lt;0,\\
+\dfrac{\gamma(\alpha,\beta x)}{\Gamma(\alpha)}, &amp; x\geq0,
+\end{cases}
+\qquad E[X]=\frac{\alpha}{\beta},\qquad
+\operatorname{Var}[X]=\frac{\alpha}{\beta^2},
+$$</p>
+<p>where \(\Gamma\) is the gamma
+function and \(\gamma\) is the lower
+incomplete gamma function, $$
+\gamma(a,z)=\int_0^z t^{a-1}e^{-t}\,dt.
+$$ This shape–rate convention matches R’s <code>dgamma()</code>
+and <code>pgamma()</code> functions.</p>
+<p>For part (a), since \(\alpha=3\) is
+an integer, the probability can be written</p>
+<p>$$
+P(X\leq4)=1-e^{-4}\left(1+4+\frac{4^2}{2!}\right)
+=1-13e^{-4}\approx0.7619.
+$$</p>
+<p>R evaluates the Gamma CDF with:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">rate =</span> <span class="dv">1</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7618967</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Upper-tail probability beyond 4 hours</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">pgamma</span>(<span class="dv">4</span>, <span class="at">shape =</span> <span class="dv">3</span>, <span class="at">rate =</span> <span class="dv">1</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2381033</span></span></code></pre></div>
+<p>The same CDF is the lower incomplete gamma function divided by the
+complete gamma function. R has no separate unregularized
+lower-incomplete-gamma function, so compute its defining integral with
+<code>integrate()</code> and divide by <code>gamma(3)</code>:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>lower_gamma <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(t) t<span class="sc">^</span>(<span class="dv">3</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="sc">-</span>t),</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                         <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="dv">4</span>)<span class="sc">$</span>value</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>lower_gamma <span class="sc">/</span> <span class="fu">gamma</span>(<span class="dv">3</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.7618967</span></span></code></pre></div>
+<p>For part (b), \(E[X]=3/1=3\) hours.
+For part (c),</p>
+<p>$$
+\operatorname{Var}[X]=3/1^2=3\text{ hours}^2.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> shape <span class="sc">/</span> rate, <span class="at">variance =</span> shape <span class="sc">/</span> rate<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    mean variance </span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>       <span class="dv">3</span>        <span class="dv">3</span> </span></code></pre></div>
+</div>
+<div id="beta" class="section level2">
+<h2>Beta</h2>
+<p>A plant pathologist models the fraction \(X\) of a leaf’s area affected by disease
+with a <strong>Beta</strong> distribution having \(\alpha=2\) and \(\beta=5\). We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that more than half of
+a leaf’s area is affected?</li>
+<li><strong>(b)</strong> What is the average fraction affected across
+leaves?</li>
+<li><strong>(c)</strong> What is the variance in the affected
+fraction?</li>
+</ul>
+<p>A <strong>Beta</strong>\((\alpha,\beta)\) distribution models values
+between zero and one. Its PDF, CDF, expectation, and variance are</p>
+<p>$$
+f_X(x)=\frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)},
+\qquad 0&lt;x&lt;1,
+$$</p>
+<p>$$
+F_X(x)=
+\begin{cases}
+0, &amp; x\leq0,\\
+I_x(\alpha,\beta), &amp; 0&lt;x&lt;1,\\
+1, &amp; x\geq1,
+\end{cases}
+\qquad E[X]=\frac{\alpha}{\alpha+\beta},\qquad
+\operatorname{Var}[X]=
+\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)},
+$$</p>
+<p>where \(B(\alpha,\beta)\) is the
+beta function and \(I_x(\alpha,\beta)\)
+is the regularized incomplete beta function:</p>
+<p>$$
+I_x(\alpha,\beta)=\frac{1}{B(\alpha,\beta)}
+\int_0^x t^{\alpha-1}(1-t)^{\beta-1}\,dt.
+$$</p>
+<p>For part (a),</p>
+<p>$$
+P(X&gt;0.5)=1-I_{0.5}(2,5)=0.109375\approx0.1094.
+$$</p>
+<p>Use <code>pbeta()</code> to evaluate the upper tail:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">pbeta</span>(<span class="fl">0.5</span>, <span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">5</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.109375</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co"># Probability that the fraction is between 0.2 and 0.6</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">pbeta</span>(<span class="fl">0.6</span>, <span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">5</span>) <span class="sc">-</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">pbeta</span>(<span class="fl">0.2</span>, <span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">5</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6144</span></span></code></pre></div>
+<p>Alternatively, use <code>beta()</code> for \(B(2,5)\) and integrate the beta density’s
+numerator to form \(I_{0.5}(2,5)\):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>beta_2_5 <span class="ot">&lt;-</span> <span class="fu">beta</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>incomplete_beta <span class="ot">&lt;-</span> <span class="fu">integrate</span>(<span class="cf">function</span>(t) t<span class="sc">^</span>(<span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> t)<span class="sc">^</span>(<span class="dv">5</span> <span class="sc">-</span> <span class="dv">1</span>),</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>                             <span class="at">lower =</span> <span class="dv">0</span>, <span class="at">upper =</span> <span class="fl">0.5</span>)<span class="sc">$</span>value</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="dv">1</span> <span class="sc">-</span> incomplete_beta <span class="sc">/</span> beta_2_5</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.109375</span></span></code></pre></div>
+<p>For part (b), \(E[X]=2/(2+5)=2/7\approx0.2857\). For part
+(c),</p>
+<p>$$
+\operatorname{Var}[X]=\frac{(2)(5)}{(2+5)^2(2+5+1)}
+=\frac{5}{196}\approx0.0255.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>beta_shape <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> alpha <span class="sc">/</span> (alpha <span class="sc">+</span> beta_shape),</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="at">variance =</span> alpha <span class="sc">*</span> beta_shape <span class="sc">/</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>    ((alpha <span class="sc">+</span> beta_shape)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> (alpha <span class="sc">+</span> beta_shape <span class="sc">+</span> <span class="dv">1</span>)))</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>     mean  variance </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fl">0.2857143</span> <span class="fl">0.0255102</span> </span></code></pre></div>
+</div>
+<div id="normal" class="section level2">
+<h2>Normal</h2>
+<p>A load cell has calibration errors that follow a
+<strong>Normal</strong> distribution with mean \(0\) and standard deviation \(0.5\): \(X\sim\operatorname{Normal}(0,0.5)\). A
+device passes when the error is within \(\pm0.5\) units. We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that a random
+calibration error is within the tolerance?</li>
+<li><strong>(b)</strong> What is the average calibration error?</li>
+<li><strong>(c)</strong> What is the variance in calibration error?</li>
+</ul>
+<p>Let \(Z\sim\operatorname{Normal}(0,1)\). Its
+density and CDF are</p>
+<p>$$
+\phi(z)=\frac{1}{\sqrt{2\pi}}e^{-z^2/2},\qquad
+\Phi(z)=P(Z\leq z)=\int_{-\infty}^{z}\phi(t)\,dt.
+$$</p>
+<p>Thus, \(\Phi\) is the
+<strong>standard Normal</strong> CDF, and R evaluates it with
+<code>pnorm(z)</code>. A <strong>Normal</strong>\((\mu,\sigma)\) distribution is symmetric
+around \(\mu\). Its PDF, CDF,
+expectation, and variance are</p>
+<p>$$
+f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}
+\exp\!\left(-\frac{(x-\mu)^2}{2\sigma^2}\right),
+\qquad -\infty&lt;x&lt;\infty,
+$$</p>
+<p>$$
+F_X(x)=\Phi\!\left(\frac{x-\mu}{\sigma}\right),
+\qquad E[X]=\mu,\qquad \operatorname{Var}[X]=\sigma^2,
+$$</p>
+<p>Converting a Normal variable to \(Z=(X-\mu)/\sigma\) is called
+<strong>standardization</strong>; the resulting variable has the
+standard Normal distribution.</p>
+<p>For part (a),</p>
+<p>$$
+P(-0.5&lt;X&lt;0.5)=
+\Phi\!\left(\frac{0.5-0}{0.5}\right)-
+\Phi\!\left(\frac{-0.5-0}{0.5}\right)
+\approx0.6827.
+$$</p>
+<p>R computes this difference of CDF values with:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">0.5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.5</span>) <span class="sc">-</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>  <span class="fu">pnorm</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6826895</span></span></code></pre></div>
+<p>For part (b), the average error is \(E[X]=\mu=0\). For part (c),</p>
+<p>$$
+\operatorname{Var}[X]=\sigma^2=(0.5)^2=0.25\text{ units}^2.
+$$</p>
+<p>In R:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mean =</span> mu, <span class="at">variance =</span> sigma<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>    mean variance </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>    <span class="fl">0.00</span>     <span class="fl">0.25</span> </span></code></pre></div>
+</div>
+<div id="log-normal" class="section level2">
+<h2>Log-Normal</h2>
+<p>Completion times for additive-manufacturing jobs are positive and
+vary multiplicatively from job to job. Suppose \(\ln
+X\sim\operatorname{Normal}(\mu_{\log},\sigma_{\log})\), with
+\(\mu_{\log}=1\) and \(\sigma_{\log}=0.5\), where \(\sigma_{\log}\) is the standard deviation
+of \(\ln X\). We ask:</p>
+<ul>
+<li><strong>(a)</strong> What is the probability that a job takes more
+than four hours?</li>
+<li><strong>(b)</strong> What is the average completion time?</li>
+<li><strong>(c)</strong> What is the variance in completion time?</li>
+</ul>
+<p>A <strong>Log-Normal</strong>\((\mu_{\log},\sigma_{\log})\) variable is
+positive and has a Normally distributed logarithm. Its PDF, CDF,
+expectation, and variance are</p>
+<p>$$
+f_X(x)=\frac{1}{x\sigma_{\log}\sqrt{2\pi}}
+\exp\!\left(-\frac{(\ln x-\mu_{\log})^2}{2\sigma_{\log}^2}\right),
+\qquad x&gt;0,
+$$</p>
+<p>$$
+F_X(x)=
+\begin{cases}
+0, &amp; x\leq0,\\
+\Phi\!\left(\dfrac{\ln x-\mu_{\log}}{\sigma_{\log}}\right), &amp;
+x&gt;0.
+\end{cases}
+$$</p>
+<p>$$
+E[X]=\exp\!\left(\mu_{\log}+\frac{\sigma_{\log}^2}{2}\right),
+\qquad
+\operatorname{Var}[X]=
+\left(\exp(\sigma_{\log}^2)-1\right)
+\exp\!\left(2\mu_{\log}+\sigma_{\log}^2\right).
+$$</p>
+<p>For part (a), use the upper tail of the Log-Normal CDF:</p>
+<p>$$
+P(X&gt;4)=1-F_X(4)\approx0.2199.
+$$</p>
+<p>R computes this upper-tail probability with
+<code>plnorm()</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">plnorm</span>(<span class="dv">4</span>, <span class="at">meanlog =</span> <span class="dv">1</span>, <span class="at">sdlog =</span> <span class="fl">0.5</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.2198829</span></span></code></pre></div>
+<p>For part (b),</p>
+<p>$$
+E[X]=\exp\!\left(1+\frac{0.5^2}{2}\right)
+=\exp(1.125)\approx3.0802\text{ hours}.
+$$</p>
+<p>For part (c),</p>
+<p>$$
+\operatorname{Var}[X]=
+\left(\exp(0.5^2)-1\right)\exp(2(1)+0.5^2)
+\approx2.6948\text{ hours}^2.
+$$</p>
+<p>The moment formulas can also be evaluated in R using
+<code>exp()</code>:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="fu">exp</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.080217</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>(<span class="fu">exp</span>(<span class="fl">0.5</span><span class="sc">^</span><span class="dv">2</span>) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">exp</span>(<span class="dv">2</span> <span class="sc">*</span> <span class="dv">1</span> <span class="sc">+</span> <span class="fl">0.5</span><span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.694758</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>

@@ -1,12 +1,13 @@
 ---
-title: "TMath 390 Module 5"
+title: "TMath 390 Readings"
 ---
 
-This is a pilot of the Module 5 readings built with R Markdown and served through GitHub Pages.
+This site hosts the course readings as R Markdown-generated HTML pages.
 
-## Readings
+## Modules
 
-- [What Does the Likelihood Tell Us?](module_5/what_does_the_likelihood_tell_us.html)
-- [How Do We Find the Maximum Likelihood Estimate?](module_5/how_do_we_find_the_maximum_likelihood_estimate.html)
-
-The older Markdown/HTML readings remain in `docs/module_5/reading_materials/` until this pilot is validated.
+- [Module 1: Introduction to Statistics](module_1/index.html)
+- [Module 2: Exploratory Data Analysis](module_2/index.html)
+- [Module 3: Probability](module_3/index.html)
+- [Module 4: Distributions and Statistical Models](module_4/index.html)
+- [Module 5: Maximum Likelihood Estimation](module_5/index.html)

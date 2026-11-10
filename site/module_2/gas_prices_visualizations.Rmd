@@ -1,0 +1,137 @@
+---
+title: "What Do Gas Prices Look Like? Visualizing the Data"
+---
+
+```{r setup, include=FALSE}
+# Set the working directory to the course repository root so that
+# paths such as data/gas_prices_states_original.csv work when knitting
+knitr::opts_knit$set(root.dir = normalizePath(file.path(dirname(knitr::current_input()), "..", "..")))
+
+# Plot settings
+knitr::opts_chunk$set(fig.width = 5.5, fig.height = 4, fig.align = "center", message = FALSE)
+
+# Load the packages used throughout
+suppressPackageStartupMessages({
+  library(dplyr)
+  library(ggplot2)
+})
+```
+
+
+Numbers can tell you how much a gallon of gas costs, but they do not always show you the shape of the story. A list of 51 prices is a spreadsheet, not a picture, and before the spreadsheets there were always pictures. This narrative is about looking — about turning the gas price dataset into plots that reveal the shape of the data and the relationships hidden inside it. The guiding rule is simple: the kind of variable you are looking at decides the kind of plot you should draw, and the plot you draw tells you which numeric summaries you can trust.
+
+We need the same setup as before, so let us load the tools and the data:
+
+```{r}
+# Load the tidyverse and ggplot2 functions we will use
+library(dplyr)
+library(ggplot2)
+
+# Read the gas price data into a data frame
+gas <- read.csv("data/gas_prices_states_original.csv")
+```
+
+The price of gas is a **quantitative variable**, and for a quantitative variable the classic univariate plot is a **histogram**. A histogram divides the range of prices into bins and draws a bar whose height counts how many states fall in each bin. It turns the abstract idea of a distribution into something you can see:
+
+```{r, fig.cap="Histogram of regular gas prices"}
+# Histogram of the regular gas prices
+ggplot(gas, aes(x = regular_price)) +
+  geom_histogram(binwidth = 0.2, fill = "steelblue") +
+  labs(title = "Regular gas prices by state") +
+  theme_minimal()
+```
+
+Look at the shape. Most states crowd together on the left, around \$4.00 to \$4.50, and then a long tail stretches away to the right toward California's \$6.38. The bulk of the data sits in one cluster and a few states trail far behind it. That lopsided shape matters enormously, because it tells us which numeric summaries to trust. When a distribution has a long tail of large values like this one, the **mean** gets pulled toward the tail — remember that it is \$4.39, higher than the **median** of \$4.29 — and the **standard deviation** gets inflated by the distant states. For skewed data like these, the **median** and the **interquartile range (IQR)** are the honest choices: they are built to ignore the extremes. If the histogram instead showed a symmetric, bell-shaped pile of data, the **mean** and **standard deviation** would be the natural pair. The plot tells you which summary deserves your trust.
+
+Another univariate view of the same quantitative variable is the **boxplot**, which draws the five-number summary — minimum, first quartile, median, third quartile, maximum — as a box with whiskers, and plots any unusually extreme values as separate points:
+
+```{r, fig.cap="Boxplot of regular gas prices"}
+# Boxplot of the regular gas prices
+ggplot(gas, aes(y = regular_price)) +
+  geom_boxplot(fill = "seagreen") +
+  labs(title = "Regular gas prices by state") +
+  theme_minimal()
+```
+
+The boxplot shows the same skew at a glance: the median line sits low in the box, and the upper whisker is long. It also does something the histogram cannot do as clearly — it points directly at the four states that stick out beyond the whisker: Nevada, Washington, Hawaii, and California. Those are **outliers**, and we will look at them more closely in a moment.
+
+Population is also a quantitative variable, but it is a **discrete variable** — a count of whole people. A histogram is still the right plot, because discrete counts can be binned just like continuous measurements:
+
+```{r, fig.cap="Histogram of state populations"}
+# Histogram of state populations
+ggplot(gas, aes(x = population)) +
+  geom_histogram(binwidth = 3000000, fill = "tomato") +
+  labs(title = "State populations") +
+  theme_minimal()
+```
+
+This distribution is even more extreme than the prices. Almost every state has fewer than about 8 million people, while a couple — Texas and, towering over everything, California with 39 million — sit far to the right. The mean population is about 6.7 million, but the median is only about 4.6 million, so more than half the states have fewer people than the "average" state. For a distribution this skewed, the median and IQR are clearly the summaries to report, and the plot is what makes that decision obvious:
+
+```{r}
+# Mean and median population
+gas %>%
+  summarize(
+    mean_pop   = mean(population),
+    median_pop = median(population)
+  )
+```
+
+Now suppose the variable we care about is not a number at all. The region a state belongs to — Northeast, Midwest, South, or West — is a **categorical variable**, and a histogram makes no sense for categories: you cannot bin "South" and "West" along a number line. The appropriate plot for a categorical variable is a **bar chart**, which draws one bar per category with a height equal to the count:
+
+```{r, fig.cap="Bar chart of states by region"}
+# Bar chart of the region variable
+ggplot(gas, aes(x = region)) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Number of states by region") +
+  theme_minimal()
+```
+
+The bar chart shows at a glance that the South has the most states — 17 of the 51 — followed by the West with 13, the Midwest with 12, and the Northeast with 9. It also points straight at the summary that fits a categorical variable: not a mean, but a **proportion**, the fraction of observations in each category. A histogram and a bar chart look similar, but they are built for different kinds of variables, and that difference is the whole point.
+
+Univariate plots show us one variable at a time, but most interesting questions involve how two variables move together. When one variable is **categorical** and the other is **quantitative**, the natural plot is a set of side-by-side **boxplots** — one boxplot for each category, drawn along the same scale:
+
+```{r, fig.cap="Boxplots of gas price by region"}
+# Boxplots of gas price for each region
+ggplot(gas, aes(x = region, y = regular_price)) +
+  geom_boxplot(fill = "seagreen") +
+  labs(title = "Gas price by region") +
+  theme_minimal()
+```
+
+The picture is striking. The West's box sits far above the others, with a median around \$4.94 and a wide, tall box, while the South's box hovers near \$4.03. Comparing regions this way is a **bivariate** analysis, and the boxplots invite a bivariate numeric summary: compute the mean, median, and standard deviation of price within each region:
+
+```{r}
+# Group the data by region
+gas %>%
+  group_by(region) %>%
+  # Mean, median, and SD of price within each region
+  summarize(
+    mean_price   = mean(regular_price),
+    median_price = median(regular_price),
+    sd_price     = sd(regular_price)
+  )
+```
+
+The numbers agree with the picture. The West averages about \$5.02 a gallon with a standard deviation of \$0.60 — the most expensive and the most variable region. The South averages about \$4.07 with a standard deviation of only \$0.15, the cheapest and the steadiest. Even the medians tell the same story: about \$4.94 in the West versus about \$4.03 in the South. The boxplots showed us where to look, and the grouped summaries put exact numbers on what we saw.
+
+Finally, when both variables are **quantitative**, the right plot is a **scatterplot** — one point per observation, with one variable on each axis. Do states that tax gasoline more heavily also sell it for more? Plot price against the gasoline tax and look:
+
+```{r, fig.cap="Scatterplot of price against gasoline tax"}
+# Scatterplot of price against gasoline tax
+ggplot(gas, aes(x = gas_tax, y = regular_price)) +
+  geom_point(color = "steelblue") +
+  labs(title = "Price vs. gasoline tax") +
+  theme_minimal()
+```
+
+The cloud of points climbs gently from left to right, but it is loose and scattered rather than tight. The form is roughly linear, the direction is positive, and the strength is weak — there is a relationship, but the tax is only a small part of the story. We can attach a single number to that strength:
+
+```{r}
+# Correlation between price and tax
+gas %>%
+  summarize(r = cor(regular_price, gas_tax))
+```
+
+The correlation is about 0.24, a weak positive value that matches what the eye sees. Notice, too, that the points for California and Hawaii float far above the cloud — high prices despite modest taxes, because shipping fuel across the ocean costs more than any tax. A scatterplot makes it easy to spot those states before any arithmetic is done.
+
+Put the plots side by side and the method is clear. A **histogram** for a single quantitative variable, a **bar chart** for a single categorical variable, **side-by-side boxplots** when a categorical variable meets a quantitative one, and a **scatterplot** when two quantitative variables meet. The plots do more than decorate the analysis — they reveal shape and skew, flag outliers, compare groups, and expose relationships, and each of those visual discoveries tells us which numeric summaries deserve our trust and which would quietly mislead us.

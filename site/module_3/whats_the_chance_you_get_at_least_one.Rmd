@@ -1,0 +1,39 @@
+---
+title: "What's the Chance You Get at Least One?"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+Roll five standard dice. What is the probability you get at least one 6? You could try to add up every way to get a 6 — exactly one 6, exactly two 6s, exactly three, exactly four, exactly five. That is a lot of work for a simple question. There is a much easier path: instead of counting what you *want*, count what you *do not want* and subtract from 1.
+
+Using the Fundamental Theorem of Counting, the total number of possible outcomes for five dice is $6^5 = 7776$. The only outcome you want to avoid is rolling no 6s at all, which means each die shows one of the other five faces: $5^5 = 3125$ outcomes. Since classical probability says $P(E) = |E| / |S|$, the probability of the opposite event is
+
+$$
+P(\text{at least one 6}) = 1 - \frac{3125}{7776} \approx 1 - 0.402 = 0.598.
+$$
+
+This is the **complement rule**. For any event $E$, the event that $E$ does *not* occur is called its **complement**, denoted $E^c$ (or sometimes $E'$). Because $E$ and $E^c$ are mutually exclusive and together cover the entire sample space,
+
+$$
+P(E^c) = 1 - P(E) \qquad \text{or} \qquad P(\text{not } E) = 1 - P(E).
+$$
+
+The complement rule turns hard problems into easy ones. Draw three cards from a standard deck without replacement. What is the probability of at least one heart? Computing the probability of exactly one heart, exactly two, and exactly three would take several steps. The complement — no hearts at all — is simpler. The total number of three-card hands is $\binom{52}{3}$, and the number with no hearts is $\binom{39}{3}$. So
+
+$$
+P(\text{at least one heart}) = 1 - \frac{\binom{39}{3}}{\binom{52}{3}} \approx 1 - 0.414 = 0.586.
+$$
+
+The next time a probability question asks for "at least one," stop before you start adding. Ask yourself: what is the one thing I *do not* want to happen? If that is easier to calculate, the complement rule gives you the rest for free. Sometimes the easiest way to find what you want is to look at what you do not.

@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>What Happens When You Shift or Rescale a Variable?</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">What Happens When You Shift or Rescale a
+Variable?</h1>
+
+
+
+<p>A bike-share operator reviews rental logs in equal 30-minute periods.
+The records are nonnegative counts, averaging about two rentals per
+period, with rentals arriving throughout the day rather than in obvious
+bursts. The station earns \(\$5\) per
+rental, and the operator wants to know how often revenue meets a \(\$10\) target. <strong>What is the
+probability that revenue in a 30-minute period is at least \(\$10\)?</strong></p>
+<p>A shipping manager faces a different uncertainty. Repeated
+measurements of a product’s mass cluster around \(0.50\) kilograms, with a standard deviation
+of about \(0.02\) kilograms, and form a
+roughly symmetric, bell-shaped pattern. The shipping package adds \(50\) grams. <strong>What are the average
+total shipping weight and its variance?</strong> These answers help
+estimate postage and check package limits.</p>
+<p>In the first problem, we need a probability for a transformed
+discrete count. In the second, we need the mean and variance of a
+transformed continuous measurement. Both problems become easier once we
+see how a <strong>linear transformation</strong> changes a
+distribution.</p>
+<div id="transforming-a-distribution" class="section level2">
+<h2>Transforming a distribution</h2>
+<p>Suppose \(Y=g(X)\) and the
+transformation is one-to-one on the possible values of \(X\). Each possible value of \(Y\) then comes from exactly one value of
+\(X\). For a discrete random
+variable,</p>
+<p>$$
+P_Y(y)=P_X\!\left(g^{-1}(y)\right),
+$$</p>
+<p>for values \(y\) in the transformed
+support. The transformation changes the values and support; the
+probability attached to each value follows its corresponding value of
+\(X\).</p>
+<p>For a continuous random variable, probabilities can be found by
+transforming the CDF. If \(g\) is
+increasing,</p>
+<p>$$
+F_Y(y)=P(Y\leq y)=P\!\left(X\leq g^{-1}(y)\right)
+=F_X\!\left(g^{-1}(y)\right).
+$$</p>
+<p>If \(g\) is decreasing, applying the
+inverse reverses the inequality:</p>
+<p>$$
+F_Y(y)=P(Y\leq y)=P\!\left(X\geq g^{-1}(y)\right)
+=1-F_X\!\left(g^{-1}(y)\right),
+$$</p>
+<p>when \(X\) is continuous. For a
+distribution with point masses, use \(1-F_X(g^{-1}(y)^-)\) instead, where \(F_X(t^-)=P(X&lt;t)\).</p>
+<p>For either increasing or decreasing transformations, the continuous
+PDF is</p>
+<p>$$
+f_Y(y)=f_X\!\left(g^{-1}(y)\right)
+\left|\frac{d}{dy}g^{-1}(y)\right|.
+$$</p>
+<p>The absolute value accounts for a decreasing transformation as well
+as an increasing one. For a linear transformation \(Y=aX+b\), with \(a\ne0\), the inverse is \(g^{-1}(y)=(y-b)/a\). Thus the continuous
+PDF is</p>
+<p>$$
+f_Y(y)=\frac{1}{|a|}f_X\!\left(\frac{y-b}{a}\right),
+$$</p>
+<p>and the discrete PMF is</p>
+<p>$$
+P_Y(y)=P_X\!\left(\frac{y-b}{a}\right),
+$$</p>
+<p>at values in the transformed support.</p>
+</div>
+<div id="what-happens-to-the-mean-and-variance" class="section level2">
+<h2>What happens to the mean and variance?</h2>
+<p>The expected value shifts and scales with the transformation, while
+the variance is not affected by adding a constant. For \(Y=aX+b\),</p>
+<p>$$
+E[Y]=aE[X]+b,
+\qquad
+\operatorname{Var}[Y]=a^2\operatorname{Var}[X].
+$$</p>
+<p>The square on \(a\) is important:
+variance is measured in squared units. We can now use the distribution
+transformation to answer the bike-share operator’s probability question,
+and the moment formulas to help the shipping manager.</p>
+</div>
+<div id="answering-the-bike-share-question-yax" class="section level2">
+<h2>Answering the bike-share question: \(Y=aX\)</h2>
+<p>The number of rentals is a count of events in a fixed time interval,
+and the records suggest a steady average rate with arrivals occurring
+independently. A Poisson model is appropriate for this kind of count, so
+let \(X\sim\operatorname{Poisson}(\lambda=2)\).
+The station earns \(\$5\) per rental,
+making its revenue \(Y=5X\) dollars. We
+want the probability that revenue is at least \(\$10\).</p>
+<p>The transformation is one-to-one on the possible counts: \(X=0,1,2,\ldots\) maps to \(Y=0,5,10,\ldots\). Since</p>
+<p>$$
+P_X(x)=\frac{e^{-2}2^x}{x!},
+$$</p>
+<p>the PMF of revenue is</p>
+<p>$$
+P_Y(y)=
+\begin{cases}
+\displaystyle e^{-2}\frac{2^{y/5}}{(y/5)!}, &amp;
+y=0,5,10,\ldots,\\[6pt]
+0, &amp; \text{otherwise}.
+\end{cases}
+$$</p>
+<p>Revenue of at least \(\$10\) means
+at least two rentals. Therefore,</p>
+<p>$$
+P(Y\geq10)=P(X\geq2)
+=1-F_X(1)
+=1-e^{-2}(1+2)
+\approx0.5940.
+$$</p>
+<p>R can calculate this Poisson upper-tail probability directly:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">ppois</span>(<span class="dv">1</span>, <span class="at">lambda =</span> <span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5939942</span></span></code></pre></div>
+<p>The calculation uses the original count distribution after
+translating the event into terms of \(X\). Equivalently, one could add the
+transformed PMF values for \(y=10,15,20,\ldots\).</p>
+</div>
+<div id="answering-the-shipping-question-yaxb" class="section level2">
+<h2>Answering the shipping question: \(Y=aX+b\)</h2>
+<p>Because the repeated mass measurements are continuous and
+approximately bell-shaped, we model the product mass as \(X\sim\operatorname{Normal}(\mu=0.50,\sigma=0.02)\)
+kilograms. The reported shipping weight in grams is</p>
+<p>$$
+Y=1000X+50.
+$$</p>
+<p>Here \(a=1000\) converts kilograms
+to grams and \(b=50\) adds the package.
+The average shipping weight is</p>
+<p>$$
+E[Y]=1000E[X]+50
+=1000(0.50)+50
+=550\text{ grams}.
+$$</p>
+<p>Adding the package weight shifts every shipment by the same amount,
+so it does not change the variance. Converting kilograms to grams
+multiplies the variance by \(1000^2\):</p>
+<p>$$
+\operatorname{Var}[Y]=1000^2\operatorname{Var}[X]
+=1000^2(0.02)^2
+=400\text{ grams}^2.
+$$</p>
+<p>The standard deviation is \(\sqrt{400}=20\) grams. It scales by \(1000\), but unlike the variance, it is not
+squared.</p>
+<p>R can calculate the transformed moments and density using the same
+formulas. Here, \(Y=1000X+50\) for the
+shipping-weight example:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>mean_x <span class="ot">&lt;-</span> <span class="fl">0.50</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>sd_x <span class="ot">&lt;-</span> <span class="fl">0.02</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>mean_y <span class="ot">&lt;-</span> a <span class="sc">*</span> mean_x <span class="sc">+</span> b</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>variance_y <span class="ot">&lt;-</span> a<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> sd_x<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>mean_y</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">550</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>variance_y</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">400</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co"># Density of Y at y = 550 grams</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="fu">dnorm</span>((<span class="dv">550</span> <span class="sc">-</span> b) <span class="sc">/</span> a, <span class="at">mean =</span> mean_x, <span class="at">sd =</span> sd_x) <span class="sc">/</span> <span class="fu">abs</span>(a)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.01994711</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co"># CDF of Y at y = 550 grams</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="fu">pnorm</span>((<span class="dv">550</span> <span class="sc">-</span> b) <span class="sc">/</span> a, <span class="at">mean =</span> mean_x, <span class="at">sd =</span> sd_x)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co"># PMF of revenue Y = 5X, where X ~ Poisson(2)</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>p_revenue <span class="ot">&lt;-</span> <span class="cf">function</span>(y) {</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  result <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="fu">length</span>(y))</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  on_support <span class="ot">&lt;-</span> y <span class="sc">&gt;=</span> <span class="dv">0</span> <span class="sc">&amp;</span> y <span class="sc">%%</span> <span class="dv">5</span> <span class="sc">==</span> <span class="dv">0</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  result[on_support] <span class="ot">&lt;-</span> <span class="fu">dpois</span>(y[on_support] <span class="sc">/</span> <span class="dv">5</span>, <span class="at">lambda =</span> <span class="dv">2</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  result</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>}</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="fu">p_revenue</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>, <span class="dv">7</span>))</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1353353</span> <span class="fl">0.2706706</span> <span class="fl">0.2706706</span> <span class="fl">0.0000000</span></span></code></pre></div>
+</div>
+<div id="the-pattern" class="section level2">
+<h2>The pattern</h2>
+<p>For a one-to-one linear transformation, probabilities move to the
+corresponding transformed support values. To find a probability,
+translate the event back to the original variable or add the appropriate
+transformed PMF/PDF probabilities. For moments, use</p>
+<p>$$
+E[aX+b]=aE[X]+b,
+\qquad
+\operatorname{Var}[aX+b]=a^2\operatorname{Var}[X].
+$$</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</body>
+</html>
