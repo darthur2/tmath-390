@@ -298,8 +298,8 @@ margin: 0 0 0.6rem;
 
 <h1 class="title toc-ignore">How Do We Find the Maximum Likelihood
 Estimate?</h1>
-<h3 class="subtitle">Deriving estimates by hand—and using R when no
-formula exists.</h3>
+<h3 class="subtitle">Finding the maximum by hand when possible and with
+R’s optimize() when necessary.</h3>
 
 
 
@@ -307,14 +307,15 @@ formula exists.</h3>
 estimate of its average mobile-order rate \(\lambda\). A bike-share maintenance team
 has a different problem: it records repair times and models them with a
 Gamma distribution. The team knows the rate parameter but needs to
-estimate the shape parameter \(\alpha\). The first problem has a clean
-formula. The second does not. Both require the same central idea: find
-the parameter value that makes the observed data most plausible.</p>
+estimate the shape parameter \(\alpha\). The first problem can be solved
+by hand. The second requires a numerical search. Both require the same
+central idea: find the parameter value that makes the observed data most
+plausible.</p>
 <p>That value is the <strong>maximum likelihood estimate</strong>, or
 MLE.</p>
 <div id="the-maximum-likelihood-idea" class="section level2">
 <h2>The maximum likelihood idea</h2>
-<p>The likelihood \(L(\theta)\) scores
+<p>The likelihood \(L(\theta)\) ranks
 each possible parameter value. The MLE is the value that maximizes
 it:</p>
 <p>$$
@@ -327,12 +328,11 @@ log-likelihood instead:</p>
 $$</p>
 <p>The peak of \(\ell(\theta)\) is the
 same as the peak of \(L(\theta)\), but
-the log-likelihood is easier to differentiate and numerically safer to
-work with.</p>
+the log-likelihood is easier to work with and numerically safer to
+maximize.</p>
 <p>For a one-parameter model, we can often see the MLE as the highest
-point of a curve. The next sections show how to find that point
-analytically when a formula is available, and numerically when it is
-not.</p>
+point of a curve. The next sections show how to find that point by hand
+when possible and with <code>optimize()</code> when it is not.</p>
 </div>
 <div id="finding-the-poisson-mle-by-hand" class="section level2">
 <h2>Finding the Poisson MLE by hand</h2>
@@ -381,8 +381,8 @@ log-likelihood.</p>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.7</span></span></code></pre></div>
 <p>The dashed line marks the peak at \(\hat\lambda=3.7\).</p>
 </div>
-<div id="when-there-is-no-closed-form-gamma-shape" class="section level2">
-<h2>When there is no closed form: Gamma shape</h2>
+<div id="finding-the-gamma-shape-mle-with-optimize" class="section level2">
+<h2>Finding the Gamma shape MLE with optimize()</h2>
 <p>Now consider the bike-share repair times. Suppose the times \(X_i\) are modeled as independent
 observations from a Gamma distribution with unknown shape \(\alpha&gt;0\) and known rate \(\beta=0.8\). The PDF is</p>
 <p>$$
@@ -395,28 +395,18 @@ independent observations is</p>
 \ell(\alpha)=n\alpha\ln\beta-n\ln\Gamma(\alpha)
 +(\alpha-1)\sum_{i=1}^n\ln x_i-\beta\sum_{i=1}^n x_i.
 $$</p>
-<p>Differentiating with respect to \(\alpha\) gives</p>
-<p>$$
-\ell&#39;(\alpha)=n\ln\beta-n\psi(\alpha)+\sum_{i=1}^n\ln x_i,
-$$</p>
-<p>where \(\psi(\alpha)\) is the
-digamma function. Setting the derivative equal to zero gives</p>
-<p>$$
-\psi(\alpha)=\ln\beta+\frac{1}{n}\sum_{i=1}^n\ln x_i.
-$$</p>
-<p>This equation has no algebraic solution for \(\alpha\). The digamma function cannot be
-inverted with elementary operations. We therefore need a numerical
-method to find the maximum. Notice that the rate parameter \(\beta\) would have a closed-form estimate
-if \(\alpha\) were known; it is the
-shape parameter that creates the difficulty here.</p>
+<p>The Gamma shape does not have a simple hand solution, so we search
+for the maximum of this log-likelihood numerically with
+<code>optimize()</code>. The rate parameter \(\beta\) is known here, which leaves only
+the one unknown shape parameter \(\alpha\).</p>
 </div>
 <div id="finding-the-gamma-shape-mle-numerically-in-r" class="section level2">
 <h2>Finding the Gamma shape MLE numerically in R</h2>
 <p>The analysis below uses 90 repair times, stored in
 <code>repair_time</code>. The long vector is hidden here to keep the
 reading readable.</p>
-<p>We first write the log-likelihood as an R function. Then we can
-either maximize it directly or minimize its negative.</p>
+<p>We write the log-likelihood as an R function and maximize it
+directly.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(repair_time)</span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fl">0.8</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
@@ -425,24 +415,14 @@ either maximize it directly or minimize its negative.</p>
 <span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    (alpha <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(repair_time)) <span class="sc">-</span> beta <span class="sc">*</span> <span class="fu">sum</span>(repair_time)</span>
 <span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>}</span>
 <span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>nll <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha) <span class="sc">-</span><span class="fu">loglik</span>(alpha)</span>
-<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="fu">optimize</span>(loglik, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="at">maximum =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="sc">$</span>maximum</span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.174135</span></span>
-<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="sc">$</span>objective</span>
-<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">161.1866</span></span>
-<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="fu">optimize</span>(nll, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>))</span>
-<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a><span class="sc">$</span>minimum</span>
-<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.174135</span></span>
-<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a></span>
-<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a><span class="sc">$</span>objective</span>
-<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">161.1866</span></span></code></pre></div>
-<p>Both calls return the same estimate. The first reports
-<code>$maximum</code>, the value of \(\alpha\) that maximizes the log-likelihood.
-The second reports <code>$minimum</code>, the value that minimizes the
-negative log-likelihood. For these data, both give</p>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="fu">optimize</span>(loglik, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="at">maximum =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="sc">$</span>maximum</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.174135</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="sc">$</span>objective</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">161.1866</span></span></code></pre></div>
+<p>The <code>$maximum</code> entry reports the value of \(\alpha\) that maximizes the log-likelihood.
+For these data,</p>
 <p>$$
 \hat\alpha\approx 2.174.
 $$</p>
@@ -472,29 +452,23 @@ way to check that the result is sensible.</li>
 focuses on one unknown parameter at a time.</li>
 </ul>
 </div>
-<div id="analytical-versus-numerical-a-decision-tree" class="section level2">
-<h2>Analytical versus numerical: a decision tree</h2>
-<p>The two examples suggest a simple decision rule:</p>
+<div id="choosing-a-strategy" class="section level2">
+<h2>Choosing a strategy</h2>
+<p>The two examples suggest a simple workflow:</p>
 <ol style="list-style-type: decimal">
 <li>Write the log-likelihood.</li>
-<li>Differentiate and set the derivative equal to zero.</li>
-<li>If you can solve the equation algebraically, use the closed-form
-estimate.</li>
-<li>If you cannot, use <code>optimize()</code> in R.</li>
+<li>Try to find the maximum by hand. If the likelihood equation is easy
+to solve, solve it directly.</li>
+<li>If a hand solution is not available, use <code>optimize()</code>
+over a finite interval that respects the parameter constraints.</li>
+<li>Check that the result is a genuine maximum and not an endpoint
+artifact.</li>
 </ol>
-<p>The Poisson rate has a closed form, \(\hat\lambda=\bar x\). The Gamma shape does
-not, so we optimize numerically. The same split appears throughout the
-assessments. For example, a Bernoulli probability, a Poisson rate, an
-exponential rate, a Normal mean with known variance, a Gamma rate with
-known shape, a Geometric probability, a Negative Binomial probability
-with known \(r\), and a log-normal
-standard deviation with known mean all have closed-form estimates. A
-Gamma shape, a Weibull shape, a Beta shape, and a Negative Binomial
-\(r\) generally require numerical
-optimization.</p>
-<p>The recipes do not change from one distribution to the next. Write
-the log-likelihood, differentiate when possible, and use
-<code>optimize()</code> when necessary.</p>
+<p>The Poisson rate leads to a simple hand solution, \(\hat\lambda=\bar x\). The Gamma shape does
+not, so we use <code>optimize()</code>. The same workflow applies to the
+other distributions in the assessments. Write the log-likelihood, find
+the maximum by hand when possible, and use <code>optimize()</code> when
+necessary.</p>
 </div>
 <div id="common-mistakes" class="section level2">
 <h2>Common mistakes</h2>
@@ -502,14 +476,15 @@ the log-likelihood, differentiate when possible, and use
 <ul>
 <li>Confusing a rate parameter with a mean or scale parameter. Check the
 parameterization before using a formula.</li>
-<li>Forgetting constants or factors of \(n\) when differentiating.</li>
-<li>Solving the derivative equation without checking that the solution
-is a maximum.</li>
+<li>Forgetting constants or factors of \(n\) when writing the log-likelihood.</li>
+<li>Assuming a candidate value is a maximum without checking the shape
+of the log-likelihood.</li>
 <li>Forgetting to transform an estimate when the question asks for a
 standard deviation or another function of the parameter.</li>
 <li>Using a search interval that includes invalid parameter values or
 does not contain the optimum.</li>
-<li>Using the wrong sign in the negative log-likelihood.</li>
+<li>Omitting <code>maximum = TRUE</code> when you intend to
+maximize.</li>
 <li>Reading the wrong part of the <code>optimize()</code> output.</li>
 <li>Not checking whether the optimum is inside the interval rather than
 at an endpoint.</li>
@@ -518,12 +493,12 @@ at an endpoint.</li>
 <div id="putting-the-pieces-together" class="section level2">
 <h2>Putting the pieces together</h2>
 <p>The maximum likelihood estimate is the parameter value that maximizes
-the likelihood or, equivalently, the log-likelihood. When the derivative
-equation can be solved algebraically, we get a closed-form estimate.
-When it cannot, we use <code>optimize()</code> in R to search over a
-sensible interval. The Poisson rate and the Gamma shape illustrate the
-two cases, but the same workflow applies to the other distributions in
-the quizzes and knowledge checks.</p>
+the likelihood or, equivalently, the log-likelihood. When the likelihood
+equation has a simple hand solution, use it. When it does not, use
+<code>optimize()</code> in R to search over a sensible interval. The
+Poisson rate and the Gamma shape illustrate the two cases, but the same
+workflow applies to the other distributions in the quizzes and knowledge
+checks.</p>
 </div>
 
 

@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary</title>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script><style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script><style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+.glossary-page .glossary-entry {
+margin: 0 0 1.1rem;
+padding: 1rem 1.2rem;
+background: #eef4f8;
+border: 1px solid #92aeba;
+border-radius: 10px;
+}
+.glossary-page .glossary-entry h3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.98rem;
+color: #245364;
+margin: 1.8rem 0 0.7rem;
+}
+.glossary-page .glossary-entry p {
+line-height: 1.6;
+margin: 0 0 0.7rem;
+}
+.glossary-page .glossary-label {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #5b6e7a;
+}
+.glossary-page .glossary-entry p.glossary-source {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+color: #5b6e7a;
+margin: 0 0 0.6rem;
+}
+</style>
+</head>
+<body class="glossary-page">
+
+
+
+
+<h1 class="title toc-ignore">Glossary</h1>
+
+
+
+<p>This glossary supports Module 5 (Maximum Likelihood Estimation).
+Entries are listed alphabetically. Each entry gives a definition, a
+cited source, and three examples. The examples use fresh contexts and
+values so they extend, rather than repeat, the course readings.
+Calculations show the by-hand work and the matching R code when R helps
+with the computation.</p>
+<h2 class="glossary-letter">D</h2>
+<div id="digamma-function" class="section level2 glossary-entry">
+<h3>Digamma Function</h3>
+<p><span class="glossary-label">Definition:</span> The digamma function is the logarithmic
+derivative of the gamma function, $$
+\psi(\alpha)=\frac{d}{d\alpha}\ln\Gamma(\alpha)=\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}.
+$$ It appears in derivatives of Gamma log-likelihoods with
+respect to the shape parameter. The digamma function cannot be inverted
+with elementary operations, so equations involving it are handled with
+numerical methods.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 192–193.</p>
+<p><span class="glossary-label">Example 1:</span> Evaluate the digamma function at \(\alpha=3\).</p>
+<p><span class="glossary-label">By hand:</span> For integer \(\alpha\), \(\psi(\alpha)=H_{\alpha-1}-\gamma\), where
+\(H_2=1+1/2=1.5\) and \(\gamma\approx0.5772\). Thus $$
+\psi(3)=1.5-0.5772\approx0.9228.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">digamma</span>(<span class="dv">3</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.9227843</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> Evaluate the digamma function at \(\alpha=1/2\).</p>
+<p><span class="glossary-label">By hand:</span> A standard identity gives $$
+\psi\left(\frac12\right)=-\gamma-2\ln 2
+\approx-0.5772-1.3863=-1.9635.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">digamma</span>(<span class="fl">0.5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">1.96351</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Evaluate the digamma function at \(\alpha=5\).</p>
+<p><span class="glossary-label">By hand:</span> Here \(H_4=1+1/2+1/3+1/4=2.0833\), so $$
+\psi(5)=H_4-\gamma\approx2.0833-0.5772=1.5061.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">digamma</span>(<span class="dv">5</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.506118</span></span></code></pre></div>
+</div>
+<h2 class="glossary-letter">E</h2>
+<div id="estimate" class="section level2 glossary-entry">
+<h3>Estimate</h3>
+<p><span class="glossary-label">Definition:</span> A numerical value calculated from an
+observed sample that is used as a best guess for an unknown parameter.
+An estimate is the realized value of an estimator after the data have
+been observed, and it is usually written with a hat, such as \(\hat\theta\).</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 181–182.</p>
+<p><span class="glossary-label">Example 1:</span> Five battery packs last \(41.8\), \(42.5\), \(43.1\), \(41.2\), and \(42.9\) hours. What is the estimate of the
+mean lifetime?</p>
+<p><span class="glossary-label">By hand:</span> The sample mean is $$
+\hat\mu=\bar x=\frac{41.8+42.5+43.1+41.2+42.9}{5}=42.3.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>battery <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">41.8</span>, <span class="fl">42.5</span>, <span class="fl">43.1</span>, <span class="fl">41.2</span>, <span class="fl">42.9</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">mean</span>(battery)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">42.3</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A survey finds that 18 of 50 randomly
+selected customers prefer a new layout. What is the estimate of the
+population preference probability?</p>
+<p><span class="glossary-label">By hand:</span> $$
+\hat p=\frac{18}{50}=0.36.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="dv">18</span> <span class="sc">/</span> <span class="dv">50</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.36</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Five repeated measurements have sample
+variance \(0.075\). What is the
+estimate of the population variance?</p>
+<p><span class="glossary-label">By hand:</span> The observed value \(s^2=0.075\) is the estimate of \(\sigma^2\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>measurements <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.1</span>, <span class="fl">11.8</span>, <span class="fl">12.5</span>, <span class="fl">12.2</span>, <span class="fl">11.9</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">var</span>(measurements)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.075</span></span></code></pre></div>
+</div>
+<div id="estimator" class="section level2 glossary-entry">
+<h3>Estimator</h3>
+<p><span class="glossary-label">Definition:</span> A statistic computed from a random
+sample that is used to estimate an unknown parameter. An estimator is a
+random variable before the data are observed, while an estimate is the
+numerical value it takes for a particular sample.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 181–182.</p>
+<p><span class="glossary-label">Example 1:</span> Let \(X_1,\ldots,X_n\) be a random sample from a
+population with mean \(\mu\). What
+estimator is commonly used for \(\mu\)?</p>
+<p><span class="glossary-label">By hand:</span> The sample mean $$
+\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i
+$$ is an estimator of \(\mu\).
+For the battery data, its observed value is \(\bar x=42.3\).</p>
+<p><span class="glossary-label">In R:</span> A small function makes the estimator
+explicit.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>mean_estimator <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">mean</span>(x)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">mean_estimator</span>(<span class="fu">c</span>(<span class="fl">41.8</span>, <span class="fl">42.5</span>, <span class="fl">43.1</span>, <span class="fl">41.2</span>, <span class="fl">42.9</span>))</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">42.3</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A binomial count \(X\) records the number of successes in
+\(n\) trials with success probability
+\(p\). What estimator is used for \(p\)?</p>
+<p><span class="glossary-label">By hand:</span> The sample proportion $$
+\hat p=\frac{X}{n}
+$$ is an estimator of \(p\). If
+\(X=18\) and \(n=50\), the estimate is \(0.36\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a>p_estimator <span class="ot">&lt;-</span> <span class="cf">function</span>(x, n) x <span class="sc">/</span> n</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">p_estimator</span>(<span class="dv">18</span>, <span class="dv">50</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.36</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> For an Exponential model with rate \(\lambda\), what estimator uses the sample
+total?</p>
+<p><span class="glossary-label">By hand:</span> With \(n\)
+observations, the estimator is $$
+\hat\lambda=\frac{n}{\sum_{i=1}^{n}X_i}.
+$$ For the five waiting times below, the total is \(9.4\), so the estimate is \(5/9.4\approx0.5319\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>waiting_times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">3.2</span>, <span class="fl">1.9</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">length</span>(waiting_times) <span class="sc">/</span> <span class="fu">sum</span>(waiting_times)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.5319149</span></span></code></pre></div>
+</div>
+<h2 class="glossary-letter">L</h2>
+<div id="likelihood-equation" class="section level2 glossary-entry">
+<h3>Likelihood Equation</h3>
+<p><span class="glossary-label">Definition:</span> An equation obtained by setting the
+derivative of the log-likelihood equal to zero. Solutions of the
+likelihood equation are candidate maximum likelihood estimates. If the
+equation can be solved by hand, solve it directly; otherwise, use
+<code>optimize()</code> to search for the maximum.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 187 and 190.</p>
+<p><span class="glossary-label">Example 1:</span> In 15 Bernoulli trials there are 9
+successes. Find the likelihood equation for \(p\).</p>
+<p><span class="glossary-label">By hand:</span> The log-likelihood is $$
+\ell(p)=9\ln p+6\ln(1-p).
+$$ Differentiating and setting the result to zero gives $$
+\ell'(p)=\frac{9}{p}-\frac{6}{1-p}=0.
+$$ Solving gives \(9(1-p)=6p\),
+so \(\hat p=9/15=0.6\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="dv">9</span> <span class="sc">/</span> <span class="dv">15</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> Eight Poisson counts have a total of 28.
+Find the likelihood equation for the rate \(\lambda\).</p>
+<p><span class="glossary-label">By hand:</span> The log-likelihood is $$
+\ell(\lambda)=-8\lambda+28\ln\lambda-\sum_{i=1}^{8}\ln x_i!,
+$$ so the likelihood equation is $$
+-8+\frac{28}{\lambda}=0,
+$$ which gives \(\hat\lambda=3.5\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="dv">28</span> <span class="sc">/</span> <span class="dv">8</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> A normal model has known variance and
+unknown mean. The observed data have mean \(12.4\). What is the likelihood equation for
+\(\mu\)?</p>
+<p><span class="glossary-label">By hand:</span> The derivative of the log-likelihood is
+proportional to $$
+\sum_{i=1}^{n}(x_i-\mu).
+$$ Setting it to zero gives \(\sum
+x_i=n\mu\), so \(\hat\mu=\bar
+x=12.4\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.1</span>, <span class="fl">12.6</span>, <span class="fl">12.4</span>, <span class="fl">12.9</span>, <span class="fl">12.0</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a><span class="fu">mean</span>(y)</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">12.4</span></span></code></pre></div>
+</div>
+<div id="likelihood-function" class="section level2 glossary-entry">
+<h3>Likelihood Function</h3>
+<p><span class="glossary-label">Definition:</span> The probability or density of the
+observed data, viewed as a function of the unknown parameter. For
+independent observations, the likelihood is the product of the PMF or
+PDF values: $$
+L(\theta)=\prod_{i=1}^{n}p_\theta(x_i),
+$$ where \(p_\theta(x_i)\)
+denotes a PMF value for discrete data or a PDF value for continuous
+data. The likelihood is not a probability distribution over \(\theta\); it is a relative measure of how
+well each parameter value explains the data.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 186–187.</p>
+<p><span class="glossary-label">Example 1:</span> A safety test records 8 successes in 12
+independent Bernoulli trials. Evaluate the Bernoulli likelihood at \(p=0.6\) and \(p=0.7\).</p>
+<p><span class="glossary-label">By hand:</span> The likelihood is $$
+L(p)=p^8(1-p)^4.
+$$ Thus $$
+L(0.6)=(0.6)^8(0.4)^4\approx0.000430,
+\qquad
+L(0.7)=(0.7)^8(0.3)^4\approx0.000467.
+$$ The larger value at \(p=0.7\)
+means that \(0.7\) explains these data
+better than \(0.6\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>lik_bernoulli <span class="ot">&lt;-</span> <span class="cf">function</span>(p, successes, trials) {</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>  p<span class="sc">^</span>successes <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p)<span class="sc">^</span>(trials <span class="sc">-</span> successes)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>}</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p06 =</span> <span class="fu">lik_bernoulli</span>(<span class="fl">0.6</span>, <span class="dv">8</span>, <span class="dv">12</span>), <span class="at">p07 =</span> <span class="fu">lik_bernoulli</span>(<span class="fl">0.7</span>, <span class="dv">8</span>, <span class="dv">12</span>))</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>         p06          p07 </span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="fl">0.0004299817</span> <span class="fl">0.0004669489</span> </span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> Four Poisson counts are \(3,5,2,4\). Evaluate the Poisson likelihood
+at \(\lambda=3\) and \(\lambda=3.5\).</p>
+<p><span class="glossary-label">By hand:</span> The total is \(14\), so $$
+L(\lambda)=e^{-4\lambda}\frac{\lambda^{14}}{3!\,5!\,2!\,4!}.
+$$ At the two candidate rates, $$
+L(3)\approx0.000850,
+\qquad
+L(3.5)\approx0.000996.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>lik_poisson <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda) {</span>
+<span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a>  <span class="fu">exp</span>(<span class="sc">-</span><span class="fu">length</span>(counts) <span class="sc">*</span> lambda) <span class="sc">*</span> lambda<span class="sc">^</span><span class="fu">sum</span>(counts) <span class="sc">/</span></span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a>    <span class="fu">prod</span>(<span class="fu">factorial</span>(counts))</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a>}</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lambda3 =</span> <span class="fu">lik_poisson</span>(<span class="dv">3</span>), <span class="at">lambda35 =</span> <span class="fu">lik_poisson</span>(<span class="fl">3.5</span>))</span>
+<span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>     lambda3     lambda35 </span>
+<span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a><span class="fl">0.0008503350</span> <span class="fl">0.0009959927</span> </span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Three measurements \(10.1,9.8,10.3\) are modeled as Normal with
+known standard deviation \(2\). Compare
+the likelihood at \(\mu=10\) and \(\mu=10.2\).</p>
+<p><span class="glossary-label">By hand:</span> The likelihood is the product of the three
+Normal densities. The sample mean is \(10.0667\), so the likelihood should be
+slightly larger at \(10\) than at \(10.2\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>observations <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">10.1</span>, <span class="fl">9.8</span>, <span class="fl">10.3</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>lik_normal <span class="ot">&lt;-</span> <span class="cf">function</span>(mu) <span class="fu">prod</span>(<span class="fu">dnorm</span>(observations, <span class="at">mean =</span> mu, <span class="at">sd =</span> <span class="dv">2</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a><span class="fu">c</span>(<span class="at">mu10 =</span> <span class="fu">lik_normal</span>(<span class="dv">10</span>), <span class="at">mu102 =</span> <span class="fu">lik_normal</span>(<span class="fl">10.2</span>))</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>       mu10       mu102 </span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a><span class="fl">0.007799020</span> <span class="fl">0.007760123</span> </span></code></pre></div>
+</div>
+<div id="log-likelihood-function" class="section level2 glossary-entry">
+<h3>Log-Likelihood Function</h3>
+<p><span class="glossary-label">Definition:</span> The natural logarithm of the likelihood
+function, $$
+\ell(\theta)=\ln L(\theta)=\sum_{i=1}^{n}\ln p_\theta(x_i).
+$$ Taking logarithms turns a product into a sum and makes very
+small likelihood values easier to work with. Because the logarithm is
+increasing, the log-likelihood has the same maximizer as the
+likelihood.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, p. 187.</p>
+<p><span class="glossary-label">Example 1:</span> For the 8-successes-in-12-trials example,
+evaluate the log-likelihood at \(p=0.6\) and \(p=0.7\).</p>
+<p><span class="glossary-label">By hand:</span> $$
+\ell(p)=8\ln p+4\ln(1-p).
+$$ Therefore $$
+\ell(0.6)\approx-7.7518,
+\qquad
+\ell(0.7)\approx-7.6693.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>loglik_bernoulli <span class="ot">&lt;-</span> <span class="cf">function</span>(p) <span class="dv">8</span> <span class="sc">*</span> <span class="fu">log</span>(p) <span class="sc">+</span> <span class="dv">4</span> <span class="sc">*</span> <span class="fu">log</span>(<span class="dv">1</span> <span class="sc">-</span> p)</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">p06 =</span> <span class="fu">loglik_bernoulli</span>(<span class="fl">0.6</span>), <span class="at">p07 =</span> <span class="fu">loglik_bernoulli</span>(<span class="fl">0.7</span>))</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a>      p06       p07 </span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">-</span><span class="fl">7.751768</span> <span class="sc">-</span><span class="fl">7.669291</span> </span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> For the four Poisson counts \(3,5,2,4\), evaluate the log-likelihood at
+\(\lambda=3.5\).</p>
+<p><span class="glossary-label">By hand:</span> With \(n=4\) and \(\sum
+x_i=14\), $$
+\ell(\lambda)=-4\lambda+14\ln\lambda-\sum_{i=1}^{4}\ln x_i!.
+$$ At \(\lambda=3.5\), $$
+\ell(3.5)\approx-6.9118.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">4</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a>loglik_poisson <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda) {</span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>  <span class="sc">-</span><span class="fu">length</span>(counts) <span class="sc">*</span> lambda <span class="sc">+</span> <span class="fu">sum</span>(counts) <span class="sc">*</span> <span class="fu">log</span>(lambda) <span class="sc">-</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">lgamma</span>(counts <span class="sc">+</span> <span class="dv">1</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a>}</span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="fu">loglik_poisson</span>(<span class="fl">3.5</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">6.911771</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Five Exponential waiting times total 20
+minutes. Evaluate the log-likelihood at \(\lambda=0.2\) and \(\lambda=0.25\).</p>
+<p><span class="glossary-label">By hand:</span> $$
+\ell(\lambda)=5\ln\lambda-20\lambda.
+$$ Thus $$
+\ell(0.2)\approx-12.0472,
+\qquad
+\ell(0.25)\approx-11.9315.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>loglik_exp <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda) <span class="dv">5</span> <span class="sc">*</span> <span class="fu">log</span>(lambda) <span class="sc">-</span> <span class="dv">20</span> <span class="sc">*</span> lambda</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lambda02 =</span> <span class="fu">loglik_exp</span>(<span class="fl">0.2</span>), <span class="at">lambda025 =</span> <span class="fu">loglik_exp</span>(<span class="fl">0.25</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a> lambda02 lambda025 </span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="sc">-</span><span class="fl">12.04719</span> <span class="sc">-</span><span class="fl">11.93147</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">M</h2>
+<div id="maximum-likelihood-estimate-mle" class="section level2 glossary-entry">
+<h3>Maximum Likelihood Estimate (MLE)</h3>
+<p><span class="glossary-label">Definition:</span> The numerical value of the parameter
+that maximizes the likelihood, or equivalently the log-likelihood, for
+the observed data. The MLE is denoted \(\hat\theta\) and is the parameter value
+that makes the observed sample most plausible under the model.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 186–187.</p>
+<p><span class="glossary-label">Example 1:</span> A Poisson process produces 63 events over
+18 one-hour periods. Find the MLE of the rate.</p>
+<p><span class="glossary-label">By hand:</span> For a Poisson rate the MLE is the sample
+mean: $$
+\hat\lambda=\bar x=\frac{63}{18}=3.5.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="dv">63</span> <span class="sc">/</span> <span class="dv">18</span></span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A binomial experiment records 27
+successes in 45 trials. Find the MLE of the success probability.</p>
+<p><span class="glossary-label">By hand:</span> $$
+\hat p=\frac{27}{45}=0.6.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a><span class="dv">27</span> <span class="sc">/</span> <span class="dv">45</span></span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.6</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Five normal measurements are \(5.1,5.2,5.3,5.0,5.4\) with known standard
+deviation. Find the MLE of the mean.</p>
+<p><span class="glossary-label">By hand:</span> With the variance known, the normal MLE of
+\(\mu\) is the sample mean: $$
+\hat\mu=\bar x=5.2.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>normal_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.1</span>, <span class="fl">5.2</span>, <span class="fl">5.3</span>, <span class="fl">5.0</span>, <span class="fl">5.4</span>)</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="fu">mean</span>(normal_data)</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">5.2</span></span></code></pre></div>
+</div>
+<div id="maximum-likelihood-estimator" class="section level2 glossary-entry">
+<h3>Maximum Likelihood Estimator</h3>
+<p><span class="glossary-label">Definition:</span> The sample-based rule that produces the
+maximum likelihood estimate. A maximum likelihood estimator is a
+statistic, and therefore a random variable, whose value changes from
+sample to sample; the corresponding MLE is the value it takes for the
+observed sample.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 186–187.</p>
+<p><span class="glossary-label">Example 1:</span> In a binomial model with \(n\) trials, what is the maximum likelihood
+estimator of \(p\)?</p>
+<p><span class="glossary-label">By hand:</span> The estimator is $$
+\hat p=\frac{X}{n},
+$$ where \(X\) is the random
+number of successes. For \(n=20\) and
+an observed \(X=13\), the estimate is
+\(13/20=0.65\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>mle_p <span class="ot">&lt;-</span> <span class="cf">function</span>(x, n) x <span class="sc">/</span> n</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a><span class="fu">mle_p</span>(<span class="dv">13</span>, <span class="dv">20</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.65</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> In a Poisson model, what is the maximum
+likelihood estimator of the rate?</p>
+<p><span class="glossary-label">By hand:</span> The estimator is the sample mean, $$
+\hat\lambda=\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i.
+$$ For six counts totaling \(21\), the estimate is \(21/6=3.5\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>poisson_counts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a><span class="fu">mean</span>(poisson_counts)</span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">3.5</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> In a Gamma model with known shape \(\alpha=3\) and unknown rate \(\beta\), what is the maximum likelihood
+estimator of \(\beta\)?</p>
+<p><span class="glossary-label">By hand:</span> The estimator is $$
+\hat\beta=\frac{\alpha}{\bar X}.
+$$ For the five observations below, the mean is \(2.4\), so the estimate is \(3/2.4=1.25\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>gamma_data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.4</span>, <span class="fl">1.8</span>, <span class="fl">3.1</span>, <span class="fl">2.0</span>, <span class="fl">2.7</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">/</span> <span class="fu">mean</span>(gamma_data)</span>
+<span id="cb24-3"><a href="#cb24-3" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.25</span></span></code></pre></div>
+</div>
+<div id="method-of-maximum-likelihood" class="section level2 glossary-entry">
+<h3>Method of Maximum Likelihood</h3>
+<p><span class="glossary-label">Definition:</span> An estimation procedure that chooses the
+parameter values maximizing the likelihood function. The method builds
+the likelihood from the assumed model, often works with the
+log-likelihood, and finds the maximizing value by hand when possible or
+with <code>optimize()</code> when a hand solution is not available.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 186–193.</p>
+<p><span class="glossary-label">Example 1:</span> A hospital records 12 positive tests in
+30 independent trials. Apply the method of maximum likelihood to
+estimate the positive-test probability.</p>
+<p><span class="glossary-label">By hand:</span> Build \(L(p)=p^{12}(1-p)^{18}\), take logarithms,
+differentiate, and solve: $$
+\ell'(p)=\frac{12}{p}-\frac{18}{1-p}=0
+\quad\Longrightarrow\quad
+\hat p=0.4.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="dv">12</span> <span class="sc">/</span> <span class="dv">30</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.4</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A server logs 84 requests over 21 equal
+time windows. Apply the method to estimate the request rate.</p>
+<p><span class="glossary-label">By hand:</span> The Poisson log-likelihood leads to the
+equation \(-21+84/\lambda=0\), so \(\hat\lambda=4\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a><span class="dv">84</span> <span class="sc">/</span> <span class="dv">21</span></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="dv">4</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Six positive measurements are modeled as
+Gamma with known rate \(1.2\) and
+unknown shape. Apply the method numerically.</p>
+<p><span class="glossary-label">By hand:</span> The Gamma shape does not have a simple hand
+solution, so the log-likelihood is maximized with
+<code>optimize()</code> over a positive interval.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.4</span>, <span class="fl">2.1</span>, <span class="fl">0.9</span>, <span class="fl">3.2</span>, <span class="fl">1.7</span>, <span class="fl">2.6</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fl">1.2</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>loglik_shape <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha) {</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>  n <span class="sc">*</span> alpha <span class="sc">*</span> <span class="fu">log</span>(beta) <span class="sc">-</span> n <span class="sc">*</span> <span class="fu">lgamma</span>(alpha) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>    (alpha <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(x)) <span class="sc">-</span> beta <span class="sc">*</span> <span class="fu">sum</span>(x)</span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>}</span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="fu">optimize</span>(loglik_shape, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="at">maximum =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a><span class="sc">$</span>maximum</span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.676119</span></span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a><span class="sc">$</span>objective</span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">7.776566</span></span></code></pre></div>
+</div>
+<h2 class="glossary-letter">N</h2>
+<div id="numerical-optimization" class="section level2 glossary-entry">
+<h3>Numerical Optimization</h3>
+<p><span class="glossary-label">Definition:</span> A computational search for the maximum
+of a log-likelihood when the likelihood equation cannot be solved by
+hand. For a one-parameter model, R’s <code>optimize()</code> searches a
+finite interval for the maximum. The interval must be finite and must
+contain the optimum.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 187 and 192–193; R Documentation,
+<code>optimize</code>.</p>
+<p><span class="glossary-label">Example 1:</span> Find the Gamma shape MLE for six positive
+measurements with known rate \(1.2\) by
+maximizing the log-likelihood.</p>
+<p><span class="glossary-label">By hand:</span> The Gamma shape does not have a simple hand
+solution, so a numerical search is needed.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">1.4</span>, <span class="fl">2.1</span>, <span class="fl">0.9</span>, <span class="fl">3.2</span>, <span class="fl">1.7</span>, <span class="fl">2.6</span>)</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fl">1.2</span></span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>loglik_shape <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha) {</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a>  n <span class="sc">*</span> alpha <span class="sc">*</span> <span class="fu">log</span>(beta) <span class="sc">-</span> n <span class="sc">*</span> <span class="fu">lgamma</span>(alpha) <span class="sc">+</span></span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a>    (alpha <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(x)) <span class="sc">-</span> beta <span class="sc">*</span> <span class="fu">sum</span>(x)</span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a>}</span>
+<span id="cb28-8"><a href="#cb28-8" tabindex="-1"></a><span class="fu">optimize</span>(loglik_shape, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="at">maximum =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb28-9"><a href="#cb28-9" tabindex="-1"></a><span class="sc">$</span>maximum</span>
+<span id="cb28-10"><a href="#cb28-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.676119</span></span>
+<span id="cb28-11"><a href="#cb28-11" tabindex="-1"></a></span>
+<span id="cb28-12"><a href="#cb28-12" tabindex="-1"></a><span class="sc">$</span>objective</span>
+<span id="cb28-13"><a href="#cb28-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">7.776566</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A Beta shape parameter is estimated from
+six proportions with the second shape fixed at \(\beta=2\). Maximize the Beta log-likelihood
+numerically.</p>
+<p><span class="glossary-label">By hand:</span> The Beta shape does not have a simple hand
+solution, so the maximum is found with <code>optimize()</code>.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>proportions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.22</span>, <span class="fl">0.35</span>, <span class="fl">0.41</span>, <span class="fl">0.18</span>, <span class="fl">0.29</span>, <span class="fl">0.33</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a>loglik_beta <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha) {</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a>  <span class="fu">sum</span>(<span class="fu">dbeta</span>(proportions, <span class="at">shape1 =</span> alpha, <span class="at">shape2 =</span> beta, <span class="at">log =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a>}</span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="fu">optimize</span>(loglik_beta, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="at">maximum =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="sc">$</span>maximum</span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.240073</span></span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a><span class="sc">$</span>objective</span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.177176</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> A Gamma shape parameter is estimated from
+five positive measurements with known rate \(1.6\). Maximize the log-likelihood
+numerically.</p>
+<p><span class="glossary-label">By hand:</span> Again, the Gamma shape does not have a
+simple hand solution, so <code>optimize()</code> is used.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="fl">1.1</span>, <span class="fl">1.5</span>, <span class="fl">2.2</span>, <span class="fl">0.9</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="fl">1.6</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a>loglik_shape <span class="ot">&lt;-</span> <span class="cf">function</span>(alpha) {</span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a>  n <span class="sc">*</span> alpha <span class="sc">*</span> <span class="fu">log</span>(beta) <span class="sc">-</span> n <span class="sc">*</span> <span class="fu">lgamma</span>(alpha) <span class="sc">+</span></span>
+<span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>    (alpha <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="fu">sum</span>(<span class="fu">log</span>(x)) <span class="sc">-</span> beta <span class="sc">*</span> <span class="fu">sum</span>(x)</span>
+<span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>}</span>
+<span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a><span class="fu">optimize</span>(loglik_shape, <span class="at">interval =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">10</span>), <span class="at">maximum =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-9"><a href="#cb30-9" tabindex="-1"></a><span class="sc">$</span>maximum</span>
+<span id="cb30-10"><a href="#cb30-10" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">2.366387</span></span>
+<span id="cb30-11"><a href="#cb30-11" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" tabindex="-1"></a><span class="sc">$</span>objective</span>
+<span id="cb30-13"><a href="#cb30-13" tabindex="-1"></a>[<span class="dv">1</span>] <span class="sc">-</span><span class="fl">4.524706</span></span></code></pre></div>
+</div>
+<h2 class="glossary-letter">P</h2>
+<div id="parameter" class="section level2 glossary-entry">
+<h3>Parameter</h3>
+<p><span class="glossary-label">Definition:</span> An unknown numerical characteristic of a
+probability model or population that indexes the distribution of the
+data. A parameter is treated as fixed but unknown, and estimation uses
+sample data to choose a plausible value for it.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 181–182.</p>
+<p><span class="glossary-label">Example 1:</span> A Bernoulli model has success probability
+\(p\). Here \(p\) is the parameter, and the model assigns
+\(P(X=1)=p\) and \(P(X=0)=1-p\).</p>
+<p><span class="glossary-label">By hand:</span> If \(p=0.35\), then \(P(X=1)=0.35\) and \(P(X=0)=0.65\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">success =</span> <span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.35</span>),</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>  <span class="at">failure =</span> <span class="fu">dbinom</span>(<span class="dv">0</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.35</span>))</span>
+<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>success failure </span>
+<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>   <span class="fl">0.35</span>    <span class="fl">0.65</span> </span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A normal model for adult heights has mean
+\(\mu\) and standard deviation \(\sigma\). Both \(\mu\) and \(\sigma\) are parameters of the model.</p>
+<p><span class="glossary-label">By hand:</span> If \(\mu=170\) cm and \(\sigma=8\) cm, the density at \(170\) cm is the height of the normal curve
+at its center.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">170</span>, <span class="at">mean =</span> <span class="dv">170</span>, <span class="at">sd =</span> <span class="dv">8</span>)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.04986779</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> A Poisson model for website visits per
+minute has rate \(\lambda\). The rate
+is the parameter that controls both the mean and the variance of the
+counts.</p>
+<p><span class="glossary-label">By hand:</span> If \(\lambda=4.2\), the expected count per
+minute is \(4.2\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">dpois</span>(<span class="dv">4</span>, <span class="at">lambda =</span> <span class="fl">4.2</span>)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.1944237</span></span></code></pre></div>
+</div>
+<div id="parameter-space" class="section level2 glossary-entry">
+<h3>Parameter Space</h3>
+<p><span class="glossary-label">Definition:</span> The set of all allowable values of a
+parameter, often denoted \(\Theta\).
+The parameter space records the model’s constraints, such as a
+probability between \(0\) and \(1\) or a shape parameter greater than \(0\). A maximum likelihood estimate must lie
+inside the parameter space.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, p. 187.</p>
+<p><span class="glossary-label">Example 1:</span> For a Bernoulli success probability \(p\), what is the parameter space?</p>
+<p><span class="glossary-label">By hand:</span> The probability must satisfy \(0\leq p\leq1\), so \(\Theta=[0,1]\) (or \((0,1)\) when both outcomes must have
+positive probability). A value such as \(p=1.2\) is outside the parameter space.</p>
+<p><span class="glossary-label">In R:</span> Invalid probabilities produce missing values
+rather than valid probabilities.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">1</span>, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">1.2</span>)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NaN</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> For a normal model, what is the parameter
+space for \((\mu,\sigma)\)?</p>
+<p><span class="glossary-label">By hand:</span> The mean can be any real number and the
+standard deviation must be positive: $$
+\Theta=\mathbb{R}\times(0,\infty).
+$$ A standard deviation of \(-2\) is not allowed.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a><span class="fu">dnorm</span>(<span class="dv">0</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NaN</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> For a Gamma model with shape \(\alpha\) and rate \(\beta\), what is the parameter space?</p>
+<p><span class="glossary-label">By hand:</span> Both parameters must be positive, so $$
+\Theta=(0,\infty)\times(0,\infty).
+$$ A negative shape is outside the parameter space.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a><span class="fu">dgamma</span>(<span class="dv">1</span>, <span class="at">shape =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">rate =</span> <span class="dv">1</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>[<span class="dv">1</span>] <span class="cn">NaN</span></span></code></pre></div>
+</div>
+<div id="point-estimate" class="section level2 glossary-entry">
+<h3>Point Estimate</h3>
+<p><span class="glossary-label">Definition:</span> A single numerical value used as the
+best guess for an unknown parameter. A point estimate is distinguished
+from an interval estimate, which reports a range of plausible
+values.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, p. 181.</p>
+<p><span class="glossary-label">Example 1:</span> A sample of five battery packs has mean
+lifetime \(42.3\) hours. What is the
+point estimate of the population mean lifetime?</p>
+<p><span class="glossary-label">By hand:</span> The point estimate is \(\hat\mu=42.3\) hours.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>battery <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">41.8</span>, <span class="fl">42.5</span>, <span class="fl">43.1</span>, <span class="fl">41.2</span>, <span class="fl">42.9</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a><span class="fu">c</span>(<span class="at">point_estimate =</span> <span class="fu">mean</span>(battery))</span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>point_estimate </span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>          <span class="fl">42.3</span> </span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A survey of 50 customers finds 18 who
+prefer a new layout. What is the point estimate of the preference
+probability?</p>
+<p><span class="glossary-label">By hand:</span> The point estimate is \(\hat p=18/50=0.36\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">point_estimate =</span> <span class="dv">18</span> <span class="sc">/</span> <span class="dv">50</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>point_estimate </span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a>          <span class="fl">0.36</span> </span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> A Poisson model is fit to 18 hourly
+counts totaling 63. What is the point estimate of the rate?</p>
+<p><span class="glossary-label">By hand:</span> The point estimate is \(\hat\lambda=63/18=3.5\) events per
+hour.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a><span class="fu">c</span>(<span class="at">point_estimate =</span> <span class="dv">63</span> <span class="sc">/</span> <span class="dv">18</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a>point_estimate </span>
+<span id="cb39-3"><a href="#cb39-3" tabindex="-1"></a>           <span class="fl">3.5</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">R</h2>
+<div id="random-sample-iid-observations" class="section level2 glossary-entry">
+<h3>Random Sample (IID Observations)</h3>
+<p><span class="glossary-label">Definition:</span> A collection of observations \(X_1,\ldots,X_n\) that are independent and
+identically distributed (iid) from the same probability distribution.
+Independence makes the joint probability or density a product of
+individual terms, which is the starting point for a likelihood
+function.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, pp. 181–182.</p>
+<p><span class="glossary-label">Example 1:</span> Ten customer waiting times are modeled as
+iid Exponential with rate \(\lambda\).
+Write the likelihood for the sample.</p>
+<p><span class="glossary-label">By hand:</span> Independence and the identical Exponential
+density give $$
+L(\lambda)=\prod_{i=1}^{10}\lambda e^{-\lambda x_i}
+=\lambda^{10}e^{-\lambda\sum x_i}.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>wait_times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">0.8</span>, <span class="fl">1.4</span>, <span class="fl">3.2</span>, <span class="fl">1.9</span>, <span class="fl">2.7</span>, <span class="fl">0.6</span>, <span class="fl">1.1</span>, <span class="fl">2.4</span>, <span class="fl">1.6</span>)</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a>lik <span class="ot">&lt;-</span> <span class="cf">function</span>(lambda) <span class="fu">prod</span>(<span class="fu">dexp</span>(wait_times, <span class="at">rate =</span> lambda))</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="fu">lik</span>(<span class="fl">0.5</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.331923e-07</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> Six light-bulb lifetimes are modeled as
+iid Normal with unknown mean and known standard deviation. Write the
+likelihood.</p>
+<p><span class="glossary-label">By hand:</span> The likelihood is the product of six normal
+densities: $$
+L(\mu)=\prod_{i=1}^{6}\frac{1}{\sigma\sqrt{2\pi}}
+\exp\!\left(-\frac{(x_i-\mu)^2}{2\sigma^2}\right).
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a>lifetimes <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1180</span>, <span class="dv">1210</span>, <span class="dv">1195</span>, <span class="dv">1225</span>, <span class="dv">1175</span>, <span class="dv">1205</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a>lik <span class="ot">&lt;-</span> <span class="cf">function</span>(mu) <span class="fu">prod</span>(<span class="fu">dnorm</span>(lifetimes, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma))</span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="fu">lik</span>(<span class="dv">1200</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">6.639232e-12</span></span></code></pre></div>
+<p><span class="glossary-label">Example 3:</span> Twelve survey responses are modeled as
+iid Bernoulli with success probability \(p\). Write the likelihood.</p>
+<p><span class="glossary-label">By hand:</span> If the sample contains \(\sum x_i\) successes and \(12-\sum x_i\) failures, $$
+L(p)=p^{\sum x_i}(1-p)^{12-\sum x_i}.
+$$</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>responses <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a>lik <span class="ot">&lt;-</span> <span class="cf">function</span>(p) <span class="fu">prod</span>(<span class="fu">dbinom</span>(responses, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p))</span>
+<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="fu">lik</span>(<span class="fl">0.6</span>)</span>
+<span id="cb42-4"><a href="#cb42-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.0004299817</span></span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+</body>
+</html>
+

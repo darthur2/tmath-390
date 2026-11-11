@@ -22,7 +22,7 @@ Module 5 is about estimation: using observed data to choose plausible values for
 
 ## What You'll Learn
 
-You will learn how to build a **likelihood function** from a PMF or PDF, how to work with the **log-likelihood**, and why taking logs makes the calculations easier. You will then learn how to find a **maximum likelihood estimate** by differentiating the log-likelihood in closed-form cases, and how to use R's `optimize()` function when no closed-form solution exists. The module uses realistic examples such as mobile-order counts, panel defects, waiting times, and repair times to connect the mathematics to data analysis.
+You will learn how to build a **likelihood function** from a PMF or PDF, how to work with the **log-likelihood**, and why taking logs makes the calculations easier. You will then learn how to find a **maximum likelihood estimate** by hand when the likelihood equation has a simple solution, and how to use R's `optimize()` function when a hand solution is not available. The module uses realistic examples such as mobile-order counts, panel defects, waiting times, and repair times to connect the mathematics to data analysis.
 
 ## By the End of This Module, You Should Be Able To
 
@@ -30,8 +30,8 @@ After completing this module, you should be able to:
 
 - Construct and simplify a likelihood function for independent observations.
 - Construct the corresponding log-likelihood.
-- Derive closed-form maximum likelihood estimators by differentiation.
-- Recognize when a parameter has no closed-form MLE.
+- Derive maximum likelihood estimators by hand when the likelihood equation is easy to solve.
+- Recognize when a hand solution is not available.
 - Use `optimize()` in R to find an MLE numerically and interpret the result.
 
 ## What's Inside

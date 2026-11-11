@@ -310,7 +310,7 @@ defective; they want to estimate the defect probability \(p\). In both cases, we
 model with an unknown parameter. The question is: which parameter values
 are most plausible in light of the data?</p>
 <p>The likelihood function answers that question. It takes a model and a
-data set, and scores each possible parameter value by how well it
+data set, and ranks each possible parameter value by how well it
 explains the observed data.</p>
 <div id="from-probability-to-likelihood" class="section level2">
 <h2>From probability to likelihood</h2>
@@ -406,9 +406,9 @@ ignored.</p>
 <h2>Why take the log?</h2>
 <p>Likelihoods are products, and products become hard to work with. The
 values can be extremely small: a likelihood for 90 observations might be
-\(10^{-100}\) or smaller.
-Differentiating a product of many terms is also cumbersome. The
-log-likelihood solves both problems.</p>
+\(10^{-100}\) or smaller. Working with
+a product of many terms is also cumbersome. The log-likelihood solves
+both problems.</p>
 <p>The <strong>log-likelihood</strong> is</p>
 <p>$$
 \ell(\theta)=\ln L(\theta)
@@ -634,8 +634,8 @@ plausible each parameter value is for the data we actually observed. For
 independent observations, the likelihood is the product of the PMF or
 PDF values. The log-likelihood is the sum of the logs, which is easier
 to work with and has the same maximum. In the next reading, we will find
-that maximum by hand when a formula exists, and with R when it does
-not.</p>
+that maximum by hand when possible and with R’s <code>optimize()</code>
+function when a hand solution is not available.</p>
 </div>
 
 

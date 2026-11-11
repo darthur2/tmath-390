@@ -4296,5 +4296,345 @@ window.TMATH_GLOSSARY = {
       "text": "A relationship or transformation of the form Y = aX + b, where a is not zero.",
       "count": 1
     }
+  },
+  "module_5/definitions_and_examples.html": {
+    "Digamma Function": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "Estimate": {
+      "text": "The numerical value an estimator takes for a particular observed sample.",
+      "count": 1
+    },
+    "Estimator": {
+      "text": "A statistic computed from a sample that is used to estimate an unknown parameter.",
+      "count": 1
+    },
+    "Likelihood Equation": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "Likelihood Function": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "Log-Likelihood Function": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "Maximum Likelihood Estimate (MLE)": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "Maximum Likelihood Estimator": {
+      "text": "The sample-based rule that produces the maximum likelihood estimate.",
+      "count": 1
+    },
+    "Method of Maximum Likelihood": {
+      "text": "An estimation procedure that chooses parameter values maximizing the likelihood.",
+      "count": 1
+    },
+    "Numerical Optimization": {
+      "text": "A computational search for the maximum of a log-likelihood when the likelihood equation cannot be solved by hand.",
+      "count": 1
+    },
+    "Parameter": {
+      "text": "An unknown numerical characteristic of a probability model or population that indexes the distribution of the data.",
+      "count": 1
+    },
+    "Parameter Space": {
+      "text": "The set of all allowable values of a parameter, including the model constraints.",
+      "count": 1
+    },
+    "Point Estimate": {
+      "text": "A single numerical best guess for an unknown parameter.",
+      "count": 1
+    },
+    "Random Sample (IID Observations)": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    }
+  },
+  "module_5/how_do_we_find_the_maximum_likelihood_estimate.html": {
+    "parameter": {
+      "text": "An unknown numerical characteristic of a probability model or population that indexes the distribution of the data.",
+      "count": 1
+    },
+    "estimator": {
+      "text": "A statistic computed from a sample that is used to estimate an unknown parameter.",
+      "count": 1
+    },
+    "estimate": {
+      "text": "The numerical value an estimator takes for a particular observed sample.",
+      "count": 1
+    },
+    "point estimate": {
+      "text": "A single numerical best guess for an unknown parameter.",
+      "count": 1
+    },
+    "random sample": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "iid observations": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "independent observations": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "likelihood function": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "likelihood": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "log-likelihood function": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "log-likelihood": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "log likelihood": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "maximum likelihood estimate": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "maximum likelihood estimator": {
+      "text": "The sample-based rule that produces the maximum likelihood estimate.",
+      "count": 1
+    },
+    "MLE": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "method of maximum likelihood": {
+      "text": "An estimation procedure that chooses parameter values maximizing the likelihood.",
+      "count": 1
+    },
+    "likelihood equation": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "likelihood equations": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "numerical optimization": {
+      "text": "A computational search for the maximum of a log-likelihood when the likelihood equation cannot be solved by hand.",
+      "count": 1
+    },
+    "numerical method": {
+      "text": "A computational search for a maximum or minimum when no algebraic solution is available.",
+      "count": 1
+    },
+    "digamma function": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "digamma": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "parameter space": {
+      "text": "The set of all allowable values of a parameter, including the model constraints.",
+      "count": 1
+    }
+  },
+  "module_5/overview.html": {
+    "parameter": {
+      "text": "An unknown numerical characteristic of a probability model or population that indexes the distribution of the data.",
+      "count": 1
+    },
+    "estimator": {
+      "text": "A statistic computed from a sample that is used to estimate an unknown parameter.",
+      "count": 1
+    },
+    "estimate": {
+      "text": "The numerical value an estimator takes for a particular observed sample.",
+      "count": 1
+    },
+    "point estimate": {
+      "text": "A single numerical best guess for an unknown parameter.",
+      "count": 1
+    },
+    "random sample": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "iid observations": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "independent observations": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "likelihood function": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "likelihood": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "log-likelihood function": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "log-likelihood": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "log likelihood": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "maximum likelihood estimate": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "maximum likelihood estimator": {
+      "text": "The sample-based rule that produces the maximum likelihood estimate.",
+      "count": 1
+    },
+    "MLE": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "method of maximum likelihood": {
+      "text": "An estimation procedure that chooses parameter values maximizing the likelihood.",
+      "count": 1
+    },
+    "likelihood equation": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "likelihood equations": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "numerical optimization": {
+      "text": "A computational search for the maximum of a log-likelihood when the likelihood equation cannot be solved by hand.",
+      "count": 1
+    },
+    "numerical method": {
+      "text": "A computational search for a maximum or minimum when no algebraic solution is available.",
+      "count": 1
+    },
+    "digamma function": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "digamma": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "parameter space": {
+      "text": "The set of all allowable values of a parameter, including the model constraints.",
+      "count": 1
+    }
+  },
+  "module_5/what_does_the_likelihood_tell_us.html": {
+    "parameter": {
+      "text": "An unknown numerical characteristic of a probability model or population that indexes the distribution of the data.",
+      "count": 1
+    },
+    "estimator": {
+      "text": "A statistic computed from a sample that is used to estimate an unknown parameter.",
+      "count": 1
+    },
+    "estimate": {
+      "text": "The numerical value an estimator takes for a particular observed sample.",
+      "count": 1
+    },
+    "point estimate": {
+      "text": "A single numerical best guess for an unknown parameter.",
+      "count": 1
+    },
+    "random sample": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "iid observations": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "independent observations": {
+      "text": "Independent observations drawn from the same probability distribution.",
+      "count": 1
+    },
+    "likelihood function": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "likelihood": {
+      "text": "The probability or density of the observed data, viewed as a function of the unknown parameter.",
+      "count": 1
+    },
+    "log-likelihood function": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "log-likelihood": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "log likelihood": {
+      "text": "The natural logarithm of the likelihood, written as a sum of logarithms over the observations.",
+      "count": 1
+    },
+    "maximum likelihood estimate": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "maximum likelihood estimator": {
+      "text": "The sample-based rule that produces the maximum likelihood estimate.",
+      "count": 1
+    },
+    "MLE": {
+      "text": "The parameter value that maximizes the likelihood or log-likelihood for the observed data.",
+      "count": 1
+    },
+    "method of maximum likelihood": {
+      "text": "An estimation procedure that chooses parameter values maximizing the likelihood.",
+      "count": 1
+    },
+    "likelihood equation": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "likelihood equations": {
+      "text": "The equation obtained by setting the derivative of the log-likelihood equal to zero.",
+      "count": 1
+    },
+    "numerical optimization": {
+      "text": "A computational search for the maximum of a log-likelihood when the likelihood equation cannot be solved by hand.",
+      "count": 1
+    },
+    "numerical method": {
+      "text": "A computational search for a maximum or minimum when no algebraic solution is available.",
+      "count": 1
+    },
+    "digamma function": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "digamma": {
+      "text": "The logarithmic derivative of the gamma function, psi(alpha) = d/dalpha ln Gamma(alpha), which appears in Gamma shape calculations.",
+      "count": 1
+    },
+    "parameter space": {
+      "text": "The set of all allowable values of a parameter, including the model constraints.",
+      "count": 1
+    }
   }
 };
