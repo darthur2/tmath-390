@@ -44,6 +44,7 @@ For a one-parameter model, we can often see the MLE as the highest point of a cu
 Return to the coffee-shop data:
 
 ```{r}
+# Hourly mobile-order counts observed over 10 hours
 orders <- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)
 ```
 
@@ -79,21 +80,21 @@ so this critical point is a maximum. For the coffee-shop data, $\hat\lambda=3.7$
 The following R code computes the estimate and plots the log-likelihood.
 
 ```{r}
-orders <- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)
-n <- length(orders)
-lambda_hat <- mean(orders)
+orders <- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)  # hourly mobile-order counts
+n <- length(orders)  # number of observations
+lambda_hat <- mean(orders)  # closed-form Poisson MLE: the sample mean
 
-loglik <- function(lambda) {
-  -n * lambda + sum(orders) * log(lambda) -
-    sum(lgamma(orders + 1))
+loglik <- function(lambda) {  # define the Poisson log-likelihood function
+  -n * lambda + sum(orders) * log(lambda) -  # first two terms of the log-likelihood
+    sum(lgamma(orders + 1))  # subtract the constant log-factorial term
 }
 
-lambda <- seq(0.5, 8, by = 0.01)
-plot(lambda, loglik(lambda), type = "l", lwd = 2,
-     xlab = expression(lambda), ylab = "Log-likelihood",
-     main = "Poisson log-likelihood")
-abline(v = lambda_hat, lty = 2)
-lambda_hat
+lambda <- seq(0.5, 8, by = 0.01)  # grid of candidate rate values
+plot(lambda, loglik(lambda), type = "l", lwd = 2,  # plot the log-likelihood curve
+     xlab = expression(lambda), ylab = "Log-likelihood",  # label axes using lambda
+     main = "Poisson log-likelihood")  # add a title
+abline(v = lambda_hat, lty = 2)  # mark the MLE with a dashed vertical line
+lambda_hat  # print the maximum likelihood estimate
 ```
 
 The dashed line marks the peak at $\hat\lambda=3.7$.
@@ -121,6 +122,7 @@ The Gamma shape does not have a simple hand solution, so we search for the maxim
 The analysis below uses 90 repair times, stored in `repair_time`. The long vector is hidden here to keep the reading readable.
 
 ```{r repair-data, echo=FALSE}
+# 90 observed bike-share repair times, in hours
 repair_time <- c(4.148, 1.522, 2.977, 0.842, 2.06, 3.539, 0.143, 1.521,
   4.127, 2.472, 1.076, 4.858, 4.899, 1.629, 1.559, 2.471, 5.056, 2.37,
   1.998, 0.906, 2.527, 0.591, 1.825, 1.583, 3.194, 6.149, 0.687, 5.548,
@@ -136,15 +138,15 @@ repair_time <- c(4.148, 1.522, 2.977, 0.842, 2.06, 3.539, 0.143, 1.521,
 We write the log-likelihood as an R function and maximize it directly.
 
 ```{r}
-n <- length(repair_time)
-beta <- 0.8
+n <- length(repair_time)  # number of repair-time observations
+beta <- 0.8  # known Gamma rate parameter
 
-loglik <- function(alpha) {
-  n * alpha * log(beta) - n * lgamma(alpha) +
-    (alpha - 1) * sum(log(repair_time)) - beta * sum(repair_time)
+loglik <- function(alpha) {  # define the Gamma log-likelihood as a function of shape alpha
+  n * alpha * log(beta) - n * lgamma(alpha) +  # first two terms of the log-likelihood
+    (alpha - 1) * sum(log(repair_time)) - beta * sum(repair_time)  # remaining terms
 }
 
-optimize(loglik, interval = c(0.1, 10), maximum = TRUE)
+optimize(loglik, interval = c(0.1, 10), maximum = TRUE)  # search for the maximizing alpha
 ```
 
 The `$maximum` entry reports the value of $\alpha$ that maximizes the log-likelihood. For these data,
@@ -156,11 +158,11 @@ $$
 The optimized log-likelihood is approximately $-161.19$. We can plot the log-likelihood to confirm that the peak is inside the interval and not at an endpoint.
 
 ```{r}
-alpha <- seq(1, 4, by = 0.01)
-plot(alpha, loglik(alpha), type = "l", lwd = 2,
-     xlab = expression(alpha), ylab = "Log-likelihood",
-     main = "Gamma shape log-likelihood")
-abline(v = 2.174, lty = 2)
+alpha <- seq(1, 4, by = 0.01)  # grid of candidate shape values
+plot(alpha, loglik(alpha), type = "l", lwd = 2,  # plot the log-likelihood curve
+     xlab = expression(alpha), ylab = "Log-likelihood",  # label axes using alpha
+     main = "Gamma shape log-likelihood")  # add a title
+abline(v = 2.174, lty = 2)  # mark the estimated MLE with a dashed line
 ```
 
 The curve rises to a single peak and then falls, so the numerical solution is a genuine maximum.

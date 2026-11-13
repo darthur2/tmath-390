@@ -132,19 +132,19 @@ The last term, $-\sum \ln x_i!$, does not depend on $\lambda$, so it does not af
 The following R code evaluates and plots the Bernoulli likelihood and log-likelihood for the 14-out-of-20 example.
 
 ```{r}
-p <- seq(0.01, 0.99, by = 0.01)
-x <- 14
-n <- 20
+p <- seq(0.01, 0.99, by = 0.01)  # candidate success probabilities to evaluate
+x <- 14  # observed number of defective panels
+n <- 20  # total number of panels inspected
 
-lik <- p^x * (1 - p)^(n - x)
-loglik <- x * log(p) + (n - x) * log(1 - p)
+lik <- p^x * (1 - p)^(n - x)  # Bernoulli likelihood for each candidate p
+loglik <- x * log(p) + (n - x) * log(1 - p)  # corresponding log-likelihood
 
-plot(p, lik, type = "l", lwd = 2,
-     xlab = "p", ylab = "Likelihood",
-     main = "Bernoulli likelihood")
-plot(p, loglik, type = "l", lwd = 2,
-     xlab = "p", ylab = "Log-likelihood",
-     main = "Bernoulli log-likelihood")
+plot(p, lik, type = "l", lwd = 2,  # plot the likelihood curve
+     xlab = "p", ylab = "Likelihood",  # label the x and y axes
+     main = "Bernoulli likelihood")  # add a title
+plot(p, loglik, type = "l", lwd = 2,  # plot the log-likelihood curve
+     xlab = "p", ylab = "Log-likelihood",  # label the x and y axes
+     main = "Bernoulli log-likelihood")  # add a title
 ```
 
 Both curves peak near $p=0.7$. The likelihood scale is tiny, while the log-likelihood scale is easier to read. The peak is in the same place.
@@ -154,6 +154,7 @@ Both curves peak near $p=0.7$. The likelihood scale is tiny, while the log-likel
 Suppose the coffee shop records these order counts over 10 hours:
 
 ```{r}
+# Hourly mobile-order counts observed over 10 hours
 orders <- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)
 ```
 
@@ -172,15 +173,15 @@ $$
 The term $-\sum \ln x_i!$ is constant with respect to $\lambda$. Evaluating the full log-likelihood at a few values gives:
 
 ```{r poisson-table}
-lambda_values <- c(3.0, 3.7, 4.0, 5.0)
-n_orders <- length(orders)
-loglik_values <- -n_orders * lambda_values + sum(orders) * log(lambda_values) -
-  sum(lgamma(orders + 1))
-knitr::kable(
-  data.frame(lambda = lambda_values, loglik = loglik_values),
-  col.names = c("$\\lambda$", "$\\ell(\\lambda)$"),
-  digits = 2,
-  align = "rr"
+lambda_values <- c(3.0, 3.7, 4.0, 5.0)  # candidate rate values to compare
+n_orders <- length(orders)  # number of hourly observations
+loglik_values <- -n_orders * lambda_values + sum(orders) * log(lambda_values) -  # first two log-likelihood terms
+  sum(lgamma(orders + 1))  # subtract the constant log-factorial term
+knitr::kable(  # format the results as a table
+  data.frame(lambda = lambda_values, loglik = loglik_values),  # combine rates and log-likelihoods
+  col.names = c("$\\lambda$", "$\\ell(\\lambda)$"),  # use Greek symbols in the headers
+  digits = 2,  # round values to two decimal places
+  align = "rr"  # right-align both columns
 )
 ```
 
@@ -189,17 +190,17 @@ The largest value among these is at $\lambda=3.7$, which is the sample mean. The
 The following code evaluates the full log-likelihood over a grid and plots it.
 
 ```{r}
-orders <- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)
-n_orders <- length(orders)
-lambda <- seq(0.5, 8, by = 0.01)
+orders <- c(2, 3, 5, 4, 3, 6, 2, 4, 5, 3)  # hourly mobile-order counts
+n_orders <- length(orders)  # number of observations
+lambda <- seq(0.5, 8, by = 0.01)  # grid of candidate rate values
 
-loglik <- -n_orders * lambda + sum(orders) * log(lambda) -
-  sum(lgamma(orders + 1))
+loglik <- -n_orders * lambda + sum(orders) * log(lambda) -  # first two log-likelihood terms
+  sum(lgamma(orders + 1))  # subtract the constant log-factorial term
 
-plot(lambda, loglik, type = "l", lwd = 2,
-     xlab = expression(lambda), ylab = "Log-likelihood",
-     main = "Poisson log-likelihood")
-abline(v = mean(orders), lty = 2)
+plot(lambda, loglik, type = "l", lwd = 2,  # plot the log-likelihood curve
+     xlab = expression(lambda), ylab = "Log-likelihood",  # label axes using lambda
+     main = "Poisson log-likelihood")  # add a title
+abline(v = mean(orders), lty = 2)  # mark the sample mean with a dashed line
 ```
 
 The dashed line marks $\bar x=3.7$, the peak of the curve.
@@ -217,24 +218,24 @@ $$
 Evaluating the log-likelihood at a few values:
 
 ```{r bernoulli-table}
-x <- 14
-n <- 20
-p_values <- c(0.5, 0.6, 0.7, 0.8)
-lik_values <- p_values^x * (1 - p_values)^(n - x)
-loglik_values <- x * log(p_values) + (n - x) * log(1 - p_values)
-format_sci <- function(z) {
-  exponent <- floor(log10(z))
-  mantissa <- z / 10^exponent
-  sprintf("$%.2f\\times 10^{%d}$", mantissa, exponent)
+x <- 14  # observed number of defective panels
+n <- 20  # total number of panels inspected
+p_values <- c(0.5, 0.6, 0.7, 0.8)  # candidate probabilities to compare
+lik_values <- p_values^x * (1 - p_values)^(n - x)  # likelihood at each candidate
+loglik_values <- x * log(p_values) + (n - x) * log(1 - p_values)  # log-likelihood at each candidate
+format_sci <- function(z) {  # helper to format numbers in scientific notation
+  exponent <- floor(log10(z))  # find the power of ten for each value
+  mantissa <- z / 10^exponent  # compute the leading coefficient
+  sprintf("$%.2f\\times 10^{%d}$", mantissa, exponent)  # build the LaTeX-style label
 }
-knitr::kable(
-  data.frame(
-    p = p_values,
-    likelihood = format_sci(lik_values),
-    loglik = formatC(loglik_values, format = "f", digits = 2)
+knitr::kable(  # format the results as a table
+  data.frame(  # assemble the columns for the table
+    p = p_values,  # candidate probabilities
+    likelihood = format_sci(lik_values),  # likelihoods in scientific notation
+    loglik = formatC(loglik_values, format = "f", digits = 2)  # rounded log-likelihoods
   ),
-  col.names = c("$p$", "$L(p)$", "$\\ell(p)$"),
-  align = "rrr"
+  col.names = c("$p$", "$L(p)$", "$\\ell(p)$"),  # use mathematical headers
+  align = "rrr"  # right-align all three columns
 )
 ```
 
