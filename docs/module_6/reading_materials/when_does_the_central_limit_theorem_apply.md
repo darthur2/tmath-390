@@ -265,7 +265,6 @@ CLT to make the sampling distribution of the mean approximately normal.
 | Approximately normal | Any | Yes | Population is normal |
 | Clearly nonnormal | $`n\le30`$ | Not safely | CLT does not apply reliably |
 | Clearly nonnormal | $`n>30`$ | Yes, approximately | CLT applies |
-| Any shape | Any | Check independence first | Dependence can invalidate the model |
 
 The central limit theorem is powerful because it lets us use a normal
 model even when the population is not normal. But it is a conditional
