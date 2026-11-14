@@ -248,12 +248,12 @@ CLT to make the sampling distribution of the mean approximately normal.
 - **Thinking $`n>30`$ makes the raw data normal or fixes a biased
   sample.** The CLT concerns the sampling distribution of the sample
   mean, not the raw data, and it does not remove bias.
-- **Using the CLT when the population is already normal.** In that case,
-  the sampling distribution is normal without invoking the CLT.
-- **Thinking the CLT fixes bias.** A large sample from a biased sampling
+- Using the CLT when the population is already normal. In that case, the
+  sampling distribution is normal without invoking the CLT.
+- Thinking the CLT fixes bias. A large sample from a biased sampling
   frame still estimates the wrong population quantity.
-- **Thinking the CLT changes the mean or standard error.** It changes
-  the shape of the sampling distribution; the center and standard error
+- Thinking the CLT changes the mean or standard error. It changes the
+  shape of the sampling distribution; the center and standard error
   follow their own formulas.
 - **Ignoring dependence.** Observations from the same cluster, repeated
   measurements, or time series can violate the independence assumption.

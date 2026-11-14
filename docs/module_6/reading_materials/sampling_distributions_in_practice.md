@@ -209,15 +209,15 @@ the following approach.
 
 1.  **Plot the data and describe the shape.** Look for strong skew,
     multiple modes, and extreme outliers.
-2.  **Identify the sample size that will be used for the sample mean.**
-    The size of the pilot sample and the size of the future sample are
-    not necessarily the same.
-3.  **If the data look approximately normal, treat the sampling
-    distribution as approximately normal** for any sample size. The CLT
-    is not the justification; the normal population shape is.
-4.  **If the data look clearly nonnormal, use the sample-size
-    guideline.** With $`n\le30`$, do not rely on the CLT. With $`n>30`$,
-    an approximately normal model is usually reasonable.
+2.  Identify the sample size that will be used for the sample mean. The
+    size of the pilot sample and the size of the future sample are not
+    necessarily the same.
+3.  If the data look approximately normal, treat the sampling
+    distribution as approximately normal for any sample size. The CLT is
+    not the justification; the normal population shape is.
+4.  If the data look clearly nonnormal, use the sample-size guideline.
+    With $`n\le30`$, do not rely on the CLT. With $`n>30`$, an
+    approximately normal model is usually reasonable.
 5.  **Check independence and data quality.** Dependence, clustering, or
     measurement bias can invalidate the standard-error formula even when
     the sample is large.
@@ -229,17 +229,17 @@ as proof.
 
 ## Common mistakes
 
-- **Using the pilot sample size as the future sample size.** The shape
-  of the pilot data helps describe the population, but the standard
-  error depends on the sample size used for the future sample mean.
-- **Reporting the sample standard deviation when the question asks for
-  the standard error.** The standard error is $`s/\sqrt n`$ when $`s`$
-  is used to estimate $`\sigma`$.
+- Using the pilot sample size as the future sample size. The shape of
+  the pilot data helps describe the population, but the standard error
+  depends on the sample size used for the future sample mean.
+- Reporting the sample standard deviation when the question asks for the
+  standard error. The standard error is $`s/\sqrt n`$ when $`s`$ is used
+  to estimate $`\sigma`$.
 - **Assuming the normal approximation is automatic.** For clearly
   nonnormal data, the sample size must be large enough.
-- **Forgetting that a model’s population standard deviation may not
-  equal its mean.** For exponential and Poisson models, the mean and
-  standard deviation are related, but for other models they are separate
+- Forgetting that a model’s population standard deviation may not equal
+  its mean. For exponential and Poisson models, the mean and standard
+  deviation are related, but for other models they are separate
   quantities.
 - **Treating an estimate from a pilot sample as the exact population
   value.** Pilot estimates have their own sampling variability.

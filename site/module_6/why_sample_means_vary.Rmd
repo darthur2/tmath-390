@@ -267,7 +267,7 @@ If the team instead used \(n=100\), the center would remain \(250\) ms, but the 
 
 Watch for these errors when reasoning about sample means.
 
-- **Confusing the population distribution with the sampling distribution.** The histogram of the raw data and the histogram of the sample means are different objects.
+- Confusing the population distribution with the sampling distribution. The histogram of the raw data and the histogram of the sample means are different objects.
 - **Using \(\sigma\) instead of \(\sigma/\sqrt n\).** The standard deviation of individual observations is not the standard error of the sample mean.
 - **Thinking larger samples change the center.** The sample mean is centered at \(\mu\) for every sample size.
 - **Thinking the sample mean is always exactly normal.** That is true for a normal population, but not automatically for every population and sample size.

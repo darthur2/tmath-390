@@ -730,16 +730,16 @@ the following approach.</p>
 <ol style="list-style-type: decimal">
 <li><strong>Plot the data and describe the shape.</strong> Look for
 strong skew, multiple modes, and extreme outliers.</li>
-<li><strong>Identify the sample size that will be used for the sample
-mean.</strong> The size of the pilot sample and the size of the future
-sample are not necessarily the same.</li>
-<li><strong>If the data look approximately normal, treat the sampling
-distribution as approximately normal</strong> for any sample size. The
-CLT is not the justification; the normal population shape is.</li>
-<li><strong>If the data look clearly nonnormal, use the sample-size
-guideline.</strong> With <span class="math inline">\(n\le30\)</span>, do
-not rely on the CLT. With <span class="math inline">\(n&gt;30\)</span>,
-an approximately normal model is usually reasonable.</li>
+<li>Identify the sample size that will be used for the sample mean. The
+size of the pilot sample and the size of the future sample are not
+necessarily the same.</li>
+<li>If the data look approximately normal, treat the sampling
+distribution as approximately normal for any sample size. The CLT is not
+the justification; the normal population shape is.</li>
+<li>If the data look clearly nonnormal, use the sample-size guideline.
+With <span class="math inline">\(n\le30\)</span>, do not rely on the
+CLT. With <span class="math inline">\(n&gt;30\)</span>, an approximately
+normal model is usually reasonable.</li>
 <li><strong>Check independence and data quality.</strong> Dependence,
 clustering, or measurement bias can invalidate the standard-error
 formula even when the sample is large.</li>
@@ -752,18 +752,17 @@ as proof.</p>
 <div id="common-mistakes" class="section level2">
 <h2>Common mistakes</h2>
 <ul>
-<li><strong>Using the pilot sample size as the future sample
-size.</strong> The shape of the pilot data helps describe the
-population, but the standard error depends on the sample size used for
-the future sample mean.</li>
-<li><strong>Reporting the sample standard deviation when the question
-asks for the standard error.</strong> The standard error is <span class="math inline">\(s/\sqrt n\)</span> when <span class="math inline">\(s\)</span> is used to estimate <span class="math inline">\(\sigma\)</span>.</li>
+<li>Using the pilot sample size as the future sample size. The shape of
+the pilot data helps describe the population, but the standard error
+depends on the sample size used for the future sample mean.</li>
+<li>Reporting the sample standard deviation when the question asks for
+the standard error. The standard error is <span class="math inline">\(s/\sqrt n\)</span> when <span class="math inline">\(s\)</span> is used to estimate <span class="math inline">\(\sigma\)</span>.</li>
 <li><strong>Assuming the normal approximation is automatic.</strong> For
 clearly nonnormal data, the sample size must be large enough.</li>
-<li><strong>Forgetting that a model’s population standard deviation may
-not equal its mean.</strong> For exponential and Poisson models, the
-mean and standard deviation are related, but for other models they are
-separate quantities.</li>
+<li>Forgetting that a model’s population standard deviation may not
+equal its mean. For exponential and Poisson models, the mean and
+standard deviation are related, but for other models they are separate
+quantities.</li>
 <li><strong>Treating an estimate from a pilot sample as the exact
 population value.</strong> Pilot estimates have their own sampling
 variability.</li>

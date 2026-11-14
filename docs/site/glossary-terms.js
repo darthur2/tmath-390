@@ -4638,10 +4638,6 @@ window.TMATH_GLOSSARY = {
     }
   },
   "module_6/overview.html": {
-    "Sampling Distribution": {
-      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. For the sample mean, the center and standard error depend only on the population mean \\(\\mu\\), population standard deviation \\(\\sigma\\), and sample size \\(n\\):",
-      "count": 1
-    },
     "Central Limit Theorem": {
       "text": "The result that, for independent observations with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the standardized sample mean",
       "count": 1
@@ -4650,14 +4646,8 @@ window.TMATH_GLOSSARY = {
       "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
       "count": 1
     },
-    "Standard Error": {
-      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
-      "count": 1
-    }
-  },
-  "module_6/why_sample_means_vary.html": {
-    "Population Distribution": {
-      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+    "Sample Size": {
+      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
       "count": 1
     },
     "Sampling Distribution": {
@@ -4668,16 +4658,38 @@ window.TMATH_GLOSSARY = {
       "text": "The natural variation in a statistic from one random sample to another. Sampling variability is described by the sampling distribution and measured in part by the standard error.",
       "count": 1
     },
-    "Expected Value of the Sample Mean": {
-      "text": "The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \\(\\mu\\), the expected value of the sample mean is \\(\\mu\\). Using linearity of expectation,",
+    "Standard Deviation": {
+      "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
       "count": 1
     },
     "Standard Error": {
       "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
       "count": 1
+    }
+  },
+  "module_6/why_sample_means_vary.html": {
+    "Central Limit Theorem": {
+      "text": "The result that, for independent observations with mean \\(\\mu\\) and standard deviation \\(\\sigma\\), the standardized sample mean",
+      "count": 1
+    },
+    "Population Distribution": {
+      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+      "count": 1
+    },
+    "Sample Size": {
+      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
+      "count": 1
+    },
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. For the sample mean, the center and standard error depend only on the population mean \\(\\mu\\), population standard deviation \\(\\sigma\\), and sample size \\(n\\):",
+      "count": 1
     },
     "Standard Deviation": {
       "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
+      "count": 1
+    },
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
       "count": 1
     }
   },
@@ -4690,12 +4702,16 @@ window.TMATH_GLOSSARY = {
       "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
       "count": 1
     },
+    "Sample Size": {
+      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
+      "count": 1
+    },
     "Sampling Distribution": {
       "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. For the sample mean, the center and standard error depend only on the population mean \\(\\mu\\), population standard deviation \\(\\sigma\\), and sample size \\(n\\):",
       "count": 1
     },
-    "Sample Size": {
-      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
+    "Standard Deviation": {
+      "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
       "count": 1
     },
     "Standard Error": {
@@ -4712,28 +4728,24 @@ window.TMATH_GLOSSARY = {
       "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
       "count": 1
     },
-    "Sampling Distribution": {
-      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. For the sample mean, the center and standard error depend only on the population mean \\(\\mu\\), population standard deviation \\(\\sigma\\), and sample size \\(n\\):",
-      "count": 1
-    },
     "Sample Size": {
       "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
       "count": 1
     },
-    "Standard Error": {
-      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. For the sample mean, the center and standard error depend only on the population mean \\(\\mu\\), population standard deviation \\(\\sigma\\), and sample size \\(n\\):",
+      "count": 1
+    },
+    "Sampling Variability": {
+      "text": "The natural variation in a statistic from one random sample to another. Sampling variability is described by the sampling distribution and measured in part by the standard error.",
       "count": 1
     },
     "Standard Deviation": {
       "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
       "count": 1
     },
-    "Expected Value of the Sample Mean": {
-      "text": "The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \\(\\mu\\), the expected value of the sample mean is \\(\\mu\\). Using linearity of expectation,",
-      "count": 1
-    },
-    "Variance of the Sample Mean": {
-      "text": "The variance of the sampling distribution of the sample mean. For independent observations with population variance \\(\\sigma^2\\),",
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
       "count": 1
     }
   },

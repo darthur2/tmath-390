@@ -326,9 +326,9 @@ more precise estimate, not a different center.
 
 Watch for these errors when reasoning about sample means.
 
-- **Confusing the population distribution with the sampling
-  distribution.** The histogram of the raw data and the histogram of the
-  sample means are different objects.
+- Confusing the population distribution with the sampling distribution.
+  The histogram of the raw data and the histogram of the sample means
+  are different objects.
 - **Using $`\sigma`$ instead of $`\sigma/\sqrt n`$.** The standard
   deviation of individual observations is not the standard error of the
   sample mean.
