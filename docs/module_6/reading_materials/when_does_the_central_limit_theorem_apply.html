@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When Does the Central Limit Theorem Take Over?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <style>
+body { font-family: Arial, Helvetica, sans-serif; color: #1f2937; margin: 0; padding: 2rem 1rem; line-height: 1.75; }
+.wrap { max-width: 900px; margin: 0 auto; }
+h1 { color: #245364; line-height: 1.3; margin: 0 0 1.2rem; }
+h1 + p em { color: #5b6e7a; }
+h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: #346678; border-bottom: 1px solid #92aeba; padding-bottom: 0.3rem; margin: 2.4rem 0 0.9rem; }
+h3 { color: #245364; margin: 1.6rem 0 0.6rem; }
+p { line-height: 1.75; color: #1f2937; margin: 0 0 1.1rem; }
+li { margin: 0 0 0.6rem; line-height: 1.75; color: #1f2937; }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+code { font-family: Consolas, Menlo, monospace; background: #eaf0f6; padding: 0.08em 0.3em; border-radius: 4px; font-size: 0.92em; }
+pre { background: #f4f6f8; border: 1px solid #d7e2e8; border-radius: 6px; padding: 0.9rem; overflow-x: auto; }
+pre code { background: transparent; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0 1.4rem; }
+th, td { border: 1px solid #cbd5e1; padding: 0.5rem 0.65rem; text-align: left; }
+th { background: #eaf0f6; color: #245364; }
+img { max-width: 100%; height: auto; display: block; margin: 1.2rem auto; }
+blockquote { border-left: 4px solid #92aeba; margin: 1rem 0; padding: 0.2rem 1rem; color: #5b6e7a; background: #f4f8fa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="when-does-the-central-limit-theorem-take-over">When Does the
+Central Limit Theorem Take Over?</h1>
+<p><em>How sample size changes the shape of the sampling
+distribution.</em></p>
+<p>A network engineering team is studying packet sizes on a campus link.
+The distribution is bimodal: many small control packets and many larger
+data packets, with relatively few packets in between. A cybersecurity
+analyst is studying counts of alerts per hour. A robotics team is
+calibrating a sensor whose measurement noise is approximately normal. In
+each case, someone wants to use the sample mean and needs to know
+whether a normal model is reasonable.</p>
+<p>The <strong>central limit theorem</strong> (CLT) is the result that
+often makes a normal model reasonable. But the CLT is not automatic. It
+depends on the population and especially on the sample size. The goal of
+this reading is to make those conditions concrete.</p>
+<h2 id="what-the-central-limit-theorem-says">What the central limit
+theorem says</h2>
+<p>In words, the central limit theorem says that for independent
+observations from a population with finite mean and finite standard
+deviation, the sampling distribution of the sample mean becomes
+approximately normal as the sample size grows.</p>
+<p>More formally, let
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>X</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">X_1,\ldots,X_n</annotation></semantics></math>
+be independent observations with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and standard deviation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>.
+For large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Z</mi><mi>n</mi></msub><mo>=</mo><mfrac><mrow><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>μ</mi></mrow><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow></mfrac></mrow><annotation encoding="application/x-tex">
+Z_n=\frac{\bar X-\mu}{\sigma/\sqrt n}
+</annotation></semantics></math></p>
+<p>is approximately a standard normal random variable. Equivalently,</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo>−</mo><mi>μ</mi></mrow><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow></mfrac><mover><mo>∼</mo><mtext mathvariant="normal">approx.</mtext></mover><mrow><mi mathvariant="normal">Normal</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\frac{\bar X-\mu}{\sigma/\sqrt n}\overset{\text{approx.}}{\sim}\operatorname{Normal}(0,1).
+</annotation></semantics></math></p>
+<p>We can rearrange this as</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo>=</mo><mi>μ</mi><mo>+</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac><msub><mi>Z</mi><mi>n</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\bar X=\mu+\frac{\sigma}{\sqrt n}Z_n.
+</annotation></semantics></math></p>
+<p>This is a linear transformation of an approximately standard normal
+variable. From the linear transformations material earlier in the
+course, if
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>Z</mi><mo>∼</mo><mrow><mi mathvariant="normal">Normal</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">Z\sim\operatorname{Normal}(0,1)</annotation></semantics></math>,
+then
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>+</mo><mi>b</mi><mi>Z</mi><mo>∼</mo><mrow><mi mathvariant="normal">Normal</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>a</mi><mo>,</mo><msup><mi>b</mi><mn>2</mn></msup><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">a+bZ\sim\operatorname{Normal}(a,b^2)</annotation></semantics></math>.
+Here
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>a</mi><mo>=</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">a=\mu</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>b</mi><mo>=</mo><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">b=\sigma/\sqrt n</annotation></semantics></math>,
+so
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+is approximately normal with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>.</p>
+<p>The theorem is about the <strong>shape</strong> of the sampling
+distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>.
+It does not say that the raw data become normal. It does not say that
+every sample mean is close to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.
+It does not remove bias from a bad sampling plan.</p>
+<p>The standard version of the theorem assumes:</p>
+<ul>
+<li>the observations are independent, or nearly enough for the
+approximation to be reasonable;</li>
+<li>the observations come from the same population distribution;</li>
+<li>the population has a finite mean and finite standard deviation;</li>
+<li>the sample size is large enough for the approximation to be
+useful.</li>
+</ul>
+<p>The last condition is the one that requires judgment. “Large enough”
+depends on how far the population is from normal. A roughly symmetric
+population may look normal in the sampling distribution even for fairly
+small samples. A strongly skewed or strongly bimodal population may need
+a larger sample.</p>
+<h2 id="what-changes-and-what-does-not">What changes and what does
+not</h2>
+<p>The CLT changes the <strong>shape</strong> of the sampling
+distribution as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+grows. It does not change the center or the formula for the standard
+error.</p>
+<ul>
+<li><strong>Center:</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>μ</mi></mrow><annotation encoding="application/x-tex">E(\bar X)=\mu</annotation></semantics></math>,
+regardless of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.</li>
+<li><strong>Spread:</strong>
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">SE</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\operatorname{SE}(\bar X)=\sigma/\sqrt n</annotation></semantics></math>,
+regardless of the population shape.</li>
+<li><strong>Shape:</strong> increasingly close to normal as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+grows when the CLT applies.</li>
+</ul>
+<p>This separation matters. A larger sample gives a narrower sampling
+distribution, but it does not move the sampling distribution toward a
+different mean. If a measurement process is biased, a larger sample will
+estimate the biased population mean more precisely, not the quantity we
+wish we were measuring.</p>
+<h2 id="when-the-population-is-already-normal">When the population is
+already normal</h2>
+<p>If the population distribution is normal, the sampling distribution
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+is exactly normal for every sample size. The CLT is not needed. The
+sample size still controls the standard error, but it does not control
+whether the shape is normal.</p>
+<p>This matters for the assessments. A scenario can use a very small
+sample from a normal population and still justify a normal model for the
+sample mean. The reason is the normal population, not the CLT.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a seed so the simulated population and sample means are reproducible.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">390</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a large population that is exactly normal with mean 50 and SD 10.</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>normal_pop <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">200000</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw 3,000 samples of size 9 and compute each sample mean.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>small_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(normal_pop, <span class="dv">9</span>)))</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw 3,000 samples of size 64 and compute each sample mean.</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>large_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(normal_pop, <span class="dv">64</span>)))</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the sample means from the small samples. The shape should look normal</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># because the population itself is normal, even though n = 9 is small.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(small_means, <span class="at">breaks =</span> <span class="dv">35</span>, <span class="at">main =</span> <span class="st">&quot;Normal population, n = 9&quot;</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Sample mean&quot;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the sample means from the large samples. The distribution should also</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># look normal, but it should be narrower because the standard error is smaller.</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(large_means, <span class="at">breaks =</span> <span class="dv">35</span>, <span class="at">main =</span> <span class="st">&quot;Normal population, n = 64&quot;</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Sample mean&quot;</span>)</span></code></pre></div>
+<p>Both histograms look normal. The larger sample is narrower, but the
+shape has not fundamentally changed.</p>
+<h2 id="when-the-population-is-not-normal">When the population is not
+normal</h2>
+<p>When the population is strongly skewed, bimodal, or otherwise clearly
+nonnormal, the sample size determines whether the normal approximation
+is safe.</p>
+<p>For this course, we use a simple guideline:</p>
+<ul>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n&gt;30</annotation></semantics></math>,
+treat the sample as large enough for the CLT to make the sampling
+distribution approximately normal when the population is clearly
+nonnormal.</li>
+<li>If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n\le30</annotation></semantics></math>,
+do not rely on the CLT for a clearly nonnormal population.</li>
+</ul>
+<p>This is a course guideline, not a law of nature. The CLT is an
+approximation, and the quality of the approximation depends on the
+population. A very extreme distribution may require a larger sample than
+a mildly skewed one.</p>
+<p>The next simulation draws from a strongly right-skewed population and
+shows the sampling distribution at several sample sizes.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a seed so the simulation is reproducible.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">390</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a large strongly right-skewed population using an exponential</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution with rate 1. The population mean and standard deviation are</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># both 1, but the population is far from normal.</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>skew_pop <span class="ot">&lt;-</span> <span class="fu">rexp</span>(<span class="dv">200000</span>, <span class="at">rate =</span> <span class="dv">1</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat the sampling experiment for several sample sizes.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (n <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">25</span>, <span class="dv">64</span>, <span class="dv">100</span>)) {</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Draw 4,000 samples of size n and compute the mean of each sample.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(skew_pop, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the 4,000 sample means. This approximates the sampling distribution</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># of the sample mean for this sample size.</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">hist</span>(means, <span class="at">breaks =</span> <span class="dv">40</span>, <span class="at">freq =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;n =&quot;</span>, n), <span class="at">xlab =</span> <span class="st">&quot;Sample mean&quot;</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Overlay the normal curve predicted by the CLT: mean 1 and standard</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># error 1/sqrt(n). Comparing the histogram to this curve shows how the</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sampling distribution becomes more normal as n grows.</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">1</span>, <span class="at">sd =</span> <span class="dv">1</span> <span class="sc">/</span> <span class="fu">sqrt</span>(n)), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>At
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">n=9</annotation></semantics></math>,
+the sampling distribution is still visibly right-skewed. By
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>,
+it is close to normal.</p>
+<figure>
+<img src="../../figures/clt_convergence.png"
+alt="The sampling distribution of the mean from a strongly right-skewed population at sample sizes 9, 25, 64, and 100. The red curve is the normal approximation." />
+<figcaption aria-hidden="true">The sampling distribution of the mean
+from a strongly right-skewed population at sample sizes 9, 25, 64, and
+100. The red curve is the normal approximation.</figcaption>
+</figure>
+<h2 id="deciding-whether-the-clt-applies">Deciding whether the CLT
+applies</h2>
+<p>When you face a scenario, ask three questions in order.</p>
+<ol type="1">
+<li><strong>What is the shape of the population?</strong> If it is
+approximately normal, a normal model for the sample mean is justified
+for any sample size. The CLT is not needed.</li>
+<li><strong>If the population is not normal, how large is the
+sample?</strong> If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n\le30</annotation></semantics></math>,
+do not rely on the CLT. If
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n&gt;30</annotation></semantics></math>,
+the CLT generally justifies an approximately normal sampling
+distribution.</li>
+<li><strong>Are the observations independent?</strong> The CLT does not
+rescue dependent observations. Repeated measurements on the same unit or
+samples collected in clusters can invalidate the usual standard-error
+formula and the normal approximation.</li>
+</ol>
+<p>It also helps to look at the data. A histogram of a pilot sample can
+reveal strong skew, outliers, or multiple modes. A small pilot sample
+may be too small to reveal the population shape reliably, so use that
+information with caution.</p>
+<h2 id="worked-examples">Worked examples</h2>
+<p><strong>Example 1: strongly skewed session lengths.</strong> A web
+analytics team studies session lengths. The population is strongly
+right-skewed. A random sample of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>
+sessions is selected. Because the sample is large and the observations
+are independent, the CLT justifies an approximately normal model for the
+sample mean. The mean of the sampling distribution is the population
+mean session length, and the standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mn>100</mn></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt{100}</annotation></semantics></math>.</p>
+<p><strong>Example 2: left-skewed repair times.</strong> A maintenance
+team studies repair times that are strongly left-skewed. A random sample
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">n=16</annotation></semantics></math>
+repairs is selected. The sample is too small to rely on the CLT for such
+a nonnormal population. A normal model for the sample mean is not
+justified by the CLT, even though the sample mean is still centered at
+the population mean and has standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mn>16</mn></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt{16}</annotation></semantics></math>.</p>
+<p><strong>Example 3: normal sensor noise.</strong> A robotics team
+knows from calibration that sensor error is approximately normally
+distributed. A random sample of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>20</mn></mrow><annotation encoding="application/x-tex">n=20</annotation></semantics></math>
+readings is selected. The sampling distribution of the sample mean is
+approximately normal because the population is normal, not because of
+the CLT. The sample size affects only the standard error.</p>
+<p><strong>Example 4: bimodal packet sizes.</strong> A network team
+studies packet sizes that are bimodal. A random sample of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>
+packets is selected. Even though the population is not normal, the
+sample is large enough for the CLT to make the sampling distribution of
+the mean approximately normal.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Thinking
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n&gt;30</annotation></semantics></math>
+makes the raw data normal or fixes a biased sample.</strong> The CLT
+concerns the sampling distribution of the sample mean, not the raw data,
+and it does not remove bias.</li>
+<li><strong>Using the CLT when the population is already
+normal.</strong> In that case, the sampling distribution is normal
+without invoking the CLT.</li>
+<li><strong>Thinking the CLT fixes bias.</strong> A large sample from a
+biased sampling frame still estimates the wrong population
+quantity.</li>
+<li><strong>Thinking the CLT changes the mean or standard
+error.</strong> It changes the shape of the sampling distribution; the
+center and standard error follow their own formulas.</li>
+<li><strong>Ignoring dependence.</strong> Observations from the same
+cluster, repeated measurements, or time series can violate the
+independence assumption.</li>
+</ul>
+<h2 id="a-decision-guide">A decision guide</h2>
+<table style="width:99%;">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 30%" />
+<col style="width: 23%" />
+<col style="width: 23%" />
+</colgroup>
+<thead>
+<tr>
+<th>Population shape</th>
+<th style="text-align: right;">Sample size</th>
+<th>Normal model for
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>?</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Approximately normal</td>
+<td style="text-align: right;">Any</td>
+<td>Yes</td>
+<td>Population is normal</td>
+</tr>
+<tr>
+<td>Clearly nonnormal</td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n\le30</annotation></semantics></math></td>
+<td>Not safely</td>
+<td>CLT does not apply reliably</td>
+</tr>
+<tr>
+<td>Clearly nonnormal</td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n&gt;30</annotation></semantics></math></td>
+<td>Yes, approximately</td>
+<td>CLT applies</td>
+</tr>
+<tr>
+<td>Any shape</td>
+<td style="text-align: right;">Any</td>
+<td>Check independence first</td>
+<td>Dependence can invalidate the model</td>
+</tr>
+</tbody>
+</table>
+<p>The central limit theorem is powerful because it lets us use a normal
+model even when the population is not normal. But it is a conditional
+tool, not a universal switch. The population shape and the sample size
+jointly determine when it is reasonable.</p>
+
+</div>
+</body>
+</html>

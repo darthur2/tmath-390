@@ -1,0 +1,19 @@
+---
+title: "Module 6: Sampling Distributions and the Central Limit Theorem"
+---
+
+This page lists the overview, readings, and glossary for Module 6.
+
+## Overview
+
+- [Module Overview](overview.html)
+
+## Readings
+
+- [Sampling Distributions in Practice](sampling_distributions_in_practice.html)
+- [When Does the Central Limit Theorem Take Over?](when_does_the_central_limit_theorem_apply.html)
+- [Why Does the Sample Mean Keep Changing?](why_sample_means_vary.html)
+
+## Glossary
+
+- [Definitions and Examples](definitions_and_examples.html)

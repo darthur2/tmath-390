@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Module 6 Glossary</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <style>
+body { font-family: Arial, Helvetica, sans-serif; color: #1f2937; margin: 0; padding: 2rem 1rem; line-height: 1.75; }
+.wrap { max-width: 900px; margin: 0 auto; }
+h1 { color: #245364; line-height: 1.3; margin: 0 0 1.2rem; }
+h1 + p em { color: #5b6e7a; }
+h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: #346678; border-bottom: 1px solid #92aeba; padding-bottom: 0.3rem; margin: 2.4rem 0 0.9rem; }
+h3 { color: #245364; margin: 1.6rem 0 0.6rem; }
+p { line-height: 1.75; color: #1f2937; margin: 0 0 1.1rem; }
+li { margin: 0 0 0.6rem; line-height: 1.75; color: #1f2937; }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+code { font-family: Consolas, Menlo, monospace; background: #eaf0f6; padding: 0.08em 0.3em; border-radius: 4px; font-size: 0.92em; }
+pre { background: #f4f6f8; border: 1px solid #d7e2e8; border-radius: 6px; padding: 0.9rem; overflow-x: auto; }
+pre code { background: transparent; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0 1.4rem; }
+th, td { border: 1px solid #cbd5e1; padding: 0.5rem 0.65rem; text-align: left; }
+th { background: #eaf0f6; color: #245364; }
+img { max-width: 100%; height: auto; display: block; margin: 1.2rem auto; }
+blockquote { border-left: 4px solid #92aeba; margin: 1rem 0; padding: 0.2rem 1rem; color: #5b6e7a; background: #f4f8fa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="module-6-glossary">Module 6 Glossary</h1>
+<p>This glossary supports Module 6 (Sampling Distributions and the
+Central Limit Theorem). Entries are listed alphabetically. Each entry
+gives a definition, a cited source, and examples with by-hand work and R
+code. The examples use fresh contexts and values so they extend, rather
+than repeat, the course readings and assessments.</p>
+<h2 id="bimodal-distribution">Bimodal Distribution</h2>
+<p><strong>Definition:</strong> A distribution with two distinct peaks
+or modes. A bimodal population can produce a sample mean that is
+approximately normal when the sample size is large, because the central
+limit theorem depends on the sample size rather than on the population
+being unimodal.</p>
+<p><strong>Source:</strong> Introductory Statistics 2e, Chapter 2;
+Mathematical Statistics with Applications in R, Chapter 4.</p>
+<p><strong>Example 1:</strong> Packet sizes on a network link often form
+a bimodal distribution: many small control packets and many larger data
+packets.</p>
+<p><strong>By hand:</strong> A histogram shows peaks near 80 bytes and
+near 1,200 bytes. The population is clearly bimodal, so a single normal
+model is not appropriate for individual packet sizes.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(packet_size, <span class="at">breaks =</span> <span class="dv">30</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> A service has two customer groups with
+different session lengths, producing a bimodal distribution of session
+times.</p>
+<p><strong>By hand:</strong> The population has modes near 2 minutes and
+near 20 minutes. For samples of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>,
+the CLT can still make the sample mean approximately normal.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(session_time, <span class="dv">81</span>)))</span></code></pre></div>
+<h2 id="central-limit-theorem">Central Limit Theorem</h2>
+<p><strong>Definition:</strong> The result that, for independent
+observations with finite mean and finite standard deviation, the
+sampling distribution of the sample mean becomes approximately normal as
+the sample size grows. It describes the shape of the sampling
+distribution, not the shape of the raw data.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4; Introductory Statistics 2e, Chapter 7.</p>
+<p><strong>Example 1:</strong> A strongly right-skewed population has
+mean 10 and standard deviation 10. Samples of size 81 are selected.</p>
+<p><strong>By hand:</strong> The sampling distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+has mean 10 and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><msqrt><mn>81</mn></msqrt><mo>=</mo><mn>1.111</mn></mrow><annotation encoding="application/x-tex">10/\sqrt{81}=1.111</annotation></semantics></math>.
+Because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>
+is large, the CLT makes the sampling distribution approximately
+normal.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">81</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>)))</span></code></pre></div>
+<p><strong>Example 2:</strong> A uniform population on
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>20</mn><annotation encoding="application/x-tex">20</annotation></semantics></math>
+is sampled with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>.</p>
+<p><strong>By hand:</strong> The population mean is 12 and the
+population standard deviation is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mi>/</mi><msqrt><mn>12</mn></msqrt></mrow><annotation encoding="application/x-tex">16/\sqrt{12}</annotation></semantics></math>.
+The sampling distribution has mean 12 and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>16</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mn>10</mn><msqrt><mn>12</mn></msqrt><mo stretchy="false" form="postfix">)</mo><mo>≈</mo><mn>0.462</mn></mrow><annotation encoding="application/x-tex">16/(10\sqrt{12})\approx0.462</annotation></semantics></math>,
+and it is approximately normal by the CLT.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">runif</span>(<span class="dv">100</span>, <span class="dv">4</span>, <span class="dv">20</span>)))</span></code></pre></div>
+<p><strong>Example 3:</strong> A population is approximately normal with
+mean 150 and standard deviation 12. Samples of size 25 are selected.</p>
+<p><strong>By hand:</strong> The sampling distribution is exactly normal
+with mean 150 and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">12/5=2.4</annotation></semantics></math>.
+The CLT is not needed because the population is already normal.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="dv">150</span>, <span class="dv">12</span>)))</span></code></pre></div>
+<h2 id="expected-value-of-the-sample-mean">Expected Value of the Sample
+Mean</h2>
+<p><strong>Definition:</strong> The long-run average value of the sample
+mean over repeated random samples. For independent observations from a
+population with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
+the expected value of the sample mean is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4.</p>
+<p><strong>Example 1:</strong> A population has mean 85 and standard
+deviation 24. Samples of size 64 are selected.</p>
+<p><strong>By hand:</strong> The expected value of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+is 85, the population mean. The sample size does not change the
+center.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mean_many <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, <span class="dv">64</span>))); <span class="fu">mean</span>(mean_many)</span></code></pre></div>
+<p><strong>Example 2:</strong> An exponential population has mean 10
+hours. Samples of size 81 are selected.</p>
+<p><strong>By hand:</strong> The expected value of the sample mean is 10
+hours. The strong skew of the exponential population does not move the
+center.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">rexp</span>(<span class="dv">81</span>, <span class="at">rate =</span> <span class="dv">1</span><span class="sc">/</span><span class="dv">10</span>))); <span class="fu">mean</span>(means)</span></code></pre></div>
+<h2 id="independent-observations">Independent Observations</h2>
+<p><strong>Definition:</strong> Observations are independent when the
+value of one observation does not change the probability distribution of
+any other observation. Independence is a standard assumption behind the
+formula
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">SE</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\operatorname{SE}(\bar X)=\sigma/\sqrt n</annotation></semantics></math>
+and behind the central limit theorem.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4; Introductory Statistics 2e, Chapter 7.</p>
+<p><strong>Example 1:</strong> A lab measures 64 different randomly
+selected sensors once each.</p>
+<p><strong>By hand:</strong> The readings come from different sensors,
+so treating them as independent is reasonable if the sensors are
+unrelated and the sampling is random.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sensor_reading <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.1</span>, <span class="fl">11.8</span>, <span class="fl">12.5</span>, <span class="fl">12.2</span>, <span class="fl">11.9</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> A researcher measures the same sensor 64
+times in a row.</p>
+<p><strong>By hand:</strong> These are repeated measurements on one
+unit. They may be correlated, so the independence assumption is
+questionable and the usual standard error may be too small.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>repeated <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">12.1</span>, <span class="dv">64</span>)</span></code></pre></div>
+<h2 id="law-of-large-numbers">Law of Large Numbers</h2>
+<p><strong>Definition:</strong> The result that the sample mean tends to
+get closer to the population mean as the sample size grows. It describes
+the behavior of the average in large samples, while the central limit
+theorem describes the shape of the sampling distribution around that
+average.</p>
+<p><strong>Source:</strong> Introductory Statistics 2e, Chapter 7.</p>
+<p><strong>Example 1:</strong> A fair coin is flipped many times and the
+proportion of heads is recorded.</p>
+<p><strong>By hand:</strong> As the number of flips grows, the
+proportion of heads tends to get closer to 0.5. This is the law of large
+numbers in action.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prop <span class="ot">&lt;-</span> <span class="fu">cumsum</span>(<span class="fu">rbinom</span>(<span class="dv">10000</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)) <span class="sc">/</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> A team records average API latency for
+increasing sample sizes.</p>
+<p><strong>By hand:</strong> As the sample size grows, the sample mean
+latency tends to get closer to the population mean latency. The standard
+error shrinks like
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">1/\sqrt n</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">25</span>, <span class="dv">64</span>, <span class="dv">100</span>), <span class="cf">function</span>(n) <span class="fu">mean</span>(<span class="fu">sample</span>(latency, n)))</span></code></pre></div>
+<h2 id="normal-distribution">Normal Distribution</h2>
+<p><strong>Definition:</strong> A continuous distribution with a
+symmetric bell shape, specified by its mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and standard deviation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>.
+If a population is normal, then the sampling distribution of the sample
+mean is exactly normal for every sample size.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4; Introductory Statistics 2e, Chapter 6.</p>
+<p><strong>Example 1:</strong> Sensor noise is modeled as normal with
+mean 0 and standard deviation 0.4.</p>
+<p><strong>By hand:</strong> Individual readings vary around 0 with
+standard deviation 0.4. For samples of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">n=16</annotation></semantics></math>,
+the sample mean has standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>0.4</mn><mi>/</mi><mn>4</mn><mo>=</mo><mn>0.1</mn></mrow><annotation encoding="application/x-tex">0.4/4=0.1</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">16</span>, <span class="dv">0</span>, <span class="fl">0.4</span>)))</span></code></pre></div>
+<p><strong>Example 2:</strong> A measurement is normal with mean 150 and
+standard deviation 12. A sample of size 25 is selected.</p>
+<p><strong>By hand:</strong> The sample mean is exactly normal with mean
+150 and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>12</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>2.4</mn></mrow><annotation encoding="application/x-tex">12/5=2.4</annotation></semantics></math>.
+No central limit theorem argument is needed.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">rnorm</span>(<span class="dv">25</span>, <span class="dv">150</span>, <span class="dv">12</span>)))</span></code></pre></div>
+<h2 id="population-distribution">Population Distribution</h2>
+<p><strong>Definition:</strong> The distribution of a variable across
+the entire population. It is fixed but usually unknown. It should be
+distinguished from the distribution of a sample and from the sampling
+distribution of a statistic.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4.</p>
+<p><strong>Example 1:</strong> Query latencies for all possible requests
+form a strongly right-skewed population distribution.</p>
+<p><strong>By hand:</strong> The population distribution describes
+individual query times. It is not the distribution of sample means.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">200000</span>, <span class="at">meanlog =</span> <span class="fl">5.2</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> A random number generator produces values
+uniformly distributed between 4 and 20.</p>
+<p><strong>By hand:</strong> The population distribution is uniform. The
+sampling distribution of the mean for large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is approximately normal.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">200000</span>, <span class="dv">4</span>, <span class="dv">20</span>)</span></code></pre></div>
+<h2 id="sample-mean">Sample Mean</h2>
+<p><strong>Definition:</strong> The arithmetic average of the
+observations in a sample,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo>=</mo><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mi>/</mi><mi>n</mi><mo stretchy="false" form="postfix">)</mo><msubsup><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></msubsup><msub><mi>X</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">\bar X=(1/n)\sum_{i=1}^n X_i</annotation></semantics></math>.
+It is a statistic and a random variable before the data are
+observed.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4.</p>
+<p><strong>Example 1:</strong> A sample of four API response times is
+120, 90, 150, and 100 ms.</p>
+<p><strong>By hand:</strong> The sample mean is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false" form="prefix">(</mo><mn>120</mn><mo>+</mo><mn>90</mn><mo>+</mo><mn>150</mn><mo>+</mo><mn>100</mn><mo stretchy="false" form="postfix">)</mo><mi>/</mi><mn>4</mn><mo>=</mo><mn>115</mn></mrow><annotation encoding="application/x-tex">(120+90+150+100)/4=115</annotation></semantics></math>
+ms.</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>latency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">90</span>, <span class="dv">150</span>, <span class="dv">100</span>); <span class="fu">mean</span>(latency)</span></code></pre></div>
+<p><strong>Example 2:</strong> A sample of five sensor readings is 12.1,
+11.8, 12.5, 12.2, and 11.9.</p>
+<p><strong>By hand:</strong> The sample mean is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>60.5</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>12.1</mn></mrow><annotation encoding="application/x-tex">60.5/5=12.1</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>sensor <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.1</span>, <span class="fl">11.8</span>, <span class="fl">12.5</span>, <span class="fl">12.2</span>, <span class="fl">11.9</span>); <span class="fu">mean</span>(sensor)</span></code></pre></div>
+<h2 id="sample-size">Sample Size</h2>
+<p><strong>Definition:</strong> The number of observations in a sample,
+usually denoted
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+It affects the standard error through the factor
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">1/\sqrt n</annotation></semantics></math>
+and affects whether the central limit theorem is a reasonable
+justification for a normal model.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4.</p>
+<p><strong>Example 1:</strong> A population has standard deviation 120.
+Compare sample sizes 16 and 64.</p>
+<p><strong>By hand:</strong> The standard errors are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>4</mn><mo>=</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">120/4=30</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>8</mn><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">120/8=15</annotation></semantics></math>.
+Quadrupling the sample size halves the standard error.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">120</span>; sigma <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">c</span>(<span class="dv">16</span>, <span class="dv">64</span>))</span></code></pre></div>
+<p><strong>Example 2:</strong> A population has standard deviation 10.
+Compare sample sizes 9 and 81.</p>
+<p><strong>By hand:</strong> The standard errors are
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><mn>3</mn><mo>≈</mo><mn>3.33</mn></mrow><annotation encoding="application/x-tex">10/3\approx3.33</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>10</mn><mi>/</mi><mn>9</mn><mo>≈</mo><mn>1.11</mn></mrow><annotation encoding="application/x-tex">10/9\approx1.11</annotation></semantics></math>.
+The larger sample is three times as precise.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">10</span>; sigma <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">81</span>))</span></code></pre></div>
+<h2 id="sampling-distribution">Sampling Distribution</h2>
+<p><strong>Definition:</strong> The probability distribution of a
+statistic over repeated random samples of the same size from the same
+population. The sampling distribution of the sample mean has center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
+standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>,
+and a shape determined by the population and sample size.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4; Introductory Statistics 2e, Chapter 7.</p>
+<p><strong>Example 1:</strong> A population has mean 85 and standard
+deviation 24. Samples of size 64 are selected.</p>
+<p><strong>By hand:</strong> The sampling distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+has mean 85 and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><mn>8</mn><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">24/8=3</annotation></semantics></math>.
+Its shape depends on the population shape.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, <span class="dv">64</span>)))</span></code></pre></div>
+<p><strong>Example 2:</strong> A strongly skewed population is sampled
+with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>.</p>
+<p><strong>By hand:</strong> The sampling distribution of the mean is
+approximately normal by the CLT, with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><mn>10</mn></mrow><annotation encoding="application/x-tex">\sigma/10</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, <span class="dv">100</span>)))</span></code></pre></div>
+<h2 id="sampling-variability">Sampling Variability</h2>
+<p><strong>Definition:</strong> The natural variation in a statistic
+from one random sample to another. Sampling variability is described by
+the sampling distribution and measured in part by the standard
+error.</p>
+<p><strong>Source:</strong> Introductory Statistics 2e, Chapter 7.</p>
+<p><strong>Example 1:</strong> Two analysts each take a random sample of
+25 requests and compute the average latency.</p>
+<p><strong>By hand:</strong> They will generally get different sample
+means because of sampling variability. The difference is expected even
+when both samples are random.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">2</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(latency, <span class="dv">25</span>)))</span></code></pre></div>
+<p><strong>Example 2:</strong> A simulation draws 1,000 different
+samples of size 64 from the same population.</p>
+<p><strong>By hand:</strong> The spread of the 1,000 sample means is the
+sampling variability. Its standard deviation is approximately
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mn>64</mn></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt{64}</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, <span class="dv">64</span>))); <span class="fu">sd</span>(means)</span></code></pre></div>
+<h2 id="skewed-distribution">Skewed Distribution</h2>
+<p><strong>Definition:</strong> A distribution that is not symmetric,
+with a longer tail on one side. Strong skew in the population can make
+the sampling distribution of the sample mean noticeably nonnormal when
+the sample size is small.</p>
+<p><strong>Source:</strong> Introductory Statistics 2e, Chapter 2;
+Mathematical Statistics with Applications in R, Chapter 4.</p>
+<p><strong>Example 1:</strong> API latency often has a long right tail
+because a few requests take much longer than most.</p>
+<p><strong>By hand:</strong> The population is strongly right-skewed. A
+sample of size 16 may not produce a normal sampling distribution for the
+mean.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(latency, <span class="at">breaks =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> Repair times can be strongly left-skewed
+because most repairs finish near a minimum time and a few finish much
+earlier.</p>
+<p><strong>By hand:</strong> With a small sample, the sampling
+distribution may remain visibly left-skewed. A larger sample is needed
+for the CLT to take over.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(repair_time, <span class="at">breaks =</span> <span class="dv">20</span>)</span></code></pre></div>
+<h2 id="standard-deviation">Standard Deviation</h2>
+<p><strong>Definition:</strong> A measure of the spread of individual
+observations around their mean, equal to the square root of the
+variance. It describes the population or sample, not the variability of
+a sample mean.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 1; Introductory Statistics 2e, Chapter 2.</p>
+<p><strong>Example 1:</strong> A population has standard deviation 24. A
+sample of size 64 is selected.</p>
+<p><strong>By hand:</strong> The standard deviation of individual
+observations is 24. The standard error of the sample mean is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>24</mn><mi>/</mi><msqrt><mn>64</mn></msqrt><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">24/\sqrt{64}=3</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(population); <span class="fu">sd</span>(population) <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">64</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> A sample of latencies has standard
+deviation 18 ms.</p>
+<p><strong>By hand:</strong> The sample standard deviation summarizes
+the spread of the individual observations. It is not the standard error
+of the sample mean.</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>latency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">120</span>, <span class="dv">90</span>, <span class="dv">150</span>, <span class="dv">100</span>); <span class="fu">sd</span>(latency)</span></code></pre></div>
+<h2 id="standard-error">Standard Error</h2>
+<p><strong>Definition:</strong> The standard deviation of a statistic’s
+sampling distribution. For the sample mean from independent
+observations, the standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>,
+or
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">s/\sqrt n</annotation></semantics></math>
+when the population standard deviation is estimated by the sample
+standard deviation.</p>
+<p><strong>Source:</strong> Mathematical Statistics with Applications in
+R, Chapter 4; Introductory Statistics 2e, Chapter 7.</p>
+<p><strong>Example 1:</strong> A population has standard deviation 120.
+Samples of size 64 are selected.</p>
+<p><strong>By hand:</strong> The standard error of the sample mean is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><msqrt><mn>64</mn></msqrt><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">120/\sqrt{64}=15</annotation></semantics></math>.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">120</span>; sigma <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">64</span>)</span></code></pre></div>
+<p><strong>Example 2:</strong> A pilot sample has standard deviation
+122.4. A future sample of size 64 is planned.</p>
+<p><strong>By hand:</strong> The estimated standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>122.4</mn><mi>/</mi><msqrt><mn>64</mn></msqrt><mo>=</mo><mn>15.3</mn></mrow><annotation encoding="application/x-tex">122.4/\sqrt{64}=15.3</annotation></semantics></math>.
+This is an estimate because the population standard deviation is
+unknown.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fl">122.4</span>; s <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">64</span>)</span></code></pre></div>
+
+</div>
+</body>
+</html>

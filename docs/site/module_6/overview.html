@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Module 6 Overview</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+.glossary-page .glossary-entry {
+margin: 0 0 1.1rem;
+padding: 1rem 1.2rem;
+background: #eef4f8;
+border: 1px solid #92aeba;
+border-radius: 10px;
+}
+.glossary-page .glossary-entry h3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.98rem;
+color: #245364;
+margin: 1.8rem 0 0.7rem;
+}
+.glossary-page .glossary-entry p {
+line-height: 1.6;
+margin: 0 0 0.7rem;
+}
+.glossary-page .glossary-label {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #5b6e7a;
+}
+.glossary-page .glossary-entry p.glossary-source {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+color: #5b6e7a;
+margin: 0 0 0.6rem;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Module 6 Overview</h1>
+<h3 class="subtitle">How repeated sampling turns a statistic into a
+distribution.</h3>
+
+
+
+<div id="why-this-module-matters" class="section level2">
+<h2>Why This Module Matters</h2>
+<p>Module 6 is about what happens when we repeat a study. A single
+sample gives us one sample mean, but a different random sample would
+have given a different value. The <strong>sampling distribution</strong>
+describes that sample-to-sample variability, and the <strong>central
+limit theorem</strong> explains why the sample mean often looks
+approximately normal even when the population does not. These ideas are
+the bridge between the probability models in Module 4, the estimation
+ideas in Module 5, and the confidence intervals and hypothesis tests
+that come next.</p>
+</div>
+<div id="what-youll-learn" class="section level2">
+<h2>What You’ll Learn</h2>
+<p>You will learn how to distinguish the <strong>population
+distribution</strong>, the <strong>sample distribution</strong>, and the
+<strong>sampling distribution of the sample mean</strong>. You will see
+why the sampling distribution is centered at the population mean and why
+its standard deviation, called the <strong>standard error</strong>,
+equals \(\sigma/\sqrt n\). You will
+study how the sample size affects the spread and shape of the sampling
+distribution, and you will learn when the <strong>central limit
+theorem</strong> justifies a normal model and when it does not. You will
+also practice reasoning from named probability models and from observed
+pilot data.</p>
+</div>
+<div id="by-the-end-of-this-module-you-should-be-able-to" class="section level2">
+<h2>By the End of This Module, You Should Be Able To</h2>
+<ul>
+<li>Explain what a sampling distribution is and why the sample mean is a
+random variable.</li>
+<li>Determine the mean and standard error of the sampling distribution
+of the sample mean.</li>
+<li>Describe how the population shape and the sample size affect the
+shape of the sampling distribution.</li>
+<li>Decide whether the central limit theorem applies, is unnecessary
+because the population is normal, or does not apply because the sample
+is too small.</li>
+<li>Use a named probability model or a pilot dataset to reason about the
+sampling distribution.</li>
+<li>Use R simulations to illustrate sampling variability and the central
+limit theorem.</li>
+</ul>
+</div>
+<div id="whats-inside" class="section level2">
+<h2>What’s Inside</h2>
+<ul>
+<li><strong>Readings</strong> — three connected readings: <em>Why Does
+the Sample Mean Keep Changing?</em>, <em>When Does the Central Limit
+Theorem Take Over?</em>, and <em>Sampling Distributions in
+Practice</em>.</li>
+<li><strong>Definitions and Examples</strong> — an alphabetical glossary
+of Module 6 terms, with sourced definitions, fresh examples, and R code
+where it helps.</li>
+<li><strong>Knowledge Checks</strong> — short practice sets on shape,
+center and standard error, sample-size effects, models, data, and CLT
+applicability.</li>
+<li><strong>Quizzes</strong> — three scenario-based checks of the Module
+6 material.</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+</body>
+</html>

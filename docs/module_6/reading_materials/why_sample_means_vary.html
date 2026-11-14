@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Does the Sample Mean Keep Changing?</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <style>
+body { font-family: Arial, Helvetica, sans-serif; color: #1f2937; margin: 0; padding: 2rem 1rem; line-height: 1.75; }
+.wrap { max-width: 900px; margin: 0 auto; }
+h1 { color: #245364; line-height: 1.3; margin: 0 0 1.2rem; }
+h1 + p em { color: #5b6e7a; }
+h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: #346678; border-bottom: 1px solid #92aeba; padding-bottom: 0.3rem; margin: 2.4rem 0 0.9rem; }
+h3 { color: #245364; margin: 1.6rem 0 0.6rem; }
+p { line-height: 1.75; color: #1f2937; margin: 0 0 1.1rem; }
+li { margin: 0 0 0.6rem; line-height: 1.75; color: #1f2937; }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+code { font-family: Consolas, Menlo, monospace; background: #eaf0f6; padding: 0.08em 0.3em; border-radius: 4px; font-size: 0.92em; }
+pre { background: #f4f6f8; border: 1px solid #d7e2e8; border-radius: 6px; padding: 0.9rem; overflow-x: auto; }
+pre code { background: transparent; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0 1.4rem; }
+th, td { border: 1px solid #cbd5e1; padding: 0.5rem 0.65rem; text-align: left; }
+th { background: #eaf0f6; color: #245364; }
+img { max-width: 100%; height: auto; display: block; margin: 1.2rem auto; }
+blockquote { border-left: 4px solid #92aeba; margin: 1rem 0; padding: 0.2rem 1rem; color: #5b6e7a; background: #f4f8fa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="why-does-the-sample-mean-keep-changing">Why Does the Sample Mean
+Keep Changing?</h1>
+<p><em>Sampling distributions, standard error, and the surprising
+stability of averages.</em></p>
+<p>A platform team is benchmarking a new database service. Latency is
+measured for a random set of queries, and the team computes the average
+latency. They run the benchmark again with a different random set of
+queries and get a different average. The same thing happens on a third
+run. Individual query times are highly variable, and the average is not
+identical from run to run.</p>
+<p>This is not a flaw in the benchmark. It is a fundamental feature of
+sampling. Whenever we summarize a random sample with a statistic such as
+the sample mean, that statistic is itself random. Understanding how it
+varies is the key to interpreting data and to the inference methods that
+come later in the course.</p>
+<p>In this reading we study the <strong>sampling distribution</strong>
+of the sample mean. We will see where its center comes from, why its
+spread shrinks as the sample size grows, and why its shape depends on
+both the population and the sample size.</p>
+<h2 id="population-sample-and-statistic">Population, sample, and
+statistic</h2>
+<p>Three distributions are easy to confuse.</p>
+<ul>
+<li>The <strong>population distribution</strong> describes the values of
+the variable across the entire population. In the latency example, it
+describes how long every possible query takes.</li>
+<li>The <strong>sample distribution</strong> describes the values we
+actually observed. It is the histogram of the data in one sample.</li>
+<li>The <strong>sampling distribution</strong> describes the values of a
+statistic over repeated random samples of the same size. It is the
+histogram we would see if we could repeat the study many times.</li>
+</ul>
+<p>The population distribution is fixed. The sample distribution changes
+from sample to sample. The sampling distribution describes that
+sample-to-sample variability.</p>
+<p>For a sample
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mn>1</mn></msub><mo>,</mo><mi>…</mi><mo>,</mo><msub><mi>X</mi><mi>n</mi></msub></mrow><annotation encoding="application/x-tex">X_1,\ldots,X_n</annotation></semantics></math>,
+the sample mean is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>X</mi><mi>i</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\bar X=\frac{1}{n}\sum_{i=1}^n X_i.
+</annotation></semantics></math></p>
+<p>The sample mean is a <strong>statistic</strong>: a number computed
+from the sample. Before the data are observed, it is a random variable.
+After the data are observed, it is a number such as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mover><mi>x</mi><mo accent="true">‾</mo></mover><mo>=</mo><mn>236.4</mn></mrow><annotation encoding="application/x-tex">\bar x=236.4</annotation></semantics></math>
+milliseconds.</p>
+<p>A <strong>random sample</strong> means that the observations are
+independent and come from the same population distribution. Independence
+is important because it lets us combine information across observations.
+It also underlies the formulas for the center and spread of the sampling
+distribution.</p>
+<h2 id="simulating-the-sampling-distribution">Simulating the sampling
+distribution</h2>
+<p>One of the best ways to understand a sampling distribution is to
+simulate one. Suppose the population of query latencies is strongly
+right-skewed with a long upper tail. We can generate a large population
+in R, draw many samples of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>,
+and plot the sample means.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a seed so the simulated population and sample means are reproducible.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">390</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a very large population of query latencies from a log-normal</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># distribution. The log-normal shape gives the strong right skew we want.</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">200000</span>, <span class="at">meanlog =</span> <span class="fl">5.2</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Choose the size of each sample drawn from the population.</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">64</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Repeat 4,000 times: draw a random sample of n latencies (with replacement,</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># which mimics sampling from a very large population) and compute its mean.</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>many_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">4000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(population, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the 4,000 sample means. This histogram is an approximation to the</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution of the sample mean.</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(many_means, <span class="at">breaks =</span> <span class="dv">40</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Sampling distribution of the mean&quot;</span>,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Sample mean latency&quot;</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Add a vertical line at the true population mean so we can see that the</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># sampling distribution is centered there.</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">mean</span>(population), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>The histogram is centered near the population mean, and it is much
+narrower than the population distribution. It is also much more
+symmetric than the original latency distribution. The next sections
+explain each of those observations.</p>
+<figure>
+<img src="../../figures/sampling_distribution_sizes.png"
+alt="Sampling distributions of the sample mean for a right-skewed population at three sample sizes. The dashed line marks the population mean." />
+<figcaption aria-hidden="true">Sampling distributions of the sample mean
+for a right-skewed population at three sample sizes. The dashed line
+marks the population mean.</figcaption>
+</figure>
+<h2 id="the-center-of-the-sampling-distribution">The center of the
+sampling distribution</h2>
+<p>The sample mean is unbiased: its expected value is the population
+mean. To see why, use <strong>linearity of expectation</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>E</mi><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>X</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>E</mi><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mi>μ</mi><mo>=</mo><mi>μ</mi><mi>.</mi></mrow><annotation encoding="application/x-tex">
+E(\bar X)
+= E\left(\frac{1}{n}\sum_{i=1}^n X_i\right)
+= \frac{1}{n}\sum_{i=1}^n E(X_i)
+= \frac{1}{n}\sum_{i=1}^n \mu
+= \mu.
+</annotation></semantics></math></p>
+<p>Linearity lets us move the expectation through the sum and pull out
+the constant
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>n</mi></mrow><annotation encoding="application/x-tex">1/n</annotation></semantics></math>.
+Each observation has the same population mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
+so the sum contains
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+copies of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.</p>
+<p>This says that if we repeated the study many times, the average of
+the sample means would equal the population mean. Individual samples may
+produce means above or below
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
+but there is no systematic tendency to land on one side.</p>
+<p>Unbiasedness does not mean that every sample mean is close to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.
+It only means that the long-run center is correct. A single small sample
+can still be far from the population mean, especially when the
+population is highly variable.</p>
+<p>In the latency example, if the population mean latency is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>250</mn></mrow><annotation encoding="application/x-tex">\mu=250</annotation></semantics></math>
+milliseconds, then the sampling distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+is centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>250</mn><annotation encoding="application/x-tex">250</annotation></semantics></math>
+milliseconds for every sample size. Changing
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+does not move the center.</p>
+<h2 id="the-spread-of-the-sampling-distribution">The spread of the
+sampling distribution</h2>
+<p>The variability of the sample mean is measured by its
+<strong>standard error</strong>:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">SE</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac><mo>,</mo></mrow><annotation encoding="application/x-tex">
+\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n},
+</annotation></semantics></math></p>
+<p>where
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>
+is the population standard deviation and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is the sample size. To see where the variance formula comes from,
+write</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Var</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mi mathvariant="normal">Var</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mn>1</mn><mi>n</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msub><mi>X</mi><mi>i</mi></msub><mo stretchy="true" form="postfix">)</mo></mrow><mo>=</mo><mfrac><mn>1</mn><msup><mi>n</mi><mn>2</mn></msup></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mi mathvariant="normal">Var</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>+</mo><mfrac><mn>2</mn><msup><mi>n</mi><mn>2</mn></msup></mfrac><munder><mo>∑</mo><mrow><mi>i</mi><mo>&lt;</mo><mi>j</mi></mrow></munder><mrow><mi mathvariant="normal">Cov</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo>,</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\operatorname{Var}(\bar X)
+= \operatorname{Var}\left(\frac{1}{n}\sum_{i=1}^n X_i\right)
+= \frac{1}{n^2}\sum_{i=1}^n \operatorname{Var}(X_i)
++ \frac{2}{n^2}\sum_{i&lt;j}\operatorname{Cov}(X_i,X_j).
+</annotation></semantics></math></p>
+<p>Because the observations are independent,
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Cov</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo>,</mo><msub><mi>X</mi><mi>j</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\operatorname{Cov}(X_i,X_j)=0</annotation></semantics></math>
+for every pair with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>i</mi><mo>≠</mo><mi>j</mi></mrow><annotation encoding="application/x-tex">i\neq j</annotation></semantics></math>.
+The covariance terms therefore vanish, and each
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Var</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><msub><mi>X</mi><mi>i</mi></msub><mo stretchy="false" form="postfix">)</mo><mo>=</mo><msup><mi>σ</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">\operatorname{Var}(X_i)=\sigma^2</annotation></semantics></math>,
+so</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Var</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mover><mi>X</mi><mo accent="true">‾</mo></mover><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mfrac><mn>1</mn><msup><mi>n</mi><mn>2</mn></msup></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><msup><mi>σ</mi><mn>2</mn></msup><mo>=</mo><mfrac><mrow><mi>n</mi><msup><mi>σ</mi><mn>2</mn></msup></mrow><msup><mi>n</mi><mn>2</mn></msup></mfrac><mo>=</mo><mfrac><msup><mi>σ</mi><mn>2</mn></msup><mi>n</mi></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\operatorname{Var}(\bar X)
+= \frac{1}{n^2}\sum_{i=1}^n \sigma^2
+= \frac{n\sigma^2}{n^2}
+= \frac{\sigma^2}{n}.
+</annotation></semantics></math></p>
+<p>Taking the square root gives the standard error.</p>
+<p>The standard error is a standard deviation, but it describes the
+variability of a statistic rather than the variability of individual
+observations. It has the same units as the original data.</p>
+<p>For a population with
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>120</mn></mrow><annotation encoding="application/x-tex">\sigma=120</annotation></semantics></math>
+milliseconds, the standard error changes as follows.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Sample size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+<th style="text-align: right;">Standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">9</td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>3</mn><mo>=</mo><mn>40</mn></mrow><annotation encoding="application/x-tex">120/3=40</annotation></semantics></math>
+ms</td>
+</tr>
+<tr>
+<td style="text-align: right;">25</td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>5</mn><mo>=</mo><mn>24</mn></mrow><annotation encoding="application/x-tex">120/5=24</annotation></semantics></math>
+ms</td>
+</tr>
+<tr>
+<td style="text-align: right;">64</td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>8</mn><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">120/8=15</annotation></semantics></math>
+ms</td>
+</tr>
+<tr>
+<td style="text-align: right;">100</td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>10</mn><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">120/10=12</annotation></semantics></math>
+ms</td>
+</tr>
+</tbody>
+</table>
+<p>Larger samples give more precise estimates. Quadrupling the sample
+size cuts the standard error in half, because the square root of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>4</mn><annotation encoding="application/x-tex">4</annotation></semantics></math>
+is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>2</mn><annotation encoding="application/x-tex">2</annotation></semantics></math>.</p>
+<figure>
+<img src="../../figures/standard_error_vs_n.png"
+alt="The standard error decreases as the sample size grows. The curve is steep for small samples and flatter for larger samples." />
+<figcaption aria-hidden="true">The standard error decreases as the
+sample size grows. The curve is steep for small samples and flatter for
+larger samples.</figcaption>
+</figure>
+<h2 id="the-shape-of-the-sampling-distribution">The shape of the
+sampling distribution</h2>
+<p>The center and spread are simple. The shape is more subtle.</p>
+<p>If the population is exactly normal, then the sampling distribution
+of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+is exactly normal for every sample size. The sample size changes the
+spread but not the shape.</p>
+<p>If the population is not normal, the sampling distribution may not
+look normal when the sample is small. For larger samples, it often
+becomes approximately normal. That is the central limit theorem, which
+is the focus of the next reading.</p>
+<p>For now, the important idea is that the shape of the sampling
+distribution is not automatically the shape of the population. The
+distribution of individual query latencies can be strongly right-skewed
+while the distribution of sample means is nearly symmetric.</p>
+<p>The following simulation compares sample means from a normal
+population with sample means from a strongly right-skewed population.
+Both are shown for a small sample and a large sample.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set a seed so both simulated populations are reproducible.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">390</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a large normal population with mean 50 and standard deviation 10.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>normal_pop <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">200000</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate a large right-skewed population using a log-normal distribution.</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>skew_pop <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(<span class="dv">200000</span>, <span class="at">meanlog =</span> <span class="fl">3.7</span>, <span class="at">sdlog =</span> <span class="fl">0.8</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># For each population, draw 3,000 samples of size 9 and size 64.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Each replicate() call returns one sample mean.</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>means_normal_small <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(normal_pop, <span class="dv">9</span>)))</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>means_normal_large <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(normal_pop, <span class="dv">64</span>)))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>means_skew_small <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(skew_pop, <span class="dv">9</span>)))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>means_skew_large <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">3000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(skew_pop, <span class="dv">64</span>)))</span></code></pre></div>
+<p>The normal population produces a bell-shaped sampling distribution
+even at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">n=9</annotation></semantics></math>.
+The skewed population produces a noticeably skewed distribution at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>9</mn></mrow><annotation encoding="application/x-tex">n=9</annotation></semantics></math>,
+but the distribution of sample means is much closer to normal at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>.</p>
+<figure>
+<img src="../../figures/normal_vs_skewed_sampling.png"
+alt="Sampling distributions from a normal population and a right-skewed population at sample sizes 9 and 64." />
+<figcaption aria-hidden="true">Sampling distributions from a normal
+population and a right-skewed population at sample sizes 9 and
+64.</figcaption>
+</figure>
+<h2 id="a-worked-latency-example">A worked latency example</h2>
+<p>Suppose a service has population mean latency
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>μ</mi><mo>=</mo><mn>250</mn></mrow><annotation encoding="application/x-tex">\mu=250</annotation></semantics></math>
+ms and population standard deviation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mo>=</mo><mn>120</mn></mrow><annotation encoding="application/x-tex">\sigma=120</annotation></semantics></math>
+ms. A random sample of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>
+requests is collected, and the sample mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+is computed.</p>
+<ul>
+<li>The sampling distribution is centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>250</mn><annotation encoding="application/x-tex">250</annotation></semantics></math>
+ms.</li>
+<li>Its standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><msqrt><mn>64</mn></msqrt><mo>=</mo><mn>15</mn></mrow><annotation encoding="application/x-tex">120/\sqrt{64}=15</annotation></semantics></math>
+ms.</li>
+<li>Because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>
+is large and the population is not extremely well behaved, we would
+expect the sampling distribution to be approximately normal, provided
+the observations are independent and there are no extreme
+distortions.</li>
+</ul>
+<p>If the team instead used
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>100</mn></mrow><annotation encoding="application/x-tex">n=100</annotation></semantics></math>,
+the center would remain
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>250</mn><annotation encoding="application/x-tex">250</annotation></semantics></math>
+ms, but the standard error would drop to
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>120</mn><mi>/</mi><mn>10</mn><mo>=</mo><mn>12</mn></mrow><annotation encoding="application/x-tex">120/10=12</annotation></semantics></math>
+ms. More data gives a more precise estimate, not a different center.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<p>Watch for these errors when reasoning about sample means.</p>
+<ul>
+<li><strong>Confusing the population distribution with the sampling
+distribution.</strong> The histogram of the raw data and the histogram
+of the sample means are different objects.</li>
+<li><strong>Using
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>
+instead of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>.</strong>
+The standard deviation of individual observations is not the standard
+error of the sample mean.</li>
+<li><strong>Thinking larger samples change the center.</strong> The
+sample mean is centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+for every sample size.</li>
+<li><strong>Thinking the sample mean is always exactly normal.</strong>
+That is true for a normal population, but not automatically for every
+population and sample size.</li>
+<li><strong>Treating observations as independent when they are
+not.</strong> Repeated measurements on the same unit, clustered data, or
+time-ordered data can violate the independence assumption.</li>
+</ul>
+<h2 id="putting-the-pieces-together">Putting the pieces together</h2>
+<p>The sample mean is a random variable. Its sampling distribution has
+center
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>,
+standard error
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>,
+and a shape that depends on the population and the sample size. These
+three facts are the foundation for the central limit theorem and for the
+confidence intervals and tests that come later.</p>
+
+</div>
+</body>
+</html>

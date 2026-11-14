@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-# Render the Module 5 R Markdown site into docs/site.
+# Render the course R Markdown site into docs/site.
 args <- commandArgs(trailingOnly = FALSE)
 script_arg <- args[grep("^--file=", args)]
 if (length(script_arg) > 0) {
@@ -160,5 +160,17 @@ invisible(file.copy(
   out_root,
   overwrite = TRUE
 ))
+
+root_index <- file.path(out_root, "index.html")
+if (file.exists(root_index)) {
+  root_html <- paste(readLines(root_index, warn = FALSE), collapse = "\n")
+  root_html <- gsub(
+    '(href|src)="(?!https?://|//|#|mailto:|data:|/|\\.\\.?/)',
+    '\\1="site/',
+    root_html,
+    perl = TRUE
+  )
+  writeLines(root_html, file.path("docs", "index.html"), useBytes = TRUE)
+}
 
 message("Rendered site to ", out_root)

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sampling Distributions in Practice</title>
+  <script type="text/javascript" async
+    src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+  <style>
+body { font-family: Arial, Helvetica, sans-serif; color: #1f2937; margin: 0; padding: 2rem 1rem; line-height: 1.75; }
+.wrap { max-width: 900px; margin: 0 auto; }
+h1 { color: #245364; line-height: 1.3; margin: 0 0 1.2rem; }
+h1 + p em { color: #5b6e7a; }
+h2 { font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.06em; color: #346678; border-bottom: 1px solid #92aeba; padding-bottom: 0.3rem; margin: 2.4rem 0 0.9rem; }
+h3 { color: #245364; margin: 1.6rem 0 0.6rem; }
+p { line-height: 1.75; color: #1f2937; margin: 0 0 1.1rem; }
+li { margin: 0 0 0.6rem; line-height: 1.75; color: #1f2937; }
+ul, ol { margin: 0.5rem 0 1rem; padding-left: 1.5rem; }
+code { font-family: Consolas, Menlo, monospace; background: #eaf0f6; padding: 0.08em 0.3em; border-radius: 4px; font-size: 0.92em; }
+pre { background: #f4f6f8; border: 1px solid #d7e2e8; border-radius: 6px; padding: 0.9rem; overflow-x: auto; }
+pre code { background: transparent; padding: 0; }
+table { border-collapse: collapse; width: 100%; margin: 1rem 0 1.4rem; }
+th, td { border: 1px solid #cbd5e1; padding: 0.5rem 0.65rem; text-align: left; }
+th { background: #eaf0f6; color: #245364; }
+img { max-width: 100%; height: auto; display: block; margin: 1.2rem auto; }
+blockquote { border-left: 4px solid #92aeba; margin: 1rem 0; padding: 0.2rem 1rem; color: #5b6e7a; background: #f4f8fa; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="sampling-distributions-in-practice">Sampling Distributions in
+Practice</h1>
+<p><em>Models, data, and the decisions behind a standard error.</em></p>
+<p>A data scientist is preparing a report on three quantities: the
+average inference latency of a machine-learning model, the average score
+of the model across random validation splits, and the average file size
+of requests handled by a service. Each quantity involves a sample mean,
+but the populations and sample sizes are different. A useful analysis
+needs more than a number for the sample mean. It needs the center, the
+standard error, and a statement about shape.</p>
+<p>This reading puts the formulas to work. We will compute
+sampling-distribution quantities for named probability models, compare
+sample sizes, and use pilot data to decide what the sampling
+distribution should look like.</p>
+<h2 id="named-models-from-population-to-sampling-distribution">Named
+models: from population to sampling distribution</h2>
+<p>For a population with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and standard deviation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>,
+the sampling distribution of
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mover><mi>X</mi><mo accent="true">‾</mo></mover><annotation encoding="application/x-tex">\bar X</annotation></semantics></math>
+has:</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mtext mathvariant="normal">center</mtext><mo>=</mo><mi>μ</mi><mo>,</mo><mspace width="2.0em"></mspace><mtext mathvariant="normal">standard error</mtext><mo>=</mo><mfrac><mi>σ</mi><msqrt><mi>n</mi></msqrt></mfrac><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\text{center}=\mu,
+\qquad
+\text{standard error}=\frac{\sigma}{\sqrt n}.
+</annotation></semantics></math></p>
+<p>The shape follows the rules from the previous reading. If the
+population is normal, the sampling distribution is normal for any
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>.
+If the population is not normal, the CLT may justify an approximately
+normal model when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+is large enough.</p>
+<p>The table below summarizes three common models.</p>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr>
+<th>Population model</th>
+<th style="text-align: right;">Population mean</th>
+<th style="text-align: right;">Population SD</th>
+<th style="text-align: right;">Sampling distribution mean</th>
+<th style="text-align: right;">Sampling distribution SE</th>
+<th>Shape for large
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Exponential</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Exponential}(\lambda)</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>λ</mi></mrow><annotation encoding="application/x-tex">1/\lambda</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>λ</mi></mrow><annotation encoding="application/x-tex">1/\lambda</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mi>λ</mi></mrow><annotation encoding="application/x-tex">1/\lambda</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>1</mn><mi>/</mi><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><msqrt><mi>n</mi></msqrt><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">1/(\lambda\sqrt n)</annotation></semantics></math></td>
+<td>Approximately normal</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Poisson</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>λ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Poisson}(\lambda)</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>λ</mi></msqrt><annotation encoding="application/x-tex">\sqrt{\lambda}</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>λ</mi><annotation encoding="application/x-tex">\lambda</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mi>λ</mi></msqrt><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sqrt{\lambda}/\sqrt n</annotation></semantics></math></td>
+<td>Approximately normal</td>
+</tr>
+<tr>
+<td><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mrow><mi mathvariant="normal">Normal</mi><mo>&#8289;</mo></mrow><mo stretchy="false" form="prefix">(</mo><mi>μ</mi><mo>,</mo><mi>σ</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">\operatorname{Normal}(\mu,\sigma)</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math></td>
+<td
+style="text-align: right;"><math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math></td>
+<td>Exactly normal</td>
+</tr>
+</tbody>
+</table>
+<p>The formulas are not separate facts to memorize. They all come from
+the same two ideas: the center of the sampling distribution equals the
+population mean, and the standard error is the population standard
+deviation divided by
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msqrt><mi>n</mi></msqrt><annotation encoding="application/x-tex">\sqrt n</annotation></semantics></math>.</p>
+<h2 id="worked-model-examples">Worked model examples</h2>
+<p><strong>Exponential model.</strong> The time until a machine
+component fails is exponential with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+hours. The population standard deviation is also
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+hours. For samples of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>,
+the sampling distribution has mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>10</mn><annotation encoding="application/x-tex">10</annotation></semantics></math>
+hours and standard error</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>10</mn><msqrt><mn>81</mn></msqrt></mfrac><mo>=</mo><mfrac><mn>10</mn><mn>9</mn></mfrac><mo>≈</mo><mn>1.111</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> hours</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\frac{10}{\sqrt{81}}=\frac{10}{9}\approx 1.111 \text{ hours}.
+</annotation></semantics></math></p>
+<p>The population is strongly right-skewed, but
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>81</mn></mrow><annotation encoding="application/x-tex">n=81</annotation></semantics></math>
+is large enough for the CLT to justify an approximately normal sampling
+distribution.</p>
+<p><strong>Poisson model.</strong> The number of defects on a circuit
+board follows a Poisson distribution with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6.25</mn><annotation encoding="application/x-tex">6.25</annotation></semantics></math>.
+The population standard deviation is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msqrt><mn>6.25</mn></msqrt><mo>=</mo><mn>2.5</mn></mrow><annotation encoding="application/x-tex">\sqrt{6.25}=2.5</annotation></semantics></math>.
+For samples of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>,
+the sampling distribution has mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>6.25</mn><annotation encoding="application/x-tex">6.25</annotation></semantics></math>
+and standard error</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>2.5</mn><msqrt><mn>64</mn></msqrt></mfrac><mo>=</mo><mfrac><mn>2.5</mn><mn>8</mn></mfrac><mo>=</mo><mn>0.3125</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\frac{2.5}{\sqrt{64}}=\frac{2.5}{8}=0.3125.
+</annotation></semantics></math></p>
+<p>Again, the sample is large enough that the sampling distribution is
+approximately normal.</p>
+<p><strong>Normal model.</strong> A measurement is normally distributed
+with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math>
+and standard deviation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>12</mn><annotation encoding="application/x-tex">12</annotation></semantics></math>.
+For samples of size
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>25</mn></mrow><annotation encoding="application/x-tex">n=25</annotation></semantics></math>,
+the sampling distribution is exactly normal with mean
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>150</mn><annotation encoding="application/x-tex">150</annotation></semantics></math>
+and standard error</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>12</mn><msqrt><mn>25</mn></msqrt></mfrac><mo>=</mo><mfrac><mn>12</mn><mn>5</mn></mfrac><mo>=</mo><mn>2.4</mn><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\frac{12}{\sqrt{25}}=\frac{12}{5}=2.4.
+</annotation></semantics></math></p>
+<p>The sample is small, but that is not a problem here because the
+population is already normal. The CLT is not needed.</p>
+<figure>
+<img src="../../figures/model_sampling_distributions.png"
+alt="Sampling distributions of the mean for normal, exponential, and Poisson populations. Each sampling distribution is centered at its population mean, and its spread reflects the sample size." />
+<figcaption aria-hidden="true">Sampling distributions of the mean for
+normal, exponential, and Poisson populations. Each sampling distribution
+is centered at its population mean, and its spread reflects the sample
+size.</figcaption>
+</figure>
+<h2 id="comparing-sample-sizes">Comparing sample sizes</h2>
+<p>For a fixed population, a larger sample size produces a smaller
+standard error, because
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>
+decreases as
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>n</mi><annotation encoding="application/x-tex">n</annotation></semantics></math>
+increases. A larger sample also makes the central limit theorem’s normal
+approximation more reliable when the population is not normal. The
+sample size does not change the center; the sampling distribution
+remains centered at
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>.</p>
+<p>For example, suppose a pilot study of API request sizes has sample
+standard deviation
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mo>=</mo><mn>122</mn></mrow><annotation encoding="application/x-tex">s=122</annotation></semantics></math>
+kilobytes. With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>16</mn></mrow><annotation encoding="application/x-tex">n=16</annotation></semantics></math>,
+the estimated standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>122</mn><mi>/</mi><msqrt><mn>16</mn></msqrt><mo>=</mo><mn>30.5</mn></mrow><annotation encoding="application/x-tex">122/\sqrt{16}=30.5</annotation></semantics></math>
+kilobytes. With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>,
+the estimated standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>122</mn><mi>/</mi><msqrt><mn>64</mn></msqrt><mo>=</mo><mn>15.25</mn></mrow><annotation encoding="application/x-tex">122/\sqrt{64}=15.25</annotation></semantics></math>
+kilobytes. The larger sample gives a more precise estimate and, if the
+population is skewed, a sampling distribution that is closer to
+normal.</p>
+<h2 id="using-pilot-data-to-reason-about-shape">Using pilot data to
+reason about shape</h2>
+<p>In practice, we usually do not know the population shape exactly. We
+might have a pilot sample. We can use a histogram or summary statistics
+from that pilot sample to judge whether the population is approximately
+normal, strongly skewed, or multimodal.</p>
+<p>Suppose a team collects 24 pilot measurements of model inference
+latency. The histogram is strongly right-skewed.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Store the 24 pilot latency measurements (in milliseconds) in a vector.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>latency <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">255.7</span>, <span class="fl">46.4</span>, <span class="fl">94.4</span>, <span class="fl">18.0</span>, <span class="fl">80.7</span>, <span class="fl">40.6</span>, <span class="fl">363.3</span>, <span class="fl">84.4</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>             <span class="fl">18.8</span>, <span class="fl">8.4</span>, <span class="fl">247.3</span>, <span class="fl">199.6</span>, <span class="fl">186.9</span>, <span class="fl">138.6</span>, <span class="fl">197.9</span>, <span class="fl">31.6</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>             <span class="fl">64.5</span>, <span class="fl">348.5</span>, <span class="fl">311.9</span>, <span class="fl">125.1</span>, <span class="fl">119.3</span>, <span class="fl">58.0</span>, <span class="fl">420.3</span>, <span class="fl">36.5</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot a histogram to inspect the shape of the pilot data. A strong right</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># skew here suggests that the population is not approximately normal.</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(latency, <span class="at">breaks =</span> <span class="dv">12</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Pilot latency data&quot;</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Latency (ms)&quot;</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute the sample mean and sample standard deviation. These estimate the</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># population mean and population standard deviation, which we would use to</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># describe the center and standard error of the sampling distribution.</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(latency)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(latency)</span></code></pre></div>
+<p>The sample mean is about
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>145.7</mn><annotation encoding="application/x-tex">145.7</annotation></semantics></math>
+ms and the sample standard deviation is about
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mn>122.4</mn><annotation encoding="application/x-tex">122.4</annotation></semantics></math>
+ms. These are estimates, not the true population values, but they help
+us plan.</p>
+<p>If the team plans to use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>
+future observations, the estimated standard error is</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mn>122.4</mn><msqrt><mn>64</mn></msqrt></mfrac><mo>=</mo><mfrac><mn>122.4</mn><mn>8</mn></mfrac><mo>=</mo><mn>15.3</mn><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> ms</mtext></mrow><mi>.</mi></mrow><annotation encoding="application/x-tex">
+\frac{122.4}{\sqrt{64}}=\frac{122.4}{8}=15.3 \text{ ms}.
+</annotation></semantics></math></p>
+<p>Because the pilot data are strongly right-skewed, the team should not
+use a normal model for the sample mean if the future sample were small.
+With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>=</mo><mn>64</mn></mrow><annotation encoding="application/x-tex">n=64</annotation></semantics></math>,
+however, the CLT makes an approximately normal model reasonable,
+assuming the future observations are independent and come from a similar
+population.</p>
+<figure>
+<img src="../../figures/pilot_latency_data.png"
+alt="A pilot sample of latency measurements is strongly right-skewed, which affects how large a future sample must be before the CLT is useful." />
+<figcaption aria-hidden="true">A pilot sample of latency measurements is
+strongly right-skewed, which affects how large a future sample must be
+before the CLT is useful.</figcaption>
+</figure>
+<h2 id="a-data-based-decision-guide">A data-based decision guide</h2>
+<p>When you are given data rather than a fully specified population, use
+the following approach.</p>
+<ol type="1">
+<li><strong>Plot the data and describe the shape.</strong> Look for
+strong skew, multiple modes, and extreme outliers.</li>
+<li><strong>Identify the sample size that will be used for the sample
+mean.</strong> The size of the pilot sample and the size of the future
+sample are not necessarily the same.</li>
+<li><strong>If the data look approximately normal, treat the sampling
+distribution as approximately normal</strong> for any sample size. The
+CLT is not the justification; the normal population shape is.</li>
+<li><strong>If the data look clearly nonnormal, use the sample-size
+guideline.</strong> With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>≤</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n\le30</annotation></semantics></math>,
+do not rely on the CLT. With
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi><mo>&gt;</mo><mn>30</mn></mrow><annotation encoding="application/x-tex">n&gt;30</annotation></semantics></math>,
+an approximately normal model is usually reasonable.</li>
+<li><strong>Check independence and data quality.</strong> Dependence,
+clustering, or measurement bias can invalidate the standard-error
+formula even when the sample is large.</li>
+</ol>
+<p>A pilot sample can be misleading if it is very small. A histogram of
+16 observations may not reveal a rare extreme tail, and a sample of 24
+observations may miss a second mode. Use the pilot data as evidence, not
+as proof.</p>
+<h2 id="common-mistakes">Common mistakes</h2>
+<ul>
+<li><strong>Using the pilot sample size as the future sample
+size.</strong> The shape of the pilot data helps describe the
+population, but the standard error depends on the sample size used for
+the future sample mean.</li>
+<li><strong>Reporting the sample standard deviation when the question
+asks for the standard error.</strong> The standard error is
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>s</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">s/\sqrt n</annotation></semantics></math>
+when
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>s</mi><annotation encoding="application/x-tex">s</annotation></semantics></math>
+is used to estimate
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>σ</mi><annotation encoding="application/x-tex">\sigma</annotation></semantics></math>.</li>
+<li><strong>Assuming the normal approximation is automatic.</strong> For
+clearly nonnormal data, the sample size must be large enough.</li>
+<li><strong>Forgetting that a model’s population standard deviation may
+not equal its mean.</strong> For exponential and Poisson models, the
+mean and standard deviation are related, but for other models they are
+separate quantities.</li>
+<li><strong>Treating an estimate from a pilot sample as the exact
+population value.</strong> Pilot estimates have their own sampling
+variability.</li>
+</ul>
+<h2 id="putting-the-pieces-together">Putting the pieces together</h2>
+<p>Sampling distributions connect probability models to data analysis.
+For a known model, compute the population mean and standard deviation,
+then use
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>μ</mi><annotation encoding="application/x-tex">\mu</annotation></semantics></math>
+and
+<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>σ</mi><mi>/</mi><msqrt><mi>n</mi></msqrt></mrow><annotation encoding="application/x-tex">\sigma/\sqrt n</annotation></semantics></math>
+for the sampling distribution and decide on shape using the population
+shape and sample size. For observed data, use the data to judge the
+population shape and use the planned sample size to decide whether the
+CLT is a reasonable justification. These are the same decisions that
+appear in the knowledge checks and quizzes, and they are the foundation
+for the confidence intervals and tests in the next module.</p>
+
+</div>
+</body>
+</html>

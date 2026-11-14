@@ -1,0 +1,124 @@
+# Sampling Distributions in Practice
+
+*Models, data, and the decisions behind a standard error.*
+
+A data scientist is preparing a report on three quantities: the average inference latency of a machine-learning model, the average score of the model across random validation splits, and the average file size of requests handled by a service. Each quantity involves a sample mean, but the populations and sample sizes are different. A useful analysis needs more than a number for the sample mean. It needs the center, the standard error, and a statement about shape.
+
+This reading puts the formulas to work. We will compute sampling-distribution quantities for named probability models, compare sample sizes, and use pilot data to decide what the sampling distribution should look like.
+
+## Named models: from population to sampling distribution
+
+For a population with mean \(\mu\) and standard deviation \(\sigma\), the sampling distribution of \(\bar X\) has:
+
+$$
+\text{center}=\mu,
+\qquad
+\text{standard error}=\frac{\sigma}{\sqrt n}.
+$$
+
+The shape follows the rules from the previous reading. If the population is normal, the sampling distribution is normal for any \(n\). If the population is not normal, the CLT may justify an approximately normal model when \(n\) is large enough.
+
+The table below summarizes three common models.
+
+| Population model | Population mean | Population SD | Sampling distribution mean | Sampling distribution SE | Shape for large \(n\) |
+|---|---:|---:|---:|---:|---|
+| \(\operatorname{Exponential}(\lambda)\) | \(1/\lambda\) | \(1/\lambda\) | \(1/\lambda\) | \(1/(\lambda\sqrt n)\) | Approximately normal |
+| \(\operatorname{Poisson}(\lambda)\) | \(\lambda\) | \(\sqrt{\lambda}\) | \(\lambda\) | \(\sqrt{\lambda}/\sqrt n\) | Approximately normal |
+| \(\operatorname{Normal}(\mu,\sigma)\) | \(\mu\) | \(\sigma\) | \(\mu\) | \(\sigma/\sqrt n\) | Exactly normal |
+
+The formulas are not separate facts to memorize. They all come from the same two ideas: the center of the sampling distribution equals the population mean, and the standard error is the population standard deviation divided by \(\sqrt n\).
+
+## Worked model examples
+
+**Exponential model.** The time until a machine component fails is exponential with mean \(10\) hours. The population standard deviation is also \(10\) hours. For samples of size \(n=81\), the sampling distribution has mean \(10\) hours and standard error
+
+$$
+\frac{10}{\sqrt{81}}=\frac{10}{9}\approx 1.111 \text{ hours}.
+$$
+
+The population is strongly right-skewed, but \(n=81\) is large enough for the CLT to justify an approximately normal sampling distribution.
+
+**Poisson model.** The number of defects on a circuit board follows a Poisson distribution with mean \(6.25\). The population standard deviation is \(\sqrt{6.25}=2.5\). For samples of size \(n=64\), the sampling distribution has mean \(6.25\) and standard error
+
+$$
+\frac{2.5}{\sqrt{64}}=\frac{2.5}{8}=0.3125.
+$$
+
+Again, the sample is large enough that the sampling distribution is approximately normal.
+
+**Normal model.** A measurement is normally distributed with mean \(150\) and standard deviation \(12\). For samples of size \(n=25\), the sampling distribution is exactly normal with mean \(150\) and standard error
+
+$$
+\frac{12}{\sqrt{25}}=\frac{12}{5}=2.4.
+$$
+
+The sample is small, but that is not a problem here because the population is already normal. The CLT is not needed.
+
+![Sampling distributions of the mean for normal, exponential, and Poisson populations. Each sampling distribution is centered at its population mean, and its spread reflects the sample size.](../../figures/model_sampling_distributions.png)
+
+## Comparing sample sizes
+
+For a fixed population, a larger sample size produces a smaller standard error, because \(\sigma/\sqrt n\) decreases as \(n\) increases. A larger sample also makes the central limit theorem's normal approximation more reliable when the population is not normal. The sample size does not change the center; the sampling distribution remains centered at \(\mu\).
+
+For example, suppose a pilot study of API request sizes has sample standard deviation \(s=122\) kilobytes. With \(n=16\), the estimated standard error is \(122/\sqrt{16}=30.5\) kilobytes. With \(n=64\), the estimated standard error is \(122/\sqrt{64}=15.25\) kilobytes. The larger sample gives a more precise estimate and, if the population is skewed, a sampling distribution that is closer to normal.
+
+## Using pilot data to reason about shape
+
+In practice, we usually do not know the population shape exactly. We might have a pilot sample. We can use a histogram or summary statistics from that pilot sample to judge whether the population is approximately normal, strongly skewed, or multimodal.
+
+Suppose a team collects 24 pilot measurements of model inference latency. The histogram is strongly right-skewed.
+
+```r
+# Store the 24 pilot latency measurements (in milliseconds) in a vector.
+latency <- c(255.7, 46.4, 94.4, 18.0, 80.7, 40.6, 363.3, 84.4,
+             18.8, 8.4, 247.3, 199.6, 186.9, 138.6, 197.9, 31.6,
+             64.5, 348.5, 311.9, 125.1, 119.3, 58.0, 420.3, 36.5)
+
+# Plot a histogram to inspect the shape of the pilot data. A strong right
+# skew here suggests that the population is not approximately normal.
+hist(latency, breaks = 12,
+     main = "Pilot latency data",
+     xlab = "Latency (ms)")
+
+# Compute the sample mean and sample standard deviation. These estimate the
+# population mean and population standard deviation, which we would use to
+# describe the center and standard error of the sampling distribution.
+mean(latency)
+sd(latency)
+```
+
+The sample mean is about \(145.7\) ms and the sample standard deviation is about \(122.4\) ms. These are estimates, not the true population values, but they help us plan.
+
+If the team plans to use \(n=64\) future observations, the estimated standard error is
+
+$$
+\frac{122.4}{\sqrt{64}}=\frac{122.4}{8}=15.3 \text{ ms}.
+$$
+
+Because the pilot data are strongly right-skewed, the team should not use a normal model for the sample mean if the future sample were small. With \(n=64\), however, the CLT makes an approximately normal model reasonable, assuming the future observations are independent and come from a similar population.
+
+![A pilot sample of latency measurements is strongly right-skewed, which affects how large a future sample must be before the CLT is useful.](../../figures/pilot_latency_data.png)
+
+## A data-based decision guide
+
+When you are given data rather than a fully specified population, use the following approach.
+
+1. **Plot the data and describe the shape.** Look for strong skew, multiple modes, and extreme outliers.
+2. **Identify the sample size that will be used for the sample mean.** The size of the pilot sample and the size of the future sample are not necessarily the same.
+3. **If the data look approximately normal, treat the sampling distribution as approximately normal** for any sample size. The CLT is not the justification; the normal population shape is.
+4. **If the data look clearly nonnormal, use the sample-size guideline.** With \(n\le30\), do not rely on the CLT. With \(n>30\), an approximately normal model is usually reasonable.
+5. **Check independence and data quality.** Dependence, clustering, or measurement bias can invalidate the standard-error formula even when the sample is large.
+
+A pilot sample can be misleading if it is very small. A histogram of 16 observations may not reveal a rare extreme tail, and a sample of 24 observations may miss a second mode. Use the pilot data as evidence, not as proof.
+
+## Common mistakes
+
+- **Using the pilot sample size as the future sample size.** The shape of the pilot data helps describe the population, but the standard error depends on the sample size used for the future sample mean.
+- **Reporting the sample standard deviation when the question asks for the standard error.** The standard error is \(s/\sqrt n\) when \(s\) is used to estimate \(\sigma\).
+- **Assuming the normal approximation is automatic.** For clearly nonnormal data, the sample size must be large enough.
+- **Forgetting that a model's population standard deviation may not equal its mean.** For exponential and Poisson models, the mean and standard deviation are related, but for other models they are separate quantities.
+- **Treating an estimate from a pilot sample as the exact population value.** Pilot estimates have their own sampling variability.
+
+## Putting the pieces together
+
+Sampling distributions connect probability models to data analysis. For a known model, compute the population mean and standard deviation, then use \(\mu\) and \(\sigma/\sqrt n\) for the sampling distribution and decide on shape using the population shape and sample size. For observed data, use the data to judge the population shape and use the planned sample size to decide whether the CLT is a reasonable justification. These are the same decisions that appear in the knowledge checks and quizzes, and they are the foundation for the confidence intervals and tests in the next module.

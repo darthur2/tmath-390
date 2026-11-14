@@ -4636,5 +4636,203 @@ window.TMATH_GLOSSARY = {
       "text": "The set of all allowable values of a parameter, including the model constraints.",
       "count": 1
     }
+  },
+  "module_6/overview.html": {
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. The sampling distribution of the sample mean has center \\(\\mu\\), standard error \\(\\sigma/\\sqrt n\\), and a shape determined by the population and sample size.",
+      "count": 1
+    },
+    "Central Limit Theorem": {
+      "text": "The result that, for independent observations with finite mean and finite standard deviation, the sampling distribution of the sample mean becomes approximately normal as the sample size grows. It describes the shape of the sampling distribution, not the shape of the raw data.",
+      "count": 1
+    },
+    "Population Distribution": {
+      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+      "count": 1
+    },
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
+      "count": 1
+    },
+    "Sample Mean": {
+      "text": "The arithmetic average of the observations in a sample, \\(\\bar X=(1/n)\\sum_{i=1}^n X_i\\). It is a statistic and a random variable before the data are observed.",
+      "count": 1
+    }
+  },
+  "module_6/why_sample_means_vary.html": {
+    "Population Distribution": {
+      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+      "count": 1
+    },
+    "Sample Mean": {
+      "text": "The arithmetic average of the observations in a sample, \\(\\bar X=(1/n)\\sum_{i=1}^n X_i\\). It is a statistic and a random variable before the data are observed.",
+      "count": 1
+    },
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. The sampling distribution of the sample mean has center \\(\\mu\\), standard error \\(\\sigma/\\sqrt n\\), and a shape determined by the population and sample size.",
+      "count": 2
+    },
+    "Sampling Variability": {
+      "text": "The natural variation in a statistic from one random sample to another. Sampling variability is described by the sampling distribution and measured in part by the standard error.",
+      "count": 1
+    },
+    "Expected Value of the Sample Mean": {
+      "text": "The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \\(\\mu\\), the expected value of the sample mean is \\(\\mu\\).",
+      "count": 1
+    },
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
+      "count": 2
+    },
+    "Standard Deviation": {
+      "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
+      "count": 1
+    },
+    "Independent Observations": {
+      "text": "Observations are independent when the value of one observation does not change the probability distribution of any other observation. Independence is a standard assumption behind the formula \\(\\operatorname{SE}(\\bar X)=\\sigma/\\sqrt n\\) and behind the central limit theorem.",
+      "count": 1
+    }
+  },
+  "module_6/when_does_the_central_limit_theorem_apply.html": {
+    "Central Limit Theorem": {
+      "text": "The result that, for independent observations with finite mean and finite standard deviation, the sampling distribution of the sample mean becomes approximately normal as the sample size grows. It describes the shape of the sampling distribution, not the shape of the raw data.",
+      "count": 3
+    },
+    "Population Distribution": {
+      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+      "count": 1
+    },
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. The sampling distribution of the sample mean has center \\(\\mu\\), standard error \\(\\sigma/\\sqrt n\\), and a shape determined by the population and sample size.",
+      "count": 2
+    },
+    "Sample Mean": {
+      "text": "The arithmetic average of the observations in a sample, \\(\\bar X=(1/n)\\sum_{i=1}^n X_i\\). It is a statistic and a random variable before the data are observed.",
+      "count": 1
+    },
+    "Sample Size": {
+      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
+      "count": 1
+    },
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
+      "count": 1
+    },
+    "Bimodal Distribution": {
+      "text": "A distribution with two distinct peaks or modes. A bimodal population can produce a sample mean that is approximately normal when the sample size is large, because the central limit theorem depends on the sample size rather than on the population being unimodal.",
+      "count": 1
+    },
+    "Skewed Distribution": {
+      "text": "A distribution that is not symmetric, with a longer tail on one side. Strong skew in the population can make the sampling distribution of the sample mean noticeably nonnormal when the sample size is small.",
+      "count": 1
+    },
+    "Normal Distribution": {
+      "text": "A continuous distribution with a symmetric bell shape, specified by its mean \\(\\mu\\) and standard deviation \\(\\sigma\\). If a population is normal, then the sampling distribution of the sample mean is exactly normal for every sample size.",
+      "count": 1
+    },
+    "Independent Observations": {
+      "text": "Observations are independent when the value of one observation does not change the probability distribution of any other observation. Independence is a standard assumption behind the formula \\(\\operatorname{SE}(\\bar X)=\\sigma/\\sqrt n\\) and behind the central limit theorem.",
+      "count": 1
+    }
+  },
+  "module_6/sampling_distributions_in_practice.html": {
+    "Central Limit Theorem": {
+      "text": "The result that, for independent observations with finite mean and finite standard deviation, the sampling distribution of the sample mean becomes approximately normal as the sample size grows. It describes the shape of the sampling distribution, not the shape of the raw data.",
+      "count": 1
+    },
+    "Population Distribution": {
+      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+      "count": 1
+    },
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. The sampling distribution of the sample mean has center \\(\\mu\\), standard error \\(\\sigma/\\sqrt n\\), and a shape determined by the population and sample size.",
+      "count": 2
+    },
+    "Sample Mean": {
+      "text": "The arithmetic average of the observations in a sample, \\(\\bar X=(1/n)\\sum_{i=1}^n X_i\\). It is a statistic and a random variable before the data are observed.",
+      "count": 1
+    },
+    "Sample Size": {
+      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
+      "count": 1
+    },
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
+      "count": 2
+    },
+    "Standard Deviation": {
+      "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
+      "count": 1
+    },
+    "Skewed Distribution": {
+      "text": "A distribution that is not symmetric, with a longer tail on one side. Strong skew in the population can make the sampling distribution of the sample mean noticeably nonnormal when the sample size is small.",
+      "count": 1
+    },
+    "Normal Distribution": {
+      "text": "A continuous distribution with a symmetric bell shape, specified by its mean \\(\\mu\\) and standard deviation \\(\\sigma\\). If a population is normal, then the sampling distribution of the sample mean is exactly normal for every sample size.",
+      "count": 1
+    },
+    "Expected Value of the Sample Mean": {
+      "text": "The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \\(\\mu\\), the expected value of the sample mean is \\(\\mu\\).",
+      "count": 1
+    }
+  },
+  "module_6/definitions_and_examples.html": {
+    "Bimodal Distribution": {
+      "text": "A distribution with two distinct peaks or modes. A bimodal population can produce a sample mean that is approximately normal when the sample size is large, because the central limit theorem depends on the sample size rather than on the population being unimodal.",
+      "count": 1
+    },
+    "Central Limit Theorem": {
+      "text": "The result that, for independent observations with finite mean and finite standard deviation, the sampling distribution of the sample mean becomes approximately normal as the sample size grows. It describes the shape of the sampling distribution, not the shape of the raw data.",
+      "count": 1
+    },
+    "Expected Value of the Sample Mean": {
+      "text": "The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \\(\\mu\\), the expected value of the sample mean is \\(\\mu\\).",
+      "count": 1
+    },
+    "Independent Observations": {
+      "text": "Observations are independent when the value of one observation does not change the probability distribution of any other observation. Independence is a standard assumption behind the formula \\(\\operatorname{SE}(\\bar X)=\\sigma/\\sqrt n\\) and behind the central limit theorem.",
+      "count": 1
+    },
+    "Law of Large Numbers": {
+      "text": "The result that the sample mean tends to get closer to the population mean as the sample size grows. It describes the behavior of the average in large samples, while the central limit theorem describes the shape of the sampling distribution around that average.",
+      "count": 1
+    },
+    "Normal Distribution": {
+      "text": "A continuous distribution with a symmetric bell shape, specified by its mean \\(\\mu\\) and standard deviation \\(\\sigma\\). If a population is normal, then the sampling distribution of the sample mean is exactly normal for every sample size.",
+      "count": 1
+    },
+    "Population Distribution": {
+      "text": "The distribution of a variable across the entire population. It is fixed but usually unknown. It should be distinguished from the distribution of a sample and from the sampling distribution of a statistic.",
+      "count": 1
+    },
+    "Sample Mean": {
+      "text": "The arithmetic average of the observations in a sample, \\(\\bar X=(1/n)\\sum_{i=1}^n X_i\\). It is a statistic and a random variable before the data are observed.",
+      "count": 1
+    },
+    "Sample Size": {
+      "text": "The number of observations in a sample, usually denoted \\(n\\). It affects the standard error through the factor \\(1/\\sqrt n\\) and affects whether the central limit theorem is a reasonable justification for a normal model.",
+      "count": 1
+    },
+    "Sampling Distribution": {
+      "text": "The probability distribution of a statistic over repeated random samples of the same size from the same population. The sampling distribution of the sample mean has center \\(\\mu\\), standard error \\(\\sigma/\\sqrt n\\), and a shape determined by the population and sample size.",
+      "count": 1
+    },
+    "Sampling Variability": {
+      "text": "The natural variation in a statistic from one random sample to another. Sampling variability is described by the sampling distribution and measured in part by the standard error.",
+      "count": 1
+    },
+    "Skewed Distribution": {
+      "text": "A distribution that is not symmetric, with a longer tail on one side. Strong skew in the population can make the sampling distribution of the sample mean noticeably nonnormal when the sample size is small.",
+      "count": 1
+    },
+    "Standard Deviation": {
+      "text": "A measure of the spread of individual observations around their mean, equal to the square root of the variance. It describes the population or sample, not the variability of a sample mean.",
+      "count": 1
+    },
+    "Standard Error": {
+      "text": "The standard deviation of a statistic's sampling distribution. For the sample mean from independent observations, the standard error is \\(\\sigma/\\sqrt n\\), or \\(s/\\sqrt n\\) when the population standard deviation is estimated by the sample standard deviation.",
+      "count": 1
+    }
   }
 };
