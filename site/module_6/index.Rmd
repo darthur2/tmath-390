@@ -10,9 +10,9 @@ This page lists the overview, readings, and glossary for Module 6.
 
 ## Readings
 
-- [Sampling Distributions in Practice](sampling_distributions_in_practice.html)
-- [When Does the Central Limit Theorem Take Over?](when_does_the_central_limit_theorem_apply.html)
 - [Why Does the Sample Mean Keep Changing?](why_sample_means_vary.html)
+- [When Does the Central Limit Theorem Take Over?](when_does_the_central_limit_theorem_apply.html)
+- [Sampling Distributions in Practice](sampling_distributions_in_practice.html)
 
 ## Glossary
 

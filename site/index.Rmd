@@ -2,46 +2,13 @@
 title: "TMath 390 Readings"
 ---
 
-This page links to the course readings by module. Each module heading also links to the module overview and glossary.
+This page links to the readings for each module.
 
-## [Module 1: Introduction to Statistics](module_1/index.html)
+## Modules
 
-- [How Much Do People Spend on Streaming Services?](module_1/how_much_streaming.html)
-- [How Much Sugar Does the Average Person in the U.S. Consume?](module_1/how_much_sugar.html)
-- [Does the Amount of TV You Watch Affect Your Performance in School?](module_1/school_and_tv.html)
-
-## [Module 2: Exploratory Data Analysis](module_2/index.html)
-
-- [How Much Does Gas Cost Across the United States?](module_2/gas_prices.html)
-- [What Do Gas Prices Look Like? Visualizing the Data](module_2/gas_prices_visualizations.html)
-
-## [Module 3: Probability](module_3/index.html)
-
-- [How Likely Is That Transaction Really Fraud?](module_3/how_likely_is_that_transaction_really_fraud.html)
-- [How Many Unique Cups of Coffee Can You Make at Starbucks?](module_3/how_many_coffees.html)
-- [How Many Students Take Both?](module_3/how_many_students_take_both.html)
-- [How Many Ways Can You Pick a Team?](module_3/how_many_ways_to_pick.html)
-- [How Reliable Is That Test?](module_3/how_reliable_is_that_test.html)
-- [What Are the Chances?](module_3/what_are_the_chances.html)
-- [What's the Chance You Get at Least One?](module_3/whats_the_chance_you_get_at_least_one.html)
-
-## [Module 4: Distributions and Statistical Models](module_4/index.html)
-
-- [How Do We Model Data?](module_4/random_variables.html)
-- [How Do We Model Counts and Successes?](module_4/discrete_distributions.html)
-- [How Do We Model Measurements and Waiting Times?](module_4/continuous_distributions.html)
-- [What Happens When You Shift or Rescale a Variable?](module_4/linear_transformations.html)
-- [What Happens When You Square or Take the Log of a Variable?](module_4/nonlinear_transformations.html)
-- [How Does Knowing One Outcome Change the Chances of Another?](module_4/joint_marginal_conditional.html)
-- [How Strongly Do Two Variables Move Together?](module_4/joint_distributions_and_correlation.html)
-
-## [Module 5: Maximum Likelihood Estimation](module_5/index.html)
-
-- [What Does the Likelihood Tell Us?](module_5/what_does_the_likelihood_tell_us.html)
-- [How Do We Find the Maximum Likelihood Estimate?](module_5/how_do_we_find_the_maximum_likelihood_estimate.html)
-
-## [Module 6: Sampling Distributions and the Central Limit Theorem](module_6/index.html)
-
-- [Why Does the Sample Mean Keep Changing?](module_6/why_sample_means_vary.html)
-- [When Does the Central Limit Theorem Take Over?](module_6/when_does_the_central_limit_theorem_apply.html)
-- [Sampling Distributions in Practice](module_6/sampling_distributions_in_practice.html)
+- [Module 1: Introduction to Statistics](module_1/index.html)
+- [Module 2: Exploratory Data Analysis](module_2/index.html)
+- [Module 3: Probability](module_3/index.html)
+- [Module 4: Distributions and Statistical Models](module_4/index.html)
+- [Module 5: Maximum Likelihood Estimation](module_5/index.html)
+- [Module 6: Sampling Distributions and the Central Limit Theorem](module_6/index.html)

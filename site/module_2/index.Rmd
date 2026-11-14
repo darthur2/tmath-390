@@ -2,7 +2,7 @@
 title: "Module 2: Exploratory Data Analysis"
 ---
 
-This page lists the overview and readings for Module 2.
+This page lists the overview, readings, and glossary for Module 2.
 
 ## Overview
 
@@ -10,6 +10,9 @@ This page lists the overview and readings for Module 2.
 
 ## Readings
 
-- [Glossary](definitions_and_examples.html)
 - [How Much Does Gas Cost Across the United States?](gas_prices.html)
 - [What Do Gas Prices Look Like? Visualizing the Data](gas_prices_visualizations.html)
+
+## Glossary
+
+- [Definitions and Examples](definitions_and_examples.html)

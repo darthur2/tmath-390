@@ -2,7 +2,7 @@
 title: "Module 3: Probability"
 ---
 
-This page lists the overview and readings for Module 3.
+This page lists the overview, readings, and glossary for Module 3.
 
 ## Overview
 
@@ -10,7 +10,6 @@ This page lists the overview and readings for Module 3.
 
 ## Readings
 
-- [Glossary](definitions_and_examples.html)
 - [How Likely Is That Transaction Really Fraud?](how_likely_is_that_transaction_really_fraud.html)
 - [How Many Unique Cups of Coffee Can You Make at Starbucks?](how_many_coffees.html)
 - [How Many Students Take Both?](how_many_students_take_both.html)
@@ -18,3 +17,7 @@ This page lists the overview and readings for Module 3.
 - [How Reliable Is That Test?](how_reliable_is_that_test.html)
 - [What Are the Chances?](what_are_the_chances.html)
 - [What's the Chance You Get at Least One?](whats_the_chance_you_get_at_least_one.html)
+
+## Glossary
+
+- [Definitions and Examples](definitions_and_examples.html)
