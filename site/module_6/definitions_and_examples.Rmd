@@ -18,61 +18,76 @@ knitr::opts_chunk$set(
 
 This glossary supports Module 6 (Sampling Distributions and the Central Limit Theorem). Entries are listed alphabetically. Each entry gives a definition, a cited source, and examples with by-hand work and R code. The examples use fresh contexts and values so they extend, rather than repeat, the course readings and assessments.
 
-## Bimodal Distribution
-
-**Definition:** A distribution with two distinct peaks or modes. A bimodal population can produce a sample mean that is approximately normal when the sample size is large, because the central limit theorem depends on the sample size rather than on the population being unimodal.
-
-**Source:** Introductory Statistics 2e, Chapter 2; Mathematical Statistics with Applications in R, Chapter 4.
-
-**Example 1:** Packet sizes on a network link often form a bimodal distribution: many small control packets and many larger data packets.
-
-**By hand:** A histogram shows peaks near 80 bytes and near 1,200 bytes. The population is clearly bimodal, so a single normal model is not appropriate for individual packet sizes.
-
-```{r, eval=FALSE}
-hist(packet_size, breaks = 30)
-```
-
-**Example 2:** A service has two customer groups with different session lengths, producing a bimodal distribution of session times.
-
-**By hand:** The population has modes near 2 minutes and near 20 minutes. For samples of size \(n=81\), the CLT can still make the sample mean approximately normal.
-
-```{r, eval=FALSE}
-means <- replicate(3000, mean(sample(session_time, 81)))
-```
-
 ## Central Limit Theorem
 
-**Definition:** The result that, for independent observations with finite mean and finite standard deviation, the sampling distribution of the sample mean becomes approximately normal as the sample size grows. It describes the shape of the sampling distribution, not the shape of the raw data.
+**Definition:** The result that, for independent observations with mean \(\mu\) and standard deviation \(\sigma\), the standardized sample mean
+$$
+Z_n=\frac{\bar X-\mu}{\sigma/\sqrt n}
+$$
+approaches a standard normal distribution as \(n\) grows. Equivalently, for large \(n\), \(\bar X\) is approximately normal with mean \(\mu\) and standard error \(\sigma/\sqrt n\). The theorem describes the shape of the sampling distribution, not the shape of the raw data.
 
 **Source:** Mathematical Statistics with Applications in R, Chapter 4; Introductory Statistics 2e, Chapter 7.
 
 **Example 1:** A strongly right-skewed population has mean 10 and standard deviation 10. Samples of size 81 are selected.
 
-**By hand:** The sampling distribution of \(\bar X\) has mean 10 and standard error \(10/\sqrt{81}=1.111\). Because \(n=81\) is large, the CLT makes the sampling distribution approximately normal.
+**By hand:** The sampling distribution of \(\bar X\) has mean 10 and standard error \(10/\sqrt{81}=1.111\). Because \(n=81>30\), the CLT makes the sampling distribution approximately normal.
 
-```{r, eval=FALSE}
-means <- replicate(4000, mean(rexp(81, rate = 1/10)))
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Draw 4,000 sample means, each from 81 exponential observations
+# with population mean 10 and population standard deviation 10.
+sample_means <- replicate(
+  4000,
+  mean(rexp(81, rate = 1 / 10))
+)
+
+# Plot the sample means. The histogram should be centered near 10 and
+# approximately normal because n = 81 is large enough for the CLT.
+hist(
+  sample_means,
+  breaks = 40,
+  main = "Sample means from an exponential population",
+  xlab = "Sample mean"
+)
 ```
 
-**Example 2:** A uniform population on \(4\) to \(20\) is sampled with \(n=100\).
-
-**By hand:** The population mean is 12 and the population standard deviation is \(16/\sqrt{12}\). The sampling distribution has mean 12 and standard error \(16/(10\sqrt{12})\approx0.462\), and it is approximately normal by the CLT.
-
-```{r, eval=FALSE}
-means <- replicate(4000, mean(runif(100, 4, 20)))
-```
-
-**Example 3:** A population is approximately normal with mean 150 and standard deviation 12. Samples of size 25 are selected.
+**Example 2:** A population is approximately normal with mean 150 and standard deviation 12. Samples of size 25 are selected.
 
 **By hand:** The sampling distribution is exactly normal with mean 150 and standard error \(12/5=2.4\). The CLT is not needed because the population is already normal.
 
-```{r, eval=FALSE}
-means <- replicate(4000, mean(rnorm(25, 150, 12)))
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Draw 4,000 sample means from a normal population with mean 150 and
+# standard deviation 12. Each sample contains 25 observations.
+sample_means <- replicate(
+  4000,
+  mean(rnorm(25, mean = 150, sd = 12))
+)
+
+# The sampling distribution is normal because the population is normal,
+# not because of the central limit theorem.
+hist(
+  sample_means,
+  breaks = 40,
+  main = "Sample means from a normal population",
+  xlab = "Sample mean"
+)
 ```
 
 ## Expected Value of the Sample Mean
 
-**Definition:** The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \(\mu\), the expected value of the sample mean is \(\mu\).
+**Definition:** The long-run average value of the sample mean over repeated random samples. For independent observations from a population with mean \(\mu\), the expected value of the sample mean is \(\mu\). Using linearity of expectation,
+$$
+E(\bar X)
+= E\left(\frac1n\sum_{i=1}^n X_i\right)
+= \frac1n\sum_{i=1}^n E(X_i)
+= \frac1n\sum_{i=1}^n \mu
+= \mu.
+$$
 
 **Source:** Mathematical Statistics with Applications in R, Chapter 4.
 
@@ -80,38 +95,41 @@ means <- replicate(4000, mean(rnorm(25, 150, 12)))
 
 **By hand:** The expected value of \(\bar X\) is 85, the population mean. The sample size does not change the center.
 
-```{r, eval=FALSE}
-mean_many <- replicate(4000, mean(sample(population, 64))); mean(mean_many)
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Create a large population with mean 85 and standard deviation 24.
+population <- rnorm(200000, mean = 85, sd = 24)
+
+# Draw 4,000 sample means, each based on 64 observations.
+sample_means <- replicate(
+  4000,
+  mean(sample(population, 64, replace = TRUE))
+)
+
+# The average of the sample means should be close to the population mean.
+mean(sample_means)
 ```
 
-**Example 2:** An exponential population has mean 10 hours. Samples of size 81 are selected.
+**Example 2:** A population of eight response times has mean 118.75 ms. Random samples of size 5 are selected with replacement.
 
-**By hand:** The expected value of the sample mean is 10 hours. The strong skew of the exponential population does not move the center.
+**By hand:** The expected value of the sample mean is the population mean, 118.75 ms. Individual sample means vary, but their long-run average equals 118.75 ms.
 
-```{r, eval=FALSE}
-means <- replicate(4000, mean(rexp(81, rate = 1/10))); mean(means)
-```
+```{r}
+# Store eight response times (more than four observations).
+response_time <- c(120, 90, 150, 100, 130, 110, 95, 160)
 
-## Independent Observations
+# Draw 4,000 sample means, each based on 5 observations sampled with
+# replacement from the response-time population.
+sample_means <- replicate(
+  4000,
+  mean(sample(response_time, 5, replace = TRUE))
+)
 
-**Definition:** Observations are independent when the value of one observation does not change the probability distribution of any other observation. Independence is a standard assumption behind the formula \(\operatorname{SE}(\bar X)=\sigma/\sqrt n\) and behind the central limit theorem.
-
-**Source:** Mathematical Statistics with Applications in R, Chapter 4; Introductory Statistics 2e, Chapter 7.
-
-**Example 1:** A lab measures 64 different randomly selected sensors once each.
-
-**By hand:** The readings come from different sensors, so treating them as independent is reasonable if the sensors are unrelated and the sampling is random.
-
-```{r, eval=FALSE}
-sensor_reading <- c(12.1, 11.8, 12.5, 12.2, 11.9)
-```
-
-**Example 2:** A researcher measures the same sensor 64 times in a row.
-
-**By hand:** These are repeated measurements on one unit. They may be correlated, so the independence assumption is questionable and the usual standard error may be too small.
-
-```{r, eval=FALSE}
-repeated <- rep(12.1, 64)
+# Compare the average sample mean to the population mean.
+mean(response_time)
+mean(sample_means)
 ```
 
 ## Law of Large Numbers
@@ -122,40 +140,50 @@ repeated <- rep(12.1, 64)
 
 **Example 1:** A fair coin is flipped many times and the proportion of heads is recorded.
 
-**By hand:** As the number of flips grows, the proportion of heads tends to get closer to 0.5. This is the law of large numbers in action.
+**By hand:** As the number of flips grows, the proportion of heads tends to get closer to 0.5.
 
-```{r, eval=FALSE}
-prop <- cumsum(rbinom(10000, 1, 0.5)) / (1:10000)
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Simulate 10,000 flips of a fair coin.
+flips <- rbinom(10000, size = 1, prob = 0.5)
+
+# Compute the running proportion of heads after each flip.
+running_proportion <- cumsum(flips) / seq_along(flips)
+
+# Plot the running proportion. It should move toward 0.5 as the number
+# of flips grows.
+plot(
+  running_proportion,
+  type = "l",
+  main = "Law of large numbers for coin flips",
+  xlab = "Number of flips",
+  ylab = "Running proportion of heads"
+)
+abline(h = 0.5, col = "red", lwd = 2, lty = 2)
 ```
 
-**Example 2:** A team records average API latency for increasing sample sizes.
+**Example 2:** A population has eight response times. The average of increasingly large samples is recorded.
 
-**By hand:** As the sample size grows, the sample mean latency tends to get closer to the population mean latency. The standard error shrinks like \(1/\sqrt n\).
+**By hand:** As the sample size grows, the sample mean tends to get closer to the population mean.
 
-```{r, eval=FALSE}
-means <- sapply(c(9, 25, 64, 100), function(n) mean(sample(latency, n)))
-```
+```{r}
+# Store eight response times (more than four observations).
+response_time <- c(120, 90, 150, 100, 130, 110, 95, 160)
 
-## Normal Distribution
+# Set a seed so the simulation is reproducible.
+set.seed(390)
 
-**Definition:** A continuous distribution with a symmetric bell shape, specified by its mean \(\mu\) and standard deviation \(\sigma\). If a population is normal, then the sampling distribution of the sample mean is exactly normal for every sample size.
+# Compute one sample mean for each of several sample sizes.
+sample_means <- sapply(
+  c(5, 16, 64),
+  function(n) mean(sample(response_time, n, replace = TRUE))
+)
 
-**Source:** Mathematical Statistics with Applications in R, Chapter 4; Introductory Statistics 2e, Chapter 6.
-
-**Example 1:** Sensor noise is modeled as normal with mean 0 and standard deviation 0.4.
-
-**By hand:** Individual readings vary around 0 with standard deviation 0.4. For samples of size \(n=16\), the sample mean has standard error \(0.4/4=0.1\).
-
-```{r, eval=FALSE}
-means <- replicate(4000, mean(rnorm(16, 0, 0.4)))
-```
-
-**Example 2:** A measurement is normal with mean 150 and standard deviation 12. A sample of size 25 is selected.
-
-**By hand:** The sample mean is exactly normal with mean 150 and standard error \(12/5=2.4\). No central limit theorem argument is needed.
-
-```{r, eval=FALSE}
-means <- replicate(4000, mean(rnorm(25, 150, 12)))
+# Compare the sample means to the population mean.
+mean(response_time)
+sample_means
 ```
 
 ## Population Distribution
@@ -168,38 +196,48 @@ means <- replicate(4000, mean(rnorm(25, 150, 12)))
 
 **By hand:** The population distribution describes individual query times. It is not the distribution of sample means.
 
-```{r, eval=FALSE}
+```{r}
+# Set a seed so the simulated population is reproducible.
+set.seed(390)
+
+# Simulate a large right-skewed population of query latencies.
 population <- rlnorm(200000, meanlog = 5.2, sdlog = 0.8)
+
+# Plot the population distribution. This describes individual observations.
+hist(
+  population,
+  breaks = 50,
+  main = "Population distribution of latencies",
+  xlab = "Latency (ms)"
+)
+
+# Summarize the population center and spread.
+mean(population)
+sd(population)
 ```
 
-**Example 2:** A random number generator produces values uniformly distributed between 4 and 20.
+**Example 2:** A measurement is normally distributed with mean 150 and standard deviation 12.
 
-**By hand:** The population distribution is uniform. The sampling distribution of the mean for large \(n\) is approximately normal.
+**By hand:** The population distribution describes individual measurements. The sampling distribution of the mean is a different distribution.
 
-```{r, eval=FALSE}
-population <- runif(200000, 4, 20)
-```
+```{r}
+# Set a seed so the simulated population is reproducible.
+set.seed(390)
 
-## Sample Mean
+# Simulate a large normal population with mean 150 and standard deviation 12.
+population <- rnorm(200000, mean = 150, sd = 12)
 
-**Definition:** The arithmetic average of the observations in a sample, \(\bar X=(1/n)\sum_{i=1}^n X_i\). It is a statistic and a random variable before the data are observed.
+# Plot the population distribution.
+hist(
+  population,
+  breaks = 50,
+  main = "Normal population distribution",
+  xlab = "Measurement"
+)
 
-**Source:** Mathematical Statistics with Applications in R, Chapter 4.
-
-**Example 1:** A sample of four API response times is 120, 90, 150, and 100 ms.
-
-**By hand:** The sample mean is \((120+90+150+100)/4=115\) ms.
-
-```{r, eval=FALSE}
-latency <- c(120, 90, 150, 100); mean(latency)
-```
-
-**Example 2:** A sample of five sensor readings is 12.1, 11.8, 12.5, 12.2, and 11.9.
-
-**By hand:** The sample mean is \(60.5/5=12.1\).
-
-```{r, eval=FALSE}
-sensor <- c(12.1, 11.8, 12.5, 12.2, 11.9); mean(sensor)
+# Summarize the population center and spread.
+mean(population)
+sd(population)
 ```
 
 ## Sample Size
@@ -208,42 +246,106 @@ sensor <- c(12.1, 11.8, 12.5, 12.2, 11.9); mean(sensor)
 
 **Source:** Mathematical Statistics with Applications in R, Chapter 4.
 
-**Example 1:** A population has standard deviation 120. Compare sample sizes 16 and 64.
+**Example 1:** A population has standard deviation 120. Compare sample sizes 9, 25, 64, and 100.
 
-**By hand:** The standard errors are \(120/4=30\) and \(120/8=15\). Quadrupling the sample size halves the standard error.
+**By hand:** The standard errors are \(120/3=40\), \(120/5=24\), \(120/8=15\), and \(120/10=12\). Larger samples have smaller standard errors.
 
-```{r, eval=FALSE}
-sigma <- 120; sigma / sqrt(c(16, 64))
+```{r}
+# Set the population standard deviation.
+sigma <- 120
+
+# Choose several sample sizes to compare.
+sample_sizes <- c(9, 25, 64, 100)
+
+# Compute the standard error for each sample size.
+standard_errors <- sigma / sqrt(sample_sizes)
+
+# Display the sample sizes and standard errors together.
+data.frame(
+  sample_size = sample_sizes,
+  standard_error = standard_errors
+)
 ```
 
-**Example 2:** A population has standard deviation 10. Compare sample sizes 9 and 81.
+**Example 2:** A population has standard deviation 10. Compare the spread of sample means for sample sizes 16 and 64.
 
-**By hand:** The standard errors are \(10/3\approx3.33\) and \(10/9\approx1.11\). The larger sample is three times as precise.
+**By hand:** The larger sample has less variability among the sample means because its standard error is smaller.
 
-```{r, eval=FALSE}
-sigma <- 10; sigma / sqrt(c(9, 81))
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Create a large right-skewed population with mean 10 and standard deviation 10.
+population <- rexp(200000, rate = 1 / 10)
+
+# Draw 4,000 sample means for a smaller sample size.
+small_sample_means <- replicate(
+  4000,
+  mean(sample(population, 16, replace = TRUE))
+)
+
+# Draw 4,000 sample means for a larger sample size.
+large_sample_means <- replicate(
+  4000,
+  mean(sample(population, 64, replace = TRUE))
+)
+
+# The larger sample should have less variability among the sample means.
+sd(small_sample_means)
+sd(large_sample_means)
 ```
 
 ## Sampling Distribution
 
-**Definition:** The probability distribution of a statistic over repeated random samples of the same size from the same population. The sampling distribution of the sample mean has center \(\mu\), standard error \(\sigma/\sqrt n\), and a shape determined by the population and sample size.
+**Definition:** The probability distribution of a statistic over repeated random samples of the same size from the same population. For the sample mean, the center and standard error depend only on the population mean \(\mu\), population standard deviation \(\sigma\), and sample size \(n\):
+$$
+E(\bar X)=\mu,
+\qquad
+\operatorname{SE}(\bar X)=\frac{\sigma}{\sqrt n}.
+$$
+The full population distribution is not needed to compute those two quantities. The population shape matters for the shape of the sampling distribution and for deciding whether a normal approximation is justified.
 
 **Source:** Mathematical Statistics with Applications in R, Chapter 4; Introductory Statistics 2e, Chapter 7.
 
 **Example 1:** A population has mean 85 and standard deviation 24. Samples of size 64 are selected.
 
-**By hand:** The sampling distribution of \(\bar X\) has mean 85 and standard error \(24/8=3\). Its shape depends on the population shape.
+**By hand:** The sampling distribution of \(\bar X\) has mean 85 and standard error \(24/8=3\). Its shape depends on the population shape and the sample size.
 
-```{r, eval=FALSE}
-means <- replicate(4000, mean(sample(population, 64)))
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Create a large population with mean 85 and standard deviation 24.
+population <- rnorm(200000, mean = 85, sd = 24)
+
+# Draw 4,000 sample means, each based on 64 observations.
+sample_means <- replicate(
+  4000,
+  mean(sample(population, 64, replace = TRUE))
+)
+
+# The sampling distribution is centered near 85 with a smaller spread
+# than the population of individual observations.
+mean(sample_means)
+sd(sample_means)
 ```
 
-**Example 2:** A strongly skewed population is sampled with \(n=100\).
+**Example 2:** The population mean and standard deviation are known, but the full population distribution is not needed.
 
-**By hand:** The sampling distribution of the mean is approximately normal by the CLT, with mean \(\mu\) and standard error \(\sigma/10\).
+**By hand:** The center and standard error of the sampling distribution can be computed directly from \(\mu\), \(\sigma\), and \(n\).
 
-```{r, eval=FALSE}
-means <- replicate(4000, mean(sample(population, 100)))
+```{r}
+# Set the population mean, population standard deviation, and sample size.
+mu <- 85
+sigma <- 24
+n <- 64
+
+# Compute the center and standard error of the sampling distribution
+# without specifying the full population distribution.
+c(
+  mean = mu,
+  standard_error = sigma / sqrt(n)
+)
 ```
 
 ## Sampling Variability
@@ -254,40 +356,44 @@ means <- replicate(4000, mean(sample(population, 100)))
 
 **Example 1:** Two analysts each take a random sample of 25 requests and compute the average latency.
 
-**By hand:** They will generally get different sample means because of sampling variability. The difference is expected even when both samples are random.
+**By hand:** They will generally get different sample means because of sampling variability.
 
-```{r, eval=FALSE}
-means <- replicate(2, mean(sample(latency, 25)))
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Create a large right-skewed population of request latencies.
+population <- rlnorm(200000, meanlog = 5.2, sdlog = 0.8)
+
+# Draw two independent sample means, each from 25 observations.
+two_sample_means <- replicate(
+  2,
+  mean(sample(population, 25, replace = TRUE))
+)
+
+# The two sample means will generally differ.
+two_sample_means
 ```
 
 **Example 2:** A simulation draws 1,000 different samples of size 64 from the same population.
 
-**By hand:** The spread of the 1,000 sample means is the sampling variability. Its standard deviation is approximately \(\sigma/\sqrt{64}\).
+**By hand:** The spread of the 1,000 sample means describes the sampling variability.
 
-```{r, eval=FALSE}
-means <- replicate(1000, mean(sample(population, 64))); sd(means)
-```
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
 
-## Skewed Distribution
+# Create a large right-skewed population of request latencies.
+population <- rlnorm(200000, meanlog = 5.2, sdlog = 0.8)
 
-**Definition:** A distribution that is not symmetric, with a longer tail on one side. Strong skew in the population can make the sampling distribution of the sample mean noticeably nonnormal when the sample size is small.
+# Draw 1,000 sample means, each based on 64 observations.
+sample_means <- replicate(
+  1000,
+  mean(sample(population, 64, replace = TRUE))
+)
 
-**Source:** Introductory Statistics 2e, Chapter 2; Mathematical Statistics with Applications in R, Chapter 4.
-
-**Example 1:** API latency often has a long right tail because a few requests take much longer than most.
-
-**By hand:** The population is strongly right-skewed. A sample of size 16 may not produce a normal sampling distribution for the mean.
-
-```{r, eval=FALSE}
-hist(latency, breaks = 20)
-```
-
-**Example 2:** Repair times can be strongly left-skewed because most repairs finish near a minimum time and a few finish much earlier.
-
-**By hand:** With a small sample, the sampling distribution may remain visibly left-skewed. A larger sample is needed for the CLT to take over.
-
-```{r, eval=FALSE}
-hist(repair_time, breaks = 20)
+# The standard deviation of the sample means describes sampling variability.
+sd(sample_means)
 ```
 
 ## Standard Deviation
@@ -300,16 +406,36 @@ hist(repair_time, breaks = 20)
 
 **By hand:** The standard deviation of individual observations is 24. The standard error of the sample mean is \(24/\sqrt{64}=3\).
 
-```{r, eval=FALSE}
-sd(population); sd(population) / sqrt(64)
+```{r}
+# Set a seed so the simulated population is reproducible.
+set.seed(390)
+
+# Create a large population with mean 85 and standard deviation 24.
+population <- rnorm(200000, mean = 85, sd = 24)
+
+# The population standard deviation describes individual observations.
+sd(population)
+
+# The standard error describes the variability of the sample mean.
+sd(population) / sqrt(64)
 ```
 
-**Example 2:** A sample of latencies has standard deviation 18 ms.
+**Example 2:** A sample of ten latencies has a sample standard deviation.
 
 **By hand:** The sample standard deviation summarizes the spread of the individual observations. It is not the standard error of the sample mean.
 
-```{r, eval=FALSE}
-latency <- c(120, 90, 150, 100); sd(latency)
+```{r}
+# Store ten response times (more than four observations).
+response_time <- c(
+  120, 90, 150, 100, 130,
+  110, 95, 160, 140, 105
+)
+
+# The sample mean summarizes the center of the observations.
+mean(response_time)
+
+# The sample standard deviation summarizes the spread of the observations.
+sd(response_time)
 ```
 
 ## Standard Error
@@ -322,14 +448,87 @@ latency <- c(120, 90, 150, 100); sd(latency)
 
 **By hand:** The standard error of the sample mean is \(120/\sqrt{64}=15\).
 
-```{r, eval=FALSE}
-sigma <- 120; sigma / sqrt(64)
+```{r}
+# Set the population standard deviation and sample size.
+sigma <- 120
+n <- 64
+
+# Compute the standard error of the sample mean.
+sigma / sqrt(n)
 ```
 
 **Example 2:** A pilot sample has standard deviation 122.4. A future sample of size 64 is planned.
 
 **By hand:** The estimated standard error is \(122.4/\sqrt{64}=15.3\). This is an estimate because the population standard deviation is unknown.
 
-```{r, eval=FALSE}
-s <- 122.4; s / sqrt(64)
+```{r}
+# Set the sample standard deviation from the pilot sample.
+s <- 122.4
+
+# Set the sample size planned for the future study.
+n <- 64
+
+# Estimate the standard error using the sample standard deviation.
+s / sqrt(n)
+```
+
+## Variance of the Sample Mean
+
+**Definition:** The variance of the sampling distribution of the sample mean. For independent observations with population variance \(\sigma^2\),
+$$
+\operatorname{Var}(\bar X)
+= \operatorname{Var}\left(\frac1n\sum_{i=1}^n X_i\right)
+= \frac{1}{n^2}\sum_{i=1}^n \operatorname{Var}(X_i)
++ \frac{2}{n^2}\sum_{i<j}\operatorname{Cov}(X_i,X_j).
+$$
+Independence makes every covariance term zero, so
+$$
+\operatorname{Var}(\bar X)
+= \frac{1}{n^2}\sum_{i=1}^n \sigma^2
+= \frac{n\sigma^2}{n^2}
+= \frac{\sigma^2}{n}.
+$$
+The standard error is the square root of this variance, \(\sigma/\sqrt n\).
+
+**Source:** Mathematical Statistics with Applications in R, Chapter 4.
+
+**Example 1:** A population has standard deviation 24. Samples of size 64 are selected.
+
+**By hand:** The variance of the sample mean is \(24^2/64=9\), so the standard error is \(\sqrt9=3\).
+
+```{r}
+# Set the population standard deviation and sample size.
+sigma <- 24
+n <- 64
+
+# Compute the variance of the sample mean.
+variance_of_mean <- sigma^2 / n
+
+# Compute the standard error by taking the square root.
+standard_error <- sqrt(variance_of_mean)
+
+variance_of_mean
+standard_error
+```
+
+**Example 2:** A population has mean 85 and standard deviation 24. Samples of size 64 are simulated.
+
+**By hand:** The simulated variance of the sample means should be close to \(24^2/64=9\).
+
+```{r}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Create a large population with mean 85 and standard deviation 24.
+population <- rnorm(200000, mean = 85, sd = 24)
+
+# Draw 4,000 sample means, each based on 64 observations.
+sample_means <- replicate(
+  4000,
+  mean(sample(population, 64, replace = TRUE))
+)
+
+# The variance of the sample means should be close to sigma^2 / n.
+var(sample_means)
+sd(sample_means)
 ```

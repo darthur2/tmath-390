@@ -41,7 +41,7 @@ The table below summarizes three common models.
 | \(\operatorname{Poisson}(\lambda)\) | \(\lambda\) | \(\sqrt{\lambda}\) | \(\lambda\) | \(\sqrt{\lambda}/\sqrt n\) | Approximately normal |
 | \(\operatorname{Normal}(\mu,\sigma)\) | \(\mu\) | \(\sigma\) | \(\mu\) | \(\sigma/\sqrt n\) | Exactly normal |
 
-The formulas are not separate facts to memorize. They all come from the same two ideas: the center of the sampling distribution equals the population mean, and the standard error is the population standard deviation divided by \(\sqrt n\).
+The formulas are not separate facts to memorize. They all come from the same two ideas: the center of the sampling distribution equals the population mean, and the standard error is the population standard deviation divided by \(\sqrt n\). The full population distribution is not needed to compute those two quantities; only \(\mu\), \(\sigma\), and \(n\) are needed. The population shape matters when deciding whether the sampling distribution is approximately normal.
 
 ## Worked model examples
 
@@ -69,7 +69,55 @@ $$
 
 The sample is small, but that is not a problem here because the population is already normal. The CLT is not needed.
 
-![Sampling distributions of the mean for normal, exponential, and Poisson populations. Each sampling distribution is centered at its population mean, and its spread reflects the sample size.](figures/model_sampling_distributions.png)
+```{r}
+# Set a seed so all three simulations are reproducible.
+set.seed(390)
+
+# Prepare a one-row, three-column plotting area.
+par(mfrow = c(1, 3), mar = c(4, 4, 3, 1))
+
+# Normal population: mean 150, standard deviation 12, sample size 25.
+normal_means <- replicate(
+  4000,
+  mean(rnorm(25, mean = 150, sd = 12))
+)
+hist(
+  normal_means,
+  breaks = 35,
+  freq = FALSE,
+  main = "Normal, n = 25",
+  xlab = "Sample mean"
+)
+curve(dnorm(x, mean = 150, sd = 12 / 5), add = TRUE, col = "red", lwd = 2)
+
+# Exponential population: mean 10, standard deviation 10, sample size 81.
+exponential_means <- replicate(
+  4000,
+  mean(rexp(81, rate = 1 / 10))
+)
+hist(
+  exponential_means,
+  breaks = 35,
+  freq = FALSE,
+  main = "Exponential, n = 81",
+  xlab = "Sample mean"
+)
+curve(dnorm(x, mean = 10, sd = 10 / 9), add = TRUE, col = "red", lwd = 2)
+
+# Poisson population: mean 6.25, standard deviation 2.5, sample size 64.
+poisson_means <- replicate(
+  4000,
+  mean(rpois(64, lambda = 6.25))
+)
+hist(
+  poisson_means,
+  breaks = 35,
+  freq = FALSE,
+  main = "Poisson, n = 64",
+  xlab = "Sample mean"
+)
+curve(dnorm(x, mean = 6.25, sd = 2.5 / 8), add = TRUE, col = "red", lwd = 2)
+```
 
 ## Comparing sample sizes
 
@@ -83,7 +131,7 @@ In practice, we usually do not know the population shape exactly. We might have 
 
 Suppose a team collects 24 pilot measurements of model inference latency. The histogram is strongly right-skewed.
 
-```r
+```{r}
 # Store the 24 pilot latency measurements (in milliseconds) in a vector.
 latency <- c(255.7, 46.4, 94.4, 18.0, 80.7, 40.6, 363.3, 84.4,
              18.8, 8.4, 247.3, 199.6, 186.9, 138.6, 197.9, 31.6,
@@ -111,8 +159,6 @@ $$
 $$
 
 Because the pilot data are strongly right-skewed, the team should not use a normal model for the sample mean if the future sample were small. With \(n=64\), however, the CLT makes an approximately normal model reasonable, assuming the future observations are independent and come from a similar population.
-
-![A pilot sample of latency measurements is strongly right-skewed, which affects how large a future sample must be before the CLT is useful.](figures/pilot_latency_data.png)
 
 ## A data-based decision guide
 

@@ -7,6 +7,7 @@ if (length(script_arg) > 0) {
   script_path <- sub("^--file=", "", script_arg[1])
   setwd(normalizePath(file.path(dirname(script_path), "..")))
 }
+project_root <- getwd()
 
 if (!requireNamespace("rmarkdown", quietly = TRUE)) {
   stop("The rmarkdown package is required to build the site.")
@@ -160,6 +161,41 @@ invisible(file.copy(
   out_root,
   overwrite = TRUE
 ))
+
+m6_reading_files <- c(
+  "site/module_6/why_sample_means_vary.Rmd",
+  "site/module_6/when_does_the_central_limit_theorem_apply.Rmd",
+  "site/module_6/sampling_distributions_in_practice.Rmd",
+  "site/module_6/definitions_and_examples.Rmd"
+)
+m6_reading_dir <- file.path(project_root, "docs/module_6/reading_materials")
+dir.create(m6_reading_dir, recursive = TRUE, showWarnings = FALSE)
+for (input in m6_reading_files) {
+  input_path <- file.path(project_root, input)
+  base <- sub("\\.Rmd$", "", basename(input))
+  rmarkdown::render(
+    input = input_path,
+    output_format = rmarkdown::html_document(
+      self_contained = TRUE,
+      css = file.path(project_root, "site/styles.css")
+    ),
+    output_file = paste0(base, ".html"),
+    output_dir = m6_reading_dir,
+    quiet = TRUE
+  )
+  unlink(file.path(m6_reading_dir, paste0(base, "_files")), recursive = TRUE)
+  rmarkdown::render(
+    input = input_path,
+    output_format = rmarkdown::md_document(variant = "gfm"),
+    output_file = paste0(base, ".md"),
+    output_dir = m6_reading_dir,
+    quiet = TRUE
+  )
+  md_path <- file.path(m6_reading_dir, paste0(base, ".md"))
+  md_text <- paste(readLines(md_path, warn = FALSE), collapse = "\n")
+  md_text <- gsub(paste0(m6_reading_dir, "/"), "", md_text, fixed = TRUE)
+  writeLines(md_text, md_path, useBytes = TRUE)
+}
 
 root_index <- file.path(out_root, "index.html")
 if (file.exists(root_index)) {

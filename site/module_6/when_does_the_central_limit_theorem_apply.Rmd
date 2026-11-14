@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 
 A network engineering team is studying packet sizes on a campus link. The distribution is bimodal: many small control packets and many larger data packets, with relatively few packets in between. A cybersecurity analyst is studying counts of alerts per hour. A robotics team is calibrating a sensor whose measurement noise is approximately normal. In each case, someone wants to use the sample mean and needs to know whether a normal model is reasonable.
 
-The **central limit theorem** (CLT) is the result that often makes a normal model reasonable. But the CLT is not automatic. It depends on the population and especially on the sample size. The goal of this reading is to make those conditions concrete.
+The central limit theorem (CLT) is the result that often makes a normal model reasonable. But the CLT is not automatic. It depends on the population and especially on the sample size. The goal of this reading is to make those conditions concrete.
 
 ## What the central limit theorem says
 
@@ -45,7 +45,7 @@ $$
 
 This is a linear transformation of an approximately standard normal variable. From the linear transformations material earlier in the course, if \(Z\sim\operatorname{Normal}(0,1)\), then \(a+bZ\sim\operatorname{Normal}(a,b^2)\). Here \(a=\mu\) and \(b=\sigma/\sqrt n\), so \(\bar X\) is approximately normal with mean \(\mu\) and standard error \(\sigma/\sqrt n\).
 
-The theorem is about the **shape** of the sampling distribution of \(\bar X\). It does not say that the raw data become normal. It does not say that every sample mean is close to \(\mu\). It does not remove bias from a bad sampling plan.
+The theorem is about the shape of the sampling distribution of \(\bar X\). It does not say that the raw data become normal. It does not say that every sample mean is close to \(\mu\). It does not remove bias from a bad sampling plan.
 
 The standard version of the theorem assumes:
 
@@ -58,11 +58,13 @@ The last condition is the one that requires judgment. “Large enough” depends
 
 ## What changes and what does not
 
-The CLT changes the **shape** of the sampling distribution as \(n\) grows. It does not change the center or the formula for the standard error.
+The CLT changes the shape of the sampling distribution as \(n\) grows. It does not change the center or the formula for the standard error.
 
 - **Center:** \(E(\bar X)=\mu\), regardless of \(n\).
 - **Spread:** \(\operatorname{SE}(\bar X)=\sigma/\sqrt n\), regardless of the population shape.
 - **Shape:** increasingly close to normal as \(n\) grows when the CLT applies.
+
+The center and standard error require only \(\mu\), \(\sigma\), and \(n\); they do not require knowing the full population distribution. The population shape matters for deciding whether the normal approximation is justified.
 
 This separation matters. A larger sample gives a narrower sampling distribution, but it does not move the sampling distribution toward a different mean. If a measurement process is biased, a larger sample will estimate the biased population mean more precisely, not the quantity we wish we were measuring.
 
@@ -72,7 +74,7 @@ If the population distribution is normal, the sampling distribution of \(\bar X\
 
 This matters for the assessments. A scenario can use a very small sample from a normal population and still justify a normal model for the sample mean. The reason is the normal population, not the CLT.
 
-```r
+```{r}
 # Set a seed so the simulated population and sample means are reproducible.
 set.seed(390)
 
@@ -85,15 +87,28 @@ small_means <- replicate(3000, mean(sample(normal_pop, 9)))
 # Draw 3,000 samples of size 64 and compute each sample mean.
 large_means <- replicate(3000, mean(sample(normal_pop, 64)))
 
+# Prepare a one-row, two-column plotting area.
+par(mfrow = c(1, 2), mar = c(4, 4, 3, 1))
+
 # Plot the sample means from the small samples. The shape should look normal
 # because the population itself is normal, even though n = 9 is small.
-hist(small_means, breaks = 35, main = "Normal population, n = 9",
-     xlab = "Sample mean")
+hist(
+  small_means,
+  breaks = 35,
+  freq = FALSE,
+  main = "Normal population, n = 9",
+  xlab = "Sample mean"
+)
 
 # Plot the sample means from the large samples. The distribution should also
 # look normal, but it should be narrower because the standard error is smaller.
-hist(large_means, breaks = 35, main = "Normal population, n = 64",
-     xlab = "Sample mean")
+hist(
+  large_means,
+  breaks = 35,
+  freq = FALSE,
+  main = "Normal population, n = 64",
+  xlab = "Sample mean"
+)
 ```
 
 Both histograms look normal. The larger sample is narrower, but the shape has not fundamentally changed.
@@ -111,7 +126,7 @@ This is a course guideline, not a law of nature. The CLT is an approximation, an
 
 The next simulation draws from a strongly right-skewed population and shows the sampling distribution at several sample sizes.
 
-```r
+```{r}
 # Set a seed so the simulation is reproducible.
 set.seed(390)
 
@@ -119,6 +134,9 @@ set.seed(390)
 # distribution with rate 1. The population mean and standard deviation are
 # both 1, but the population is far from normal.
 skew_pop <- rexp(200000, rate = 1)
+
+# Prepare a two-by-two plotting area for four sample sizes.
+par(mfrow = c(2, 2), mar = c(4, 4, 3, 1))
 
 # Repeat the sampling experiment for several sample sizes.
 for (n in c(9, 25, 64, 100)) {
@@ -138,8 +156,6 @@ for (n in c(9, 25, 64, 100)) {
 ```
 
 At \(n=9\), the sampling distribution is still visibly right-skewed. By \(n=64\) and \(n=100\), it is close to normal.
-
-![The sampling distribution of the mean from a strongly right-skewed population at sample sizes 9, 25, 64, and 100. The red curve is the normal approximation.](figures/clt_convergence.png)
 
 ## Deciding whether the CLT applies
 
