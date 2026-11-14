@@ -1,0 +1,692 @@
+---
+title: "Glossary"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+This glossary supports Module 5 (Maximum Likelihood Estimation). Entries are listed alphabetically. Each entry gives a definition, a cited source, and three examples. The examples use fresh contexts and values so they extend, rather than repeat, the course readings. Calculations show the by-hand work and the matching R code when R helps with the computation.
+
+## Digamma Function
+
+**Definition:** The digamma function is the logarithmic derivative of the gamma function,
+$$
+\psi(\alpha)=\frac{d}{d\alpha}\ln\Gamma(\alpha)=\frac{\Gamma'(\alpha)}{\Gamma(\alpha)}.
+$$
+It appears in derivatives of Gamma log-likelihoods with respect to the shape parameter. The digamma function cannot be inverted with elementary operations, so equations involving it are handled with numerical methods.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 192--193.
+
+**Example 1:** Evaluate the digamma function at $\alpha=3$.
+
+**By hand:** For integer $\alpha$, $\psi(\alpha)=H_{\alpha-1}-\gamma$, where $H_2=1+1/2=1.5$ and $\gamma\approx0.5772$. Thus
+$$
+\psi(3)=1.5-0.5772\approx0.9228.
+$$
+
+**In R:**
+```{r}
+digamma(3)
+```
+
+**Example 2:** Evaluate the digamma function at $\alpha=1/2$.
+
+**By hand:** A standard identity gives
+$$
+\psi\left(\frac12\right)=-\gamma-2\ln 2
+\approx-0.5772-1.3863=-1.9635.
+$$
+
+**In R:**
+```{r}
+digamma(0.5)
+```
+
+**Example 3:** Evaluate the digamma function at $\alpha=5$.
+
+**By hand:** Here $H_4=1+1/2+1/3+1/4=2.0833$, so
+$$
+\psi(5)=H_4-\gamma\approx2.0833-0.5772=1.5061.
+$$
+
+**In R:**
+```{r}
+digamma(5)
+```
+
+## Estimate
+
+**Definition:** A numerical value calculated from an observed sample that is used as a best guess for an unknown parameter. An estimate is the realized value of an estimator after the data have been observed, and it is usually written with a hat, such as $\hat\theta$.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 181--182.
+
+**Example 1:** Five battery packs last $41.8$, $42.5$, $43.1$, $41.2$, and $42.9$ hours. What is the estimate of the mean lifetime?
+
+**By hand:** The sample mean is
+$$
+\hat\mu=\bar x=\frac{41.8+42.5+43.1+41.2+42.9}{5}=42.3.
+$$
+
+**In R:**
+```{r}
+battery <- c(41.8, 42.5, 43.1, 41.2, 42.9)
+mean(battery)
+```
+
+**Example 2:** A survey finds that 18 of 50 randomly selected customers prefer a new layout. What is the estimate of the population preference probability?
+
+**By hand:**
+$$
+\hat p=\frac{18}{50}=0.36.
+$$
+
+**In R:**
+```{r}
+18 / 50
+```
+
+**Example 3:** Five repeated measurements have sample variance $0.075$. What is the estimate of the population variance?
+
+**By hand:** The observed value $s^2=0.075$ is the estimate of $\sigma^2$.
+
+**In R:**
+```{r}
+measurements <- c(12.1, 11.8, 12.5, 12.2, 11.9)
+var(measurements)
+```
+
+## Estimator
+
+**Definition:** A statistic computed from a random sample that is used to estimate an unknown parameter. An estimator is a random variable before the data are observed, while an estimate is the numerical value it takes for a particular sample.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 181--182.
+
+**Example 1:** Let $X_1,\ldots,X_n$ be a random sample from a population with mean $\mu$. What estimator is commonly used for $\mu$?
+
+**By hand:** The sample mean
+$$
+\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i
+$$
+is an estimator of $\mu$. For the battery data, its observed value is $\bar x=42.3$.
+
+**In R:** A small function makes the estimator explicit.
+```{r}
+mean_estimator <- function(x) mean(x)
+mean_estimator(c(41.8, 42.5, 43.1, 41.2, 42.9))
+```
+
+**Example 2:** A binomial count $X$ records the number of successes in $n$ trials with success probability $p$. What estimator is used for $p$?
+
+**By hand:** The sample proportion
+$$
+\hat p=\frac{X}{n}
+$$
+is an estimator of $p$. If $X=18$ and $n=50$, the estimate is $0.36$.
+
+**In R:**
+```{r}
+p_estimator <- function(x, n) x / n
+p_estimator(18, 50)
+```
+
+**Example 3:** For an Exponential model with rate $\lambda$, what estimator uses the sample total?
+
+**By hand:** With $n$ observations, the estimator is
+$$
+\hat\lambda=\frac{n}{\sum_{i=1}^{n}X_i}.
+$$
+For the five waiting times below, the total is $9.4$, so the estimate is $5/9.4\approx0.5319$.
+
+**In R:**
+```{r}
+waiting_times <- c(2.1, 0.8, 1.4, 3.2, 1.9)
+length(waiting_times) / sum(waiting_times)
+```
+
+## Likelihood Equation
+
+**Definition:** An equation obtained by setting the derivative of the log-likelihood equal to zero. Solutions of the likelihood equation are candidate maximum likelihood estimates. If the equation can be solved by hand, solve it directly; otherwise, use `optimize()` to search for the maximum.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 187 and 190.
+
+**Example 1:** In 15 Bernoulli trials there are 9 successes. Find the likelihood equation for $p$.
+
+**By hand:** The log-likelihood is
+$$
+\ell(p)=9\ln p+6\ln(1-p).
+$$
+Differentiating and setting the result to zero gives
+$$
+\ell'(p)=\frac{9}{p}-\frac{6}{1-p}=0.
+$$
+Solving gives $9(1-p)=6p$, so $\hat p=9/15=0.6$.
+
+**In R:**
+```{r}
+9 / 15
+```
+
+**Example 2:** Eight Poisson counts have a total of 28. Find the likelihood equation for the rate $\lambda$.
+
+**By hand:** The log-likelihood is
+$$
+\ell(\lambda)=-8\lambda+28\ln\lambda-\sum_{i=1}^{8}\ln x_i!,
+$$
+so the likelihood equation is
+$$
+-8+\frac{28}{\lambda}=0,
+$$
+which gives $\hat\lambda=3.5$.
+
+**In R:**
+```{r}
+28 / 8
+```
+
+**Example 3:** A normal model has known variance and unknown mean. The observed data have mean $12.4$. What is the likelihood equation for $\mu$?
+
+**By hand:** The derivative of the log-likelihood is proportional to
+$$
+\sum_{i=1}^{n}(x_i-\mu).
+$$
+Setting it to zero gives $\sum x_i=n\mu$, so $\hat\mu=\bar x=12.4$.
+
+**In R:**
+```{r}
+y <- c(12.1, 12.6, 12.4, 12.9, 12.0)
+mean(y)
+```
+
+## Likelihood Function
+
+**Definition:** The probability or density of the observed data, viewed as a function of the unknown parameter. For independent observations, the likelihood is the product of the PMF or PDF values:
+$$
+L(\theta)=\prod_{i=1}^{n}p_\theta(x_i),
+$$
+where $p_\theta(x_i)$ denotes a PMF value for discrete data or a PDF value for continuous data. The likelihood is not a probability distribution over $\theta$; it is a relative measure of how well each parameter value explains the data.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 186--187.
+
+**Example 1:** A safety test records 8 successes in 12 independent Bernoulli trials. Evaluate the Bernoulli likelihood at $p=0.6$ and $p=0.7$.
+
+**By hand:** The likelihood is
+$$
+L(p)=p^8(1-p)^4.
+$$
+Thus
+$$
+L(0.6)=(0.6)^8(0.4)^4\approx0.000430,
+\qquad
+L(0.7)=(0.7)^8(0.3)^4\approx0.000467.
+$$
+The larger value at $p=0.7$ means that $0.7$ explains these data better than $0.6$.
+
+**In R:**
+```{r}
+lik_bernoulli <- function(p, successes, trials) {
+  p^successes * (1 - p)^(trials - successes)
+}
+c(p06 = lik_bernoulli(0.6, 8, 12), p07 = lik_bernoulli(0.7, 8, 12))
+```
+
+**Example 2:** Four Poisson counts are $3,5,2,4$. Evaluate the Poisson likelihood at $\lambda=3$ and $\lambda=3.5$.
+
+**By hand:** The total is $14$, so
+$$
+L(\lambda)=e^{-4\lambda}\frac{\lambda^{14}}{3!\,5!\,2!\,4!}.
+$$
+At the two candidate rates,
+$$
+L(3)\approx0.000850,
+\qquad
+L(3.5)\approx0.000996.
+$$
+
+**In R:**
+```{r}
+counts <- c(3, 5, 2, 4)
+lik_poisson <- function(lambda) {
+  exp(-length(counts) * lambda) * lambda^sum(counts) /
+    prod(factorial(counts))
+}
+c(lambda3 = lik_poisson(3), lambda35 = lik_poisson(3.5))
+```
+
+**Example 3:** Three measurements $10.1,9.8,10.3$ are modeled as Normal with known standard deviation $2$. Compare the likelihood at $\mu=10$ and $\mu=10.2$.
+
+**By hand:** The likelihood is the product of the three Normal densities. The sample mean is $10.0667$, so the likelihood should be slightly larger at $10$ than at $10.2$.
+
+**In R:**
+```{r}
+observations <- c(10.1, 9.8, 10.3)
+lik_normal <- function(mu) prod(dnorm(observations, mean = mu, sd = 2))
+c(mu10 = lik_normal(10), mu102 = lik_normal(10.2))
+```
+
+## Log-Likelihood Function
+
+**Definition:** The natural logarithm of the likelihood function,
+$$
+\ell(\theta)=\ln L(\theta)=\sum_{i=1}^{n}\ln p_\theta(x_i).
+$$
+Taking logarithms turns a product into a sum and makes very small likelihood values easier to work with. Because the logarithm is increasing, the log-likelihood has the same maximizer as the likelihood.
+
+**Source:** *Mathematical Statistics with Applications in R*, p. 187.
+
+**Example 1:** For the 8-successes-in-12-trials example, evaluate the log-likelihood at $p=0.6$ and $p=0.7$.
+
+**By hand:**
+$$
+\ell(p)=8\ln p+4\ln(1-p).
+$$
+Therefore
+$$
+\ell(0.6)\approx-7.7518,
+\qquad
+\ell(0.7)\approx-7.6693.
+$$
+
+**In R:**
+```{r}
+loglik_bernoulli <- function(p) 8 * log(p) + 4 * log(1 - p)
+c(p06 = loglik_bernoulli(0.6), p07 = loglik_bernoulli(0.7))
+```
+
+**Example 2:** For the four Poisson counts $3,5,2,4$, evaluate the log-likelihood at $\lambda=3.5$.
+
+**By hand:** With $n=4$ and $\sum x_i=14$,
+$$
+\ell(\lambda)=-4\lambda+14\ln\lambda-\sum_{i=1}^{4}\ln x_i!.
+$$
+At $\lambda=3.5$,
+$$
+\ell(3.5)\approx-6.9118.
+$$
+
+**In R:**
+```{r}
+counts <- c(3, 5, 2, 4)
+loglik_poisson <- function(lambda) {
+  -length(counts) * lambda + sum(counts) * log(lambda) -
+    sum(lgamma(counts + 1))
+}
+loglik_poisson(3.5)
+```
+
+**Example 3:** Five Exponential waiting times total 20 minutes. Evaluate the log-likelihood at $\lambda=0.2$ and $\lambda=0.25$.
+
+**By hand:**
+$$
+\ell(\lambda)=5\ln\lambda-20\lambda.
+$$
+Thus
+$$
+\ell(0.2)\approx-12.0472,
+\qquad
+\ell(0.25)\approx-11.9315.
+$$
+
+**In R:**
+```{r}
+loglik_exp <- function(lambda) 5 * log(lambda) - 20 * lambda
+c(lambda02 = loglik_exp(0.2), lambda025 = loglik_exp(0.25))
+```
+
+## Maximum Likelihood Estimate (MLE)
+
+**Definition:** The numerical value of the parameter that maximizes the likelihood, or equivalently the log-likelihood, for the observed data. The MLE is denoted $\hat\theta$ and is the parameter value that makes the observed sample most plausible under the model.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 186--187.
+
+**Example 1:** A Poisson process produces 63 events over 18 one-hour periods. Find the MLE of the rate.
+
+**By hand:** For a Poisson rate the MLE is the sample mean:
+$$
+\hat\lambda=\bar x=\frac{63}{18}=3.5.
+$$
+
+**In R:**
+```{r}
+63 / 18
+```
+
+**Example 2:** A binomial experiment records 27 successes in 45 trials. Find the MLE of the success probability.
+
+**By hand:**
+$$
+\hat p=\frac{27}{45}=0.6.
+$$
+
+**In R:**
+```{r}
+27 / 45
+```
+
+**Example 3:** Five normal measurements are $5.1,5.2,5.3,5.0,5.4$ with known standard deviation. Find the MLE of the mean.
+
+**By hand:** With the variance known, the normal MLE of $\mu$ is the sample mean:
+$$
+\hat\mu=\bar x=5.2.
+$$
+
+**In R:**
+```{r}
+normal_data <- c(5.1, 5.2, 5.3, 5.0, 5.4)
+mean(normal_data)
+```
+
+## Maximum Likelihood Estimator
+
+**Definition:** The sample-based rule that produces the maximum likelihood estimate. A maximum likelihood estimator is a statistic, and therefore a random variable, whose value changes from sample to sample; the corresponding MLE is the value it takes for the observed sample.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 186--187.
+
+**Example 1:** In a binomial model with $n$ trials, what is the maximum likelihood estimator of $p$?
+
+**By hand:** The estimator is
+$$
+\hat p=\frac{X}{n},
+$$
+where $X$ is the random number of successes. For $n=20$ and an observed $X=13$, the estimate is $13/20=0.65$.
+
+**In R:**
+```{r}
+mle_p <- function(x, n) x / n
+mle_p(13, 20)
+```
+
+**Example 2:** In a Poisson model, what is the maximum likelihood estimator of the rate?
+
+**By hand:** The estimator is the sample mean,
+$$
+\hat\lambda=\bar X=\frac{1}{n}\sum_{i=1}^{n}X_i.
+$$
+For six counts totaling $21$, the estimate is $21/6=3.5$.
+
+**In R:**
+```{r}
+poisson_counts <- c(2, 4, 3, 5, 1, 6)
+mean(poisson_counts)
+```
+
+**Example 3:** In a Gamma model with known shape $\alpha=3$ and unknown rate $\beta$, what is the maximum likelihood estimator of $\beta$?
+
+**By hand:** The estimator is
+$$
+\hat\beta=\frac{\alpha}{\bar X}.
+$$
+For the five observations below, the mean is $2.4$, so the estimate is $3/2.4=1.25$.
+
+**In R:**
+```{r}
+gamma_data <- c(2.4, 1.8, 3.1, 2.0, 2.7)
+3 / mean(gamma_data)
+```
+
+## Method of Maximum Likelihood
+
+**Definition:** An estimation procedure that chooses the parameter values maximizing the likelihood function. The method builds the likelihood from the assumed model, often works with the log-likelihood, and finds the maximizing value by hand when possible or with `optimize()` when a hand solution is not available.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 186--193.
+
+**Example 1:** A hospital records 12 positive tests in 30 independent trials. Apply the method of maximum likelihood to estimate the positive-test probability.
+
+**By hand:** Build $L(p)=p^{12}(1-p)^{18}$, take logarithms, differentiate, and solve:
+$$
+\ell'(p)=\frac{12}{p}-\frac{18}{1-p}=0
+\quad\Longrightarrow\quad
+\hat p=0.4.
+$$
+
+**In R:**
+```{r}
+12 / 30
+```
+
+**Example 2:** A server logs 84 requests over 21 equal time windows. Apply the method to estimate the request rate.
+
+**By hand:** The Poisson log-likelihood leads to the equation $-21+84/\lambda=0$, so $\hat\lambda=4$.
+
+**In R:**
+```{r}
+84 / 21
+```
+
+**Example 3:** Six positive measurements are modeled as Gamma with known rate $1.2$ and unknown shape. Apply the method numerically.
+
+**By hand:** The Gamma shape does not have a simple hand solution, so the log-likelihood is maximized with `optimize()` over a positive interval.
+
+**In R:**
+```{r}
+x <- c(1.4, 2.1, 0.9, 3.2, 1.7, 2.6)
+beta <- 1.2
+n <- length(x)
+loglik_shape <- function(alpha) {
+  n * alpha * log(beta) - n * lgamma(alpha) +
+    (alpha - 1) * sum(log(x)) - beta * sum(x)
+}
+optimize(loglik_shape, interval = c(0.1, 10), maximum = TRUE)
+```
+
+## Numerical Optimization
+
+**Definition:** A computational search for the maximum of a log-likelihood when the likelihood equation cannot be solved by hand. For a one-parameter model, R's `optimize()` searches a finite interval for the maximum. The interval must be finite and must contain the optimum.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 187 and 192--193; R Documentation, `optimize`.
+
+**Example 1:** Find the Gamma shape MLE for six positive measurements with known rate $1.2$ by maximizing the log-likelihood.
+
+**By hand:** The Gamma shape does not have a simple hand solution, so a numerical search is needed.
+
+**In R:**
+```{r}
+x <- c(1.4, 2.1, 0.9, 3.2, 1.7, 2.6)
+beta <- 1.2
+n <- length(x)
+loglik_shape <- function(alpha) {
+  n * alpha * log(beta) - n * lgamma(alpha) +
+    (alpha - 1) * sum(log(x)) - beta * sum(x)
+}
+optimize(loglik_shape, interval = c(0.1, 10), maximum = TRUE)
+```
+
+**Example 2:** A Beta shape parameter is estimated from six proportions with the second shape fixed at $\beta=2$. Maximize the Beta log-likelihood numerically.
+
+**By hand:** The Beta shape does not have a simple hand solution, so the maximum is found with `optimize()`.
+
+**In R:**
+```{r}
+proportions <- c(0.22, 0.35, 0.41, 0.18, 0.29, 0.33)
+beta <- 2
+loglik_beta <- function(alpha) {
+  sum(dbeta(proportions, shape1 = alpha, shape2 = beta, log = TRUE))
+}
+optimize(loglik_beta, interval = c(0.1, 10), maximum = TRUE)
+```
+
+**Example 3:** A Gamma shape parameter is estimated from five positive measurements with known rate $1.6$. Maximize the log-likelihood numerically.
+
+**By hand:** Again, the Gamma shape does not have a simple hand solution, so `optimize()` is used.
+
+**In R:**
+```{r}
+x <- c(0.7, 1.1, 1.5, 2.2, 0.9)
+beta <- 1.6
+n <- length(x)
+loglik_shape <- function(alpha) {
+  n * alpha * log(beta) - n * lgamma(alpha) +
+    (alpha - 1) * sum(log(x)) - beta * sum(x)
+}
+optimize(loglik_shape, interval = c(0.1, 10), maximum = TRUE)
+```
+
+## Parameter
+
+**Definition:** An unknown numerical characteristic of a probability model or population that indexes the distribution of the data. A parameter is treated as fixed but unknown, and estimation uses sample data to choose a plausible value for it.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 181--182.
+
+**Example 1:** A Bernoulli model has success probability $p$. Here $p$ is the parameter, and the model assigns $P(X=1)=p$ and $P(X=0)=1-p$.
+
+**By hand:** If $p=0.35$, then $P(X=1)=0.35$ and $P(X=0)=0.65$.
+
+**In R:**
+```{r}
+c(success = dbinom(1, size = 1, prob = 0.35),
+  failure = dbinom(0, size = 1, prob = 0.35))
+```
+
+**Example 2:** A normal model for adult heights has mean $\mu$ and standard deviation $\sigma$. Both $\mu$ and $\sigma$ are parameters of the model.
+
+**By hand:** If $\mu=170$ cm and $\sigma=8$ cm, the density at $170$ cm is the height of the normal curve at its center.
+
+**In R:**
+```{r}
+dnorm(170, mean = 170, sd = 8)
+```
+
+**Example 3:** A Poisson model for website visits per minute has rate $\lambda$. The rate is the parameter that controls both the mean and the variance of the counts.
+
+**By hand:** If $\lambda=4.2$, the expected count per minute is $4.2$.
+
+**In R:**
+```{r}
+dpois(4, lambda = 4.2)
+```
+
+## Parameter Space
+
+**Definition:** The set of all allowable values of a parameter, often denoted $\Theta$. The parameter space records the model's constraints, such as a probability between $0$ and $1$ or a shape parameter greater than $0$. A maximum likelihood estimate must lie inside the parameter space.
+
+**Source:** *Mathematical Statistics with Applications in R*, p. 187.
+
+**Example 1:** For a Bernoulli success probability $p$, what is the parameter space?
+
+**By hand:** The probability must satisfy $0\leq p\leq1$, so $\Theta=[0,1]$ (or $(0,1)$ when both outcomes must have positive probability). A value such as $p=1.2$ is outside the parameter space.
+
+**In R:** Invalid probabilities produce missing values rather than valid probabilities.
+```{r}
+dbinom(1, size = 1, prob = 1.2)
+```
+
+**Example 2:** For a normal model, what is the parameter space for $(\mu,\sigma)$?
+
+**By hand:** The mean can be any real number and the standard deviation must be positive:
+$$
+\Theta=\mathbb{R}\times(0,\infty).
+$$
+A standard deviation of $-2$ is not allowed.
+
+**In R:**
+```{r}
+dnorm(0, mean = 0, sd = -2)
+```
+
+**Example 3:** For a Gamma model with shape $\alpha$ and rate $\beta$, what is the parameter space?
+
+**By hand:** Both parameters must be positive, so
+$$
+\Theta=(0,\infty)\times(0,\infty).
+$$
+A negative shape is outside the parameter space.
+
+**In R:**
+```{r}
+dgamma(1, shape = -1, rate = 1)
+```
+
+## Point Estimate
+
+**Definition:** A single numerical value used as the best guess for an unknown parameter. A point estimate is distinguished from an interval estimate, which reports a range of plausible values.
+
+**Source:** *Mathematical Statistics with Applications in R*, p. 181.
+
+**Example 1:** A sample of five battery packs has mean lifetime $42.3$ hours. What is the point estimate of the population mean lifetime?
+
+**By hand:** The point estimate is $\hat\mu=42.3$ hours.
+
+**In R:**
+```{r}
+battery <- c(41.8, 42.5, 43.1, 41.2, 42.9)
+c(point_estimate = mean(battery))
+```
+
+**Example 2:** A survey of 50 customers finds 18 who prefer a new layout. What is the point estimate of the preference probability?
+
+**By hand:** The point estimate is $\hat p=18/50=0.36$.
+
+**In R:**
+```{r}
+c(point_estimate = 18 / 50)
+```
+
+**Example 3:** A Poisson model is fit to 18 hourly counts totaling 63. What is the point estimate of the rate?
+
+**By hand:** The point estimate is $\hat\lambda=63/18=3.5$ events per hour.
+
+**In R:**
+```{r}
+c(point_estimate = 63 / 18)
+```
+
+## Random Sample (IID Observations)
+
+**Definition:** A collection of observations $X_1,\ldots,X_n$ that are independent and identically distributed (iid) from the same probability distribution. Independence makes the joint probability or density a product of individual terms, which is the starting point for a likelihood function.
+
+**Source:** *Mathematical Statistics with Applications in R*, pp. 181--182.
+
+**Example 1:** Ten customer waiting times are modeled as iid Exponential with rate $\lambda$. Write the likelihood for the sample.
+
+**By hand:** Independence and the identical Exponential density give
+$$
+L(\lambda)=\prod_{i=1}^{10}\lambda e^{-\lambda x_i}
+=\lambda^{10}e^{-\lambda\sum x_i}.
+$$
+
+**In R:**
+```{r}
+wait_times <- c(2.1, 0.8, 1.4, 3.2, 1.9, 2.7, 0.6, 1.1, 2.4, 1.6)
+lik <- function(lambda) prod(dexp(wait_times, rate = lambda))
+lik(0.5)
+```
+
+**Example 2:** Six light-bulb lifetimes are modeled as iid Normal with unknown mean and known standard deviation. Write the likelihood.
+
+**By hand:** The likelihood is the product of six normal densities:
+$$
+L(\mu)=\prod_{i=1}^{6}\frac{1}{\sigma\sqrt{2\pi}}
+\exp\!\left(-\frac{(x_i-\mu)^2}{2\sigma^2}\right).
+$$
+
+**In R:**
+```{r}
+lifetimes <- c(1180, 1210, 1195, 1225, 1175, 1205)
+sigma <- 20
+lik <- function(mu) prod(dnorm(lifetimes, mean = mu, sd = sigma))
+lik(1200)
+```
+
+**Example 3:** Twelve survey responses are modeled as iid Bernoulli with success probability $p$. Write the likelihood.
+
+**By hand:** If the sample contains $\sum x_i$ successes and $12-\sum x_i$ failures,
+$$
+L(p)=p^{\sum x_i}(1-p)^{12-\sum x_i}.
+$$
+
+**In R:**
+```{r}
+responses <- c(1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 0, 1)
+lik <- function(p) prod(dbinom(responses, size = 1, prob = p))
+lik(0.6)
+```

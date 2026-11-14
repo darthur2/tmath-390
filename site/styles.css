@@ -163,3 +163,21 @@ a {
   color: #5b6e7a;
   margin: 0 0 0.6rem;
 }
+
+.rmd-download {
+  background: #eaf0f6;
+  border-left: 4px solid #346678;
+  border-radius: 6px;
+  padding: 0.8rem 1rem;
+  margin: 0.5rem 0 1.5rem;
+}
+
+.rmd-download a {
+  color: #245364;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.rmd-download a:hover {
+  text-decoration: underline;
+}

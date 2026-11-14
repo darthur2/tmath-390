@@ -5,7 +5,7 @@ title: "Glossary"
 ```{r setup, include=FALSE}
 # Set the working directory to the course repository root so that
 # paths such as data/gas_prices_states_original.csv work when knitting
-knitr::opts_knit$set(root.dir = normalizePath(file.path(dirname(knitr::current_input()), "..", "..")))
+knitr::opts_knit$set(root.dir = normalizePath(file.path(dirname(knitr::current_input()), "..", "..", "..")))
 
 # Plot settings
 knitr::opts_chunk$set(fig.width = 5.5, fig.height = 4, fig.align = "center", message = FALSE)

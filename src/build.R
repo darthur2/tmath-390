@@ -1,6 +1,6 @@
 #!/usr/bin/env Rscript
 
-# Render the course R Markdown site into docs/site.
+# Render the course R Markdown sources in src/R into the site/ folder.
 args <- commandArgs(trailingOnly = FALSE)
 script_arg <- args[grep("^--file=", args)]
 if (length(script_arg) > 0) {
@@ -94,24 +94,53 @@ transform_glossary <- function(html) {
   as.character(doc)
 }
 
-config <- yaml::read_yaml("site/_site.yml")
+has_code_chunks <- function(input) {
+  lines <- readLines(input, warn = FALSE)
+  chunk_headers <- grep("^```\\{r", lines, value = TRUE)
+  if (!length(chunk_headers)) {
+    return(FALSE)
+  }
+  any(!grepl("\\bsetup\\b", chunk_headers))
+}
+
+add_rmd_download <- function(html, href) {
+  doc <- xml2::read_html(html)
+  title <- xml2::xml_find_first(doc, "//h1[contains(@class, 'title')]")
+  if (inherits(title, "xml_missing")) {
+    title <- xml2::xml_find_first(doc, "//h1[1]")
+  }
+  if (inherits(title, "xml_missing")) {
+    return(html)
+  }
+  node <- xml2::read_xml(
+    paste0(
+      '<div class="rmd-download"><a href="',
+      href,
+      '" download="download">Download R Markdown source (.Rmd)</a></div>'
+    )
+  )
+  xml2::xml_add_sibling(title, node, .where = "after")
+  as.character(doc)
+}
+
+config <- yaml::read_yaml("src/_site.yml")
 output_options <- config$output$html_document
-output_options$css <- normalizePath("site/styles.css")
+output_options$css <- normalizePath("src/styles.css")
 output_format <- do.call(rmarkdown::html_document, output_options)
 
-out_root <- "docs/site"
+out_root <- "site"
 unlink(out_root, recursive = TRUE)
 dir.create(out_root, recursive = TRUE, showWarnings = FALSE)
 
 rmd_files <- list.files(
-  "site",
+  "src/R",
   pattern = "\\.Rmd$",
   recursive = TRUE,
   full.names = TRUE
 )
 
 for (input in rmd_files) {
-  relative <- sub("^site/", "", input)
+  relative <- sub("^src/R/", "", input)
   out_dir <- file.path(out_root, dirname(relative))
   dir.create(out_dir, recursive = TRUE, showWarnings = FALSE)
   output_file <- sub("\\.Rmd$", ".html", basename(input))
@@ -145,6 +174,12 @@ for (input in rmd_files) {
     html <- transform_glossary(html)
   }
 
+  if (has_code_chunks(input)) {
+    rmd_dest <- file.path(out_dir, basename(input))
+    file.copy(input, rmd_dest, overwrite = TRUE)
+    html <- add_rmd_download(html, basename(input))
+  }
+
   rel_dir <- dirname(relative)
   depth <- if (identical(rel_dir, ".")) 0L else length(strsplit(rel_dir, "/")[[1]])
   prefix <- strrep("../", depth)
@@ -157,56 +192,10 @@ for (input in rmd_files) {
 }
 
 invisible(file.copy(
-  c("site/styles.css", "site/glossary-terms.js", "site/glossary-highlight.js"),
+  c("src/styles.css", "src/glossary-terms.js", "src/glossary-highlight.js"),
   out_root,
   overwrite = TRUE
 ))
-
-m6_reading_files <- c(
-  "site/module_6/why_sample_means_vary.Rmd",
-  "site/module_6/when_does_the_central_limit_theorem_apply.Rmd",
-  "site/module_6/sampling_distributions_in_practice.Rmd",
-  "site/module_6/definitions_and_examples.Rmd"
-)
-m6_reading_dir <- file.path(project_root, "docs/module_6/reading_materials")
-dir.create(m6_reading_dir, recursive = TRUE, showWarnings = FALSE)
-for (input in m6_reading_files) {
-  input_path <- file.path(project_root, input)
-  base <- sub("\\.Rmd$", "", basename(input))
-  rmarkdown::render(
-    input = input_path,
-    output_format = rmarkdown::html_document(
-      self_contained = TRUE,
-      css = file.path(project_root, "site/styles.css")
-    ),
-    output_file = paste0(base, ".html"),
-    output_dir = m6_reading_dir,
-    quiet = TRUE
-  )
-  unlink(file.path(m6_reading_dir, paste0(base, "_files")), recursive = TRUE)
-  rmarkdown::render(
-    input = input_path,
-    output_format = rmarkdown::md_document(variant = "gfm"),
-    output_file = paste0(base, ".md"),
-    output_dir = m6_reading_dir,
-    quiet = TRUE
-  )
-  md_path <- file.path(m6_reading_dir, paste0(base, ".md"))
-  md_text <- paste(readLines(md_path, warn = FALSE), collapse = "\n")
-  md_text <- gsub(paste0(m6_reading_dir, "/"), "", md_text, fixed = TRUE)
-  writeLines(md_text, md_path, useBytes = TRUE)
-}
-
-root_index <- file.path(out_root, "index.html")
-if (file.exists(root_index)) {
-  root_html <- paste(readLines(root_index, warn = FALSE), collapse = "\n")
-  root_html <- gsub(
-    '(href|src)="(?!https?://|//|#|mailto:|data:|/|\\.\\.?/)',
-    '\\1="site/',
-    root_html,
-    perl = TRUE
-  )
-  writeLines(root_html, file.path("docs", "index.html"), useBytes = TRUE)
-}
+file.create(file.path(out_root, ".nojekyll"))
 
 message("Rendered site to ", out_root)

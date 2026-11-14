@@ -3,7 +3,7 @@
 introductory-statistics.pdf
 mathematical-statistics-with-applications-in-r.pdf
 
-# Quiz and knowledge-check artifacts (kept locally, not published)
-docs/**/quizzes/
-docs/**/knowledge_checks/
-docs/**/knowledge-checks/
+# Old generated output and local assessment artifacts
+/docs/
+
+todo.md

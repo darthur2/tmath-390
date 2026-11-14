@@ -1,0 +1,239 @@
+---
+title: "How Strongly Do Two Variables Move Together?"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+At a community sustainability event, organizers record whether each visitor arrives by bike and whether they bring a reusable cup. They notice that the choices often occur together. **How strongly are these two choices associated?** A numerical summary could help organizers understand whether the same outreach is reaching people who make several lower-waste choices.
+
+A small online shop compares how much of a product page visitors read with whether they make a purchase. Visitors who read more details seem more likely to buy. **How strongly are page engagement and purchase associated?** A numerical summary could help the shop evaluate product pages.
+
+In both problems, we need a joint distribution for the pair. From it, we can find the marginal means and variances and the **cross-moment**, then calculate **covariance** and **correlation**.
+
+## From a joint model to correlation
+
+For discrete variables with joint PMF $P_{X,Y}(x,y)$, the marginal PMFs and cross-moment are
+
+$$
+P_X(x)=\sum_y P_{X,Y}(x,y),\qquad
+P_Y(y)=\sum_x P_{X,Y}(x,y),\qquad
+E[XY]=\sum_x\sum_y xy\,P_{X,Y}(x,y).
+$$
+
+For continuous variables with joint density $f_{X,Y}(x,y)$, the marginal PDFs and cross-moment are found by integration:
+
+$$
+f_X(x)=\int f_{X,Y}(x,y)\,dy,\qquad
+f_Y(y)=\int f_{X,Y}(x,y)\,dx,\qquad
+E[XY]=\int\!\int xy f_{X,Y}(x,y)\,dx\,dy.
+$$
+
+If $X$ is continuous and $Y$ is discrete, the joint model is a density-mass function. Sum over $Y$ to obtain $f_X$, and integrate over $X$ to obtain $P_Y$:
+
+$$
+f_X(x)=\sum_y f_{X,Y}(x,y),\qquad
+P_Y(y)=\int f_{X,Y}(x,y)\,dx,\qquad
+E[XY]=\sum_y\int xy f_{X,Y}(x,y)\,dx.
+$$
+
+Once the means, variances, and cross-moment are known, covariance and correlation are
+
+$$
+\operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y],
+\qquad
+\rho_{X,Y}=\operatorname{Corr}(X,Y)
+=\frac{\operatorname{Cov}(X,Y)}{\sqrt{\operatorname{Var}[X]\operatorname{Var}[Y]}}.
+$$
+
+For a continuous example, take $f_{X,Y}(x,y)=x+y$ on $(0,1)^2$. Its marginal densities are $f_X(x)=x+\frac12$ and $f_Y(y)=y+\frac12$, so
+
+$$
+E[X]=E[Y]=\frac{7}{12},\qquad
+E[X^2]=E[Y^2]=\frac{5}{12},\qquad
+\operatorname{Var}[X]=\operatorname{Var}[Y]=\frac{11}{144}.
+$$
+
+The cross-moment is $E[XY]=\frac13$, giving $\operatorname{Cov}(X,Y)=-\frac{1}{144}$ and $\operatorname{Corr}(X,Y)=-\frac{1}{11}$. R can calculate this correlation using the same marginal and cross-moment formulas:
+
+```{r}
+library(cubature)
+
+joint_pdf <- function(x, y) x + y
+# Integrating the joint PDF over the other variable gives these marginals.
+marginal_x <- function(x) x + 1/2
+marginal_y <- function(y) y + 1/2
+
+mean_x <- integrate(function(x) x * marginal_x(x),
+                     lower = 0, upper = 1)$value
+mean_y <- integrate(function(y) y * marginal_y(y),
+                     lower = 0, upper = 1)$value
+second_x <- integrate(function(x) x^2 * marginal_x(x),
+                       lower = 0, upper = 1)$value
+second_y <- integrate(function(y) y^2 * marginal_y(y),
+                       lower = 0, upper = 1)$value
+mean_xy <- hcubature(
+  function(v) v[1] * v[2] * joint_pdf(v[1], v[2]),
+  lowerLimit = c(0, 0),
+  upperLimit = c(1, 1)
+)$integral
+
+variance_x <- second_x - mean_x^2
+variance_y <- second_y - mean_y^2
+covariance_xy <- mean_xy - mean_x * mean_y
+correlation_xy <- covariance_xy / sqrt(variance_x * variance_y)
+correlation_xy
+```
+
+Covariance describes whether the variables tend to be above or below their means together, but its size depends on their units. Correlation standardizes covariance and lies between $-1$ and $1$. **Independence of random variables** means that the joint model factors into the product of the marginals: $P_{X,Y}(x,y)=P_X(x)P_Y(y)$ for discrete variables, or $f_{X,Y}(x,y)=f_X(x)f_Y(y)$ for continuous variables. Independence implies zero correlation when the variances are finite, but zero correlation alone does not generally imply independence.
+
+## Bike commuting and reusable cups: a simple joint PMF
+
+Let $X=1$ if a visitor arrived by bike and $X=0$ otherwise. Let $Y=1$ if the visitor brought a reusable cup and $Y=0$ otherwise. All four combinations occur, and event records suggest that the two choices often occur together. A simple custom joint PMF representing that pattern is
+
+$$
+P_{X,Y}(x,y)=
+\begin{cases}
+\dfrac{3}{8},&(x,y)=(0,0)\text{ or }(1,1),\\
+\dfrac{1}{8},&(x,y)=(0,1)\text{ or }(1,0),\\
+0,&\text{otherwise}.
+\end{cases}
+$$
+
+The support is the full product $\{0,1\}\times\{0,1\}$. Summing the joint PMF over the other variable gives
+
+$$
+P_X(0)=P_X(1)=\frac12,
+\qquad
+P_Y(0)=P_Y(1)=\frac12.
+$$
+
+Find the means and second moments from these marginal PMFs:
+
+$$
+E[X]=E[Y]=\frac12,
+\qquad
+E[X^2]=E[Y^2]=\frac12.
+$$
+
+Therefore,
+
+$$
+\operatorname{Var}[X]=\operatorname{Var}[Y]
+=\frac12-\left(\frac12\right)^2
+=\frac14.
+$$
+
+The cross-moment comes directly from the joint PMF. Only the outcome $(1,1)$ contributes a nonzero value:
+
+$$
+E[XY]=\sum_x\sum_y xy\,P_{X,Y}(x,y)=\frac38.
+$$
+
+Thus
+
+$$
+\operatorname{Cov}(X,Y)=\frac38-\frac12\cdot\frac12=\frac18,
+\qquad
+\operatorname{Corr}(X,Y)=\frac{1/8}{\sqrt{(1/4)(1/4)}}=0.5.
+$$
+
+In this model, visitors who arrive by bike are more likely to bring a reusable cup, and the two choices have a moderate positive correlation.
+
+R can calculate the marginal distributions, means, variances, and correlation from the joint PMF:
+
+```{r}
+x <- c(0, 1)
+y <- c(0, 1)
+joint <- matrix(c(3/8, 1/8,
+                  1/8, 3/8), nrow = 2, byrow = TRUE)
+
+px <- rowSums(joint)
+py <- colSums(joint)
+mean_x <- sum(x * px)
+mean_y <- sum(y * py)
+variance_x <- sum((x - mean_x)^2 * px)
+variance_y <- sum((y - mean_y)^2 * py)
+mean_xy <- sum(outer(x, y, "*") * joint)
+covariance_xy <- mean_xy - mean_x * mean_y
+correlation_xy <- covariance_xy / sqrt(variance_x * variance_y)
+correlation_xy
+```
+
+## Page engagement and purchases: a mixed joint model
+
+Let $X$ be the fraction of a product page a visitor reads, measured on a scale from $0$ to $1$, and let $Y=1$ if the visitor purchases the product and $Y=0$ otherwise. The engagement measurements are continuous and tend to be higher, while the outcome is a yes/no purchase. As a simple model, use a Beta$(2,1)$ marginal density for engagement, $f_X(x)=2x$, and let the purchase probability given engagement $x$ be $P(Y=1\mid X=x)=x$.
+
+Multiplying the marginal density by the conditional probability gives the joint density-mass function:
+
+$$
+f_{X,Y}(x,y)=
+\begin{cases}
+2x^2,&0<x<1,\;y=1,\\
+2x(1-x),&0<x<1,\;y=0,\\
+0,&\text{otherwise}.
+\end{cases}
+$$
+
+The support is the full product $(0,1)\times\{0,1\}$. Sum over the two purchase outcomes to recover the marginal density of engagement:
+
+$$
+f_X(x)=f_{X,Y}(x,0)+f_{X,Y}(x,1)
+=2x(1-x)+2x^2=2x,
+\qquad 0<x<1.
+$$
+
+Integrate over engagement to find the purchase PMF:
+
+$$
+P_Y(1)=\int_0^1 2x^2\,dx=\frac23,
+\qquad
+P_Y(0)=\int_0^1 2x(1-x)\,dx=\frac13.
+$$
+
+Calculate the marginal moments directly. For page engagement,
+
+$$
+E[X]=\int_0^1 x(2x)\,dx=\frac23,
+\qquad
+E[X^2]=\int_0^1 x^2(2x)\,dx=\frac12,
+$$
+
+so $\operatorname{Var}[X]=\frac12-(\frac23)^2=\frac1{18}$. For purchase status,
+
+$$
+E[Y]=\frac23,\qquad E[Y^2]=\frac23,
+\qquad \operatorname{Var}[Y]=\frac23-\left(\frac23\right)^2=\frac29.
+$$
+
+Only purchases ($Y=1$) contribute to the cross-moment:
+
+$$
+E[XY]=\int_0^1 x\,f_{X,Y}(x,1)\,dx
+=\int_0^1 2x^3\,dx=\frac12.
+$$
+
+The covariance and correlation are therefore
+
+$$
+\operatorname{Cov}(X,Y)=\frac12-\frac23\cdot\frac23=\frac1{18},
+\qquad
+\operatorname{Corr}(X,Y)=\frac{1/18}{\sqrt{(1/18)(2/9)}}=\frac12.
+$$
+
+This model describes a positive association: visitors who read more of the product page are more likely to buy it.
+
+## The pattern
+
+Start with a joint PMF or PDF for the pair. Find each marginal distribution, calculate the marginal means and variances from their definitions, and evaluate $E[XY]$ from the joint model. Covariance and correlation then summarize the direction and strength of the linear association.
