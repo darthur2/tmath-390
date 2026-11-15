@@ -119,6 +119,8 @@ add_rmd_download <- function(html, href) {
       href,
       '" download="',
       download_name,
+      '" data-filename="',
+      download_name,
       '">Download R Markdown source (.Rmd)</a></div>'
     )
   )
@@ -188,14 +190,20 @@ for (input in rmd_files) {
   prefix <- strrep("../", depth)
   script_tags <- paste0(
     '<script src="', prefix, 'glossary-terms.js"></script>\n',
-    '<script src="', prefix, 'glossary-highlight.js"></script>\n'
+    '<script src="', prefix, 'glossary-highlight.js"></script>\n',
+    '<script src="', prefix, 'rmd-download.js"></script>\n'
   )
   html <- sub("</body>", paste0(script_tags, "</body>"), html, fixed = TRUE)
   writeLines(html, html_path, useBytes = TRUE)
 }
 
 invisible(file.copy(
-  c("src/styles.css", "src/glossary-terms.js", "src/glossary-highlight.js"),
+  c(
+    "src/styles.css",
+    "src/glossary-terms.js",
+    "src/glossary-highlight.js",
+    "src/rmd-download.js"
+  ),
   out_root,
   overwrite = TRUE
 ))
