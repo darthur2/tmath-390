@@ -112,11 +112,14 @@ add_rmd_download <- function(html, href) {
   if (inherits(title, "xml_missing")) {
     return(html)
   }
+  download_name <- basename(href)
   node <- xml2::read_xml(
     paste0(
       '<div class="rmd-download"><a href="',
       href,
-      '" download="download">Download R Markdown source (.Rmd)</a></div>'
+      '" download="',
+      download_name,
+      '">Download R Markdown source (.Rmd)</a></div>'
     )
   )
   xml2::xml_add_sibling(title, node, .where = "after")
