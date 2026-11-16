@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Extra Credit: Height, Weight, and the Bivariate Normal Model</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+
+
+
+
+<style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+.glossary-page .glossary-entry {
+margin: 0 0 1.1rem;
+padding: 1rem 1.2rem;
+background: #eef4f8;
+border: 1px solid #92aeba;
+border-radius: 10px;
+}
+.glossary-page .glossary-entry h3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.98rem;
+color: #245364;
+margin: 1.8rem 0 0.7rem;
+}
+.glossary-page .glossary-entry p {
+line-height: 1.6;
+margin: 0 0 0.7rem;
+}
+.glossary-page .glossary-label {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #5b6e7a;
+}
+.glossary-page .glossary-entry p.glossary-source {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+color: #5b6e7a;
+margin: 0 0 0.6rem;
+}
+.rmd-download {
+background: #eaf0f6;
+border-left: 4px solid #346678;
+border-radius: 6px;
+padding: 0.8rem 1rem;
+margin: 0.5rem 0 1.5rem;
+}
+.rmd-download a {
+color: #245364;
+font-weight: 700;
+text-decoration: none;
+}
+.rmd-download a:hover {
+text-decoration: underline;
+}
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Extra Credit: Height, Weight, and the
+Bivariate Normal Model</h1>
+
+
+
+<div id="the-problem-predicting-weight-from-height" class="section level2">
+<h2>The problem: predicting weight from height</h2>
+<p>Suppose we want to predict a man’s weight from his height. Let \(H\) be height in inches and \(W\) be weight in pounds. Rather than model
+\(H\) and \(W\) separately, we can model the pair \((H,W)\) jointly with a <strong>bivariate
+normal distribution</strong>.</p>
+<p>For U.S. adult men, realistic values are approximately</p>
+<p>$$
+\mu_H = 69 \text{ inches}, \qquad \sigma_H = 3 \text{ inches},
+$$</p>
+<p>and</p>
+<p>$$
+\mu_W = 198 \text{ pounds}, \qquad \sigma_W = 35 \text{ pounds}.
+$$</p>
+<p>Height and weight are positively associated, but the strength of that
+association is not determined by the two marginal means and standard
+deviations. We therefore include a correlation parameter \(\rho\), which is unknown. The general
+bivariate normal density is</p>
+<p>$$
+f_{H,W}(h,w)
+=
+\frac{1}{2\pi\sigma_H\sigma_W\sqrt{1-\rho^2}}
+\exp\left[
+-\frac{1}{2(1-\rho^2)}
+\left(
+\frac{(h-\mu_H)^2}{\sigma_H^2}
+-
+2\rho\frac{(h-\mu_H)(w-\mu_W)}{\sigma_H\sigma_W}
++
+\frac{(w-\mu_W)^2}{\sigma_W^2}
+\right)
+\right].
+$$</p>
+<p>The unknown parameter \(\rho\)
+controls how strongly height and weight move together.</p>
+</div>
+<div id="simplifying-by-standardizing" class="section level2">
+<h2>Simplifying by standardizing</h2>
+<p>To simplify the algebra, standardize height and weight:</p>
+<p>$$
+X=\frac{H-69}{3},
+\qquad
+Y=\frac{W-198}{35}.
+$$</p>
+<p>Then \(X\) and \(Y\) have means \(0\) and variances \(1\), and the pair \((X,Y)\) is still bivariate normal.
+Standardizing does not change correlation, so</p>
+<p>$$
+\operatorname{Cor}(X,Y)=\operatorname{Cor}(H,W)=\rho.
+$$</p>
+<p>With means \(0\) and variances \(1\), the joint density simplifies to</p>
+<p>$$
+f_{X,Y}(x,y)
+=
+\frac{1}{2\pi\sqrt{1-\rho^2}}
+\exp\left[
+-\frac{x^2-2\rho xy+y^2}{2(1-\rho^2)}
+\right],
+\qquad -\infty&lt;x&lt;\infty,\; -\infty&lt;y&lt;\infty.
+$$</p>
+<p>Here \(X\) and \(Y\) are measured in standard deviations.
+For example, \(X=1.5\) corresponds to a
+height of</p>
+<p>$$
+69+3(1.5)=73.5 \text{ inches}.
+$$</p>
+<p>The correlation parameter \(\rho\)
+remains unknown. In the problems below, you will derive the marginal
+distribution of \(X\), the conditional
+distribution of \(Y\) given \(X\), and the correlation of \(X\) and \(Y\).</p>
+</div>
+<div id="extra-credit-opportunity" class="section level2">
+<h2>Extra credit opportunity</h2>
+<p>The following three parts are each worth <strong>one point of extra
+credit on a Module Quiz</strong>. Show your derivation for each
+part.</p>
+<div id="part-a-1-point" class="section level3">
+<h3>Part A (1 point)</h3>
+<p>Derive the marginal distribution \(f_X(x)\) from the joint density \(f_{X,Y}(x,y)\).</p>
+<p><strong>Hint.</strong> Integrate the joint density over \(y\):</p>
+<p>$$
+f_X(x)=\int_{-\infty}^{\infty} f_{X,Y}(x,y)\,dy.
+$$</p>
+<p>In the exponent, isolate the terms involving \(y\) and complete the square in \(y\). Then use the Gaussian integral</p>
+<p>$$
+\int_{-\infty}^{\infty} e^{-t^2/2}\,dt=\sqrt{2\pi}.
+$$</p>
+</div>
+<div id="part-b-1-point" class="section level3">
+<h3>Part B (1 point)</h3>
+<p>Derive the conditional distribution \(f_{Y\mid X}(y\mid x)\). Then find \(E[Y\mid X=1.5]\) when \(\rho=0.65\).</p>
+<p><strong>Hint.</strong> Use</p>
+<p>$$
+f_{Y\mid X}(y\mid x)=\frac{f_{X,Y}(x,y)}{f_X(x)}.
+$$</p>
+<p>Simplify the resulting exponent and rewrite the conditional density
+as a normal density. From that density, determine \(E[Y\mid X=x]\), then evaluate it at \(x=1.5\) when \(\rho=0.65\).</p>
+</div>
+<div id="part-c-1-point" class="section level3">
+<h3>Part C (1 point)</h3>
+<p>Show that \(\operatorname{Cor}(X,Y)=\rho\).</p>
+<p><strong>Hint.</strong> The marginal distributions are standard
+normal, so \(\operatorname{Var}[X]=\operatorname{Var}[Y]=1\)
+and</p>
+<p>$$
+\operatorname{Cov}(X,Y)=E[XY]-E[X]E[Y]=E[XY].
+$$</p>
+<p>Represent the joint density as the conditional density from Part B
+times the marginal density from Part A:</p>
+<p>$$
+f_{X,Y}(x,y)=f_{Y\mid X}(y\mid x)f_X(x).
+$$</p>
+<p>Then rewrite the cross-moment as a nested expectation:</p>
+<p>$$
+E[XY]
+=
+\int_{-\infty}^{\infty}\int_{-\infty}^{\infty} xy\,f_{Y\mid X}(y\mid
+x)f_X(x)\,dy\,dx
+=
+\int_{-\infty}^{\infty} x\left(\int_{-\infty}^{\infty} y\,f_{Y\mid
+X}(y\mid x)\,dy\right)f_X(x)\,dx.
+$$</p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+<script src="../rmd-download.js"></script>
+</body>
+</html>
