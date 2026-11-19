@@ -2,7 +2,7 @@
 title: "Module 5: Maximum Likelihood Estimation"
 ---
 
-This page lists the overview, readings, and glossary for Module 5.
+This page lists the overview, readings, mini-project, and glossary for Module 5.
 
 ## Overview
 
@@ -12,6 +12,10 @@ This page lists the overview, readings, and glossary for Module 5.
 
 - [What Does the Likelihood Tell Us?](what_does_the_likelihood_tell_us.html)
 - [How Do We Find the Maximum Likelihood Estimate?](how_do_we_find_the_maximum_likelihood_estimate.html)
+
+## Mini-Project
+
+- [Modeling Variables and Estimating Parameters Mini-Project](project/rubric.html)
 
 ## Glossary
 

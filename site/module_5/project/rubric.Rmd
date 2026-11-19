@@ -1,0 +1,859 @@
+---
+title: "Modeling Variables and Estimating Parameters Mini-Project"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+
+# Load ggplot2 for the fit-comparison plots
+library(ggplot2)
+```
+
+## Purpose
+
+In this project, you will build statistical models for three variables from your dataset and estimate the parameters of those models using maximum likelihood. You will choose **two quantitative variables** and **one categorical variable**, propose a probability distribution for each, justify your choices, interpret the parameters in context, compute maximum likelihood estimates, and assess how well the fitted models match the data both numerically and visually. The goal is to connect the distribution models from Module 4 with the estimation methods from Module 5.
+
+## Materials
+
+You will receive:
+
+- A cleaned CSV dataset assigned to you.
+- A background description and data dictionary for that dataset.
+- A helper function for creating the visual fit plots. The function code appears in Step 6 so that you can copy and paste it into your own report.
+
+Use these materials to describe the variables and the context of the data. Do not invent a source, population, collection date, or procedure that the supplied materials do not provide. If an important detail is not available, say so briefly. You may also use the Module 4 and Module 5 readings and R reference material. A parameter and LaTeX reference appears later in this guide.
+
+## What to do
+
+### 1. Select your variables
+
+Select exactly **two quantitative variables** and **one categorical variable** from your dataset. For each variable, state its name, what it measures, and why you are interested in modeling it. If a chosen variable has missing values, state how many observations you used and how you handled the missing values.
+
+### 2. Propose a distribution for each variable
+
+For each of the three variables, propose a probability distribution that could model the variable. Your proposal should be specific enough that you can write down the PMF or PDF and identify its parameters.
+
+Justify each choice using features of the variable and the data:
+
+- Is the variable discrete or continuous?
+- What values can it take? What are its support and bounds?
+- Is the distribution symmetric, skewed, or something else?
+- Are there unusual features such as many zeros, a spike at one value, or extreme outliers?
+- If you transformed the variable, what transformation did you use, why did you use it, and what does the model describe after the transformation?
+
+For the categorical variable, consider how many categories the variable has and what a probability model for those categories would describe. For the quantitative variables, make sure the proposed distribution is compatible with the variable's support and shape. If you considered more than one distribution, briefly explain why you chose the one you did.
+
+A distribution that places probability or density on values the variable cannot take is not a reasonable choice. A distribution with more parameters than the data can support may fit the sample too closely to be useful.
+
+### 3. Identify and interpret the parameters
+
+For each distribution, identify all parameters, their symbols, and any constraints. For example, a probability must be between 0 and 1, and a standard deviation must be positive.
+
+Interpret each parameter in the context of your variable and dataset. Explain what the parameter controls and what a particular value would mean for the variable. A good interpretation says what the parameter means for the data, not just what the symbol represents mathematically. If you transformed the variable, make clear whether the parameters describe the original scale or the transformed scale.
+
+### 4. Estimate the parameters by maximum likelihood
+
+For each model, write the likelihood and log-likelihood for the observed data, then find the maximum likelihood estimates (MLEs). Include your R code and enough of your derivations that the estimates can be followed.
+
+If a closed-form solution exists:
+
+- Show the log-likelihood.
+- Differentiate with respect to the parameter.
+- Set the derivative equal to zero and solve.
+- Check that your solution is a maximum, for example with the second derivative or by arguing from the shape of the log-likelihood.
+
+If no closed-form solution exists:
+
+- Use R's `optimize()` function to maximize the log-likelihood over a finite interval.
+- Use `maximum = TRUE`.
+- Choose an interval that respects the parameter constraints and contains the maximum.
+- Check that the maximum is not at an endpoint.
+
+**Worked example: a closed-form MLE for the geometric distribution.** Suppose $X$ is the number of failures before the first success, so
+
+$$
+P(X=x)=(1-p)^x p,\qquad x=0,1,2,\ldots
+$$
+
+For observed values $x_1,\ldots,x_n$, the likelihood is
+
+$$
+L(p)=\prod_{i=1}^{n}(1-p)^{x_i}p
+=(1-p)^{\sum_{i=1}^{n}x_i}p^n.
+$$
+
+The log-likelihood is
+
+$$
+\ell(p)=\left(\sum_{i=1}^{n}x_i\right)\ln(1-p)+n\ln p.
+$$
+
+Differentiate with respect to $p$:
+
+$$
+\ell'(p)=-\frac{\sum_{i=1}^{n}x_i}{1-p}+\frac{n}{p}.
+$$
+
+Set $\ell'(p)=0$ and solve:
+
+$$
+\begin{aligned}
+-\frac{\sum_{i=1}^{n}x_i}{1-p}+\frac{n}{p}&=0 \\
+\frac{n}{p}&=\frac{\sum_{i=1}^{n}x_i}{1-p} \\
+n(1-p)&=p\sum_{i=1}^{n}x_i \\
+n&=p\left(n+\sum_{i=1}^{n}x_i\right) \\
+\hat p&=\frac{n}{n+\sum_{i=1}^{n}x_i}=\frac{1}{1+\bar x}.
+\end{aligned}
+$$
+
+The second derivative is
+
+$$
+\ell''(p)=-\frac{\sum_{i=1}^{n}x_i}{(1-p)^2}-\frac{n}{p^2}<0,
+$$
+
+so the critical point is a maximum. For the example data below, $n=10$ and $\sum x_i=14$, so
+
+$$
+\hat p=\frac{10}{10+14}=0.4167.
+$$
+
+```{r}
+# Example data: failures before the first success
+failures <- c(0, 1, 2, 1, 0, 3, 2, 1, 4, 0)
+
+# Closed-form geometric MLE
+n <- length(failures)
+p_hat <- n / (n + sum(failures))
+p_hat
+```
+
+**The Markdown and LaTeX source for this derivation.** The block below shows the exact Markdown and LaTeX used to produce the derivation above. Use it as a template for your own derivation.
+
+```markdown
+Suppose $X$ is the number of failures before the first success, so
+
+$$
+P(X=x)=(1-p)^x p,\qquad x=0,1,2,\ldots
+$$
+
+For observed values $x_1,\ldots,x_n$, the likelihood is
+
+$$
+L(p)=\prod_{i=1}^{n}(1-p)^{x_i}p
+=(1-p)^{\sum_{i=1}^{n}x_i}p^n.
+$$
+
+The log-likelihood is
+
+$$
+\ell(p)=\left(\sum_{i=1}^{n}x_i\right)\ln(1-p)+n\ln p.
+$$
+
+Differentiate with respect to $p$:
+
+$$
+\ell'(p)=-\frac{\sum_{i=1}^{n}x_i}{1-p}+\frac{n}{p}.
+$$
+
+Set $\ell'(p)=0$ and solve:
+
+$$
+\begin{aligned}
+-\frac{\sum_{i=1}^{n}x_i}{1-p}+\frac{n}{p}&=0 \\
+\frac{n}{p}&=\frac{\sum_{i=1}^{n}x_i}{1-p} \\
+n(1-p)&=p\sum_{i=1}^{n}x_i \\
+n&=p\left(n+\sum_{i=1}^{n}x_i\right) \\
+\hat p&=\frac{n}{n+\sum_{i=1}^{n}x_i}=\frac{1}{1+\bar x}.
+\end{aligned}
+$$
+
+The second derivative is
+
+$$
+\ell''(p)=-\frac{\sum_{i=1}^{n}x_i}{(1-p)^2}-\frac{n}{p^2}<0,
+$$
+
+so the critical point is a maximum.
+```
+
+**How to adapt this template.** Replace the geometric PMF with the PMF or PDF of your chosen distribution, replace $p$ with your parameter or parameters, and follow the same sequence: write the likelihood, take the log-likelihood, differentiate, set the derivative or derivatives equal to zero, solve when possible, and check that the result is a maximum. For a two-parameter model, use the coordinate-ascent approach described below when a closed form is not available.
+
+**Two-parameter distributions.** For a model with two unknown parameters, you do not need to solve a system of two likelihood equations simultaneously. Acceptable approaches are:
+
+- If both parameters have closed-form solutions, you may find each solution separately by treating the other parameter as fixed and then substituting the estimates.
+- If one parameter has a closed-form solution and the other does not, use the closed form for the first parameter and `optimize()` for the second.
+- If neither parameter has a convenient closed form, use coordinate ascent: fix one parameter, use `optimize()` to maximize the log-likelihood over the other parameter, update the fixed parameter to the new estimate, and repeat until the estimates stop changing. Report the final estimates and enough code or output to show that the procedure converged.
+
+**A general recipe for two-parameter models.** The same idea works for any two-parameter model. Suppose you want to maximize a function $f(x,y)$ over two inputs. Coordinate ascent alternates between the two inputs:
+
+1. Fix $y$ and maximize $f(x,y)$ over $x$.
+2. Fix $x$ at its new value and maximize $f(x,y)$ over $y$.
+3. Repeat until both values stop changing.
+
+The example below uses a simple function whose maximum is easy to check. It is not a probability model; it is only a demonstration of the optimization pattern.
+
+```{r}
+# A simple function of two inputs
+f <- function(x, y) {
+  -(x - 1)^2 - 2 * (y - 2)^2 - 0.5 * (x - 1) * (y - 2)
+}
+
+# Start from initial values
+x <- 0
+y <- 0
+
+# Alternate between maximizing over x and over y
+for (iter in 1:100) {
+  # Fix y and maximize over x
+  x_new <- optimize(
+    function(x) f(x, y),
+    interval = c(-10, 10), maximum = TRUE
+  )$maximum
+
+  # Fix x at its new value and maximize over y
+  y_new <- optimize(
+    function(y) f(x_new, y),
+    interval = c(-10, 10), maximum = TRUE
+  )$maximum
+
+  # Stop when neither value changes by more than the tolerance
+  if (abs(x_new - x) < 1e-8 && abs(y_new - y) < 1e-8) {
+    x <- x_new
+    y <- y_new
+    break
+  }
+
+  # Otherwise, update both values and continue
+  x <- x_new
+  y <- y_new
+}
+
+# Report the final values and the number of iterations
+c(x = x, y = y, iterations = iter)
+```
+
+For this example, the maximum is at $x=1$ and $y=2$, and the loop converges in a few iterations.
+
+**How to use this recipe for a distribution.** Replace $f(x,y)$ with the log-likelihood $\ell(\theta_1,\theta_2)$, and replace $x$ and $y$ with the two parameters. Start from reasonable values, optimize one parameter at a time, and stop when the estimates stabilize. If one parameter has a closed-form solution when the other is fixed, replace that `optimize()` step with the closed-form update. Otherwise, use `optimize()` for both steps. The intervals must respect the parameter constraints.
+
+Do not use a pre-built MLE function to replace the required derivation or optimization work. Report the final estimate for every parameter of every model.
+
+### 5. Assess model fit numerically
+
+For each variable, compare quantities implied by the fitted model with the corresponding quantities in the data.
+
+- For a quantitative variable, compare the model-implied mean and standard deviation with the sample mean and sample standard deviation.
+- For a categorical variable, compare the model-implied probabilities with the observed proportions in each category. For a binary variable, you may also compare the model-implied mean and standard deviation with the sample mean and standard deviation.
+
+Present the comparisons in a small table and interpret how close the fitted model is to the data. Note any important differences. If you transformed a variable, make the comparison on the scale you modeled, or explain carefully how you back-transformed model quantities.
+
+### 6. Assess model fit visually
+
+For each variable, plot the fitted model against the data.
+
+- **Categorical variable:** draw a bar chart of the observed proportions and overlay or add the fitted probabilities.
+- **Discrete quantitative variable:** show the observed proportions (or counts) for each possible value and overlay or add the fitted PMF.
+- **Continuous quantitative variable:** draw a histogram or density estimate of the data and overlay the fitted PDF.
+
+Label axes and include a legend or clear explanation of what is observed and what is fitted. Discuss how well the fitted model matches the data and point out important discrepancies, such as a fitted model that misses a spike at zero or a long tail. The visual comparison should support the numerical comparison; it should not replace it.
+
+You may use the helper function `plot_distribution_fit()` for this part. It takes the data, the distribution name, and a named list of your estimated parameter values. It only draws the plot; it does not estimate parameters for you.
+
+Copy the function below into your R session or R Markdown file before using it. You do not need to include this function in your report.
+
+```{r}
+# Helper function for the Module 5 mini-project.
+# Copy this function into your R session or R Markdown file.
+#
+# This function only draws the observed data and the fitted PMF or PDF.
+# It does not estimate parameters and it does not run any optimization.
+# You supply the parameter values, usually the MLEs you found in your report.
+#
+# Usage:
+#   plot_distribution_fit(data, "geometric", list(p = 10 / 24))
+#   plot_distribution_fit(counts, "poisson", list(lambda = 1.95))
+#   plot_distribution_fit(temperature, "normal", list(mu = 77.88, sigma = 9.47))
+#
+# Supported distributions and parameter names:
+#   "bernoulli"          list(p = ...)
+#   "binomial"           list(n = ..., p = ...)
+#   "multinomial"        list(p = c(...))
+#   "poisson"            list(lambda = ...)
+#   "geometric"          list(p = ...)
+#   "negative binomial"  list(r = ..., p = ...)
+#   "exponential"        list(lambda = ...)
+#   "gamma"              list(alpha = ..., beta = ...)
+#   "beta"               list(alpha = ..., beta = ...)
+#   "normal"             list(mu = ..., sigma = ...)
+#   "log-normal"         list(mu_log = ..., sigma_log = ...)
+
+library(ggplot2)
+
+plot_distribution_fit <- function(data, distribution, params, bins = 15) {
+  # Normalize the distribution name so that common aliases work.
+  dist <- tolower(trimws(distribution))
+  dist <- gsub("[_-]+", " ", dist)
+
+  # Accept either a named list or a named numeric vector for the parameters.
+  if (is.numeric(params) && !is.null(names(params))) {
+    params <- as.list(params)
+  }
+  if (!is.list(params) || is.null(names(params))) {
+    stop("params must be a named list or a named numeric vector.", call. = FALSE)
+  }
+
+  # Retrieve a required parameter and give a clear error if it is missing.
+  get_param <- function(name) {
+    value <- params[[name]]
+    if (is.null(value)) {
+      stop(
+        "Missing parameter `", name, "` for the ", distribution,
+        " distribution.",
+        call. = FALSE
+      )
+    }
+    value
+  }
+
+  # Check that a single probability is between 0 and 1.
+  check_probability <- function(p, name = "p") {
+    if (!is.numeric(p) || length(p) != 1 || is.na(p) || p < 0 || p > 1) {
+      stop("`", name, "` must be a single number between 0 and 1.", call. = FALSE)
+    }
+    p
+  }
+
+  # Check that a single parameter is strictly positive.
+  check_positive <- function(value, name) {
+    if (!is.numeric(value) || length(value) != 1 || is.na(value) || value <= 0) {
+      stop("`", name, "` must be a single positive number.", call. = FALSE)
+    }
+    value
+  }
+
+  # Check that count data are nonnegative whole numbers.
+  check_counts <- function(x) {
+    if (!is.numeric(x) || any(!is.finite(x)) || any(x < 0) || any(x != round(x))) {
+      stop("The data must be nonnegative whole numbers for this distribution.", call. = FALSE)
+    }
+  }
+
+  # Remove missing values and report how many were removed.
+  n_missing <- sum(is.na(data))
+  if (n_missing > 0) {
+    message("Removed ", n_missing, " missing value(s).")
+  }
+  data <- data[!is.na(data)]
+  if (length(data) == 0) {
+    stop("No non-missing observations remain.", call. = FALSE)
+  }
+
+  # ------------------------------------------------------------
+  # Categorical and discrete distributions
+  # ------------------------------------------------------------
+
+  if (dist %in% c("bernoulli", "bern")) {
+    # Bernoulli data can be logical, numeric 0/1, or two categories.
+    if (is.logical(data)) {
+      categories <- c("FALSE", "TRUE")
+      data_factor <- factor(data, levels = c(FALSE, TRUE))
+      proportions <- as.numeric(table(data_factor) / length(data))
+      p <- get_param("p")
+      if (length(p) == 1) {
+        p <- check_probability(p)
+        fitted_probs <- c(1 - p, p)
+      } else if (length(p) == 2) {
+        if (any(p < 0) || abs(sum(p) - 1) > 1e-8) {
+          stop("For Bernoulli data, `p` must be one probability or two probabilities that sum to 1.", call. = FALSE)
+        }
+        fitted_probs <- as.numeric(p)
+      } else {
+        stop("For Bernoulli data, `p` must have length 1 or 2.", call. = FALSE)
+      }
+    } else if (is.numeric(data) && all(data %in% c(0, 1))) {
+      categories <- c("0", "1")
+      proportions <- as.numeric(table(factor(data, levels = c(0, 1))) / length(data))
+      p <- get_param("p")
+      if (length(p) == 1) {
+        p <- check_probability(p)
+        fitted_probs <- c(1 - p, p)
+      } else if (length(p) == 2) {
+        if (any(p < 0) || abs(sum(p) - 1) > 1e-8) {
+          stop("For Bernoulli data, `p` must be one probability or two probabilities that sum to 1.", call. = FALSE)
+        }
+        fitted_probs <- as.numeric(p)
+      } else {
+        stop("For Bernoulli data, `p` must have length 1 or 2.", call. = FALSE)
+      }
+    } else {
+      data_factor <- factor(data)
+      categories <- levels(data_factor)
+      if (length(categories) != 2) {
+        stop("Bernoulli data must have exactly two categories. Use \"multinomial\" for more than two.", call. = FALSE)
+      }
+      proportions <- as.numeric(table(data_factor) / length(data))
+      p <- get_param("p")
+      if (length(p) == 1) {
+        p <- check_probability(p)
+        fitted_probs <- c(1 - p, p)
+      } else if (length(p) == 2) {
+        if (any(p < 0) || abs(sum(p) - 1) > 1e-8) {
+          stop("For Bernoulli data, `p` must be one probability or two probabilities that sum to 1.", call. = FALSE)
+        }
+        fitted_probs <- as.numeric(p)
+      } else {
+        stop("For Bernoulli data, `p` must have length 1 or 2.", call. = FALSE)
+      }
+    }
+
+    plot_data <- data.frame(
+      category = rep(factor(categories, levels = categories), 2),
+      source = rep(c("Observed", "Fitted"), each = length(categories)),
+      proportion = c(proportions, fitted_probs)
+    )
+
+    return(
+      ggplot(plot_data, aes(x = category, y = proportion, fill = source)) +
+        geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+        labs(x = "Category", y = "Proportion", fill = NULL,
+             title = "Observed and fitted proportions") +
+        theme_minimal()
+    )
+  }
+
+  if (dist %in% c("multinomial", "multi")) {
+    # Multinomial data are category labels; the supplied probabilities must
+    # match the categories in the order of the factor levels.
+    data_factor <- factor(data)
+    categories <- levels(data_factor)
+    if (length(categories) < 2) {
+      stop("Multinomial data must have at least two categories.", call. = FALSE)
+    }
+
+    p <- get_param("p")
+    if (!is.numeric(p) || any(p < 0) || abs(sum(p) - 1) > 1e-8) {
+      stop("For multinomial data, `p` must be nonnegative probabilities that sum to 1.", call. = FALSE)
+    }
+    if (!is.null(names(p))) {
+      if (!all(categories %in% names(p))) {
+        stop("Named probabilities in `p` must include every category.", call. = FALSE)
+      }
+      p <- p[categories]
+    }
+    if (length(p) != length(categories)) {
+      stop("`p` must have one probability for each category.", call. = FALSE)
+    }
+
+    observed <- as.numeric(table(data_factor) / length(data))
+    plot_data <- data.frame(
+      category = rep(factor(categories, levels = categories), 2),
+      source = rep(c("Observed", "Fitted"), each = length(categories)),
+      proportion = c(observed, as.numeric(p))
+    )
+
+    return(
+      ggplot(plot_data, aes(x = category, y = proportion, fill = source)) +
+        geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+        labs(x = "Category", y = "Proportion", fill = NULL,
+             title = "Observed and fitted proportions") +
+        theme_minimal()
+    )
+  }
+
+  if (dist %in% c("binomial", "binom")) {
+    check_counts(data)
+    n <- get_param("n")
+    p <- get_param("p")
+    if (!is.numeric(n) || length(n) != 1 || is.na(n) || n < 1 || n != round(n)) {
+      stop("`n` must be a positive whole number.", call. = FALSE)
+    }
+    p <- check_probability(p)
+    if (any(data > n)) {
+      stop("Binomial data cannot exceed the number of trials `n`.", call. = FALSE)
+    }
+
+    values <- 0:n
+    observed <- as.numeric(table(factor(data, levels = values)) / length(data))
+    fitted <- dbinom(values, size = n, prob = p)
+
+    plot_data <- data.frame(
+      count = rep(values, 2),
+      source = rep(c("Observed", "Fitted"), each = length(values)),
+      proportion = c(observed, fitted)
+    )
+
+    return(
+      ggplot(plot_data, aes(x = factor(count), y = proportion, fill = source)) +
+        geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+        labs(x = "Count", y = "Proportion", fill = NULL,
+             title = "Observed and fitted binomial probabilities") +
+        theme_minimal()
+    )
+  }
+
+  if (dist %in% c("poisson")) {
+    check_counts(data)
+    lambda <- check_positive(get_param("lambda"), "lambda")
+
+    values <- 0:max(data)
+    observed <- as.numeric(table(factor(data, levels = values)) / length(data))
+    fitted <- dpois(values, lambda = lambda)
+
+    plot_data <- data.frame(
+      count = rep(values, 2),
+      source = rep(c("Observed", "Fitted"), each = length(values)),
+      proportion = c(observed, fitted)
+    )
+
+    return(
+      ggplot(plot_data, aes(x = factor(count), y = proportion, fill = source)) +
+        geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+        labs(x = "Count", y = "Proportion", fill = NULL,
+             title = "Observed and fitted Poisson probabilities") +
+        theme_minimal()
+    )
+  }
+
+  if (dist %in% c("geometric", "geom")) {
+    check_counts(data)
+    p <- check_probability(get_param("p"))
+    if (p == 0) {
+      stop("`p` must be greater than 0 for a geometric distribution.", call. = FALSE)
+    }
+
+    values <- 0:max(data)
+    observed <- as.numeric(table(factor(data, levels = values)) / length(data))
+    fitted <- dgeom(values, prob = p)
+
+    plot_data <- data.frame(
+      count = rep(values, 2),
+      source = rep(c("Observed", "Fitted"), each = length(values)),
+      proportion = c(observed, fitted)
+    )
+
+    return(
+      ggplot(plot_data, aes(x = factor(count), y = proportion, fill = source)) +
+        geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+        labs(x = "Failures before first success", y = "Proportion", fill = NULL,
+             title = "Observed and fitted geometric probabilities") +
+        theme_minimal()
+    )
+  }
+
+  if (dist %in% c("negative binomial", "negbin", "negative binomial distribution")) {
+    check_counts(data)
+    r <- check_positive(get_param("r"), "r")
+    p <- check_probability(get_param("p"))
+    if (p == 0) {
+      stop("`p` must be greater than 0 for a negative binomial distribution.", call. = FALSE)
+    }
+
+    values <- 0:max(data)
+    observed <- as.numeric(table(factor(data, levels = values)) / length(data))
+    fitted <- dnbinom(values, size = r, prob = p)
+
+    plot_data <- data.frame(
+      count = rep(values, 2),
+      source = rep(c("Observed", "Fitted"), each = length(values)),
+      proportion = c(observed, fitted)
+    )
+
+    return(
+      ggplot(plot_data, aes(x = factor(count), y = proportion, fill = source)) +
+        geom_col(position = position_dodge(width = 0.8), width = 0.7) +
+        labs(x = "Failures before the rth success", y = "Proportion", fill = NULL,
+             title = "Observed and fitted negative binomial probabilities") +
+        theme_minimal()
+    )
+  }
+
+  # ------------------------------------------------------------
+  # Continuous distributions
+  # ------------------------------------------------------------
+
+  if (!is.numeric(data)) {
+    stop("Continuous distributions require numeric data.", call. = FALSE)
+  }
+  if (any(!is.finite(data))) {
+    stop("Continuous data must be finite numbers.", call. = FALSE)
+  }
+  if (length(data) < 2) {
+    stop("At least two observations are needed for a continuous fit plot.", call. = FALSE)
+  }
+
+  if (dist %in% c("normal", "gaussian")) {
+    mu <- get_param("mu")
+    sigma <- check_positive(get_param("sigma"), "sigma")
+    if (!is.numeric(mu) || length(mu) != 1 || is.na(mu)) {
+      stop("`mu` must be a single number.", call. = FALSE)
+    }
+
+    p <- ggplot(data.frame(x = data), aes(x = x)) +
+      geom_histogram(aes(y = after_stat(density)), bins = bins,
+                     fill = "steelblue", color = "white") +
+      stat_function(fun = dnorm, args = list(mean = mu, sd = sigma),
+                    aes(color = "Fitted PDF"), linewidth = 1) +
+      scale_color_manual(values = "firebrick", name = NULL) +
+      labs(x = "Value", y = "Density",
+           title = "Observed data and fitted normal PDF") +
+      theme_minimal()
+    return(p)
+  }
+
+  if (dist %in% c("exponential", "exp")) {
+    lambda <- check_positive(get_param("lambda"), "lambda")
+    if (any(data < 0)) {
+      stop("Exponential data must be nonnegative.", call. = FALSE)
+    }
+    if (max(data) == 0) {
+      stop("The data must contain at least one positive value.", call. = FALSE)
+    }
+
+    p <- ggplot(data.frame(x = data), aes(x = x)) +
+      geom_histogram(aes(y = after_stat(density)), bins = bins,
+                     fill = "steelblue", color = "white") +
+      stat_function(fun = dexp, args = list(rate = lambda),
+                    xlim = c(0, max(data)),
+                    aes(color = "Fitted PDF"), linewidth = 1) +
+      scale_color_manual(values = "firebrick", name = NULL) +
+      labs(x = "Value", y = "Density",
+           title = "Observed data and fitted exponential PDF") +
+      theme_minimal()
+    return(p)
+  }
+
+  if (dist %in% c("gamma")) {
+    alpha <- check_positive(get_param("alpha"), "alpha")
+    beta <- check_positive(get_param("beta"), "beta")
+    if (any(data <= 0)) {
+      stop("Gamma data must be strictly positive.", call. = FALSE)
+    }
+
+    p <- ggplot(data.frame(x = data), aes(x = x)) +
+      geom_histogram(aes(y = after_stat(density)), bins = bins,
+                     fill = "steelblue", color = "white") +
+      stat_function(fun = dgamma, args = list(shape = alpha, rate = beta),
+                    xlim = c(0, max(data)),
+                    aes(color = "Fitted PDF"), linewidth = 1) +
+      scale_color_manual(values = "firebrick", name = NULL) +
+      labs(x = "Value", y = "Density",
+           title = "Observed data and fitted gamma PDF") +
+      theme_minimal()
+    return(p)
+  }
+
+  if (dist %in% c("beta")) {
+    alpha <- check_positive(get_param("alpha"), "alpha")
+    beta <- check_positive(get_param("beta"), "beta")
+    if (any(data <= 0 | data >= 1)) {
+      stop("Beta data must lie strictly between 0 and 1.", call. = FALSE)
+    }
+
+    p <- ggplot(data.frame(x = data), aes(x = x)) +
+      geom_histogram(aes(y = after_stat(density)), bins = bins,
+                     fill = "steelblue", color = "white") +
+      stat_function(fun = dbeta, args = list(shape1 = alpha, shape2 = beta),
+                    xlim = c(0, 1),
+                    aes(color = "Fitted PDF"), linewidth = 1) +
+      scale_color_manual(values = "firebrick", name = NULL) +
+      coord_cartesian(xlim = c(0, 1)) +
+      labs(x = "Proportion", y = "Density",
+           title = "Observed data and fitted beta PDF") +
+      theme_minimal()
+    return(p)
+  }
+
+  if (dist %in% c("log normal", "lognormal")) {
+    mu_log <- get_param("mu_log")
+    sigma_log <- check_positive(get_param("sigma_log"), "sigma_log")
+    if (!is.numeric(mu_log) || length(mu_log) != 1 || is.na(mu_log)) {
+      stop("`mu_log` must be a single number.", call. = FALSE)
+    }
+    if (any(data <= 0)) {
+      stop("Log-normal data must be strictly positive.", call. = FALSE)
+    }
+
+    p <- ggplot(data.frame(x = data), aes(x = x)) +
+      geom_histogram(aes(y = after_stat(density)), bins = bins,
+                     fill = "steelblue", color = "white") +
+      stat_function(fun = dlnorm,
+                    args = list(meanlog = mu_log, sdlog = sigma_log),
+                    xlim = c(0, max(data)),
+                    aes(color = "Fitted PDF"), linewidth = 1) +
+      scale_color_manual(values = "firebrick", name = NULL) +
+      labs(x = "Value", y = "Density",
+           title = "Observed data and fitted log-normal PDF") +
+      theme_minimal()
+    return(p)
+  }
+
+  stop(
+    "Unsupported distribution `", distribution, "`. ",
+    "Use one of: bernoulli, binomial, multinomial, poisson, geometric, ",
+    "negative binomial, exponential, gamma, beta, normal, log-normal.",
+    call. = FALSE
+  )
+}
+```
+
+The examples below show the pattern. The parameter values are the estimated values for the example data; in your project, use your own estimates.
+
+**Categorical example.** Compare the fitted probabilities with the observed proportions.
+
+```{r}
+# Example categorical data
+status <- c("yes", "no", "yes", "yes", "no", "yes",
+            "no", "yes", "yes", "no")
+
+# Estimated probability of "yes"
+p_hat <- mean(status == "yes")
+
+# Plot observed proportions and fitted probabilities
+plot_distribution_fit(status, "bernoulli", list(p = p_hat))
+```
+
+For this simple categorical model, the fitted probabilities equal the observed proportions. A more structured categorical model could produce fitted probabilities that differ from the observed proportions.
+
+**Discrete quantitative example.** Compare the fitted PMF with the observed proportions.
+
+```{r}
+# Example count data
+counts <- c(0, 1, 2, 3, 4, 1, 2, 2, 3, 1,
+            0, 2, 3, 4, 2, 1, 2, 3, 1, 2)
+
+# Estimated Poisson rate
+lambda_hat <- mean(counts)
+
+# Plot observed proportions and fitted Poisson probabilities
+plot_distribution_fit(counts, "poisson", list(lambda = lambda_hat))
+```
+
+**Continuous quantitative example.** Compare the fitted PDF with the observed data.
+
+```{r}
+# Example continuous data: temperatures from the built-in airquality data
+temperature <- na.omit(airquality$Temp)
+
+# Estimated normal parameters
+mu_hat <- mean(temperature)
+sigma_hat <- sqrt(mean((temperature - mu_hat)^2))
+
+# Plot the histogram and fitted normal PDF
+plot_distribution_fit(
+  temperature,
+  "normal",
+  list(mu = mu_hat, sigma = sigma_hat)
+)
+```
+
+For another distribution, use the same pattern with the parameter names listed in the reference section.
+
+In your report, include the plot and discuss how well the fitted model matches the data. You do not need to include the helper code or reproduce the plotting code. You should still explain what the plot shows and note important discrepancies.
+
+## Reference: parameter names and LaTeX
+
+### Parameter names
+
+Use these names when writing your model and your derivation.
+
+| Distribution | Parameters |
+| --- | --- |
+| Bernoulli | $p$ |
+| Binomial | $n,\ p$ |
+| Multinomial | $n,\ p_1,\ldots,p_m$ |
+| Poisson | $\lambda$ |
+| Geometric | $p$ |
+| Negative binomial | $r,\ p$ |
+| Exponential | $\lambda$ |
+| Gamma | $\alpha$ (shape), $\beta$ (rate) |
+| Beta | $\alpha,\ \beta$ |
+| Normal | $\mu,\ \sigma$ |
+| Log-normal | $\mu_{\log},\ \sigma_{\log}$ |
+
+### Common LaTeX commands
+
+Use `$...$` for inline math and `$$...$$` for displayed equations. The commands below appear often in likelihood derivations.
+
+| Command | Use | Example |
+| --- | --- | --- |
+| `\frac{a}{b}` | Fraction | `\frac{\sum x_i}{1-p}` |
+| `\prod_{i=1}^{n}` | Product | `\prod_{i=1}^{n} f(x_i)` |
+| `\sum_{i=1}^{n}` | Sum | `\sum_{i=1}^{n} x_i` |
+| `\log`, `\ln` | Logarithms | `\ln(1-p)` |
+| `\exp(...)`, `e^{...}` | Exponential | `e^{-\lambda x}`, `\exp\left(-\lambda x\right)` |
+| `\left( ... \right)` | Parentheses | `\left(1-p\right)` |
+| `\left\{ ... \right\}` | Braces | `\left\{ x: x>0 \right\}` |
+| `\alpha`, `\beta`, `\lambda`, `\mu`, `\sigma`, `\Gamma` | Greek letters | `\Gamma(\alpha)` |
+| `\hat{p}`, `\bar{x}` | Hat and bar | `\hat{p}`, `\bar{x}` |
+| `\frac{d\ell}{dp}`, `\frac{d^2\ell}{dp^2}` | Derivatives | `\frac{d\ell}{dp}=0` |
+| `\binom{n}{x}` | Binomial coefficient | `\binom{n}{x}` |
+| `\begin{cases} ... \end{cases}` | Cases | `\begin{cases} 1, & x>0 \\ 0, & x\le0 \end{cases}` |
+| `\begin{aligned} ... \end{aligned}` | Aligned equations | `\begin{aligned} a&=b \\ c&=d \end{aligned}` |
+| `\sqrt{...}` | Square root | `\sqrt{x}` |
+| `\infty` | Infinity | `x<\infty` |
+| `\le`, `\ge` | Inequalities | `p\le1` |
+| `\in` | Set membership | `x\in\{0,1\}` |
+| `\cdot` | Multiplication | `n\cdot p` |
+| `\text{...}` | Text inside math | `\text{for } x>0` |
+| `\Longrightarrow` | Implication | `a=0\Longrightarrow b=1` |
+| `\propto` | Proportional to | `L(p)\propto p^n` |
+| `E[X]`, `\operatorname{Var}(X)` | Expectation and variance | `E[X]=\mu` |
+| `\ldots` | List continuation | `x_1,\ldots,x_n` |
+
+## Report format and R code
+
+Submit a readable report in one of these formats:
+
+- **HTML:** a rendered HTML report, for example from R Markdown or Quarto.
+- **Word:** a `.docx` document.
+- **PDF:** a `.pdf` document.
+
+In every format, include your LaTeX derivation of the MLEs and the relevant R code for your likelihood calculations, parameter estimates, and numerical comparisons. You do not need to include the helper function code or reproduce the plotting code for the visual fit comparisons. Use R functions and methods covered in the course materials. The [Module 4 readings](../definitions_and_examples.html) and the [Module 5 readings](../how_do_we_find_the_maximum_likelihood_estimate.html) are available for review.
+
+## Submission checklist
+
+- Exactly two quantitative variables and one categorical variable are clearly identified.
+- A distribution is proposed and justified for each variable using the variable's type, support, shape, and any transformation.
+- All parameters are identified, including constraints, and interpreted in context.
+- Maximum likelihood estimates are derived or computed correctly. Closed-form derivations follow the structure of the worked geometric example, and numerical methods are explained and implemented with code.
+- The method for any two-parameter model is clearly explained and implemented.
+- Numerical fit comparisons are provided for all three variables and interpreted.
+- Visual fit comparisons are provided for all three variables and interpreted. The helper function may be used; helper and plotting code are not required.
+- The report includes the required R code and output and is organized, readable, and complete.
+
+## Grading Rubric
+
+Total: 100 points
+
+| Criterion | Points | Full Credit | Partial Credit | Low / No Credit |
+| --------- | -----: | ----------- | -------------- | --------------- |
+| Variable selection, distribution choice, and justification | 35 | The student selects exactly two quantitative variables and one categorical variable, proposes a reasonable distribution for each, and clearly justifies each choice using the variable's type, support, shape, and any transformation used. Justifications are specific to the variable and data. | The required variables are selected and distributions are proposed for most, but one or more choices or justifications are incomplete, weak, or mismatched to the variable. The student shows some attention to type, support, shape, or transformations, but not consistently. | The required variables are not selected, distributions are missing or inappropriate, or the justification shows little meaningful reasoning about the variable and data. |
+| Parameter identification and interpretation | 15 | All parameters of each selected distribution are identified, including any constraints, and each is interpreted clearly in the context of the dataset. If a transformation is used, the scale of the parameters is explained. | Most parameters are identified, but some are missing, mislabeled, or interpreted only generically or partly out of context. | Parameters are missing or incorrect, or interpretations are absent or not connected to the data. |
+| MLE derivation and computation | 30 | Correct MLEs are found for all three models. The likelihood or log-likelihood and a valid derivation are shown when a closed form exists, following the structure of the worked example; otherwise, `optimize()` is used over a valid interval. For a two-parameter model, an acceptable coordinate-ascent approach or a closed form for one parameter is used. R code is included and estimates are reported clearly. | Most estimates are correct, but some derivations, code, or numerical details are incomplete, unclear, or contain minor errors. | Estimates are largely incorrect or missing, or the method is not clearly connected to the chosen distributions. |
+| Numerical assessment of model fit | 10 | For each variable, model-implied quantities are correctly compared with the data: implied mean and standard deviation for quantitative variables, and implied probabilities or proportions for categorical variables. The student interprets how close the fit is. | Comparisons are provided for most variables, but one is missing or there are minor calculation or interpretation errors. | Comparisons are missing, incorrect, or not interpreted. |
+| Visual assessment of model fit | 10 | An appropriate plot for each variable shows the fitted PMF or PDF against the data, with clear labels. The student interprets the visual fit and notes important discrepancies. The plot may be produced with the provided helper function; plotting code is not required. | Plots are mostly appropriate, but one is missing, poorly labeled, or only weakly interpreted. | Plots are missing, inappropriate, or not interpreted in relation to the fitted model. |
+
+### General Expectations
+
+- Exploration beyond the required analysis is welcome, especially when the data raise interesting questions or reveal unexpected patterns.
+- Work should be organized, readable, and complete.
+- The two quantitative variables and the categorical variable should be clearly identified and should match the project requirements.
+- Distribution choices should be justified using the variable's type, support, shape, and any transformation.
+- Transformations should be explicit, justified, and interpreted consistently.
+- For two-parameter models, coordinate ascent is acceptable; use closed-form solutions where available.
+- Use the worked geometric example as a template for the structure of your own derivation.
+- The helper function may be used for the visual fit comparison; the MLE derivation and estimation must be your own work.
+- Model fit should include both a numerical comparison and a visual comparison, and the visual comparison should support the numerical one.
+- Include your derivations and the required R code with the output in the submitted report.
+- When there is a clearly correct model family, correctness matters strongly; when there is not one obvious choice, the quality of the justification matters more.

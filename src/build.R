@@ -207,6 +207,7 @@ invisible(file.copy(
   out_root,
   overwrite = TRUE
 ))
+
 file.create(file.path(out_root, ".nojekyll"))
 
 message("Rendered site to ", out_root)

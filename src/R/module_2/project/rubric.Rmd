@@ -38,12 +38,13 @@ For both questions, connect your conclusion to the displays and summaries. Descr
 
 ## Report format and R code
 
-Choose one of these formats:
+Submit a readable report in one of these formats:
 
-- **R Markdown:** Submit the `.Rmd` source file and its knitted report. Make sure the rendered report displays the R code, results, tables, and figures.
-- **Word:** Submit a readable Word document that includes the relevant R code alongside the resulting tables, figures, and written interpretations.
+- **HTML:** a rendered HTML report, for example from R Markdown or Quarto.
+- **Word:** a `.docx` document.
+- **PDF:** a `.pdf` document.
 
-In either format, include the code that produced the summaries and plots so your results can be followed. Use R functions and plotting methods covered in the course materials. The [Module 2 R reference](../definitions_and_examples.html) and the Module 2 readings are available for review.
+In every format, include the relevant R code alongside the resulting tables, figures, and written interpretations so your results can be followed. The report should display the code that produced the summaries and plots. Use R functions and plotting methods covered in the course materials. The [Module 2 R reference](../definitions_and_examples.html) and the Module 2 readings are available for review.
 
 ## Submission checklist
 
