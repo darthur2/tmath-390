@@ -191,6 +191,7 @@ for (input in rmd_files) {
   script_tags <- paste0(
     '<script src="', prefix, 'glossary-terms.js"></script>\n',
     '<script src="', prefix, 'glossary-highlight.js"></script>\n',
+    '<script src="', prefix, 'iframe-scroll.js"></script>\n',
     '<script src="', prefix, 'rmd-download.js"></script>\n'
   )
   html <- sub("</body>", paste0(script_tags, "</body>"), html, fixed = TRUE)
@@ -202,6 +203,7 @@ invisible(file.copy(
     "src/styles.css",
     "src/glossary-terms.js",
     "src/glossary-highlight.js",
+    "src/iframe-scroll.js",
     "src/rmd-download.js"
   ),
   out_root,
