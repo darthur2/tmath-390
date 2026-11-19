@@ -1,0 +1,20 @@
+---
+title: "Module 7: Inference"
+---
+
+This page lists the overview, readings, and glossary for Module 7.
+
+## Overview
+
+- [Module Overview](overview.html)
+
+## Readings
+
+- [What Is a Confidence Interval?](what_is_a_confidence_interval.html)
+- [Confidence Intervals for a Single Mean](confidence_intervals_for_a_mean.html)
+- [Confidence Intervals for a Difference in Means](confidence_intervals_for_a_difference_in_means.html)
+- [How Do We Choose a Confidence Interval?](choosing_a_confidence_interval.html)
+
+## Glossary
+
+- [Definitions and Examples](definitions_and_examples.html)

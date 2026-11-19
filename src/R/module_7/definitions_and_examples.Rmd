@@ -1,0 +1,493 @@
+---
+title: "Glossary"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+This glossary supports Module 7 (Inference), with a focus on confidence intervals for means and differences in means. Entries are listed alphabetically. Each entry gives a definition, a cited source, and examples with by-hand work and R code where it helps. The examples use fresh contexts and values so they extend, rather than repeat, the course readings and assessments.
+
+## Alpha, \(\alpha\)
+
+**Definition:** The noncoverage probability of a confidence interval procedure. If the confidence level is \(c\), then \(\alpha=1-c\). For a two-sided interval, the procedure leaves probability \(\alpha/2\) in each tail. For example, a 95% confidence interval has \(\alpha=0.05\), so each tail has probability \(0.025\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A 95% confidence interval is constructed.
+
+**By hand:** The noncoverage probability is \(\alpha=1-0.95=0.05\). The two tails each have probability \(\alpha/2=0.025\).
+
+**Example 2:** A 99% confidence interval is constructed.
+
+**By hand:** The noncoverage probability is \(\alpha=1-0.99=0.01\). The two tails each have probability \(\alpha/2=0.005\).
+
+**In R:**
+```{r}
+# Compute the upper-tail critical values for 95% and 99% intervals.
+# qnorm(1 - alpha/2) returns the value with area alpha/2 above it.
+qnorm(1 - c(0.05, 0.01) / 2)
+```
+
+## Confidence Interval
+
+**Definition:** An interval of plausible values for a population parameter, constructed from sample data using a procedure with a stated confidence level. A confidence interval has the general form
+$$
+\text{estimate}\pm\text{margin of error}.
+$$
+The confidence level describes the repeated-sampling behavior of the procedure, not a probability assigned to the parameter after the interval is computed.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A random sample of hotel guests gives a 95% confidence interval for the population mean nightly room rate of \((142, 168)\) dollars.
+
+**By hand:** We are 95% confident that the population mean nightly room rate is between 142 and 168 dollars. The interval is about the population mean, not about individual room rates or the sample mean.
+
+**Example 2:** A 90% confidence interval for \(\mu_A-\mu_B\), the difference in mean delivery times for two warehouses, is \((-4.5,-0.8)\) minutes.
+
+**By hand:** We are 90% confident that the population mean delivery time for warehouse A is between 0.8 and 4.5 minutes shorter than for warehouse B.
+
+## Confidence Level
+
+**Definition:** The long-run success rate of a confidence interval procedure. If the confidence level is \(c\), then approximately \(100c\%\) of intervals constructed by repeatedly taking random samples and applying the same procedure will contain the population parameter. The confidence level is not the probability that a particular computed interval contains the parameter.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A procedure constructs 95% confidence intervals.
+
+**By hand:** If the sampling procedure were repeated many times, about 95% of the resulting intervals would contain the population parameter and about 5% would miss.
+
+**Example 2:** A procedure constructs 90% confidence intervals.
+
+**By hand:** The procedure has a lower long-run coverage rate than a 95% procedure. Its intervals are generally narrower, but they miss the parameter more often.
+
+## Coverage Probability
+
+**Definition:** The probability that a randomly constructed confidence interval contains the population parameter. For a procedure with confidence level \(c\), the coverage probability is approximately \(c\). In a simulation, the observed coverage rate is the proportion of simulated intervals that contain the true parameter.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example:** Simulate 1,000 95% \(z\) intervals for a population mean when \(\mu=50\), \(\sigma=8\), and \(n=25\).
+
+**By hand:** The standard error is \(8/\sqrt{25}=1.6\). The margin of error is \(1.96(1.6)=3.136\). Each interval is \(\bar x\pm3.136\). The coverage probability should be about 0.95, so roughly 950 of the 1,000 intervals should contain \(\mu=50\).
+
+**In R:**
+```{r}
+# Set a seed so the simulated coverage rate is reproducible.
+set.seed(390)
+
+# Specify the true mean, standard deviation, sample size, and number of intervals.
+mu <- 50
+sigma <- 8
+n <- 25
+n_intervals <- 1000
+
+# Draw sample means from the population.
+sample_means <- replicate(n_intervals, mean(rnorm(n, mean = mu, sd = sigma)))
+
+# Compute the 95% margin of error for each interval.
+margin_of_error <- qnorm(0.975) * sigma / sqrt(n)
+
+# Construct the lower and upper endpoints.
+lower <- sample_means - margin_of_error
+upper <- sample_means + margin_of_error
+
+# Check which intervals contain the true population mean.
+captures <- lower <= mu & mu <= upper
+
+# Report the simulated coverage rate.
+mean(captures)
+```
+
+**Example 2:** A procedure constructs 90% intervals using the same population and sample size.
+
+**By hand:** The expected coverage probability is 0.90, so a simulation of 1,000 intervals would contain the true mean about 900 times. The intervals are narrower than 95% intervals but miss the parameter more often.
+
+## Critical Value
+
+**Definition:** A quantile from the reference distribution used to construct a confidence interval. The critical value determines how many standard errors the interval extends on each side of the estimate. For a confidence level \(c=1-\alpha\), the upper critical value is the \(1-\alpha/2\) quantile of the reference distribution. Common symbols are \(z^*\) for a standard normal distribution and \(t^*\) for a \(t\) distribution.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** Find the critical value for a 95% \(z\) interval.
+
+**By hand:** The upper critical value is the 0.975 quantile of the standard normal distribution: \(z^*=1.960\).
+
+**Example 2:** Find the critical value for a 95% \(t\) interval with \(df=12\).
+
+**By hand:** The upper critical value is the 0.975 quantile of a \(t\) distribution with 12 degrees of freedom: \(t^*=2.179\).
+
+**In R:**
+```{r}
+# Compute the 95% critical values for a z interval and a t interval.
+# The df argument controls the t distribution's degrees of freedom.
+c(
+  z_star = qnorm(0.975),
+  t_star_df12 = qt(0.975, df = 12)
+)
+```
+
+## Degrees of Freedom
+
+**Definition:** A parameter that determines the shape of a \(t\) distribution. For a one-sample \(t\) interval, \(df=n-1\). For a pooled two-sample \(t\) interval, \(df=n_1+n_2-2\). For a Welch interval, the degrees of freedom are approximated from the two sample variances and sample sizes. Larger degrees of freedom produce a \(t\) distribution closer to the standard normal distribution.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A one-sample \(t\) interval uses \(n=10\).
+
+**By hand:** The degrees of freedom are \(df=10-1=9\).
+
+**Example 2:** A pooled two-sample \(t\) interval uses \(n_1=14\) and \(n_2=18\).
+
+**By hand:** The degrees of freedom are \(df=14+18-2=30\).
+
+**In R:**
+```{r}
+# Compute 95% t critical values for several degrees of freedom.
+# Larger df gives a critical value closer to the 95% z critical value of 1.96.
+c(
+  df5 = qt(0.975, df = 5),
+  df15 = qt(0.975, df = 15),
+  df30 = qt(0.975, df = 30)
+)
+```
+
+## Equal vs. Unequal Variances
+
+**Definition:** A comparison of the population variances in a two-sample problem. If the population variances are unknown but assumed equal, use a pooled two-sample \(t\) interval. If the population variances are unknown and not assumed equal, use a Welch (unpooled) two-sample \(t\) interval. When population variances are known, use a two-sample \(z\) interval instead. Sample standard deviations that are similar are consistent with equal variances; sample standard deviations that are very different suggest unequal variances.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** Two samples have \(s_1=6.1\) and \(s_2=6.4\). The sample standard deviations are similar.
+
+**By hand:** A pooled \(t\) interval is reasonable because the sample standard deviations are similar and the population variances are unknown.
+
+**Example 2:** Two samples have \(s_1=14.8\) and \(s_2=5.7\). The sample standard deviations are very different.
+
+**By hand:** A Welch \(t\) interval is safer because the sample standard deviations are very different, so equal population variances are not reasonable.
+
+**In R:**
+```{r}
+# Two independent samples with different variability.
+group_a <- c(58.2, 61.4, 55.8, 64.1, 59.7, 62.3, 57.6, 60.8, 63.5, 56.9)
+group_b <- c(49.1, 50.4, 48.8, 51.2, 49.7, 50.0, 48.5, 51.0, 49.3, 50.6)
+
+# Pooled interval: assume equal population variances.
+t.test(group_a, group_b, var.equal = TRUE, conf.level = 0.95)$conf.int
+
+# Welch interval: do not assume equal population variances.
+t.test(group_a, group_b, var.equal = FALSE, conf.level = 0.95)$conf.int
+```
+
+## Interval Estimate
+
+**Definition:** An estimate that reports a range of plausible values for a population parameter instead of a single number. A confidence interval is the most common interval estimate in this module. An interval estimate communicates uncertainty that a point estimate alone does not show.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A point estimate of mean monthly rent is \(\bar x=1{,}240\) dollars, and a 95% interval estimate is \((1{,}180, 1{,}300)\) dollars.
+
+**By hand:** The interval estimate reports a range of plausible values for the population mean rent. The point estimate is the center of the interval.
+
+**Example 2:** A point estimate of the difference in mean test scores is \(\bar x_1-\bar x_2=4.6\) points, and a 90% interval estimate is \((1.2, 8.0)\) points.
+
+**By hand:** The interval estimate gives a range for \(\mu_1-\mu_2\), the population mean difference.
+
+## Margin of Error
+
+**Definition:** The amount added to and subtracted from a point estimate to form a confidence interval. The margin of error is half the width of the interval:
+$$
+ME=\frac{\text{upper endpoint}-\text{lower endpoint}}{2}.
+$$
+For the standard intervals in this module, \(ME=\text{critical value}\times\text{standard error}\). The interval is \(\text{estimate}\pm ME\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A confidence interval is \((12.4,18.6)\).
+
+**By hand:** The width is \(18.6-12.4=6.2\), so the margin of error is \(6.2/2=3.1\). The center is \(15.5\).
+
+**Example 2:** A 95% \(z\) interval uses \(\sigma=20\), \(n=64\), and \(z^*=1.96\).
+
+**By hand:** The standard error is \(20/\sqrt{64}=2.5\), so the margin of error is \(1.96(2.5)=4.9\).
+
+**In R:**
+```{r}
+# Recover the margin of error from interval endpoints.
+lower <- 12.4
+upper <- 18.6
+c(
+  width = upper - lower,
+  margin_of_error = (upper - lower) / 2,
+  center = (lower + upper) / 2
+)
+```
+
+## One-Sample \(t\) Interval
+
+**Definition:** A confidence interval for a single population mean when the population standard deviation is unknown. The interval is
+$$
+\bar x\pm t^*\frac{s}{\sqrt n},
+$$
+where \(t^*\) is the \(1-\alpha/2\) quantile of a \(t\) distribution with \(df=n-1\). The procedure requires a random, independent sample and an approximately normal sampling distribution of \(\bar x\), either because the population is approximately normal or because the sample is large enough for the central limit theorem.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A random sample has \(n=12\), \(\bar x=54.3\), and \(s=7.5\). The population is approximately normal.
+
+**By hand:** The standard error is \(7.5/\sqrt{12}=2.165\). With \(df=11\), \(t^*=2.201\). The margin of error is \(2.201(2.165)=4.77\), so the interval is approximately \((49.53,59.07)\).
+
+**Example 2:** A random sample has \(n=25\), \(\bar x=8.42\), and \(s=0.31\). The population is approximately normal.
+
+**By hand:** The standard error is \(0.31/\sqrt{25}=0.062\). With \(df=24\), \(t^*=2.064\). The margin of error is \(2.064(0.062)=0.128\), so the interval is approximately \((8.29,8.55)\).
+
+**In R:**
+```{r}
+# Summary statistics for a one-sample t interval.
+xbar <- 54.3
+s <- 7.5
+n <- 12
+
+# Compute the standard error, margin of error, and interval.
+se <- s / sqrt(n)
+t_star <- qt(0.975, df = n - 1)
+me <- t_star * se
+c(lower = xbar - me, upper = xbar + me)
+```
+
+## One-Sample \(z\) Interval
+
+**Definition:** A confidence interval for a single population mean when the population standard deviation is known. The interval is
+$$
+\bar x\pm z^*\frac{\sigma}{\sqrt n},
+$$
+where \(z^*\) is the \(1-\alpha/2\) quantile of the standard normal distribution. The procedure requires a random, independent sample and an approximately normal sampling distribution of \(\bar x\), either because the population is approximately normal or because the sample is large enough for the central limit theorem.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A random sample has \(n=36\), \(\bar x=120.4\), and the population standard deviation is known to be \(\sigma=15.0\). Daily sales are approximately normally distributed.
+
+**By hand:** The standard error is \(15/\sqrt{36}=2.5\). With \(z^*=1.96\), the margin of error is \(1.96(2.5)=4.9\). The interval is \((115.5,125.3)\).
+
+**Example 2:** A random sample has \(n=49\), \(\bar x=88.6\), and \(\sigma=12.0\). The population is approximately normal.
+
+**By hand:** The standard error is \(12/\sqrt{49}=1.714\). For a 99% interval, \(z^*=2.576\), so the margin of error is \(2.576(1.714)=4.42\). The interval is approximately \((84.18,93.02)\).
+
+**In R:**
+```{r}
+# Summary statistics for a one-sample z interval.
+xbar <- 120.4
+sigma <- 15.0
+n <- 36
+
+# Compute the standard error, margin of error, and interval.
+se <- sigma / sqrt(n)
+z_star <- qnorm(0.975)
+me <- z_star * se
+c(lower = xbar - me, upper = xbar + me)
+```
+
+## Point Estimate
+
+**Definition:** A single numerical value computed from a sample and used as a best guess for an unknown population parameter. The sample mean \(\bar x\) is a point estimate of the population mean \(\mu\). A point estimate does not by itself express sampling uncertainty; an interval estimate does.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** A random sample of five delivery times has mean \(42.3\) minutes.
+
+**By hand:** The point estimate of the population mean delivery time is \(\bar x=42.3\) minutes.
+
+**Example 2:** A random sample has \(\bar x_1=82.4\) and \(\bar x_2=78.1\).
+
+**By hand:** The point estimate of \(\mu_1-\mu_2\) is \(82.4-78.1=4.3\).
+
+**In R:**
+```{r}
+# A small sample of delivery times in minutes.
+delivery_times <- c(41.8, 42.5, 43.1, 41.2, 42.9)
+
+# The sample mean is the point estimate of the population mean.
+c(point_estimate = mean(delivery_times))
+```
+
+## Quantile
+
+**Definition:** A value below which a specified proportion of a probability distribution lies. The \(p\)-quantile \(q_p\) satisfies \(P(W\le q_p)=p\) for a continuous random variable \(W\). Confidence interval critical values are upper quantiles. For a confidence level \(c=1-\alpha\), the upper critical value is the \(1-\alpha/2\) quantile of the reference distribution.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** Find the 0.975 quantile of the standard normal distribution.
+
+**By hand:** The value is \(1.96\), so \(P(Z\le1.96)=0.975\).
+
+**Example 2:** Find the 0.95 quantile of a \(t\) distribution with \(df=15\).
+
+**By hand:** The value is \(1.753\), so \(P(T\le1.753)=0.95\).
+
+**In R:**
+```{r}
+# Compute selected quantiles from the standard normal and t distributions.
+c(
+  normal_0975 = qnorm(0.975),
+  t_df15_095 = qt(0.95, df = 15),
+  t_df15_0975 = qt(0.975, df = 15)
+)
+```
+
+## Standardized Statistic (Standardized Test Statistic)
+
+**Definition:** A statistic formed by subtracting a parameter from its estimator and dividing by the estimator's standard error:
+$$
+W=\frac{\hat\theta-\theta}{SE(\hat\theta)}.
+$$
+It is also called a standardized test statistic. If the distribution of \(W\) is known, we can choose quantiles \(w_{\alpha/2}\) and \(w_{1-\alpha/2}\) such that
+$$
+P(w_{\alpha/2}<W<w_{1-\alpha/2})=c,
+$$
+then solve for \(\theta\) to obtain a confidence interval. For symmetric reference distributions, the interval is \(\hat\theta\pm w^*SE(\hat\theta)\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** For a single mean with known \(\sigma\), the standardized statistic is
+$$
+Z=\frac{\bar X-\mu}{\sigma/\sqrt n}.
+$$
+
+**By hand:** If the sample mean is approximately normal, \(Z\) has a standard normal distribution. The critical value \(z^*\) comes from that distribution.
+
+**Example 2:** For a single mean with unknown \(\sigma\), the standardized statistic is
+$$
+T=\frac{\bar X-\mu}{S/\sqrt n}.
+$$
+
+**By hand:** If the sample mean is approximately normal, \(T\) has a \(t\) distribution with \(df=n-1\). The critical value \(t^*\) comes from that distribution.
+
+**Example 3:** For a difference in means with known variances, the standardized statistic is
+$$
+Z=\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}
+{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}.
+$$
+
+**By hand:** If each sample mean is approximately normal, \(Z\) has a standard normal distribution. The interval uses the critical value \(z^*\).
+
+## Student’s \(t\) Distribution
+
+**Definition:** A family of symmetric, bell-shaped distributions indexed by degrees of freedom. The \(t\) distribution has heavier tails than the standard normal distribution, especially for small degrees of freedom. As the degrees of freedom increase, the \(t\) distribution approaches the standard normal distribution. It is used for confidence intervals when the population standard deviation is unknown and estimated by the sample standard deviation.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** Compare 95% critical values for \(df=5\), \(df=15\), and the standard normal distribution.
+
+**By hand:** The critical values are about \(2.571\), \(2.131\), and \(1.960\). The smaller the degrees of freedom, the larger the critical value and the wider the interval.
+
+**Example 2:** A \(t\) interval uses \(n=10\).
+
+**By hand:** The \(t\) distribution has \(df=9\). Its 95% critical value is \(2.262\), compared with \(1.96\) for a \(z\) interval.
+
+**In R:**
+```{r}
+# Compare 95% critical values across degrees of freedom.
+c(
+  df5 = qt(0.975, df = 5),
+  df15 = qt(0.975, df = 15),
+  df30 = qt(0.975, df = 30),
+  normal = qnorm(0.975)
+)
+```
+
+## Two-Sample \(t\) Interval
+
+**Definition:** A confidence interval for the difference between two independent population means when the population variances are unknown. If the variances are assumed equal, the pooled interval is
+$$
+(\bar x_1-\bar x_2)\pm t^*s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}},
+\qquad df=n_1+n_2-2.
+$$
+If the variances are not assumed equal, the Welch interval is
+$$
+(\bar x_1-\bar x_2)\pm t^*\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}},
+$$
+with approximate Welch degrees of freedom. Both procedures require independent random samples and approximately normal sample means, either because the populations are approximately normal or because the samples are large enough.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** Two samples have \(\bar x_1=46.2\), \(s_1=6.4\), \(n_1=18\) and \(\bar x_2=41.8\), \(s_2=6.1\), \(n_2=20\). The sample standard deviations are similar, so use a pooled interval.
+
+**By hand:** The pooled variance is about \(38.98\), so \(s_p\approx6.24\). The pooled standard error is about \(2.03\). With \(df=36\), \(t^*=2.028\), so the margin of error is about \(4.12\). The interval is approximately \((0.28,8.52)\).
+
+**Example 2:** Two samples have \(\bar x_1=60.2\), \(s_1=14.8\), \(n_1=12\) and \(\bar x_2=49.6\), \(s_2=5.7\), \(n_2=25\). The sample standard deviations are very different, so use a Welch interval.
+
+**By hand:** The unpooled standard error is about \(4.42\). The Welch degrees of freedom are about \(12.6\), and \(t^*=2.167\). The margin of error is about \(9.58\), so the interval is approximately \((1.02,20.18)\).
+
+**In R:**
+```{r}
+# Summary statistics for the pooled example.
+xbar1 <- 46.2
+s1 <- 6.4
+n1 <- 18
+xbar2 <- 41.8
+s2 <- 6.1
+n2 <- 20
+
+# Compute the pooled standard deviation and pooled standard error.
+sp <- sqrt(((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2))
+se_pooled <- sp * sqrt(1 / n1 + 1 / n2)
+
+# Compute the pooled 95% interval.
+difference <- xbar1 - xbar2
+t_star <- qt(0.975, df = n1 + n2 - 2)
+me <- t_star * se_pooled
+c(lower = difference - me, upper = difference + me)
+```
+
+## Two-Sample \(z\) Interval
+
+**Definition:** A confidence interval for the difference between two independent population means when both population variances are known. The interval is
+$$
+(\bar x_1-\bar x_2)\pm z^*\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.
+$$
+The procedure requires independent random samples and approximately normal sample means, either because the populations are approximately normal or because the samples are large enough for the central limit theorem.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 5; *Introductory Statistics 2e*, Chapter 8.
+
+**Example 1:** Two samples have \(\bar x_1=82.4\), \(n_1=25\), \(\bar x_2=78.1\), \(n_2=30\), with known \(\sigma_1=8.0\) and \(\sigma_2=7.0\). The populations are approximately normal.
+
+**By hand:** The difference is \(4.3\). The standard error is
+$$
+\sqrt{\frac{8.0^2}{25}+\frac{7.0^2}{30}}\approx2.048.
+$$
+With \(z^*=1.96\), the margin of error is about \(4.01\), so the interval is approximately \((0.29,8.31)\).
+
+**Example 2:** Two samples have \(\bar x_1=75.2\), \(n_1=30\), \(\bar x_2=70.8\), \(n_2=35\), with known \(\sigma_1=9.0\) and \(\sigma_2=8.0\).
+
+**By hand:** The difference is \(4.4\). The standard error is
+$$
+\sqrt{\frac{9.0^2}{30}+\frac{8.0^2}{35}}\approx2.128.
+$$
+The 95% interval is approximately \((0.23,8.57)\).
+
+**In R:**
+```{r}
+# Summary statistics for the known-variance two-sample example.
+xbar1 <- 82.4
+n1 <- 25
+sigma1 <- 8.0
+xbar2 <- 78.1
+n2 <- 30
+sigma2 <- 7.0
+
+# Compute the difference, standard error, and 95% interval.
+difference <- xbar1 - xbar2
+se <- sqrt(sigma1^2 / n1 + sigma2^2 / n2)
+me <- qnorm(0.975) * se
+c(lower = difference - me, upper = difference + me)
+```

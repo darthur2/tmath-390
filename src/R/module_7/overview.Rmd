@@ -1,0 +1,45 @@
+---
+title: "Module 7 Overview"
+subtitle: "Using sample data to estimate population means with uncertainty."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+## Why This Module Matters
+
+A sample mean is a useful estimate of a population mean, but it is only one number from one random sample. A different sample would have produced a different estimate. Module 6 described that sample-to-sample variability through the sampling distribution and the standard error. Module 7 turns that description into a practical tool: a confidence interval.
+
+A confidence interval gives a range of plausible values for a population parameter and attaches a confidence level to the repeated-sampling procedure that produced the range. It is one of the main ways statisticians communicate uncertainty. The same ideas support the hypothesis tests and regression intervals that come later in the course.
+
+## What You'll Learn
+
+You will learn what a confidence interval is and what the confidence level means. You will construct and interpret intervals for a single population mean and for the difference between two population means. You will use \(z\) intervals when population variances are known, \(t\) intervals when they are unknown, and choose between pooled and unpooled (Welch) procedures for two independent samples. You will also learn how sample size, variability, and confidence level affect the width of an interval, and how to check whether the interval's assumptions are reasonable.
+
+## By the End of This Module, You Should Be Able To
+
+- Explain what a confidence interval is and what "95% confident" means.
+- Distinguish an interval for a population mean from an interval for individual observations or a sample mean.
+- Construct and interpret a confidence interval for a single population mean.
+- Construct and interpret a confidence interval for a difference between two population means.
+- Decide whether to use a \(z\) interval or a \(t\) interval.
+- Decide between pooled and Welch procedures for two independent samples.
+- Check the conditions required for a confidence interval to be valid.
+- Choose the appropriate interval for a given scenario and interpret it in context.
+
+## What's Inside
+
+- **Readings** — four connected readings: *What Is a Confidence Interval?*, *Confidence Intervals for a Single Mean*, *Confidence Intervals for a Difference in Means*, and *How Do We Choose a Confidence Interval?*
+- **Knowledge Checks** — focused practice on interpretation, comparison, validity, interval selection, construction, critical values, and margin of error.
+- **Quizzes** — scenario-based checks of the Module 7 material.

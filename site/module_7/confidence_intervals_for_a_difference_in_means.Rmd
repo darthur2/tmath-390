@@ -1,0 +1,502 @@
+---
+title: "Confidence Intervals for a Difference in Means"
+subtitle: "Independent samples, pooled and unpooled standard errors, and interpretation."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+A company compares two training methods by measuring how long employees take to complete a task. One group is trained with method A and an independent group is trained with method B. The parameter of interest is the difference between the two population means, \(\mu_1-\mu_2\). The estimate is the difference between the two sample means, \(\bar x_1-\bar x_2\).
+
+This reading covers the confidence interval for a difference between two independent population means. The structure is the same as for a single mean: estimate plus or minus a margin of error. The new part is that the standard error combines variability from both samples.
+
+## The estimate and its sampling distribution
+
+Suppose we have two independent random samples:
+
+- Sample 1 has size \(n_1\), sample mean \(\bar x_1\), and sample standard deviation \(s_1\).
+- Sample 2 has size \(n_2\), sample mean \(\bar x_2\), and sample standard deviation \(s_2\).
+
+The point estimate of \(\mu_1-\mu_2\) is
+
+$$
+\bar x_1-\bar x_2.
+$$
+
+The sampling distribution of this difference is centered at \(\mu_1-\mu_2\). Its standard error is
+
+$$
+SE(\bar x_1-\bar x_2)
+=
+\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.
+$$
+
+The variances add because the two samples are independent. A larger sample in either group reduces the standard error. More variability in either population increases the standard error.
+
+The confidence interval again has the form
+
+$$
+(\bar x_1-\bar x_2)\pm ME,
+$$
+
+where the margin of error depends on the standard error and the critical value.
+
+## When both population variances are known
+
+When both population variances are known, the standardized statistic is
+
+$$
+Z=
+\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}
+{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}.
+$$
+
+When each sample mean is approximately normal, \(Z\) has a standard normal distribution. The critical value \(z^*\) is the \(1-\alpha/2\) quantile of the standard normal distribution. Using the general recipe from the first reading gives the **two-sample \(z\) interval**
+
+$$
+(\bar x_1-\bar x_2)
+\pm z^*
+\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.
+$$
+
+Each sample mean must be approximately normal. This is automatic if each population is approximately normal, and it is justified by the central limit theorem if each sample is large enough when the populations are not normal.
+
+## When both population variances are unknown
+
+In most applications, the population variances are unknown and must be estimated from the sample standard deviations. There are two common forms of the **two-sample \(t\) interval**. The choice depends on whether we assume **equal or unequal variances**.
+
+### Unknown variances assumed equal: pooled \(t\) interval
+
+If the population variances are unknown but can reasonably be assumed equal, use the pooled sample variance
+
+$$
+s_p^2
+=
+\frac{(n_1-1)s_1^2+(n_2-1)s_2^2}{n_1+n_2-2}.
+$$
+
+The pooled standard error is
+
+$$
+SE_p
+=
+s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}.
+$$
+
+The standardized statistic is
+
+$$
+T=
+\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}
+{S_p\sqrt{1/n_1+1/n_2}},
+$$
+
+which has a \(t\) distribution with
+
+$$
+df=n_1+n_2-2
+$$
+
+degrees of freedom when each sample mean is approximately normal. The critical value \(t^*\) is the \(1-\alpha/2\) quantile of that \(t\) distribution. Using the recipe gives the pooled interval
+
+$$
+(\bar x_1-\bar x_2)\pm t^*SE_p.
+$$
+
+### Unknown variances not assumed equal: Welch \(t\) interval
+
+If the population variances are unknown and are not assumed equal, use the unpooled (Welch) standard error
+
+$$
+SE_W
+=
+\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}}.
+$$
+
+The standardized statistic is
+
+$$
+T=
+\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}
+{\sqrt{S_1^2/n_1+S_2^2/n_2}},
+$$
+
+which is approximately a \(t\) distribution with
+
+$$
+df
+=
+\frac{
+\left(\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}\right)^2
+}{
+\frac{(s_1^2/n_1)^2}{n_1-1}
++
+\frac{(s_2^2/n_2)^2}{n_2-1}
+}
+$$
+
+degrees of freedom. This is the Welch-Satterthwaite approximation. The critical value \(t^*\) is the \(1-\alpha/2\) quantile of that approximate \(t\) distribution. Using the recipe gives the Welch interval
+
+$$
+(\bar x_1-\bar x_2)\pm t^*SE_W.
+$$
+
+The figure below shows the standardized distributions for all three two-sample intervals. Each panel has central probability \(c=0.95\) and tail probabilities \(0.025\).
+
+```{r, echo = FALSE, fig.cap = "Standardized distributions for the known-variance z, pooled t, and Welch t intervals.", fig.width = 9, fig.height = 3.5}
+# Draw a standard normal or t distribution with a central confidence region.
+plot_standardized_interval <- function(distribution = c("normal", "t"),
+                                       df = NULL,
+                                       confidence = 0.95,
+                                       main = "") {
+  # Match the requested distribution and compute the noncoverage probability.
+  distribution <- match.arg(distribution)
+  alpha <- 1 - confidence
+
+  # Find the upper critical value and the density function.
+  critical <- if (distribution == "normal") {
+    qnorm(1 - alpha / 2)
+  } else {
+    qt(1 - alpha / 2, df = df)
+  }
+  density_fun <- if (distribution == "normal") {
+    dnorm
+  } else {
+    function(x) dt(x, df = df)
+  }
+
+  # Evaluate the density on a grid of standardized-statistic values.
+  x <- if (distribution == "normal") {
+    seq(-4, 4, length.out = 1000)
+  } else {
+    seq(-5, 5, length.out = 1000)
+  }
+  y <- density_fun(x)
+
+  # Plot the density curve.
+  plot(
+    x,
+    y,
+    type = "l",
+    lwd = 2,
+    xlab = "Standardized statistic",
+    ylab = "Density",
+    main = main
+  )
+
+  # Shade the lower tail.
+  lower_x <- seq(min(x), -critical, length.out = 200)
+  polygon(
+    c(lower_x, rev(lower_x)),
+    c(rep(0, length(lower_x)), rev(density_fun(lower_x))),
+    col = "lightpink",
+    border = NA
+  )
+
+  # Shade the upper tail.
+  upper_x <- seq(critical, max(x), length.out = 200)
+  polygon(
+    c(upper_x, rev(upper_x)),
+    c(rep(0, length(upper_x)), rev(density_fun(upper_x))),
+    col = "lightpink",
+    border = NA
+  )
+
+  # Shade the central confidence region.
+  central_x <- seq(-critical, critical, length.out = 300)
+  polygon(
+    c(central_x, rev(central_x)),
+    c(rep(0, length(central_x)), rev(density_fun(central_x))),
+    col = "lightblue",
+    border = NA
+  )
+
+  # Redraw the density curve and mark the critical values.
+  lines(x, y, lwd = 2)
+  abline(v = c(-critical, critical), lty = 2, lwd = 2)
+
+  # Label the central area and the two tails.
+  text(0, max(y) * 0.55, paste0("central area = ", confidence))
+  text(-critical, max(y) * 0.12, paste0("tail = ", alpha / 2), pos = 2)
+  text(critical, max(y) * 0.12, paste0("tail = ", alpha / 2), pos = 4)
+}
+
+# Set up a one-row, three-column plotting area.
+par(mfrow = c(1, 3), mar = c(4, 3, 3, 1))
+
+# Known variances: standard normal distribution.
+plot_standardized_interval(
+  distribution = "normal",
+  confidence = 0.95,
+  main = "Known variances"
+)
+
+# Unknown equal variances: pooled t distribution with df = 36.
+plot_standardized_interval(
+  distribution = "t",
+  df = 36,
+  confidence = 0.95,
+  main = "Pooled t, df = 36"
+)
+
+# Unknown unequal variances: Welch t distribution with df = 12.6.
+plot_standardized_interval(
+  distribution = "t",
+  df = 12.6,
+  confidence = 0.95,
+  main = "Welch t, df = 12.6"
+)
+```
+
+In practice, software computes the Welch degrees of freedom. The important idea is that the Welch interval does not pool the two sample variances.
+
+## Choosing between pooled and Welch
+
+For this course, the choice follows from the information in the problem:
+
+- If the population variances are known, use the two-sample \(z\) interval.
+- If the population variances are unknown but the sample standard deviations are similar, use the pooled \(t\) interval.
+- If the population variances are unknown and the sample standard deviations are very different, use the Welch \(t\) interval.
+
+The sample standard deviations are a guide, not a formal proof. When in doubt, the Welch interval is often the safer default because it does not assume equal variances. In this course, however, use the information given in the scenario to make the intended choice.
+
+## Conditions for a two-sample interval
+
+For the standard two-sample interval to be valid:
+
+1. **Independent samples.** The two samples should be independent of each other. Observations within each sample should also be independent, or nearly enough for the standard error formula to be reasonable.
+2. **Random or representative samples.** Each sample should be representative of its population.
+3. **Approximately normal sample means.** Each population should be approximately normal, or each sample should be large enough for the central limit theorem. In this course, we use the guideline that each sample size should be greater than 30 when a population is clearly nonnormal.
+4. **Correct variance assumption.** Use a \(z\) interval when the variances are known. When the variances are unknown, choose pooled or Welch according to whether equal variances are reasonable.
+
+A two-sample interval should not be used for paired or matched data. If the same units appear in both groups, or if observations are naturally paired, the independence assumption fails and a paired procedure is needed.
+
+## Worked example: known variances
+
+Two independent samples are used to compare mean test scores for two tutoring methods. The summary statistics are
+
+$$
+\bar x_1=82.4,\quad n_1=25,
+\qquad
+\bar x_2=78.1,\quad n_2=30.
+$$
+
+The population standard deviations are known to be \(\sigma_1=8.0\) and \(\sigma_2=7.0\). The populations are approximately normal.
+
+The estimated difference is
+
+$$
+82.4-78.1=4.3.
+$$
+
+The standard error is
+
+$$
+\sqrt{\frac{8.0^2}{25}+\frac{7.0^2}{30}}
+=
+\sqrt{\frac{64}{25}+\frac{49}{30}}
+\approx 2.048.
+$$
+
+For a 95% interval, \(z^*=1.96\). The margin of error is
+
+$$
+1.96(2.048)\approx 4.01,
+$$
+
+and the interval is approximately
+
+$$
+(4.3-4.01,\ 4.3+4.01)=(0.29,\ 8.31).
+$$
+
+We are 95% confident that the population mean score for method 1 is between 0.29 and 8.31 points higher than for method 2.
+
+```{r}
+# Summary statistics for the known-variance example.
+xbar1 <- 82.4       # sample mean for group 1
+xbar2 <- 78.1       # sample mean for group 2
+n1 <- 25            # sample size for group 1
+n2 <- 30            # sample size for group 2
+sigma1 <- 8.0       # known standard deviation for group 1
+sigma2 <- 7.0       # known standard deviation for group 2
+
+# Compute the difference, standard error, and margin of error.
+difference <- xbar1 - xbar2  # point estimate of mu1 - mu2
+se <- sqrt(sigma1^2 / n1 + sigma2^2 / n2)  # two-sample standard error
+me <- qnorm(0.975) * se  # 95% margin of error
+
+# Display the interval.
+c(lower = difference - me, upper = difference + me)  # interval endpoints
+```
+
+## Worked example: pooled \(t\) interval
+
+Two independent samples have
+
+$$
+\bar x_1=46.2,\quad s_1=6.4,\quad n_1=18,
+\qquad
+\bar x_2=41.8,\quad s_2=6.1,\quad n_2=20.
+$$
+
+The populations are approximately normal. The population variances are unknown, and the sample standard deviations are similar, so we use a pooled \(t\) interval.
+
+The difference is \(46.2-41.8=4.4\). The pooled variance is
+
+$$
+s_p^2
+=
+\frac{(18-1)(6.4)^2+(20-1)(6.1)^2}{18+20-2}
+\approx 38.98,
+$$
+
+so \(s_p\approx 6.24\). The pooled standard error is
+
+$$
+6.24\sqrt{\frac{1}{18}+\frac{1}{20}}
+\approx 2.03.
+$$
+
+With \(df=36\), the 95% critical value is approximately \(t^*=2.028\). The margin of error is about \(2.028(2.03)\approx 4.12\), and the interval is approximately
+
+$$
+(4.4-4.12,\ 4.4+4.12)=(0.28,\ 8.52).
+$$
+
+Using the exact summary statistics gives approximately \((0.29,\ 8.51)\). We are 95% confident that the population mean for group 1 is between about 0.29 and 8.51 units higher than for group 2.
+
+```{r}
+# Summary statistics for the pooled example.
+xbar1 <- 46.2       # sample mean for group 1
+s1 <- 6.4           # sample standard deviation for group 1
+n1 <- 18            # sample size for group 1
+xbar2 <- 41.8       # sample mean for group 2
+s2 <- 6.1           # sample standard deviation for group 2
+n2 <- 20            # sample size for group 2
+
+# Compute the pooled variance and pooled standard error.
+sp2 <- ((n1 - 1) * s1^2 + (n2 - 1) * s2^2) / (n1 + n2 - 2)  # pooled variance
+sp <- sqrt(sp2)  # pooled standard deviation
+se_pooled <- sp * sqrt(1 / n1 + 1 / n2)  # pooled standard error
+
+# Compute the interval with df = n1 + n2 - 2.
+difference <- xbar1 - xbar2  # point estimate of mu1 - mu2
+t_star <- qt(0.975, df = n1 + n2 - 2)  # 95% t critical value
+me <- t_star * se_pooled  # margin of error
+c(lower = difference - me, upper = difference + me)  # interval endpoints
+```
+
+## Worked example: Welch \(t\) interval
+
+Two independent samples have
+
+$$
+\bar x_1=60.2,\quad s_1=14.8,\quad n_1=12,
+\qquad
+\bar x_2=49.6,\quad s_2=5.7,\quad n_2=25.
+$$
+
+The populations are approximately normal. The population variances are unknown, and the sample standard deviations are very different, so we use a Welch interval.
+
+The difference is \(60.2-49.6=10.6\). The unpooled standard error is
+
+$$
+\sqrt{\frac{14.8^2}{12}+\frac{5.7^2}{25}}
+\approx 4.42.
+$$
+
+The Welch degrees of freedom are approximately \(12.6\). The 95% critical value is about \(t^*=2.167\), so the margin of error is about \(2.167(4.42)\approx 9.58\). The interval is approximately
+
+$$
+(10.6-9.58,\ 10.6+9.58)=(1.02,\ 20.18).
+$$
+
+Using the exact summary statistics gives approximately \((1.02,\ 20.18)\). We are 95% confident that the population mean for group 1 is between about 1.02 and 20.18 units higher than for group 2.
+
+```{r}
+# Summary statistics for the Welch example.
+xbar1 <- 60.2       # sample mean for group 1
+s1 <- 14.8          # sample standard deviation for group 1
+n1 <- 12            # sample size for group 1
+xbar2 <- 49.6       # sample mean for group 2
+s2 <- 5.7           # sample standard deviation for group 2
+n2 <- 25            # sample size for group 2
+
+# Compute the unpooled standard error.
+se_welch <- sqrt(s1^2 / n1 + s2^2 / n2)  # Welch standard error
+
+# Compute the Welch degrees of freedom.
+# This is the Welch-Satterthwaite approximation.
+df_welch <- (s1^2 / n1 + s2^2 / n2)^2 /
+  ((s1^2 / n1)^2 / (n1 - 1) + (s2^2 / n2)^2 / (n2 - 1))
+
+# Compute the interval.
+difference <- xbar1 - xbar2  # point estimate of mu1 - mu2
+t_star <- qt(0.975, df = df_welch)  # 95% t critical value
+me <- t_star * se_welch  # margin of error
+c(lower = difference - me, upper = difference + me)  # interval endpoints
+```
+
+The same intervals can be computed from raw data with `t.test()`. The argument `var.equal = TRUE` gives the pooled interval, and `var.equal = FALSE` gives the Welch interval.
+
+```{r}
+# Two independent samples of completion times.
+group_a <- c(12.4, 13.1, 11.8, 12.9, 13.4, 12.6, 13.0, 12.2, 12.8, 13.3)
+group_b <- c(11.1, 11.9, 10.8, 11.5, 12.1, 11.2, 11.7, 10.9, 11.4, 11.6)
+
+# Pooled 95% interval: assume the population variances are equal.
+t.test(group_a, group_b, var.equal = TRUE, conf.level = 0.95)$conf.int
+
+# Welch 95% interval: do not assume the population variances are equal.
+t.test(group_a, group_b, var.equal = FALSE, conf.level = 0.95)$conf.int
+```
+
+## Interpreting the interval
+
+A difference-in-means interval is about the population difference \(\mu_1-\mu_2\), not about individual observations and not about the sample mean difference.
+
+For an interval that is entirely positive, such as \((2.4,6.8)\), we can say that the population mean for group 1 is estimated to be between 2.4 and 6.8 units higher than for group 2. For an interval that is entirely negative, the direction is reversed. For an interval that contains zero, the data are consistent with no difference between the population means, but the interval still describes a range of plausible differences.
+
+The order of subtraction matters. If the interval is for \(\mu_A-\mu_B\), then positive values mean A is larger than B. If the interval is for \(\mu_B-\mu_A\), the sign reverses.
+
+## How width changes
+
+The width of a two-sample interval depends on both sample sizes, both variances, and the confidence level.
+
+- Increasing either sample size decreases the standard error.
+- Increasing either population variance increases the standard error.
+- Increasing the confidence level increases the critical value and makes the interval wider.
+- With unequal variances, the smaller sample and the larger variance have a large influence on the standard error.
+
+## Common mistakes
+
+- **Treating paired data as independent.** Matched or repeated measurements require a paired procedure, not an independent two-sample interval.
+- **Pooling when the sample standard deviations are very different.** Use the Welch interval when equal variances are not reasonable.
+- **Interpreting the interval as a range for individual observations.** The interval is about the difference in population means.
+- **Reversing the direction of the difference.** Keep track of which mean is subtracted from which.
+- **Forgetting that the confidence level describes the procedure.** The interval either contains the population difference or it does not.
+- **Ignoring the shape and sample-size conditions.** Each sample mean should be approximately normal, either because its population is approximately normal or because the sample is large enough.
+
+## Summary
+
+For a difference in means:
+
+- Use a two-sample \(z\) interval when both population variances are known.
+- Use a pooled \(t\) interval when the variances are unknown and assumed equal.
+- Use a Welch \(t\) interval when the variances are unknown and not assumed equal.
+- Check independence, random sampling, and the shape and size of each sample.
+- Interpret the interval as a statement about \(\mu_1-\mu_2\), with the correct direction and units.
+
+The final reading brings these choices together in a decision guide.

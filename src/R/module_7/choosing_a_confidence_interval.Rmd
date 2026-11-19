@@ -1,0 +1,117 @@
+---
+title: "How Do We Choose a Confidence Interval?"
+subtitle: "A decision guide for method, validity, and interpretation."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+The previous readings introduced confidence intervals for a single mean and for a difference between two means. This reading puts those ideas together. It does not introduce new formulas. Instead, it provides a decision guide for choosing an interval, checking whether it is valid, and interpreting it correctly.
+
+## Start with the parameter
+
+The first question is always: what population quantity are we estimating?
+
+- **One population mean \(\mu\):** There is one quantitative variable and one population. Examples include the mean wait time at one hospital, the mean daily sales at one store, or the mean score in one course.
+- **Difference between two population means \(\mu_1-\mu_2\):** There are two independent populations or groups, and the question compares their means. Examples include the difference in mean recovery times for two treatments or the difference in mean prices at two stores.
+
+If the scenario involves paired or matched observations, such as before-and-after measurements on the same units, the independent two-sample interval is not appropriate. This module focuses on independent samples.
+
+## Determine what is known about the variances
+
+After identifying the parameter, determine whether the population variances are known or unknown.
+
+- **Known variances:** Use a \(z\) interval. The standard error uses the population standard deviations.
+- **Unknown variances:** Use a \(t\) interval. The standard error uses the sample standard deviations.
+
+For a difference in means with unknown variances, there is one more decision: are the population variances equal or not?
+
+- If the sample standard deviations are similar, use the pooled \(t\) interval.
+- If the sample standard deviations are very different, use the Welch (unpooled) \(t\) interval.
+
+The sample standard deviations are a guide. In this course, use the information given in the scenario to make the intended choice. When there is no reason to assume equal variances, the Welch interval is often the safer default.
+
+## Check the conditions
+
+A confidence interval can always be computed numerically, but it should only be interpreted as a reliable interval when its conditions are reasonable.
+
+1. **Random or representative sampling.** The data should come from a random sample or a sampling design that represents the population.
+2. **Independence.** Observations should be independent, or nearly enough for the standard error formula to be reasonable. For two-sample intervals, the two samples should be independent of each other.
+3. **Approximately normal sample means.**
+   - If a population is approximately normal, the sampling distribution of its sample mean is approximately normal for any sample size.
+   - If a population is clearly nonnormal, the sample should be large enough for the central limit theorem. In this course, we use the guideline \(n>30\).
+   - For a two-sample interval, apply this check to each sample.
+4. **Correct method.** Use the interval that matches the parameter, the variance information, and the equal-variance decision.
+
+If a sample is small and its population is strongly skewed, the normal model for the sample mean is not justified. In that case, do not present the computed interval as a valid confidence interval for the population mean or difference in means.
+
+## Decision table
+
+The following table summarizes the interval choices for independent samples.
+
+| Parameter | Variances | Shape and sample-size condition | Interval |
+|---|---|---|---|
+| One mean \(\mu\) | Known | Population approximately normal, or CLT applies | One-sample \(z\) |
+| One mean \(\mu\) | Unknown | Population approximately normal, or CLT applies | One-sample \(t\) with \(df=n-1\) |
+| Difference \(\mu_1-\mu_2\) | Both known | Each population approximately normal, or each sample large enough | Two-sample \(z\) |
+| Difference \(\mu_1-\mu_2\) | Unknown, assumed equal | Each population approximately normal, or each sample large enough | Pooled \(t\) with \(df=n_1+n_2-2\) |
+| Difference \(\mu_1-\mu_2\) | Unknown, not assumed equal | Each population approximately normal, or each sample large enough | Welch \(t\) with approximate \(df\) |
+| Any | Any | Conditions fail | Do not use the normal-based interval |
+
+## Interpret the interval in context
+
+A correct interpretation should do all of the following.
+
+- **Name the population parameter.** Say "population mean" or "population mean difference," not "sample mean" and not "individual observations."
+- **Give the interval.** State the lower and upper endpoints with units.
+- **State the confidence level.** Say "We are 95% confident..." or "We are 90% confident..."
+- **Preserve direction for a difference.** If the interval is for \(\mu_A-\mu_B\), explain what positive and negative values mean in the context of the problem.
+- **Use the context.** The interpretation should mention the variable and the populations being compared.
+
+For example:
+
+> We are 95% confident that the population mean weekly grocery spending for all customers at this chain is between 78.40 and 93.20 dollars.
+
+> We are 90% confident that the population mean recovery time for the new program is between 0.8 and 3.5 days shorter than for the standard program.
+
+## Common interpretation mistakes
+
+- **"There is a 95% probability that \(\mu\) is in this interval."** The confidence level describes the repeated-sampling procedure, not a probability assigned to the parameter after the interval is computed.
+- **"95% of individuals are in the interval."** A confidence interval for a mean is about the mean, not the spread of individual observations.
+- **"The interval is for the sample mean."** The sample mean is the center of the interval, not the parameter being estimated.
+- **"The interval contains 95% of the population."** The confidence level is not a coverage percentage for individuals.
+- **Reversing the direction of a difference.** Keep track of which group is group 1 and which is group 2.
+
+## The standardized statistic behind each interval
+
+Every interval in this module comes from the same recipe. The estimator and standard error change, and the reference distribution changes, but the structure does not.
+
+| Interval | Standardized statistic | Reference distribution | Critical value |
+|---|---|---|---|
+| One-sample \(z\) | \(\frac{\bar X-\mu}{\sigma/\sqrt n}\) | \(\operatorname{Normal}(0,1)\) | \(z^*\) |
+| One-sample \(t\) | \(\frac{\bar X-\mu}{S/\sqrt n}\) | \(t_{n-1}\) | \(t^*\) |
+| Two-sample \(z\) | \(\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}\) | \(\operatorname{Normal}(0,1)\) | \(z^*\) |
+| Pooled \(t\) | \(\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{S_p\sqrt{1/n_1+1/n_2}}\) | \(t_{n_1+n_2-2}\) | \(t^*\) |
+| Welch \(t\) | \(\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}{\sqrt{S_1^2/n_1+S_2^2/n_2}}\) | Approx. \(t_{\nu}\) | \(t^*\) |
+
+For each row, the critical value is the upper quantile that leaves \((1-c)/2\) in each tail. Solving the standardized inequality for the parameter produces the interval formula used earlier.
+
+## A short recap
+
+- **What Is a Confidence Interval?** A confidence interval is an estimate plus or minus a margin of error. The confidence level describes how often the procedure captures the parameter over repeated samples.
+- **Confidence Intervals for a Single Mean.** Use a \(z\) interval when \(\sigma\) is known and a \(t\) interval when \(\sigma\) is unknown. Check that the sample mean is approximately normal.
+- **Confidence Intervals for a Difference in Means.** Use a two-sample \(z\) interval when variances are known. When variances are unknown, use a pooled \(t\) interval if equal variances are reasonable and a Welch \(t\) interval otherwise. Check independence and the shape and size of each sample.
+- **Choosing an Interval.** Identify the parameter, determine what is known about the variances, choose the matching interval, check the conditions, and interpret the result in context.
+
+When you face a new scenario, work through those four steps in order. The calculations matter, but the reasoning about the parameter, the method, and the conditions is what makes the interval meaningful.

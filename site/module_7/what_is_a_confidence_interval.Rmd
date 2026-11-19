@@ -1,0 +1,281 @@
+---
+title: "What Is a Confidence Interval?"
+subtitle: "Estimates, uncertainty, and what confidence means."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+A grocery chain wants to know the average amount customers spend each week. A researcher selects a random sample of customers and computes the sample mean. That sample mean is a reasonable **point estimate**, but it is not the population mean. A different random sample would produce a different sample mean.
+
+Reporting only the sample mean hides that uncertainty. Reporting an interval makes the uncertainty visible. A **confidence interval** is an **interval estimate** of a population parameter, constructed from sample data using a procedure that has a stated long-run success rate.
+
+This reading introduces the general idea. The next readings give the formulas for a single mean and for a difference between two means.
+
+## From a point estimate to an interval
+
+A point estimate is a single number computed from a sample and used to estimate a parameter. The sample mean \(\bar x\) is a point estimate of the population mean \(\mu\). The sample proportion is a point estimate of a population proportion, and the difference in sample means is a point estimate of a difference in population means.
+
+A point estimate is useful, but it is almost never exactly equal to the parameter. Sampling variability means that a different sample would give a different estimate. A confidence interval adds a **margin of error** around the point estimate:
+
+$$
+\text{estimate} \pm \text{margin of error}.
+$$
+
+If the estimate is \(\bar x\) and the margin of error is \(ME\), the interval is
+
+$$
+(\bar x-ME,\ \bar x+ME).
+$$
+
+The margin of error describes how much sampling variability we are allowing for. A larger margin of error produces a wider interval. A wider interval is more likely to contain the parameter, but it is also less informative because it covers more possible values.
+
+The margin of error is not chosen arbitrarily. It comes from the sampling distribution of the estimate and from the chosen confidence procedure.
+
+## Confidence level and repeated sampling
+
+A confidence interval is constructed with a **confidence level**, such as 90%, 95%, or 99%. The confidence level describes the procedure, not a single interval.
+
+Suppose we could repeat the same sampling procedure many times. For each sample, we would compute a new interval using the same method. A 95% confidence procedure is designed so that, in the long run, about 95% of those intervals contain the true parameter. The **coverage probability** is therefore about 0.95. The other 5% miss.
+
+This is why we say:
+
+> We are 95% confident that the population mean is between the lower and upper endpoints.
+
+The phrase "95% confident" refers to the reliability of the procedure that produced the interval. Once the data are observed and the interval is computed, the interval either contains the parameter or it does not. The parameter is fixed, not random. What is random is whether a newly constructed interval captures it.
+
+## A general recipe for confidence intervals
+
+The intervals in this module all come from the same recipe. The recipe uses a **standardized statistic** whose distribution does not depend on the unknown parameter.
+
+Let \(\theta\) be the population parameter we want to estimate, let \(\hat\theta\) be an estimator of \(\theta\), and let \(SE(\hat\theta)\) be the standard error of that estimator. Define the standardized statistic
+
+$$
+W=\frac{\hat\theta-\theta}{SE(\hat\theta)}.
+$$
+
+If we know the distribution of \(W\), we can use that distribution to build a confidence interval.
+
+1. Choose a confidence level \(c\), and let **\(\alpha\)** denote the noncoverage probability, so \(\alpha=1-c\). For a 95% interval, \(c=0.95\) and \(\alpha=0.05\).
+2. Find **quantiles** \(w_{\alpha/2}\) and \(w_{1-\alpha/2}\) from the distribution of \(W\) such that
+   $$
+   P\left(w_{\alpha/2}<W<w_{1-\alpha/2}\right)=c.
+   $$
+3. Substitute the definition of \(W\) and solve the inequality for \(\theta\).
+4. The resulting interval is the confidence interval.
+
+For the normal and \(t\) distributions used in this module, the distribution of \(W\) is symmetric. In that case, the lower and upper quantiles are negatives of one another. Write the upper **critical value** as \(w^*=w_{1-\alpha/2}\). Then \(w_{\alpha/2}=-w^*\), and
+
+$$
+P\left(-w^*<W<w^*\right)=c.
+$$
+
+Substituting \(W=(\hat\theta-\theta)/SE(\hat\theta)\) and solving for \(\theta\) gives
+
+$$
+P\left(\hat\theta-w^*SE(\hat\theta)<\theta<\hat\theta+w^*SE(\hat\theta)\right)=c.
+$$
+
+So the interval has the general form
+
+$$
+\hat\theta\pm w^*SE(\hat\theta).
+$$
+
+The critical value \(w^*\) is the quantile that leaves probability \(\alpha/2=(1-c)/2\) in each tail. That is where the \(z^*\) and \(t^*\) values used later come from.
+
+```{r, echo = FALSE, fig.cap = "A standardized statistic with a 95% central region and 2.5% in each tail."}
+# Draw a standardized distribution with a central confidence region and two tails.
+plot_standardized_interval <- function(distribution = c("normal", "t"),
+                                       df = NULL,
+                                       confidence = 0.95,
+                                       main = "") {
+  # Match the requested distribution and compute the noncoverage probability.
+  distribution <- match.arg(distribution)
+  alpha <- 1 - confidence
+
+  # Find the upper critical value for the requested distribution.
+  critical <- if (distribution == "normal") {
+    qnorm(1 - alpha / 2)
+  } else {
+    qt(1 - alpha / 2, df = df)
+  }
+
+  # Build a grid of x-values and evaluate the density on that grid.
+  x <- if (distribution == "normal") {
+    seq(-4, 4, length.out = 1000)
+  } else {
+    seq(-5, 5, length.out = 1000)
+  }
+  density <- if (distribution == "normal") dnorm(x) else dt(x, df = df)
+
+  # Plot the density curve with labeled axes.
+  plot(
+    x,
+    density,
+    type = "l",
+    lwd = 2,
+    xlab = "Standardized statistic W",
+    ylab = "Density",
+    main = main
+  )
+
+  # Shade the lower tail.
+  lower_x <- seq(min(x), -critical, length.out = 200)
+  lower_y <- if (distribution == "normal") dnorm(lower_x) else dt(lower_x, df = df)
+  polygon(
+    c(lower_x, rev(lower_x)),
+    c(rep(0, length(lower_x)), rev(lower_y)),
+    col = "lightpink",
+    border = NA
+  )
+
+  # Shade the upper tail.
+  upper_x <- seq(critical, max(x), length.out = 200)
+  upper_y <- if (distribution == "normal") dnorm(upper_x) else dt(upper_x, df = df)
+  polygon(
+    c(upper_x, rev(upper_x)),
+    c(rep(0, length(upper_x)), rev(upper_y)),
+    col = "lightpink",
+    border = NA
+  )
+
+  # Shade the central confidence region.
+  central_x <- seq(-critical, critical, length.out = 300)
+  central_y <- if (distribution == "normal") dnorm(central_x) else dt(central_x, df = df)
+  polygon(
+    c(central_x, rev(central_x)),
+    c(rep(0, length(central_x)), rev(central_y)),
+    col = "lightblue",
+    border = NA
+  )
+
+  # Redraw the density curve and mark the two critical values.
+  lines(x, density, lwd = 2)
+  abline(v = c(-critical, critical), lty = 2, lwd = 2)
+
+  # Label the central area and the two tails.
+  text(0, max(density) * 0.55, labels = paste0("central area = ", confidence))
+  text(-critical, max(density) * 0.12, labels = paste0("tail = ", alpha / 2), pos = 2)
+  text(critical, max(density) * 0.12, labels = paste0("tail = ", alpha / 2), pos = 4)
+}
+
+# Draw a standard normal distribution with a 95% central region.
+plot_standardized_interval(
+  distribution = "normal",
+  confidence = 0.95,
+  main = "Standard normal distribution"
+)
+```
+
+The following simulation illustrates the idea. We pretend the population mean is known, draw many random samples, and construct a 95% interval from each sample. Then we count how many intervals contain the true mean.
+
+```{r, echo = FALSE}
+# Set a seed so the simulation is reproducible.
+set.seed(390)
+
+# Specify the population mean and standard deviation.
+mu <- 100      # true population mean used to check coverage
+sigma <- 15    # population standard deviation
+
+# Use samples of size 25 and a 95% confidence level.
+n <- 25                # sample size for each simulated interval
+z_star <- qnorm(0.975)  # 95% standard normal critical value
+
+# Draw 1,000 sample means from a normal population.
+sample_means <- replicate(1000, mean(rnorm(n, mean = mu, sd = sigma)))
+
+# Compute the standard error and the margin of error.
+standard_error <- sigma / sqrt(n)        # standard error of the sample mean
+margin_of_error <- z_star * standard_error  # 95% margin of error
+
+# Construct the lower and upper endpoints of each interval.
+lower <- sample_means - margin_of_error  # lower endpoint for each sample
+upper <- sample_means + margin_of_error  # upper endpoint for each sample
+
+# Check which intervals contain the true population mean.
+captures <- lower <= mu & mu <= upper  # logical vector of coverage results
+
+# Report the proportion of intervals that captured mu.
+mean(captures)
+```
+
+The proportion is close to 0.95, but not exactly 0.95, because the simulation is based on a finite number of random samples. The next plot shows 100 of these intervals and marks the ones that miss.
+
+```{r, echo = FALSE}
+# Plot 100 of the simulated intervals as horizontal line segments.
+plot_index <- 1:100  # use the first 100 simulated intervals
+par(mar = c(4, 4, 3, 1))  # set the plot margins
+plot(
+  NA,
+  xlim = range(c(lower[plot_index], upper[plot_index])),  # range of endpoints
+  ylim = c(1, length(plot_index)),  # one row per interval
+  xlab = "Weekly spending (dollars)",
+  ylab = "Sample number",
+  main = "100 confidence intervals for the population mean"
+)
+
+# Draw each interval; gray intervals capture mu and red intervals miss mu.
+segments(
+  lower[plot_index],
+  plot_index,
+  upper[plot_index],
+  plot_index,
+  col = ifelse(captures[plot_index], "gray40", "red"),
+  lwd = 2
+)
+
+# Mark the true population mean.
+abline(v = mu, col = "blue", lwd = 2, lty = 2)
+```
+
+Most intervals cross the blue vertical line at the true mean. A few do not. Those misses are expected: a 95% procedure is allowed to miss about 5% of the time.
+
+## What changes the width?
+
+The width of a confidence interval is the distance between its endpoints. Several quantities affect that width.
+
+- **Confidence level.** A higher confidence level requires a larger margin of error, so the interval is wider. A 99% interval is wider than a 95% interval constructed from the same data.
+- **Sample size.** A larger sample gives a smaller standard error, so the interval is narrower. Quadrupling the sample size roughly halves the standard error, assuming the same population variability.
+- **Variability.** More variable data produce a larger standard error and a wider interval.
+- **Standard error formula.** The exact formula depends on the parameter and on what is known about the population. The next readings give the formulas for means and differences in means.
+
+There is a trade-off. A very wide interval is likely to contain the parameter, but it may be too vague to be useful. A very narrow interval is precise, but it may come from a procedure with a lower confidence level or from assumptions that are not justified.
+
+## Interpreting a confidence interval
+
+A correct interpretation names the population parameter, states the interval, and gives the confidence level in context. For example:
+
+> We are 95% confident that the population mean weekly grocery spending for all customers at this chain is between 78.40 and 93.20 dollars.
+
+This says that the interval is about the population mean, not about individual customers, and not about the sample mean.
+
+Common incorrect interpretations include:
+
+- **"There is a 95% probability that the population mean is in this interval."** Once the interval is computed, the parameter is fixed. The confidence level describes the procedure, not a probability assigned to this one interval after the fact.
+- **"95% of customers spend between the endpoints."** A confidence interval for a mean is about the mean, not about the spread of individual observations.
+- **"We are 95% confident that the sample mean is between the endpoints."** The sample mean is the center of the interval. The interval estimates the population mean.
+- **"The interval contains 95% of the population."** The confidence level is not a coverage percentage for individuals.
+
+The repeated-sampling interpretation is the most precise: if we repeated the sampling procedure many times and constructed an interval each time, about 95% of those intervals would contain the population mean. In practice, we often use the shorter "We are 95% confident..." statement, but it should be understood in that repeated-sampling sense.
+
+## Looking ahead
+
+The general form \(\text{estimate} \pm \text{margin of error}\) applies to many parameters. The details differ:
+
+- For a single population mean, the estimate is \(\bar x\), and the standard error depends on whether the population standard deviation is known.
+- For a difference between two population means, the estimate is \(\bar x_1-\bar x_2\), and the standard error combines information from both samples.
+- For each interval, the validity depends on how the data were collected and on whether a normal model for the estimate is reasonable.
+
+The next reading develops the confidence interval for a single population mean.

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary</title>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script><style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } 
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.at { color: #204a87; } 
+code span.bn { color: #0000cf; } 
+code span.cf { color: #204a87; font-weight: bold; } 
+code span.ch { color: #4e9a06; } 
+code span.cn { color: #8f5902; } 
+code span.co { color: #8f5902; font-style: italic; } 
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.dt { color: #204a87; } 
+code span.dv { color: #0000cf; } 
+code span.er { color: #a40000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #0000cf; } 
+code span.fu { color: #204a87; font-weight: bold; } 
+code span.im { } 
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } 
+code span.kw { color: #204a87; font-weight: bold; } 
+code span.op { color: #ce5c00; font-weight: bold; } 
+code span.ot { color: #8f5902; } 
+code span.pp { color: #8f5902; font-style: italic; } 
+code span.sc { color: #ce5c00; font-weight: bold; } 
+code span.ss { color: #4e9a06; } 
+code span.st { color: #4e9a06; } 
+code span.va { color: #000000; } 
+code span.vs { color: #4e9a06; } 
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script><style type="text/css">body {
+font-family: Arial, Helvetica, sans-serif;
+color: #1f2937;
+line-height: 1.75;
+max-width: 900px;
+margin: 0 auto;
+padding: 2rem 1.25rem;
+}
+h1, h2, h3 {
+font-family: Arial, Helvetica, sans-serif;
+color: #245364;
+line-height: 1.3;
+}
+h1 {
+margin: 0 0 1.2rem;
+}
+h2 {
+font-size: 1.05rem;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+color: #346678;
+border-bottom: 1px solid #92aeba;
+padding-bottom: 0.3rem;
+margin: 2.4rem 0 0.9rem;
+}
+.title {
+color: #245364;
+font-size: 1.9rem;
+margin-bottom: 0.25rem;
+}
+.subtitle {
+color: #5b6e7a;
+font-style: italic;
+font-weight: normal;
+margin: 0 0 2rem;
+}
+p, li {
+line-height: 1.75;
+color: #1f2937;
+}
+p {
+margin: 0 0 1.1rem;
+}
+ul, ol {
+margin: 0.5rem 0 1rem;
+padding-left: 1.5rem;
+}
+li {
+margin: 0 0 0.6rem;
+}
+code {
+font-family: Consolas, Menlo, monospace;
+background: #eaf0f6;
+color: #000000;
+padding: 0.1em 0.35em;
+border-radius: 4px;
+font-size: 0.9em;
+}
+pre {
+background: #f6f8fa;
+border: 1px solid #d0d7de;
+border-radius: 6px;
+padding: 1rem;
+overflow-x: auto;
+line-height: 1.45;
+}
+pre code {
+background: none;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+width: 100%;
+margin: 1rem 0;
+font-size: 0.95rem;
+}
+th, td {
+border: 1px solid #cbd5e1;
+padding: 0.5rem 0.7rem;
+}
+th {
+background: #eaf0f6;
+color: #245364;
+text-align: left;
+}
+img {
+max-width: 100%;
+height: auto;
+}
+figure {
+margin: 1.5rem 0;
+}
+figcaption {
+color: #5b6e7a;
+font-size: 0.9rem;
+text-align: center;
+}
+a {
+color: #346678;
+}
+.glossary-term {
+background: #eaf0f6;
+color: #5b6e7a;
+font-weight: 700;
+border-radius: 6px;
+padding: 0.08em 0.5em;
+border-bottom: 1px dotted #92aeba;
+cursor: help;
+}
+.glossary-page .glossary-entry {
+margin: 0 0 1.1rem;
+padding: 1rem 1.2rem;
+background: #eef4f8;
+border: 1px solid #92aeba;
+border-radius: 10px;
+}
+.glossary-page .glossary-entry h3 {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.98rem;
+color: #245364;
+margin: 1.8rem 0 0.7rem;
+}
+.glossary-page .glossary-entry p {
+line-height: 1.6;
+margin: 0 0 0.7rem;
+}
+.glossary-page .glossary-label {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+font-weight: 700;
+text-transform: uppercase;
+letter-spacing: 0.04em;
+color: #5b6e7a;
+}
+.glossary-page .glossary-entry p.glossary-source {
+font-family: Arial, Helvetica, sans-serif;
+font-size: 0.8rem;
+color: #5b6e7a;
+margin: 0 0 0.6rem;
+}
+.rmd-download {
+background: #eaf0f6;
+border-left: 4px solid #346678;
+border-radius: 6px;
+padding: 0.8rem 1rem;
+margin: 0.5rem 0 1.5rem;
+}
+.rmd-download a {
+color: #245364;
+font-weight: 700;
+text-decoration: none;
+}
+.rmd-download a:hover {
+text-decoration: underline;
+}
+</style>
+</head>
+<body class="glossary-page">
+
+
+
+
+<h1 class="title toc-ignore">Glossary</h1>
+<div class="rmd-download"><a href="definitions_and_examples.Rmd" download="definitions_and_examples.Rmd" data-filename="definitions_and_examples.Rmd">Download R Markdown source (.Rmd)</a></div>
+
+
+
+<p>This glossary supports Module 7 (Inference), with a focus on
+confidence intervals for means and differences in means. Entries are
+listed alphabetically. Each entry gives a definition, a cited source,
+and examples with by-hand work and R code where it helps. The examples
+use fresh contexts and values so they extend, rather than repeat, the
+course readings and assessments.</p>
+<h2 class="glossary-letter">A</h2>
+<div id="alpha-alpha" class="section level2 glossary-entry">
+<h3>Alpha, \(\alpha\)</h3>
+<p><span class="glossary-label">Definition:</span> The noncoverage probability of a
+confidence interval procedure. If the confidence level is \(c\), then \(\alpha=1-c\). For a two-sided interval, the
+procedure leaves probability \(\alpha/2\) in each tail. For example, a 95%
+confidence interval has \(\alpha=0.05\), so each tail has probability
+\(0.025\).</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A 95% confidence interval is
+constructed.</p>
+<p><span class="glossary-label">By hand:</span> The noncoverage probability is \(\alpha=1-0.95=0.05\). The two tails each
+have probability \(\alpha/2=0.025\).</p>
+<p><span class="glossary-label">Example 2:</span> A 99% confidence interval is
+constructed.</p>
+<p><span class="glossary-label">By hand:</span> The noncoverage probability is \(\alpha=1-0.99=0.01\). The two tails each
+have probability \(\alpha/2=0.005\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Compute the upper-tail critical values for 95% and 99% intervals.</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="co"># qnorm(1 - alpha/2) returns the value with area alpha/2 above it.</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">c</span>(<span class="fl">0.05</span>, <span class="fl">0.01</span>) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">1.959964</span> <span class="fl">2.575829</span></span></code></pre></div>
+</div>
+<h2 class="glossary-letter">C</h2>
+<div id="confidence-interval" class="section level2 glossary-entry">
+<h3>Confidence Interval</h3>
+<p><span class="glossary-label">Definition:</span> An interval of plausible values for a
+population parameter, constructed from sample data using a procedure
+with a stated confidence level. A confidence interval has the general
+form $$
+\text{estimate}\pm\text{margin of error}.
+$$ The confidence level describes the repeated-sampling behavior
+of the procedure, not a probability assigned to the parameter after the
+interval is computed.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A random sample of hotel guests gives a
+95% confidence interval for the population mean nightly room rate of
+\((142, 168)\) dollars.</p>
+<p><span class="glossary-label">By hand:</span> We are 95% confident that the population
+mean nightly room rate is between 142 and 168 dollars. The interval is
+about the population mean, not about individual room rates or the sample
+mean.</p>
+<p><span class="glossary-label">Example 2:</span> A 90% confidence interval for \(\mu_A-\mu_B\), the difference in mean
+delivery times for two warehouses, is \((-4.5,-0.8)\) minutes.</p>
+<p><span class="glossary-label">By hand:</span> We are 90% confident that the population
+mean delivery time for warehouse A is between 0.8 and 4.5 minutes
+shorter than for warehouse B.</p>
+</div>
+<div id="confidence-level" class="section level2 glossary-entry">
+<h3>Confidence Level</h3>
+<p><span class="glossary-label">Definition:</span> The long-run success rate of a
+confidence interval procedure. If the confidence level is \(c\), then approximately \(100c\%\) of intervals constructed by
+repeatedly taking random samples and applying the same procedure will
+contain the population parameter. The confidence level is not the
+probability that a particular computed interval contains the
+parameter.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A procedure constructs 95% confidence
+intervals.</p>
+<p><span class="glossary-label">By hand:</span> If the sampling procedure were repeated
+many times, about 95% of the resulting intervals would contain the
+population parameter and about 5% would miss.</p>
+<p><span class="glossary-label">Example 2:</span> A procedure constructs 90% confidence
+intervals.</p>
+<p><span class="glossary-label">By hand:</span> The procedure has a lower long-run coverage
+rate than a 95% procedure. Its intervals are generally narrower, but
+they miss the parameter more often.</p>
+</div>
+<div id="coverage-probability" class="section level2 glossary-entry">
+<h3>Coverage Probability</h3>
+<p><span class="glossary-label">Definition:</span> The probability that a randomly
+constructed confidence interval contains the population parameter. For a
+procedure with confidence level \(c\),
+the coverage probability is approximately \(c\). In a simulation, the observed coverage
+rate is the proportion of simulated intervals that contain the true
+parameter.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><strong>Example:</strong> Simulate 1,000 95% \(z\) intervals for a population mean when
+\(\mu=50\), \(\sigma=8\), and \(n=25\).</p>
+<p><span class="glossary-label">By hand:</span> The standard error is \(8/\sqrt{25}=1.6\). The margin of error is
+\(1.96(1.6)=3.136\). Each interval is
+\(\bar x\pm3.136\). The coverage
+probability should be about 0.95, so roughly 950 of the 1,000 intervals
+should contain \(\mu=50\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Set a seed so the simulated coverage rate is reproducible.</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">390</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Specify the true mean, standard deviation, sample size, and number of intervals.</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">8</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>n_intervals <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Draw sample means from the population.</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(n_intervals, <span class="fu">mean</span>(<span class="fu">rnorm</span>(n, <span class="at">mean =</span> mu, <span class="at">sd =</span> sigma)))</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co"># Compute the 95% margin of error for each interval.</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>margin_of_error <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co"># Construct the lower and upper endpoints.</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>lower <span class="ot">&lt;-</span> sample_means <span class="sc">-</span> margin_of_error</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>upper <span class="ot">&lt;-</span> sample_means <span class="sc">+</span> margin_of_error</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co"># Check which intervals contain the true population mean.</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>captures <span class="ot">&lt;-</span> lower <span class="sc">&lt;=</span> mu <span class="sc">&amp;</span> mu <span class="sc">&lt;=</span> upper</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co"># Report the simulated coverage rate.</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="fu">mean</span>(captures)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.943</span></span></code></pre></div>
+<p><span class="glossary-label">Example 2:</span> A procedure constructs 90% intervals
+using the same population and sample size.</p>
+<p><span class="glossary-label">By hand:</span> The expected coverage probability is 0.90,
+so a simulation of 1,000 intervals would contain the true mean about 900
+times. The intervals are narrower than 95% intervals but miss the
+parameter more often.</p>
+</div>
+<div id="critical-value" class="section level2 glossary-entry">
+<h3>Critical Value</h3>
+<p><span class="glossary-label">Definition:</span> A quantile from the reference
+distribution used to construct a confidence interval. The critical value
+determines how many standard errors the interval extends on each side of
+the estimate. For a confidence level \(c=1-\alpha\), the upper critical value is
+the \(1-\alpha/2\) quantile of the
+reference distribution. Common symbols are \(z^*\) for a standard normal distribution
+and \(t^*\) for a \(t\) distribution.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> Find the critical value for a 95% \(z\) interval.</p>
+<p><span class="glossary-label">By hand:</span> The upper critical value is the 0.975
+quantile of the standard normal distribution: \(z^*=1.960\).</p>
+<p><span class="glossary-label">Example 2:</span> Find the critical value for a 95% \(t\) interval with \(df=12\).</p>
+<p><span class="glossary-label">By hand:</span> The upper critical value is the 0.975
+quantile of a \(t\) distribution with
+12 degrees of freedom: \(t^*=2.179\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Compute the 95% critical values for a z interval and a t interval.</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="co"># The df argument controls the t distribution's degrees of freedom.</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">z_star =</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="at">t_star_df12 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">12</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>     z_star t_star_df12 </span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>   <span class="fl">1.959964</span>    <span class="fl">2.178813</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">D</h2>
+<div id="degrees-of-freedom" class="section level2 glossary-entry">
+<h3>Degrees of Freedom</h3>
+<p><span class="glossary-label">Definition:</span> A parameter that determines the shape of
+a \(t\) distribution. For a one-sample
+\(t\) interval, \(df=n-1\). For a pooled two-sample \(t\) interval, \(df=n_1+n_2-2\). For a Welch interval, the
+degrees of freedom are approximated from the two sample variances and
+sample sizes. Larger degrees of freedom produce a \(t\) distribution closer to the standard
+normal distribution.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A one-sample \(t\) interval uses \(n=10\).</p>
+<p><span class="glossary-label">By hand:</span> The degrees of freedom are \(df=10-1=9\).</p>
+<p><span class="glossary-label">Example 2:</span> A pooled two-sample \(t\) interval uses \(n_1=14\) and \(n_2=18\).</p>
+<p><span class="glossary-label">By hand:</span> The degrees of freedom are \(df=14+18-2=30\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Compute 95% t critical values for several degrees of freedom.</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="co"># Larger df gives a critical value closer to the 95% z critical value of 1.96.</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="at">df5 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">5</span>),</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="at">df15 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">15</span>),</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>  <span class="at">df30 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">30</span>)</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>)</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>     df5     df15     df30 </span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="fl">2.570582</span> <span class="fl">2.131450</span> <span class="fl">2.042272</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">E</h2>
+<div id="equal-vs.-unequal-variances" class="section level2 glossary-entry">
+<h3>Equal vs. Unequal Variances</h3>
+<p><span class="glossary-label">Definition:</span> A comparison of the population variances
+in a two-sample problem. If the population variances are unknown but
+assumed equal, use a pooled two-sample \(t\) interval. If the population variances
+are unknown and not assumed equal, use a Welch (unpooled) two-sample
+\(t\) interval. When population
+variances are known, use a two-sample \(z\) interval instead. Sample standard
+deviations that are similar are consistent with equal variances; sample
+standard deviations that are very different suggest unequal
+variances.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> Two samples have \(s_1=6.1\) and \(s_2=6.4\). The sample standard deviations
+are similar.</p>
+<p><span class="glossary-label">By hand:</span> A pooled \(t\) interval is reasonable because the
+sample standard deviations are similar and the population variances are
+unknown.</p>
+<p><span class="glossary-label">Example 2:</span> Two samples have \(s_1=14.8\) and \(s_2=5.7\). The sample standard deviations
+are very different.</p>
+<p><span class="glossary-label">By hand:</span> A Welch \(t\) interval is safer because the sample
+standard deviations are very different, so equal population variances
+are not reasonable.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Two independent samples with different variability.</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>group_a <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">58.2</span>, <span class="fl">61.4</span>, <span class="fl">55.8</span>, <span class="fl">64.1</span>, <span class="fl">59.7</span>, <span class="fl">62.3</span>, <span class="fl">57.6</span>, <span class="fl">60.8</span>, <span class="fl">63.5</span>, <span class="fl">56.9</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>group_b <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">49.1</span>, <span class="fl">50.4</span>, <span class="fl">48.8</span>, <span class="fl">51.2</span>, <span class="fl">49.7</span>, <span class="fl">50.0</span>, <span class="fl">48.5</span>, <span class="fl">51.0</span>, <span class="fl">49.3</span>, <span class="fl">50.6</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co"># Pooled interval: assume equal population variances.</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="fu">t.test</span>(group_a, group_b, <span class="at">var.equal =</span> <span class="cn">TRUE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="fl">8.175353</span> <span class="fl">12.164647</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.95</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co"># Welch interval: do not assume equal population variances.</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="fu">t.test</span>(group_a, group_b, <span class="at">var.equal =</span> <span class="cn">FALSE</span>, <span class="at">conf.level =</span> <span class="fl">0.95</span>)<span class="sc">$</span>conf.int</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>[<span class="dv">1</span>]  <span class="fl">8.078126</span> <span class="fl">12.261874</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="fu">attr</span>(,<span class="st">"conf.level"</span>)</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>[<span class="dv">1</span>] <span class="fl">0.95</span></span></code></pre></div>
+</div>
+<h2 class="glossary-letter">I</h2>
+<div id="interval-estimate" class="section level2 glossary-entry">
+<h3>Interval Estimate</h3>
+<p><span class="glossary-label">Definition:</span> An estimate that reports a range of
+plausible values for a population parameter instead of a single number.
+A confidence interval is the most common interval estimate in this
+module. An interval estimate communicates uncertainty that a point
+estimate alone does not show.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A point estimate of mean monthly rent is
+\(\bar x=1{,}240\) dollars, and a 95%
+interval estimate is \((1{,}180,
+1{,}300)\) dollars.</p>
+<p><span class="glossary-label">By hand:</span> The interval estimate reports a range of
+plausible values for the population mean rent. The point estimate is the
+center of the interval.</p>
+<p><span class="glossary-label">Example 2:</span> A point estimate of the difference in
+mean test scores is \(\bar x_1-\bar
+x_2=4.6\) points, and a 90% interval estimate is \((1.2, 8.0)\) points.</p>
+<p><span class="glossary-label">By hand:</span> The interval estimate gives a range for
+\(\mu_1-\mu_2\), the population mean
+difference.</p>
+</div>
+<h2 class="glossary-letter">M</h2>
+<div id="margin-of-error" class="section level2 glossary-entry">
+<h3>Margin of Error</h3>
+<p><span class="glossary-label">Definition:</span> The amount added to and subtracted from
+a point estimate to form a confidence interval. The margin of error is
+half the width of the interval: $$
+ME=\frac{\text{upper endpoint}-\text{lower endpoint}}{2}.
+$$ For the standard intervals in this module, \(ME=\text{critical value}\times\text{standard
+error}\). The interval is \(\text{estimate}\pm ME\).</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A confidence interval is \((12.4,18.6)\).</p>
+<p><span class="glossary-label">By hand:</span> The width is \(18.6-12.4=6.2\), so the margin of error is
+\(6.2/2=3.1\). The center is \(15.5\).</p>
+<p><span class="glossary-label">Example 2:</span> A 95% \(z\) interval uses \(\sigma=20\), \(n=64\), and \(z^*=1.96\).</p>
+<p><span class="glossary-label">By hand:</span> The standard error is \(20/\sqrt{64}=2.5\), so the margin of error
+is \(1.96(2.5)=4.9\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Recover the margin of error from interval endpoints.</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>lower <span class="ot">&lt;-</span> <span class="fl">12.4</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>upper <span class="ot">&lt;-</span> <span class="fl">18.6</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="at">width =</span> upper <span class="sc">-</span> lower,</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="at">margin_of_error =</span> (upper <span class="sc">-</span> lower) <span class="sc">/</span> <span class="dv">2</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="at">center =</span> (lower <span class="sc">+</span> upper) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>          width margin_of_error          center </span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>            <span class="fl">6.2</span>             <span class="fl">3.1</span>            <span class="fl">15.5</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">O</h2>
+<div id="one-sample-t-interval" class="section level2 glossary-entry">
+<h3>One-Sample \(t\) Interval</h3>
+<p><span class="glossary-label">Definition:</span> A confidence interval for a single
+population mean when the population standard deviation is unknown. The
+interval is $$
+\bar x\pm t^*\frac{s}{\sqrt n},
+$$ where \(t^*\) is the \(1-\alpha/2\) quantile of a \(t\) distribution with \(df=n-1\). The procedure requires a random,
+independent sample and an approximately normal sampling distribution of
+\(\bar x\), either because the
+population is approximately normal or because the sample is large enough
+for the central limit theorem.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A random sample has \(n=12\), \(\bar
+x=54.3\), and \(s=7.5\). The
+population is approximately normal.</p>
+<p><span class="glossary-label">By hand:</span> The standard error is \(7.5/\sqrt{12}=2.165\). With \(df=11\), \(t^*=2.201\). The margin of error is \(2.201(2.165)=4.77\), so the interval is
+approximately \((49.53,59.07)\).</p>
+<p><span class="glossary-label">Example 2:</span> A random sample has \(n=25\), \(\bar
+x=8.42\), and \(s=0.31\). The
+population is approximately normal.</p>
+<p><span class="glossary-label">By hand:</span> The standard error is \(0.31/\sqrt{25}=0.062\). With \(df=24\), \(t^*=2.064\). The margin of error is \(2.064(0.062)=0.128\), so the interval is
+approximately \((8.29,8.55)\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Summary statistics for a one-sample t interval.</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fl">54.3</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fl">7.5</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">12</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co"># Compute the standard error, margin of error, and interval.</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>se <span class="ot">&lt;-</span> s <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>t_star <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>me <span class="ot">&lt;-</span> t_star <span class="sc">*</span> se</span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lower =</span> xbar <span class="sc">-</span> me, <span class="at">upper =</span> xbar <span class="sc">+</span> me)</span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>   lower    upper </span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="fl">49.53473</span> <span class="fl">59.06527</span> </span></code></pre></div>
+</div>
+<div id="one-sample-z-interval" class="section level2 glossary-entry">
+<h3>One-Sample \(z\) Interval</h3>
+<p><span class="glossary-label">Definition:</span> A confidence interval for a single
+population mean when the population standard deviation is known. The
+interval is $$
+\bar x\pm z^*\frac{\sigma}{\sqrt n},
+$$ where \(z^*\) is the \(1-\alpha/2\) quantile of the standard
+normal distribution. The procedure requires a random, independent sample
+and an approximately normal sampling distribution of \(\bar x\), either because the population is
+approximately normal or because the sample is large enough for the
+central limit theorem.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A random sample has \(n=36\), \(\bar
+x=120.4\), and the population standard deviation is known to be
+\(\sigma=15.0\). Daily sales are
+approximately normally distributed.</p>
+<p><span class="glossary-label">By hand:</span> The standard error is \(15/\sqrt{36}=2.5\). With \(z^*=1.96\), the margin of error is \(1.96(2.5)=4.9\). The interval is \((115.5,125.3)\).</p>
+<p><span class="glossary-label">Example 2:</span> A random sample has \(n=49\), \(\bar
+x=88.6\), and \(\sigma=12.0\).
+The population is approximately normal.</p>
+<p><span class="glossary-label">By hand:</span> The standard error is \(12/\sqrt{49}=1.714\). For a 99% interval,
+\(z^*=2.576\), so the margin of error
+is \(2.576(1.714)=4.42\). The interval
+is approximately \((84.18,93.02)\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Summary statistics for a one-sample z interval.</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fl">120.4</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="fl">15.0</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">36</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="co"># Compute the standard error, margin of error, and interval.</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>se <span class="ot">&lt;-</span> sigma <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>z_star <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>me <span class="ot">&lt;-</span> z_star <span class="sc">*</span> se</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lower =</span> xbar <span class="sc">-</span> me, <span class="at">upper =</span> xbar <span class="sc">+</span> me)</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>   lower    upper </span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a><span class="fl">115.5001</span> <span class="fl">125.2999</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">P</h2>
+<div id="point-estimate" class="section level2 glossary-entry">
+<h3>Point Estimate</h3>
+<p><span class="glossary-label">Definition:</span> A single numerical value computed from a
+sample and used as a best guess for an unknown population parameter. The
+sample mean \(\bar x\) is a point
+estimate of the population mean \(\mu\). A point estimate does not by itself
+express sampling uncertainty; an interval estimate does.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> A random sample of five delivery times
+has mean \(42.3\) minutes.</p>
+<p><span class="glossary-label">By hand:</span> The point estimate of the population mean
+delivery time is \(\bar x=42.3\)
+minutes.</p>
+<p><span class="glossary-label">Example 2:</span> A random sample has \(\bar x_1=82.4\) and \(\bar x_2=78.1\).</p>
+<p><span class="glossary-label">By hand:</span> The point estimate of \(\mu_1-\mu_2\) is \(82.4-78.1=4.3\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># A small sample of delivery times in minutes.</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>delivery_times <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">41.8</span>, <span class="fl">42.5</span>, <span class="fl">43.1</span>, <span class="fl">41.2</span>, <span class="fl">42.9</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co"># The sample mean is the point estimate of the population mean.</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="fu">c</span>(<span class="at">point_estimate =</span> <span class="fu">mean</span>(delivery_times))</span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>point_estimate </span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>          <span class="fl">42.3</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">Q</h2>
+<div id="quantile" class="section level2 glossary-entry">
+<h3>Quantile</h3>
+<p><span class="glossary-label">Definition:</span> A value below which a specified
+proportion of a probability distribution lies. The \(p\)-quantile \(q_p\) satisfies \(P(W\le q_p)=p\) for a continuous random
+variable \(W\). Confidence interval
+critical values are upper quantiles. For a confidence level \(c=1-\alpha\), the upper critical value is
+the \(1-\alpha/2\) quantile of the
+reference distribution.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> Find the 0.975 quantile of the standard
+normal distribution.</p>
+<p><span class="glossary-label">By hand:</span> The value is \(1.96\), so \(P(Z\le1.96)=0.975\).</p>
+<p><span class="glossary-label">Example 2:</span> Find the 0.95 quantile of a \(t\) distribution with \(df=15\).</p>
+<p><span class="glossary-label">By hand:</span> The value is \(1.753\), so \(P(T\le1.753)=0.95\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Compute selected quantiles from the standard normal and t distributions.</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>  <span class="at">normal_0975 =</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>),</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>  <span class="at">t_df15_095 =</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="dv">15</span>),</span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>  <span class="at">t_df15_0975 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">15</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>)</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>normal_0975  t_df15_095 t_df15_0975 </span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>   <span class="fl">1.959964</span>    <span class="fl">1.753050</span>    <span class="fl">2.131450</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">S</h2>
+<div id="standardized-statistic-standardized-test-statistic" class="section level2 glossary-entry">
+<h3>Standardized Statistic (Standardized Test Statistic)</h3>
+<p><span class="glossary-label">Definition:</span> A statistic formed by subtracting a
+parameter from its estimator and dividing by the estimator’s standard
+error: $$
+W=\frac{\hat\theta-\theta}{SE(\hat\theta)}.
+$$ It is also called a standardized test statistic. If the
+distribution of \(W\) is known, we can
+choose quantiles \(w_{\alpha/2}\) and
+\(w_{1-\alpha/2}\) such that $$
+P(w_{\alpha/2}&lt;W&lt;w_{1-\alpha/2})=c,
+$$ then solve for \(\theta\) to
+obtain a confidence interval. For symmetric reference distributions, the
+interval is \(\hat\theta\pm
+w^*SE(\hat\theta)\).</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> For a single mean with known \(\sigma\), the standardized statistic is
+$$
+Z=\frac{\bar X-\mu}{\sigma/\sqrt n}.
+$$</p>
+<p><span class="glossary-label">By hand:</span> If the sample mean is approximately normal,
+\(Z\) has a standard normal
+distribution. The critical value \(z^*\) comes from that distribution.</p>
+<p><span class="glossary-label">Example 2:</span> For a single mean with unknown \(\sigma\), the standardized statistic is
+$$
+T=\frac{\bar X-\mu}{S/\sqrt n}.
+$$</p>
+<p><span class="glossary-label">By hand:</span> If the sample mean is approximately normal,
+\(T\) has a \(t\) distribution with \(df=n-1\). The critical value \(t^*\) comes from that distribution.</p>
+<p><span class="glossary-label">Example 3:</span> For a difference in means with known
+variances, the standardized statistic is $$
+Z=\frac{(\bar X_1-\bar X_2)-(\mu_1-\mu_2)}
+{\sqrt{\sigma_1^2/n_1+\sigma_2^2/n_2}}.
+$$</p>
+<p><span class="glossary-label">By hand:</span> If each sample mean is approximately
+normal, \(Z\) has a standard normal
+distribution. The interval uses the critical value \(z^*\).</p>
+</div>
+<div id="students-t-distribution" class="section level2 glossary-entry">
+<h3>Student’s \(t\) Distribution</h3>
+<p><span class="glossary-label">Definition:</span> A family of symmetric, bell-shaped
+distributions indexed by degrees of freedom. The \(t\) distribution has heavier tails than the
+standard normal distribution, especially for small degrees of freedom.
+As the degrees of freedom increase, the \(t\) distribution approaches the standard
+normal distribution. It is used for confidence intervals when the
+population standard deviation is unknown and estimated by the sample
+standard deviation.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> Compare 95% critical values for \(df=5\), \(df=15\), and the standard normal
+distribution.</p>
+<p><span class="glossary-label">By hand:</span> The critical values are about \(2.571\), \(2.131\), and \(1.960\). The smaller the degrees of
+freedom, the larger the critical value and the wider the interval.</p>
+<p><span class="glossary-label">Example 2:</span> A \(t\)
+interval uses \(n=10\).</p>
+<p><span class="glossary-label">By hand:</span> The \(t\)
+distribution has \(df=9\). Its 95%
+critical value is \(2.262\), compared
+with \(1.96\) for a \(z\) interval.</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># Compare 95% critical values across degrees of freedom.</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">c</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>  <span class="at">df5 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">5</span>),</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>  <span class="at">df15 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">15</span>),</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>  <span class="at">df30 =</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">30</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>  <span class="at">normal =</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>)</span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>     df5     df15     df30   normal </span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="fl">2.570582</span> <span class="fl">2.131450</span> <span class="fl">2.042272</span> <span class="fl">1.959964</span> </span></code></pre></div>
+</div>
+<h2 class="glossary-letter">T</h2>
+<div id="two-sample-t-interval" class="section level2 glossary-entry">
+<h3>Two-Sample \(t\) Interval</h3>
+<p><span class="glossary-label">Definition:</span> A confidence interval for the difference
+between two independent population means when the population variances
+are unknown. If the variances are assumed equal, the pooled interval is
+$$
+(\bar x_1-\bar x_2)\pm t^*s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}},
+\qquad df=n_1+n_2-2.
+$$ If the variances are not assumed equal, the Welch interval is
+$$
+(\bar x_1-\bar x_2)\pm t^*\sqrt{\frac{s_1^2}{n_1}+\frac{s_2^2}{n_2}},
+$$ with approximate Welch degrees of freedom. Both procedures
+require independent random samples and approximately normal sample
+means, either because the populations are approximately normal or
+because the samples are large enough.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> Two samples have \(\bar x_1=46.2\), \(s_1=6.4\), \(n_1=18\) and \(\bar x_2=41.8\), \(s_2=6.1\), \(n_2=20\). The sample standard deviations
+are similar, so use a pooled interval.</p>
+<p><span class="glossary-label">By hand:</span> The pooled variance is about \(38.98\), so \(s_p\approx6.24\). The pooled standard error
+is about \(2.03\). With \(df=36\), \(t^*=2.028\), so the margin of error is
+about \(4.12\). The interval is
+approximately \((0.28,8.52)\).</p>
+<p><span class="glossary-label">Example 2:</span> Two samples have \(\bar x_1=60.2\), \(s_1=14.8\), \(n_1=12\) and \(\bar x_2=49.6\), \(s_2=5.7\), \(n_2=25\). The sample standard deviations
+are very different, so use a Welch interval.</p>
+<p><span class="glossary-label">By hand:</span> The unpooled standard error is about \(4.42\). The Welch degrees of freedom are
+about \(12.6\), and \(t^*=2.167\). The margin of error is about
+\(9.58\), so the interval is
+approximately \((1.02,20.18)\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co"># Summary statistics for the pooled example.</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>xbar1 <span class="ot">&lt;-</span> <span class="fl">46.2</span></span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>s1 <span class="ot">&lt;-</span> <span class="fl">6.4</span></span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">18</span></span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>xbar2 <span class="ot">&lt;-</span> <span class="fl">41.8</span></span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>s2 <span class="ot">&lt;-</span> <span class="fl">6.1</span></span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">20</span></span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a><span class="co"># Compute the pooled standard deviation and pooled standard error.</span></span>
+<span id="cb12-10"><a href="#cb12-10" tabindex="-1"></a>sp <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(((n1 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s1<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> (n2 <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> s2<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> (n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>))</span>
+<span id="cb12-11"><a href="#cb12-11" tabindex="-1"></a>se_pooled <span class="ot">&lt;-</span> sp <span class="sc">*</span> <span class="fu">sqrt</span>(<span class="dv">1</span> <span class="sc">/</span> n1 <span class="sc">+</span> <span class="dv">1</span> <span class="sc">/</span> n2)</span>
+<span id="cb12-12"><a href="#cb12-12" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" tabindex="-1"></a><span class="co"># Compute the pooled 95% interval.</span></span>
+<span id="cb12-14"><a href="#cb12-14" tabindex="-1"></a>difference <span class="ot">&lt;-</span> xbar1 <span class="sc">-</span> xbar2</span>
+<span id="cb12-15"><a href="#cb12-15" tabindex="-1"></a>t_star <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n1 <span class="sc">+</span> n2 <span class="sc">-</span> <span class="dv">2</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" tabindex="-1"></a>me <span class="ot">&lt;-</span> t_star <span class="sc">*</span> se_pooled</span>
+<span id="cb12-17"><a href="#cb12-17" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lower =</span> difference <span class="sc">-</span> me, <span class="at">upper =</span> difference <span class="sc">+</span> me)</span>
+<span id="cb12-18"><a href="#cb12-18" tabindex="-1"></a>    lower     upper </span>
+<span id="cb12-19"><a href="#cb12-19" tabindex="-1"></a><span class="fl">0.2860957</span> <span class="fl">8.5139043</span> </span></code></pre></div>
+</div>
+<div id="two-sample-z-interval" class="section level2 glossary-entry">
+<h3>Two-Sample \(z\) Interval</h3>
+<p><span class="glossary-label">Definition:</span> A confidence interval for the difference
+between two independent population means when both population variances
+are known. The interval is $$
+(\bar x_1-\bar x_2)\pm
+z^*\sqrt{\frac{\sigma_1^2}{n_1}+\frac{\sigma_2^2}{n_2}}.
+$$ The procedure requires independent random samples and
+approximately normal sample means, either because the populations are
+approximately normal or because the samples are large enough for the
+central limit theorem.</p>
+<p class="glossary-source"><span class="glossary-label">Source:</span> <em>Mathematical Statistics with
+Applications in R</em>, Chapter 5; <em>Introductory Statistics 2e</em>,
+Chapter 8.</p>
+<p><span class="glossary-label">Example 1:</span> Two samples have \(\bar x_1=82.4\), \(n_1=25\), \(\bar
+x_2=78.1\), \(n_2=30\), with
+known \(\sigma_1=8.0\) and \(\sigma_2=7.0\). The populations are
+approximately normal.</p>
+<p><span class="glossary-label">By hand:</span> The difference is \(4.3\). The standard error is $$
+\sqrt{\frac{8.0^2}{25}+\frac{7.0^2}{30}}\approx2.048.
+$$ With \(z^*=1.96\), the margin
+of error is about \(4.01\), so the
+interval is approximately \((0.29,8.31)\).</p>
+<p><span class="glossary-label">Example 2:</span> Two samples have \(\bar x_1=75.2\), \(n_1=30\), \(\bar
+x_2=70.8\), \(n_2=35\), with
+known \(\sigma_1=9.0\) and \(\sigma_2=8.0\).</p>
+<p><span class="glossary-label">By hand:</span> The difference is \(4.4\). The standard error is $$
+\sqrt{\frac{9.0^2}{30}+\frac{8.0^2}{35}}\approx2.128.
+$$ The 95% interval is approximately \((0.23,8.57)\).</p>
+<p><span class="glossary-label">In R:</span></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="co"># Summary statistics for the known-variance two-sample example.</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>xbar1 <span class="ot">&lt;-</span> <span class="fl">82.4</span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>n1 <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>sigma1 <span class="ot">&lt;-</span> <span class="fl">8.0</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>xbar2 <span class="ot">&lt;-</span> <span class="fl">78.1</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>n2 <span class="ot">&lt;-</span> <span class="dv">30</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> <span class="fl">7.0</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co"># Compute the difference, standard error, and 95% interval.</span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>difference <span class="ot">&lt;-</span> xbar1 <span class="sc">-</span> xbar2</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(sigma1<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n1 <span class="sc">+</span> sigma2<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n2)</span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>me <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="fu">c</span>(<span class="at">lower =</span> difference <span class="sc">-</span> me, <span class="at">upper =</span> difference <span class="sc">+</span> me)</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>    lower     upper </span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a><span class="fl">0.2864583</span> <span class="fl">8.3135417</span> </span></code></pre></div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="../glossary-terms.js"></script>
+<script src="../glossary-highlight.js"></script>
+<script src="../rmd-download.js"></script>
+</body>
+</html>
+
