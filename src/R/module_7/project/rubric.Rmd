@@ -1,0 +1,151 @@
+---
+title: "Confidence Intervals Mini-Project"
+---
+
+## Purpose
+
+In this project, you will use your assigned dataset to construct and interpret two confidence intervals. First, you will estimate a single population mean. Then, you will estimate the difference between two population means using a quantitative variable and a categorical grouping variable. The goal is to connect the confidence interval methods from Module 7 with a complete analysis of your data. The emphasis is on choosing the correct interval, checking whether the conditions for that interval are reasonable, computing the interval correctly, and explaining what it tells us in context.
+
+## Materials
+
+You will receive:
+
+- A cleaned CSV dataset assigned to you.
+- A background description and data dictionary for that dataset.
+
+Use these materials to describe the variables, the populations, and the context of the data. Do not invent a source, population, collection date, or procedure that the supplied materials do not provide. If an important detail is not available, say so briefly.
+
+You may use the Module 7 readings for review. You may also reuse plots, summaries, and other evidence from your exploratory data analysis mini-project when checking the conditions for a confidence interval. If those materials do not provide the evidence you need, create new plots or summaries.
+
+## What to do
+
+### 1. Select your variables
+
+Select one quantitative variable for the confidence interval for a population mean. Then select a second quantitative variable and a categorical variable that can be used to form two groups for the confidence interval for a difference in means.
+
+Identify the variables by name. You do not need to reintroduce them or repeat what they measure; you described them in your exploratory data analysis mini-project.
+
+For the two-group comparison, the categorical variable must have at least two groups that you can compare. If it has more than two groups, subset the data so that you compare exactly two of them. State which two groups you selected, why you selected them, and how many observations from the other groups were excluded. Do not compare all groups at once.
+
+State how you handled missing values and report the final sample size for every analysis. If you excluded observations, explain why.
+
+### 2. Confidence interval for a population mean
+
+For your first quantitative variable, construct a 95% confidence interval for the population mean.
+
+#### State the parameter and the method
+
+State the population mean \(\mu\) in context, including the variable, population, and units. Use a 95% confidence level.
+
+Choose the correct one-sample interval for the information available, and explain why it is appropriate. Your explanation should show that you considered what is known about the population and the conditions required for the interval. Do not simply default to a procedure without justifying it.
+
+#### Check the assumptions and validity
+
+Discuss whether the conditions for a valid confidence interval are reasonable. Address each of the following:
+
+- **Random or representative sample.** The data should come from a random sample or a sampling design that is representative of the population.
+- **Independence.** The observations should be independent, or nearly enough that the standard error formula is reasonable.
+- **Approximately normal sample mean.** The population should be approximately normal, or the sample should be large enough for the central limit theorem. In this course, we use the guideline \(n>30\) for a clearly nonnormal population.
+- **Correct method.** The interval should match the parameter and the information available about the population.
+
+Support your discussion with evidence. Refer to plots or summaries from your earlier exploratory analysis, or create new ones. Useful evidence includes a histogram or boxplot of the variable, the sample size, and a description of skewness or outliers. If a sample is small and strongly skewed, explain that the interval may not be valid and be cautious about the conclusions you draw. Do not simply list the assumptions; explain whether each one is reasonable for your data.
+
+#### Compute the interval
+
+Construct the interval correctly using R. Report the sample size, sample mean, sample standard deviation, standard error, critical value, degrees of freedom, margin of error, and the lower and upper endpoints. Include the relevant R code and output so that your calculation can be followed.
+
+#### Interpret the interval and draw conclusions
+
+Interpret the interval in context. A complete interpretation names the population mean, gives the interval endpoints with units, and states the confidence level. For example:
+
+> We are 95% confident that the population mean wait time for all patients at this hospital is between 24.1 and 31.7 minutes.
+
+Then explain what the interval tells you about the population. Discuss what values are plausible and what practical conclusion follows. Avoid common misinterpretations: the interval is not a range that contains 95% of individuals, it is not a probability that \(\mu\) is inside this particular interval, and it is not an interval for the sample mean.
+
+### 3. Confidence interval for a difference in population means
+
+For your second quantitative variable and your categorical grouping variable, construct a 95% confidence interval for the difference between the two population means.
+
+#### Define the groups and the parameter
+
+Identify the two groups being compared and state the parameter \(\mu_1-\mu_2\) in context. Define which group is group 1 and which is group 2, and explain what a positive difference and a negative difference would mean. If you subset the data, report the sample size in each group and state how many observations were excluded.
+
+Use a 95% confidence level.
+
+#### Choose the correct interval
+
+Choose the correct two-sample interval for the information available, and explain why it is appropriate for these two groups. Your explanation should show that you considered what is known about the populations and the sample standard deviations. Also confirm that the two groups are independent rather than paired or matched.
+
+#### Check the assumptions and validity
+
+Discuss whether the conditions for a valid two-sample confidence interval are reasonable. Address each of the following:
+
+- **Independent samples.** The two samples should be independent of each other, and observations within each sample should be independent. Do not use an independent two-sample interval for paired or matched data.
+- **Random or representative samples.** Each sample should be representative of its population.
+- **Approximately normal sample means.** Each population should be approximately normal, or each sample should be large enough for the central limit theorem. In this course, we use the guideline that each sample size should be greater than 30 when a population is clearly nonnormal.
+- **Correct method and variance assumption.** The interval should be consistent with the parameter and with what is known or assumed about the population variances.
+
+Support your discussion with evidence for each group. Refer to plots or summaries from your earlier exploratory analysis, or create new ones. Useful evidence includes side-by-side boxplots or separate histograms, the sample sizes, and a description of skewness or outliers in each group. If a group is small and strongly skewed, explain that the interval may not be valid and be cautious about the conclusions you draw. Do not simply list the assumptions; explain whether each one is reasonable for your data.
+
+#### Compute the interval
+
+Construct the interval correctly using R. Report the sample size, sample mean, and sample standard deviation for each group, along with the difference in sample means, standard error, degrees of freedom, critical value, margin of error, and the lower and upper endpoints. Include the relevant R code and output so that your calculation can be followed.
+
+#### Interpret the interval and draw conclusions
+
+Interpret the interval in context. A complete interpretation names the population difference, gives the interval endpoints with units, states the confidence level, and preserves the direction of the difference. For example:
+
+> We are 95% confident that the population mean score for method 1 is between 0.3 and 8.5 points higher than for method 2.
+
+Then explain what the interval tells you. If the interval is entirely positive, the data suggest that group 1 has the larger population mean. If it is entirely negative, the direction is reversed. If the interval contains zero, the data are consistent with no difference between the population means, but the interval still describes a range of plausible differences. Discuss what conclusion is supported by the interval, and avoid causal claims unless the study design supports them.
+
+### 4. Report format and R code
+
+Submit a readable report in one of these formats:
+
+- **HTML:** a rendered HTML report, for example from R Markdown or Quarto.
+- **Word:** a `.docx` document.
+- **PDF:** a `.pdf` document.
+
+In every format, include the relevant R code alongside the output and written interpretations so your results can be followed. Use R functions and methods covered in the course materials. The [Module 7 readings](../confidence_intervals_for_a_mean.html) and the [Module 7 decision guide](../choosing_a_confidence_interval.html) are available for review.
+
+## Submission checklist
+
+- Exactly one quantitative variable is used for the confidence interval for a population mean, and exactly one quantitative variable plus one categorical grouping variable are used for the confidence interval for a difference in means.
+- If the categorical variable has more than two groups, exactly two groups are selected and the subsetting is clearly explained.
+- The population mean and the difference in population means are stated in context, with groups defined and the direction of subtraction made clear.
+- Both intervals use a 95% confidence level.
+- The correct one-sample interval is used, and the correct two-sample interval is chosen and justified.
+- The assumptions and conditions for both intervals are discussed with supporting evidence, not merely listed.
+- Both intervals are computed correctly with the required summary statistics, standard errors, critical values, degrees of freedom, and endpoints.
+- Both intervals are interpreted correctly in context, including what conclusions can and cannot be drawn.
+- The report includes the relevant R code and output and is organized, readable, and complete.
+
+## Grading Rubric
+
+Total: 100 points
+
+| Criterion | Points | Full Credit | Partial Credit | Low / No Credit |
+| --------- | -----: | ----------- | -------------- | --------------- |
+| Variable and parameter selection for the one-sample interval | 10 | A suitable quantitative variable is selected, and the population mean is clearly stated in context with the variable, population, and units. Missing values and the final sample size are reported. | The variable is appropriate, but the parameter statement or context is incomplete, unclear, or missing some details about missing values or sample size. | The variable is inappropriate or missing, or the parameter is not stated in context. |
+| Method selection, assumptions, and validity for the one-sample interval | 15 | The correct one-sample interval is chosen and justified, and all relevant assumptions are discussed with evidence. The student explains whether the interval is valid for the data. | The interval choice is mostly correct, but the justification or the discussion of assumptions and evidence is incomplete, vague, or only partly connected to the data. | The wrong interval is used, assumptions are not addressed, or there is no meaningful assessment of validity. |
+| Computation of the one-sample interval | 10 | The interval is computed correctly, and the sample size, mean, standard deviation, standard error, critical value, degrees of freedom, margin of error, and endpoints are reported clearly with supporting code and output. | The computation is mostly correct, but some reported values are missing, unclear, or contain minor errors. | The interval is computed incorrectly or the required summary statistics, code, or output are largely missing. |
+| Interpretation and conclusions for the one-sample interval | 10 | The interval is interpreted correctly in context as a statement about the population mean, with the confidence level and units included. The student draws an appropriate conclusion and avoids common misinterpretations. | The interpretation is mostly correct, but it is incomplete, slightly inaccurate, or not fully tied to the context. | The interpretation is incorrect or missing, or it confuses the population mean with individual observations or the sample mean. |
+| Group selection, subsetting, and parameter definition for the two-sample interval | 10 | Exactly two groups are selected, any subsetting is clearly explained, and the parameter \(\mu_1-\mu_2\) is stated in context with the direction of subtraction made clear. Sample sizes for both groups are reported. | The groups and parameter are mostly clear, but subsetting, sample sizes, context, or the direction of subtraction is incomplete or slightly unclear. | The groups are inappropriate or unclear, the parameter is missing or incorrect, or the subsetting is not explained. |
+| Method selection and justification for the two-sample interval | 15 | The correct two-sample interval is chosen and justified using the information available, including the sample standard deviations and the context. The student explains why the chosen interval is appropriate for these groups. | The interval choice is mostly correct, but the justification is incomplete, weak, or only partly connected to the data. | The wrong interval is chosen, or the justification is missing or inconsistent with the data. |
+| Assumptions and validity for the two-sample interval | 10 | All relevant assumptions are discussed with evidence for each group, including independence, random or representative sampling, approximate normality or sample size, and the variance assumption. The student explains whether the interval is valid. | The assumptions are mostly discussed, but the evidence is incomplete or the assessment of validity is vague or only partly justified for one or both groups. | The assumptions are not addressed, are listed without discussion, or the validity of the interval is not assessed. |
+| Computation of the two-sample interval | 10 | The interval is computed correctly, and the group sizes, means, standard deviations, difference, standard error, degrees of freedom, critical value, margin of error, and endpoints are reported clearly with supporting code and output. | The computation is mostly correct, but some reported values are missing, unclear, or contain minor errors. | The interval is computed incorrectly, or the required summaries, code, or output are largely missing. |
+| Interpretation and conclusions for the two-sample interval | 10 | The interval is interpreted correctly in context with the confidence level, units, and direction of the difference. The student explains what the interval says about zero, draws an appropriate conclusion, and avoids unsupported causal claims. | The interpretation is mostly correct, but the direction, units, confidence level, or conclusion is incomplete, slightly inaccurate, or only partly tied to the context. | The interpretation is incorrect or missing, the direction is reversed, or the conclusion is not supported by the interval. |
+
+### General Expectations
+
+- Exploration beyond the required analysis is welcome, especially when the data raise interesting questions or reveal unexpected patterns.
+- Work should be organized, readable, and complete.
+- Parameter statements should be written in context, not just as symbols.
+- Confidence intervals should be interpreted in terms of the population quantity being estimated, not individual observations or sample statistics.
+- Assumptions should be discussed and supported with evidence rather than merely stated.
+- Students should show that the chosen procedure is appropriate for the data and the question being asked.
+- The confidence level describes the repeated-sampling procedure. After the interval is computed, the parameter is fixed, so the interval should not be described as having a 95% probability of containing the parameter.
+- Differences in means should preserve the direction of subtraction and use the correct units.
+- Conclusions should be supported by the interval and should not make causal claims unless the study design supports them.
+- Include the relevant R code with its output in the submitted report.
