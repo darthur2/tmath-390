@@ -19,9 +19,9 @@ knitr::opts_chunk$set(
 
 ## Why This Module Matters
 
-A sample mean is a useful estimate of a population mean, but it is only one number from one random sample. A different sample would have produced a different estimate. Module 6 described that sample-to-sample variability through the sampling distribution and the standard error. Module 7 turns that description into a practical tool: a confidence interval.
+A sample mean is a useful estimate of a population mean, but it is only one number from one random sample. A different sample would have produced a different estimate. Module 6 described that sample-to-sample variability through the sampling distribution and the standard error. Module 7 turns that description into a practical tool: a **confidence interval**.
 
-A confidence interval gives a range of plausible values for a population parameter and attaches a confidence level to the repeated-sampling procedure that produced the range. It is one of the main ways statisticians communicate uncertainty. The same ideas support the hypothesis tests and regression intervals that come later in the course.
+A confidence interval gives a range of plausible values for a population parameter and attaches a **confidence level** to the repeated-sampling procedure that produced the range. It is one of the main ways statisticians communicate uncertainty. The same ideas support the hypothesis tests and regression intervals that come later in the course.
 
 ## What You'll Learn
 

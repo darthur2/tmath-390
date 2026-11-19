@@ -4790,5 +4790,65 @@ window.TMATH_GLOSSARY = {
       "text": "The variance of the sampling distribution of the sample mean. For independent observations with population variance \\(\\sigma^2\\),",
       "count": 1
     }
+  },
+  "module_7/overview.html": {
+    "Confidence Interval": {
+      "text": "An interval of plausible values for a population parameter, constructed from sample data using a procedure with a stated confidence level. The confidence level describes the repeated-sampling behavior of the procedure, not a probability assigned to the parameter after the interval is computed.",
+      "count": 1
+    },
+    "Confidence Level": {
+      "text": "The long-run success rate of a confidence interval procedure. If the confidence level is c, then approximately 100c% of intervals constructed by repeatedly taking random samples and applying the same procedure will contain the population parameter. The confidence level is not the probability that a particular computed interval contains the parameter.",
+      "count": 1
+    }
+  },
+  "module_7/what_is_a_confidence_interval.html": {
+    "Point Estimate": {
+      "text": "A single numerical value computed from a sample and used as a best guess for an unknown population parameter. The sample mean is a point estimate of the population mean. A point estimate does not by itself express sampling uncertainty; an interval estimate does.",
+      "count": 1
+    },
+    "Confidence Interval": {
+      "text": "An interval of plausible values for a population parameter, constructed from sample data using a procedure with a stated confidence level. The confidence level describes the repeated-sampling behavior of the procedure, not a probability assigned to the parameter after the interval is computed.",
+      "count": 1
+    },
+    "Interval Estimate": {
+      "text": "An estimate that reports a range of plausible values for a population parameter instead of a single number. A confidence interval is the most common interval estimate in this module. An interval estimate communicates uncertainty that a point estimate alone does not show.",
+      "count": 1
+    },
+    "Margin of Error": {
+      "text": "The amount added to and subtracted from a point estimate to form a confidence interval. The margin of error is half the width of the interval. For the standard intervals in this module, the margin of error is the critical value times the standard error.",
+      "count": 1
+    },
+    "Confidence Level": {
+      "text": "The long-run success rate of a confidence interval procedure. If the confidence level is c, then approximately 100c% of intervals constructed by repeatedly taking random samples and applying the same procedure will contain the population parameter. The confidence level is not the probability that a particular computed interval contains the parameter.",
+      "count": 1
+    },
+    "Coverage Probability": {
+      "text": "The probability that a randomly constructed confidence interval contains the population parameter. For a procedure with confidence level c, the coverage probability is approximately c. In a simulation, the observed coverage rate is the proportion of simulated intervals that contain the true parameter.",
+      "count": 1
+    },
+    "Standardized Statistic": {
+      "text": "A statistic formed by subtracting a parameter from its estimator and dividing by the estimator's standard error. If the distribution of the standardized statistic is known, we can choose quantiles from that distribution and solve for the parameter to obtain a confidence interval.",
+      "count": 1
+    },
+    "quantiles": {
+      "text": "Values below which specified proportions of a probability distribution lie. Confidence interval critical values are upper quantiles. For a confidence level c, the upper critical value is the 1 - alpha/2 quantile of the reference distribution.",
+      "count": 1
+    },
+    "Critical Value": {
+      "text": "A quantile from the reference distribution used to construct a confidence interval. The critical value determines how many standard errors the interval extends on each side of the estimate. For a confidence level c, the upper critical value is the 1 - alpha/2 quantile of the reference distribution.",
+      "count": 1
+    }
+  },
+  "module_7/confidence_intervals_for_a_mean.html": {
+    "Degrees of Freedom": {
+      "text": "A parameter that determines the shape of a t distribution. For a one-sample t interval, the degrees of freedom are n - 1. For a pooled two-sample t interval, the degrees of freedom are n1 + n2 - 2. For a Welch interval, the degrees of freedom are approximated from the two sample variances and sample sizes. Larger degrees of freedom produce a t distribution closer to the standard normal distribution.",
+      "count": 1
+    }
+  },
+  "module_7/confidence_intervals_for_a_difference_in_means.html": {
+    "equal or unequal variances": {
+      "text": "A comparison of the population variances in a two-sample problem. If the population variances are unknown but assumed equal, use a pooled two-sample t interval. If the population variances are unknown and not assumed equal, use a Welch (unpooled) two-sample t interval. When population variances are known, use a two-sample z interval instead. Sample standard deviations that are similar are consistent with equal variances; sample standard deviations that are very different suggest unequal variances.",
+      "count": 1
+    }
   }
 };
