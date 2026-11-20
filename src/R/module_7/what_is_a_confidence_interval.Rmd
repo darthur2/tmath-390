@@ -181,7 +181,7 @@ plot_standardized_interval(
 
 The following simulation illustrates the idea. We pretend the population mean is known, draw many random samples, and construct a 95% interval from each sample. Then we count how many intervals contain the true mean.
 
-```{r, echo = FALSE}
+```{r, echo = TRUE}
 # Set a seed so the simulation is reproducible.
 set.seed(390)
 
@@ -211,7 +211,7 @@ captures <- lower <= mu & mu <= upper  # logical vector of coverage results
 mean(captures)
 ```
 
-The proportion is close to 0.95, but not exactly 0.95, because the simulation is based on a finite number of random samples. The next plot shows 100 of these intervals and marks the ones that miss.
+The object `captures` records whether each simulated interval contains \(\mu\), and `mean(captures)` gives the simulated coverage rate. The proportion is close to 0.95, but not exactly 0.95, because the simulation is based on a finite number of random samples. The next plot shows 100 of these intervals and marks the ones that miss.
 
 ```{r, echo = FALSE}
 # Plot 100 of the simulated intervals as horizontal line segments.
