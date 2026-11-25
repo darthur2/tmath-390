@@ -1,0 +1,670 @@
+---
+title: "Glossary"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+```{r glossary-data, include=FALSE}
+# A small running example used throughout the glossary.
+cafe_temp <- c(18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40)
+cafe_sales <- c(123, 143, 111, 137, 146, 164, 153, 208, 189, 216, 185, 228)
+cafe_model <- lm(cafe_sales ~ cafe_temp)
+```
+
+This glossary supports Module 8 (Regression). Entries are listed alphabetically. Each entry gives a definition, a cited source, and examples with by-hand work and R code where it helps. The examples use fresh contexts and values so they extend, rather than repeat, the course readings and assessments.
+
+## Coefficient of Determination, \(R^2\)
+
+**Definition:** The proportion of the total variation in the response that is explained by the linear regression model. For a simple linear regression,
+$$
+R^2=1-\frac{SSE}{SST},
+$$
+where \(SSE=\sum (y_i-\hat y_i)^2\) is the sum of squared residuals and \(SST=\sum (y_i-\bar y)^2\) is the total sum of squares. The value is between 0 and 1.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café regression has \(R^2\approx 0.8082\).
+
+**By hand:** About 80.82% of the variation in daily iced coffee sales is explained by the linear relationship with daily high temperature. About 19.18% of the variation is not explained by this model.
+
+**Example 2:** A model for exam score based on study hours has \(R^2=0.55\).
+
+**By hand:** About 55% of the variation in exam scores is explained by the linear model using study hours. A high \(R^2\) is not required for a model to be useful, and a high \(R^2\) does not by itself show that the regression assumptions hold.
+
+**In R:**
+```{r}
+# Extract R-squared from the fitted model summary.
+summary(cafe_model)$r.squared
+```
+
+## Confidence Interval for the Mean Response
+
+**Definition:** An interval estimate of the mean response for all units with a specified value of the predictor. It is narrower than a prediction interval because it only accounts for uncertainty in the estimated mean.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** For the café model at 30 degrees Celsius, the fitted mean is about 171.64 cups.
+
+**By hand:** A 95% confidence interval for the mean response is approximately \((160.33, 182.96)\) cups. We are 95% confident that the mean sales on all 30-degree days are between these values.
+
+**In R:**
+```{r}
+# 95% confidence interval for the mean response at 30 degrees.
+predict(
+  cafe_model,
+  newdata = data.frame(cafe_temp = 30),
+  interval = "confidence"
+)
+```
+
+The figure below compares the confidence band for the mean response with the wider prediction band for an individual response.
+
+```{r, echo = FALSE, fig.cap = "A confidence band for the mean response and a wider prediction band for an individual response."}
+# Compute both bands over the observed range of temperatures.
+x_grid <- seq(min(cafe_temp), max(cafe_temp), length.out = 200)
+ci <- predict(
+  cafe_model,
+  newdata = data.frame(cafe_temp = x_grid),
+  interval = "confidence"
+)
+pred_band <- predict(
+  cafe_model,
+  newdata = data.frame(cafe_temp = x_grid),
+  interval = "prediction"
+)
+
+plot(
+  cafe_temp,
+  cafe_sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Confidence and prediction bands",
+  pch = 19,
+  col = "#346678"
+)
+
+# Draw the wider prediction band first, then the narrower confidence band.
+polygon(
+  c(x_grid, rev(x_grid)),
+  c(pred_band[, "lwr"], rev(pred_band[, "upr"])),
+  col = adjustcolor("#c9892b", alpha.f = 0.18),
+  border = NA
+)
+polygon(
+  c(x_grid, rev(x_grid)),
+  c(ci[, "lwr"], rev(ci[, "upr"])),
+  col = adjustcolor("#346678", alpha.f = 0.35),
+  border = NA
+)
+lines(x_grid, ci[, "fit"], col = "#245364", lwd = 2)
+legend(
+  "topleft",
+  legend = c("95% confidence band for the mean", "95% prediction band for an individual"),
+  fill = c(
+    adjustcolor("#346678", alpha.f = 0.35),
+    adjustcolor("#c9892b", alpha.f = 0.18)
+  ),
+  border = NA,
+  bty = "n",
+  cex = 0.8
+)
+```
+
+## Confidence Interval for the Slope
+
+**Definition:** An interval estimate of the population slope \(\beta_1\). For a simple linear regression, a \(100(1-\alpha)\%\) interval is
+$$
+\hat\beta_1\pm t^*SE(\hat\beta_1),
+$$
+where \(t^*\) is the \(1-\alpha/2\) quantile of a \(t\) distribution with \(n-2\) degrees of freedom.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café model has slope estimate \(4.7255\) and slope standard error \(0.7280\).
+
+**By hand:** With \(n=12\), the degrees of freedom are 10 and \(t^*=2.228\). The margin of error is \(2.228(0.7280)\approx 1.622\). The interval is approximately \(4.7255\pm1.622\), or \((3.10, 6.35)\) cups per degree Celsius.
+
+**In R:**
+```{r}
+# 95% confidence interval for all model coefficients.
+confint(cafe_model)
+```
+
+## Constant Variance
+
+**Definition:** The assumption that the variability of the errors is the same for every value of the predictor. It is also called **homoscedasticity**. A fan-shaped residual plot, where the spread of residuals grows or shrinks with the fitted values, suggests that this assumption is violated.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** A residual plot with a narrow spread at low fitted values and a wide spread at high fitted values shows nonconstant variance.
+
+**By hand:** The constant variance assumption is about the population errors. A residual plot is used as a diagnostic because the errors themselves are not observed.
+
+## Critical Value
+
+**Definition:** A quantile from the reference distribution used to construct an interval. For a confidence level \(c=1-\alpha\), the upper critical value is the \(1-\alpha/2\) quantile of the reference distribution. For a slope interval, the reference distribution is a \(t\) distribution with \(n-2\) degrees of freedom.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** For the café slope interval, \(n=12\), so \(df=10\). The 95% critical value is \(t^*=2.228\).
+
+**By hand:** The central 95% region of a \(t\) distribution with 10 degrees of freedom leaves 0.025 in each tail, so \(t^*\) is the 0.975 quantile.
+
+**In R:**
+```{r}
+# 95% critical value for a t distribution with 10 degrees of freedom.
+qt(0.975, df = 10)
+```
+
+```{r, echo = FALSE, fig.cap = "A t distribution with 10 degrees of freedom and a 95% central region."}
+# Compute the cutoff for a 95% interval.
+t_star_plot <- qt(0.975, df = 10)
+x <- seq(-4, 4, length.out = 1000)
+density <- dt(x, df = 10)
+
+plot(
+  x,
+  density,
+  type = "l",
+  lwd = 2,
+  xlab = "t",
+  ylab = "Density",
+  main = "t distribution with 10 degrees of freedom"
+)
+
+# Shade the lower and upper tails.
+lower_x <- seq(min(x), -t_star_plot, length.out = 200)
+polygon(
+  c(lower_x, rev(lower_x)),
+  c(rep(0, length(lower_x)), rev(dt(lower_x, df = 10))),
+  col = "lightpink",
+  border = NA
+)
+upper_x <- seq(t_star_plot, max(x), length.out = 200)
+polygon(
+  c(upper_x, rev(upper_x)),
+  c(rep(0, length(upper_x)), rev(dt(upper_x, df = 10))),
+  col = "lightpink",
+  border = NA
+)
+
+# Shade the central 95% region and redraw the density curve.
+central_x <- seq(-t_star_plot, t_star_plot, length.out = 300)
+polygon(
+  c(central_x, rev(central_x)),
+  c(rep(0, length(central_x)), rev(dt(central_x, df = 10))),
+  col = "lightblue",
+  border = NA
+)
+lines(x, density, lwd = 2)
+abline(v = c(-t_star_plot, t_star_plot), lty = 2, lwd = 2)
+text(-t_star_plot, 0.05, labels = "t* = 2.228", pos = 2)
+text(t_star_plot, 0.05, labels = "t* = 2.228", pos = 4)
+```
+
+## Degrees of Freedom
+
+**Definition:** A quantity that determines the shape of a \(t\) distribution. For a simple linear regression slope interval, \(df=n-2\) because two parameters, \(\beta_0\) and \(\beta_1\), are estimated from the data.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café model uses \(n=12\), so \(df=12-2=10\).
+
+**Example 2:** A regression with \(n=20\) observations has \(df=20-2=18\).
+
+**By hand:** Estimating each of the two regression parameters uses up one degree of freedom, which leaves \(n-2\).
+
+**In R:**
+```{r}
+# Degrees of freedom for a simple linear regression slope interval.
+n <- 12
+c(n = n, df = n - 2)
+```
+
+## Error Term
+
+**Definition:** The random deviation of an individual response from the population regression line. The simple linear regression model is
+$$
+y=\beta_0+\beta_1x+\epsilon,
+$$
+where \(\epsilon\) is the error term. Errors are unobserved; residuals are observed differences from the fitted line.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** If the population line predicts a mean of 100 and an individual observation is 108, the error is 8.
+
+**By hand:** The error is \(y-(\beta_0+\beta_1x)\). We cannot compute it exactly because \(\beta_0\) and \(\beta_1\) are unknown. We use residuals \(y-\hat y\) instead.
+
+## Extrapolation
+
+**Definition:** Using a regression model to predict outside the range of predictor values observed in the data. Extrapolation is risky because the linear relationship may not continue beyond the observed range.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café data range from 18 to 40 degrees Celsius.
+
+**By hand:** Predicting sales at 5 degrees Celsius or 50 degrees Celsius is extrapolation. Even if the fitted line is reasonable within the data, there is no guarantee that it applies outside that range.
+
+## Fitted Value
+
+**Definition:** The value the regression model predicts for a particular observation. For observation \(i\),
+$$
+\hat y_i=\hat\beta_0+\hat\beta_1x_i.
+$$
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The first café observation has temperature 18 degrees.
+
+**By hand:** The fitted value is \(\hat y=29.88+4.73(18)\approx114.94\) cups.
+
+**In R:**
+```{r}
+# Fitted value for the first observation.
+fitted(cafe_model)[1]
+```
+
+## Independence
+
+**Definition:** The assumption that the errors are not related to one another. Independence is usually supported by random sampling and random assignment. Time order, clustering, and repeated measurements on the same unit can create dependence.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** Residuals that follow a repeating pattern when plotted against observation order suggest possible dependence.
+
+**By hand:** A residual plot against order is a diagnostic, not a formal proof. The data collection process is also important.
+
+## Intercept
+
+**Definition:** The parameter \(\beta_0\) in the simple linear regression model. It is the mean response when the predictor equals zero. The estimate is \(\hat\beta_0\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café model has intercept estimate \(29.8765\).
+
+**By hand:** The predicted mean sales at 0 degrees Celsius are about 29.88 cups. Because 0 degrees is outside the observed range, this intercept is an extrapolation and has little practical meaning here.
+
+**In R:**
+```{r}
+# Estimated intercept.
+coef(cafe_model)[1]
+```
+
+## Least Squares
+
+**Definition:** The method used to choose the regression line by minimizing the sum of squared residuals,
+$$
+SSE=\sum_{i=1}^n (y_i-\hat y_i)^2.
+$$
+The resulting estimates are called the least squares estimates.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café model is fit by least squares.
+
+**By hand:** The least squares line is the one that makes the squared vertical distances from the points to the line as small as possible.
+
+```{r, echo = FALSE, fig.cap = "The least squares line and the vertical residuals it minimizes."}
+# Plot the data, the fitted line, and the vertical residuals.
+plot(
+  cafe_temp,
+  cafe_sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Least squares line and residuals",
+  pch = 19,
+  col = "#346678"
+)
+abline(cafe_model, col = "#245364", lwd = 2)
+segments(
+  cafe_temp,
+  fitted(cafe_model),
+  cafe_temp,
+  cafe_sales,
+  col = "#b04a3a",
+  lwd = 1.2
+)
+```
+
+**In R:**
+```{r}
+# Least squares estimates.
+coef(cafe_model)
+```
+
+## Linearity
+
+**Definition:** The assumption that the mean response is a linear function of the predictor. A curved pattern in a residuals-versus-fitted-values plot suggests that the linearity assumption is not reasonable.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** A U-shaped residual plot is evidence of a nonlinear pattern that the straight-line model missed.
+
+**By hand:** The assumption is about the population mean response, not about every individual point. A few scattered points are not enough to declare nonlinearity.
+
+## Normal Q-Q Plot
+
+**Definition:** A plot that compares the quantiles of the residuals to the quantiles expected from a normal distribution. Points close to a straight reference line are consistent with approximately normal residuals.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** A normal Q-Q plot for the café model.
+
+**By hand:** The reference line represents perfect normality. Departures in the tails indicate skewness or heavy tails; a few isolated points may be outliers.
+
+**In R:**
+```{r, fig.height = 3.5}
+# Normal Q-Q plot with a reference line.
+qqnorm(resid(cafe_model), pch = 19, col = "#346678")
+qqline(resid(cafe_model), lty = 2, lwd = 1.5)
+```
+
+## Normality
+
+**Definition:** The assumption that the errors are approximately normally distributed. A normal Q-Q plot of the residuals is used to look for strong departures from normality.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** A Q-Q plot whose points curve away from the reference line in the tails suggests heavier-than-normal tails.
+
+**By hand:** Moderate non-normality is less important in large samples. Strong skew or extreme outliers can matter more in small samples.
+
+## Prediction Interval
+
+**Definition:** An interval estimate for an individual response at a specified value of the predictor. It is wider than a confidence interval for the mean response because it accounts for both uncertainty in the estimated mean and individual variation.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** For the café model at 30 degrees Celsius, the fitted value is about 171.64 cups.
+
+**By hand:** A 95% prediction interval is approximately \((131.23, 212.06)\) cups. We are 95% confident that the sales on a single future 30-degree day will be between these values.
+
+**In R:**
+```{r}
+# 95% prediction interval for one future day at 30 degrees.
+predict(
+  cafe_model,
+  newdata = data.frame(cafe_temp = 30),
+  interval = "prediction"
+)
+```
+
+## Predictor Variable
+
+**Definition:** The variable used to explain or predict the response. It is plotted on the horizontal axis in a scatterplot and is often denoted \(x\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** In the café example, daily high temperature is the predictor.
+
+**By hand:** The model uses temperature to explain iced coffee sales. Temperature is not being explained by sales.
+
+## Residual
+
+**Definition:** The difference between an observed response and its fitted value:
+$$
+e_i=y_i-\hat y_i.
+$$
+A positive residual means the observed response is above the fitted line; a negative residual means it is below.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The first café observation has observed sales 123 cups and fitted value about 114.94 cups.
+
+**By hand:** The residual is \(123-114.94=8.06\) cups. The model underpredicted sales by about 8.06 cups on that day.
+
+**In R:**
+```{r}
+# Residual for the first observation.
+resid(cafe_model)[1]
+```
+
+## Residual Plot
+
+**Definition:** A plot used to check regression assumptions. The most common version plots residuals versus fitted values to check linearity and constant variance. Other versions plot residuals versus observation order or use a normal Q-Q plot.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** A residuals-versus-fitted-values plot for the café model.
+
+**By hand:** Look for curves, fans, clusters, and points far from the rest. A random scatter around zero is consistent with the model.
+
+**In R:**
+```{r, fig.height = 3.5}
+# Residuals versus fitted values.
+plot(cafe_model, which = 1)
+```
+
+The four panels below summarize the main patterns to look for.
+
+```{r, echo = FALSE, fig.cap = "Residual patterns: random scatter is consistent with the model, while curvature, a fan shape, or an order pattern signal possible assumption violations.", fig.height = 6.5}
+set.seed(3906)
+par(mfrow = c(2, 2), mar = c(4, 4, 2.5, 1), cex.main = 0.9)
+n <- 60
+x <- seq(1, 10, length.out = n)
+
+# Random scatter: no obvious pattern.
+y_good <- 5 + 2 * x + rnorm(n, 0, 2)
+m_good <- lm(y_good ~ x)
+plot(
+  fitted(m_good),
+  resid(m_good),
+  xlab = "Fitted values",
+  ylab = "Residuals",
+  main = "Random scatter: no concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+
+# A curved pattern suggests a linearity concern.
+y_curve <- 5 + 2 * x + 0.5 * x^2 + rnorm(n, 0, 1.5)
+m_curve <- lm(y_curve ~ x)
+plot(
+  fitted(m_curve),
+  resid(m_curve),
+  xlab = "Fitted values",
+  ylab = "Residuals",
+  main = "Curvature: linearity concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+
+# A fan shape suggests a constant variance concern.
+y_fan <- 5 + 2 * x + rnorm(n, 0, 0.3 + 0.5 * x)
+m_fan <- lm(y_fan ~ x)
+plot(
+  fitted(m_fan),
+  resid(m_fan),
+  xlab = "Fitted values",
+  ylab = "Residuals",
+  main = "Fan shape: variance concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+
+# A repeating pattern over order suggests an independence concern.
+order_index <- 1:n
+y_order <- 5 + 0.4 * order_index +
+  2 * sin(2 * pi * order_index / 10) +
+  rnorm(n, 0, 0.6)
+m_order <- lm(y_order ~ order_index)
+plot(
+  order_index,
+  resid(m_order),
+  xlab = "Observation order",
+  ylab = "Residuals",
+  main = "Wave: independence concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+
+par(mfrow = c(1, 1))
+```
+
+## Response Variable
+
+**Definition:** The variable being explained or predicted. It is plotted on the vertical axis in a scatterplot and is often denoted \(y\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** In the café example, iced coffee sales is the response.
+
+**By hand:** The model describes how mean sales change with temperature. Sales is the variable being explained.
+
+## Sampling Distribution
+
+**Definition:** The distribution of a statistic over repeated random samples of the same size from the same population. For the slope, the sampling distribution describes how \(\hat\beta_1\) would vary from sample to sample. It is centered at \(\beta_1\), and its standard deviation is the standard error of the slope.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** Simulate 1,000 samples of 12 days from the café model.
+
+**By hand:** Each sample gives one slope estimate. The histogram of those estimates shows the sampling distribution. Most estimates are near the true slope, and the spread reflects the standard error.
+
+**In R:**
+```{r}
+# Simulate many slope estimates from the fitted café model.
+set.seed(3905)
+sim_slopes <- replicate(1000, {
+  sim_y <- coef(cafe_model)[1] + coef(cafe_model)[2] * cafe_temp +
+    rnorm(length(cafe_temp), 0, summary(cafe_model)$sigma)
+  coef(lm(sim_y ~ cafe_temp))[["cafe_temp"]]
+})
+
+# Center and spread of the simulated sampling distribution.
+c(center = mean(sim_slopes), se = sd(sim_slopes))
+```
+
+```{r, echo = FALSE, fig.height = 3.5, fig.cap = "A simulated sampling distribution of the slope for samples of 12 days."}
+hist(
+  sim_slopes,
+  breaks = 30,
+  col = adjustcolor("#346678", alpha.f = 0.45),
+  border = "white",
+  main = "Sampling distribution of the slope",
+  xlab = "Estimated slope (cups per degree C)"
+)
+abline(v = coef(cafe_model)[2], col = "#245364", lwd = 2, lty = 2)
+abline(v = mean(sim_slopes), col = "#b04a3a", lwd = 2)
+legend(
+  "topright",
+  legend = c("True slope", "Mean of estimates"),
+  col = c("#245364", "#b04a3a"),
+  lwd = 2,
+  lty = c(2, 1),
+  bty = "n",
+  cex = 0.85
+)
+```
+
+## Scatterplot
+
+**Definition:** A plot of one quantitative variable against another. The predictor is usually placed on the horizontal axis and the response on the vertical axis. A scatterplot displays the direction, form, and strength of a relationship.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** Daily high temperature and iced coffee sales.
+
+**By hand:** The points rise from left to right, so the direction is positive. The form is roughly linear, and the relationship is fairly strong.
+
+The scatterplot below shows the café data.
+
+```{r, echo = FALSE, fig.height = 3.5, fig.cap = "A scatterplot of iced coffee sales versus daily high temperature."}
+# Scatterplot of iced coffee sales versus temperature.
+plot(
+  cafe_temp,
+  cafe_sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Iced coffee sales and temperature",
+  pch = 19,
+  col = "#346678"
+)
+```
+
+## Significance of the Slope
+
+**Definition:** A slope is statistically significant at the 5% level if a 95% confidence interval for the slope does not contain zero. In that case, zero is not a plausible value for the population slope, so the data provide evidence of a nonzero linear relationship. If the interval contains zero, the relationship is not significant at the 5% level, and a flat line remains plausible.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café slope interval is approximately \((3.10, 6.35)\).
+
+**By hand:** Because the interval is entirely above 0, there is statistically significant evidence of a positive linear relationship between temperature and mean iced coffee sales.
+
+**In R:**
+```{r}
+# 95% confidence interval for the slope.
+confint(cafe_model)["cafe_temp", ]
+```
+
+## Simple Linear Regression Model
+
+**Definition:** A model for a response \(y\) as a linear function of a single predictor \(x\):
+$$
+y=\beta_0+\beta_1x+\epsilon.
+$$
+The model has an intercept \(\beta_0\), a slope \(\beta_1\), and an error term \(\epsilon\). The model assumes that the mean response is a linear function of the predictor; this is the linearity assumption. Constructing interval estimates also requires the errors to be independent, to have constant variance, and to be approximately normal.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café model is
+$$
+\widehat{\text{sales}}=29.88+4.73(\text{temperature}).
+$$
+
+**By hand:** The slope says that mean sales increase by about 4.73 cups per additional degree Celsius. The intercept is the predicted mean sales at 0 degrees, which is an extrapolation here.
+
+**In R:**
+```{r}
+# Fit a simple linear regression model.
+lm(cafe_sales ~ cafe_temp)
+```
+
+## Slope
+
+**Definition:** The parameter \(\beta_1\) in the simple linear regression model. It is the change in the mean response associated with a one-unit increase in the predictor. The estimate is \(\hat\beta_1\).
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café model has slope estimate \(4.7255\).
+
+**By hand:** For each additional degree Celsius, the predicted mean iced coffee sales increase by about 4.73 cups.
+
+**In R:**
+```{r}
+# Estimated slope.
+coef(cafe_model)[2]
+```
+
+## Standard Error of the Slope
+
+**Definition:** An estimate of the standard deviation of the sampling distribution of \(\hat\beta_1\). It measures how much the estimated slope would vary from sample to sample. It is reported in the `Std. Error` column of the regression summary.
+
+**Source:** *Mathematical Statistics with Applications in R*, Chapter 7; *Introductory Statistics 2e*, Chapter 12.
+
+**Example 1:** The café slope standard error is \(0.7280\).
+
+**By hand:** A larger standard error means the slope estimate is less precise. The standard error is used to construct the confidence interval for the slope.
+
+**In R:**
+```{r}
+# Standard error of the slope.
+summary(cafe_model)$coefficients["cafe_temp", "Std. Error"]
+```

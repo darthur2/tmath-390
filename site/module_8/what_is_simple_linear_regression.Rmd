@@ -1,0 +1,173 @@
+---
+title: "What Is Simple Linear Regression?"
+subtitle: "Modeling a linear relationship between two quantitative variables."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+A café records the daily high temperature and the number of iced coffees it sells. Days with higher temperatures tend to have higher sales, but the relationship is not perfect. A **simple linear regression** model summarizes the average relationship between the two variables with a straight line.
+
+Regression is useful when we want to describe an association, make predictions, or quantify how much of the variation in one variable is explained by another. We begin with the simplest goal: drawing a line through the data that stays as close as possible to the points. The usual rule for choosing that line is **least squares**. Later, when we want to account for uncertainty, we will need a model for the data and a set of assumptions to go with it.
+
+## Start with a scatterplot
+
+The first step is always to look at the data. A **scatterplot** displays one quantitative variable on the horizontal axis and the other on the vertical axis. When we study a relationship, we usually put the **explanatory variable** or **predictor variable** on the horizontal axis and the **response variable** on the vertical axis.
+
+The predictor is the variable we use to explain or predict. The response is the variable we are trying to explain or predict. In the café example, temperature is the predictor and iced coffee sales is the response.
+
+```{r}
+# Daily high temperature in degrees Celsius.
+temp <- c(18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40)
+
+# Iced coffee sales in cups.
+sales <- c(123, 143, 111, 137, 146, 164, 153, 208, 189, 216, 185, 228)
+
+# Plot the data with temperature on the horizontal axis.
+plot(
+  temp,
+  sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Iced coffee sales and temperature",
+  pch = 19,
+  col = "#346678"
+)
+```
+
+The points generally move upward from left to right. That is a **positive association**: higher temperatures tend to go with higher sales. The points are not perfectly lined up, which is typical. The model will describe the overall pattern, not every individual day.
+
+When describing a scatterplot, comment on three features:
+
+- **Direction:** positive, negative, or no clear direction.
+- **Form:** linear or curved.
+- **Strength:** how closely the points follow the pattern.
+
+Here the direction is positive and the form is roughly linear. The strength is fairly strong but not perfect.
+
+## Correlation is not regression
+
+The **correlation coefficient** \(r\) measures the direction and strength of the linear association between two quantitative variables. It is between \(-1\) and \(1\). A correlation near \(1\) indicates a strong positive linear association, a correlation near \(-1\) indicates a strong negative linear association, and a correlation near \(0\) indicates little linear association.
+
+Correlation and regression are related, but they answer different questions. Correlation describes the strength of a linear association. Regression goes further: it estimates a line that can be used to predict the response from the predictor and to describe how the response changes on average when the predictor changes.
+
+Correlation also does not imply causation. A strong association between temperature and iced coffee sales does not mean that temperature causes every individual sale. Other variables, such as day of the week, location, or promotions, may also matter.
+
+## Choosing the line by least squares
+
+Many different lines could be drawn through the same scatterplot, so we need a rule for choosing one. The usual rule is **least squares**: among all possible lines, choose the one whose vertical distances from the observed points are as small as possible in a squared sense.
+
+For each observation, the vertical distance from the observed response \(y_i\) to the line's fitted value \(\hat y_i\) is the **residual**,
+
+$$
+e_i=y_i-\hat y_i.
+$$
+
+The least squares line minimizes the sum of squared residuals,
+
+$$
+\sum_{i=1}^n e_i^2=\sum_{i=1}^n (y_i-\hat y_i)^2.
+$$
+
+Squaring makes large misses count more heavily than small ones and gives a single best line. The next reading shows how R carries out this calculation and how to interpret the result.
+
+## The simple linear regression model
+
+The **simple linear regression model** for a response \(y\) and a predictor \(x\) is
+
+$$
+y=\beta_0+\beta_1x+\epsilon.
+$$
+
+The term \(\beta_0+\beta_1x\) describes the average response for a given value of \(x\). The term \(\epsilon\) is the **error term**, which represents the random deviation of an individual observation from that average.
+
+The parameter \(\beta_0\) is the **intercept** and \(\beta_1\) is the **slope**. The fitted model, based on sample data, is written with hats:
+
+$$
+\hat y=\hat\beta_0+\hat\beta_1x.
+$$
+
+The fitted value \(\hat y\) is the predicted average response at a given value of \(x\).
+
+The model makes one assumption at the outset: the average response is a linear function of the predictor. This is the **linearity assumption**. Without it, a straight line would not be the right summary of the relationship. The remaining assumptions concern the error term and will be introduced when we quantify uncertainty.
+
+## Interpreting the slope
+
+The slope \(\beta_1\) is the change in the average response associated with a one-unit increase in the predictor.
+
+For the café data, suppose the fitted model is
+
+$$
+\hat y=29.88+4.73x,
+$$
+
+where \(x\) is temperature in degrees Celsius and \(y\) is iced coffee sales in cups.
+
+The slope is \(4.73\). In context:
+
+> For each additional degree Celsius, the predicted mean iced coffee sales increase by about 4.73 cups.
+
+The phrase **predicted mean** matters. The slope describes a change in the average response, not a guarantee that every additional degree produces exactly 4.73 more cups on every day.
+
+## Interpreting the intercept
+
+The intercept \(\beta_0\) is the predicted mean response when \(x=0\).
+
+For the café model, the intercept is \(29.88\). In context:
+
+> The predicted mean iced coffee sales at 0 degrees Celsius are about 29.88 cups.
+
+This interpretation is mathematically correct, but 0 degrees Celsius is outside the range of the observed temperatures. That makes the intercept an **extrapolation**. It may not be meaningful in practice. When the predictor cannot reasonably be zero, or when zero is far outside the data, we should say that the intercept has little practical meaning rather than forcing an interpretation.
+
+## Fitted values and residuals
+
+A **fitted value** is the value the model predicts for a particular observation:
+
+$$
+\hat y_i=\hat\beta_0+\hat\beta_1x_i.
+$$
+
+A **residual** is the difference between the observed response and the fitted value:
+
+$$
+e_i=y_i-\hat y_i.
+$$
+
+A positive residual means the observed response is above the model's prediction. A negative residual means the observed response is below the model's prediction.
+
+For example, suppose a day with temperature \(18^\circ\)C has observed sales 123 cups, and the fitted value is about 114.94 cups. The residual is
+
+$$
+123-114.94=8.06.
+$$
+
+The model underpredicted sales on that day by about 8.06 cups. Residuals are the main tool for checking whether the model is reasonable.
+
+## Extrapolation
+
+**Extrapolation** means using the model to predict outside the range of observed predictor values. Extrapolation is risky because the linear pattern may not continue beyond the data.
+
+In the café example, the observed temperatures run from 18 to 40 degrees Celsius. Predicting sales at 5 degrees Celsius or at 50 degrees Celsius would be extrapolation. Even if the fitted line looks reasonable inside the data, there is no guarantee that the same line applies far outside the observed range.
+
+## Common mistakes
+
+- **Treating the slope as a correlation.** A slope has units and depends on the scale of the variables. A correlation does not.
+- **Saying the model proves causation.** Regression describes association unless the data come from a well-designed experiment.
+- **Ignoring the range of the data.** The intercept may be an extrapolation, and predictions far outside the data are unreliable.
+- **Confusing residuals with errors.** Errors are unobserved population quantities. Residuals are observed differences from the fitted line.
+- **Judging the model only by \(R^2\).** A high \(R^2\) does not prove that a straight line is the best summary or that the model is appropriate.
+
+## Looking ahead
+
+This reading introduced the model, the least squares idea, and its interpretation. The next reading shows how to fit the model in R, how to read the output, how to compute predictions and residuals, and how to interpret \(R^2\). Later readings take up uncertainty, and that is where the remaining assumptions about the errors enter.

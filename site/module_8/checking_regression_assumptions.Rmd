@@ -1,0 +1,220 @@
+---
+title: "Checking Regression Assumptions"
+subtitle: "Using residual plots to judge whether a linear model is reasonable."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+We have now built a simple linear regression model and used it to construct interval estimates. Along the way we made four assumptions: linearity, when we defined the model, and independence, constant variance, and normality, when we built the intervals. This reading shows how to use residuals to check whether those assumptions are reasonable.
+
+We cannot see the population errors, so we use residuals as stand-ins. A **residual plot** displays residuals in a way that helps us look for patterns the model missed. This reading shows how to create the main diagnostic plots in R and how to interpret them.
+
+## Why assumptions matter
+
+The slope estimate and fitted line are still calculated even when the assumptions are violated. The problem is that the interpretation, confidence intervals, and predictions may become unreliable.
+
+- If the relationship is not linear, a straight line may systematically miss part of the pattern.
+- If the errors are not independent, the standard errors may be too small or too large.
+- If the variance is not constant, the usual inference may not have the stated confidence level.
+- If the errors are strongly non-normal, intervals based on normality can be inaccurate, especially in small samples.
+
+Checking assumptions is not a box to check after the analysis. It is part of deciding whether the model is appropriate.
+
+## Linearity
+
+The **linearity** assumption says that the average response is a linear function of the predictor. A residual plot of residuals versus fitted values is the main tool for checking this.
+
+If the model is appropriate, the residuals should be scattered around zero with no obvious curve. If the residuals form a systematic curve, the linear model is missing a nonlinear pattern.
+
+```{r, echo = FALSE}
+# Simulate data with a curved relationship but fit a straight line.
+set.seed(3901)
+x <- 1:30
+y <- 5 + 2 * x + 0.4 * x^2 + rnorm(30, 0, 1.5)
+m <- lm(y ~ x)
+
+# Plot residuals versus fitted values.
+plot(
+  fitted(m),
+  resid(m),
+  xlab = "Fitted values",
+  ylab = "Residuals",
+  main = "Curved residuals: linearity concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+```
+
+The U-shaped pattern is evidence that the linearity assumption is not reasonable. A straight line is systematically above the data in some regions and below it in others.
+
+## Independence
+
+The **independence** assumption says that the errors are not related to one another. This is usually determined by how the data were collected. Random sampling and random assignment help. Time order, spatial clustering, or repeated measurements on the same unit can create dependence.
+
+A common diagnostic is a plot of residuals against the order in which the observations were collected. A random scatter around zero is consistent with independence. A repeating pattern, trend, or long run of positive or negative residuals suggests dependence.
+
+```{r, echo = FALSE}
+# Simulate residuals that follow a repeating pattern over time.
+set.seed(3902)
+order_index <- 1:30
+y <- 10 + 1.2 * order_index +
+  3 * sin(2 * pi * order_index / 10) +
+  rnorm(30, 0, 0.8)
+m <- lm(y ~ order_index)
+
+plot(
+  order_index,
+  resid(m),
+  xlab = "Observation order",
+  ylab = "Residuals",
+  main = "Residuals over time: independence concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+```
+
+The repeating wave is a warning sign. It does not prove dependence by itself, but it is consistent with a model that is missing a time-related pattern or with observations that are not independent.
+
+## Constant variance
+
+The **constant variance** assumption, also called **homoscedasticity**, says that the spread of the errors is the same for every value of the predictor. A residual plot of residuals versus fitted values is used to check this.
+
+If the spread of the residuals grows or shrinks as the fitted values increase, the constant variance assumption is questionable. This pattern is sometimes called a **fan shape** or **heteroscedasticity**.
+
+```{r, echo = FALSE}
+# Simulate data where the spread increases with the predictor.
+set.seed(3903)
+x <- 1:30
+y <- 8 + 1.5 * x + rnorm(30, 0, 0.4 + 0.35 * x)
+m <- lm(y ~ x)
+
+plot(
+  fitted(m),
+  resid(m),
+  xlab = "Fitted values",
+  ylab = "Residuals",
+  main = "Fan-shaped residuals: constant variance concern",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+```
+
+The residuals are tightly clustered at low fitted values and much more spread out at high fitted values. This suggests that the variability of the response is not constant.
+
+## Normality
+
+The **normality** assumption says that the errors are approximately normally distributed. A **normal Q-Q plot** compares the quantiles of the residuals to the quantiles expected from a normal distribution.
+
+If the residuals are approximately normal, the points in a Q-Q plot should fall close to a straight reference line. Strong curvature, heavy tails, or a few points far from the line can indicate non-normality or outliers.
+
+```{r, echo = FALSE}
+# Simulate data with heavy-tailed errors.
+set.seed(3904)
+x <- 1:80
+y <- 15 + 2 * x + rt(80, df = 2) * 3
+m <- lm(y ~ x)
+
+qqnorm(
+  resid(m),
+  main = "Heavy-tailed residuals: normality concern",
+  pch = 19,
+  col = "#346678"
+)
+qqline(resid(m), lty = 2, lwd = 1.5, col = "#245364")
+```
+
+The points bend away from the reference line at both ends: the largest residuals are larger than a normal model would predict, and the smallest are more negative. That pattern in both tails is evidence of heavier-than-normal tails.
+
+In large samples, moderate departures from normality are less important for the slope interval because of the central limit theorem. In small samples, non-normality can matter more. Residual plots are guides, not automatic pass/fail tests.
+
+## Creating the plots in R
+
+The `plot()` function has special methods for fitted linear models. Two of the most useful diagnostic plots are:
+
+- `plot(model, which = 1)` — residuals versus fitted values, useful for linearity and constant variance.
+- `plot(model, which = 2)` — normal Q-Q plot, useful for normality.
+
+The café model from earlier is:
+
+```{r}
+# Daily high temperature and iced coffee sales.
+temp <- c(18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40)
+sales <- c(123, 143, 111, 137, 146, 164, 153, 208, 189, 216, 185, 228)
+
+# Fit the regression model.
+model <- lm(sales ~ temp)
+
+# Set up a two-panel plot.
+par(mfrow = c(1, 2))
+
+# Residuals versus fitted values.
+plot(model, which = 1)
+
+# Normal Q-Q plot.
+plot(model, which = 2)
+
+# Reset the plotting layout.
+par(mfrow = c(1, 1))
+```
+
+For the café data, the residual plot does not show a dramatic curve or a strong fan shape. The Q-Q plot is also reasonably close to the line. With only 12 observations, however, we should be cautious about declaring the assumptions perfectly satisfied. The plots provide reasonable support for the linear model, but they do not prove it.
+
+A residuals-versus-order plot can be created directly:
+
+```{r, echo = FALSE}
+# Plot residuals against observation order for the café model.
+plot(
+  1:length(resid(model)),
+  resid(model),
+  xlab = "Observation order",
+  ylab = "Residuals",
+  main = "Café residuals in order",
+  pch = 19,
+  col = "#346678"
+)
+abline(h = 0, lty = 2, lwd = 1.5)
+```
+
+## What to do when an assumption is violated
+
+A violation is not automatically a disaster. The response depends on the purpose of the analysis and the severity of the violation.
+
+- **Nonlinearity:** Try a transformation of the response or predictor, add a polynomial term, or use a different model. Do not force a straight line through a clearly curved pattern.
+- **Dependence:** Reconsider the study design, use a model that accounts for the dependence, or interpret the results cautiously.
+- **Nonconstant variance:** A transformation of the response often helps. Weighted regression or a different modeling approach may be appropriate in more advanced settings.
+- **Non-normality:** In large samples, the slope interval may still be reliable. In small samples with strong skew or outliers, consider a transformation or a method that does not rely on normality.
+
+In this course, the main goal is to recognize the pattern and describe what it means. You are not expected to fix every violation with a more advanced model.
+
+## Common mistakes
+
+- **Using \(R^2\) to check assumptions.** A high \(R^2\) does not rule out a curved pattern or nonconstant variance.
+- **Looking at only one plot.** Linearity and constant variance use residuals versus fitted values, normality uses a Q-Q plot, and independence often requires thinking about the data collection process.
+- **Overinterpreting a small sample.** A handful of points can make a plot look unusual even when the model is reasonable.
+- **Calling a plot “random” without checking.** Look for curves, fans, clusters, trends, and points far from the rest.
+- **Ignoring outliers.** A single unusual point can affect the fitted line and the diagnostics. Investigate it before deleting it.
+
+## Summary checklist
+
+When checking a simple linear regression model:
+
+1. Plot residuals versus fitted values. Look for curvature and changing spread.
+2. Create a normal Q-Q plot. Look for strong departures from the reference line.
+3. If observation order or grouping is relevant, plot residuals in that order or by group.
+4. Consider how the data were collected. Random sampling and random assignment support independence.
+5. Interpret any violation in context and decide whether the model is still useful for the intended purpose.

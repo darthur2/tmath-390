@@ -225,7 +225,7 @@ Some common \(t\) critical values are:
 |---:|---:|---:|---:|
 | 90% | 1.833 | 1.753 | 1.697 |
 | 95% | 2.262 | 2.131 | 2.042 |
-| 99% | 3.250 | 2.602 | 2.750 |
+| 99% | 3.250 | 2.947 | 2.750 |
 
 The exact critical value depends on the degrees of freedom. In practice, use software or a \(t\) table.
 

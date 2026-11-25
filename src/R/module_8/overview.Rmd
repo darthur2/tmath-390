@@ -1,0 +1,55 @@
+---
+title: "Module 8 Overview"
+subtitle: "Simple linear regression: describing, fitting, and using linear relationships."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+## Why This Module Matters
+
+Many questions in statistics are about relationships between two quantitative variables. Does more practice correspond to higher scores? Does an older machine tend to have a lower resale value? How much does daily temperature help explain iced coffee sales? A **simple linear regression** model describes the average value of a response variable as a linear function of a predictor variable.
+
+Regression is one of the most widely used statistical tools. It gives us a fitted line, a way to make predictions, and a measure of how much variation the model explains. When we want to quantify uncertainty, we need a model for the data and a set of assumptions, so the module also shows how to check whether those assumptions are reasonable.
+
+This module builds on the descriptive and inferential ideas from earlier modules. You will fit regression models in R, interpret the output, construct intervals, and use residual plots to check assumptions.
+
+## What You'll Learn
+
+You will learn how to write and interpret a simple linear regression model. You will fit models with `lm()` and read the output from `summary()`. You will compute predictions and residuals, interpret the coefficient of determination \(R^2\), and construct a confidence interval for the slope and use it to assess whether a linear relationship is significant. You will then distinguish a confidence interval for a mean response from a prediction interval for an individual response. Finally, you will create and interpret residual plots for checking linearity, independence, constant variance, and normality.
+
+## By the End of This Module, You Should Be Able To
+
+- Interpret the slope and intercept of a fitted regression line in context.
+- Fit a simple linear regression model in R and identify the fitted equation.
+- Use a fitted model to compute a prediction and a residual.
+- Interpret \(R^2\) as the proportion of variation in the response explained by the linear model.
+- Construct and interpret a confidence interval for the slope.
+- Use a confidence interval for the slope to determine whether there is significant evidence of a linear relationship.
+- Construct and interpret a confidence interval for the mean response at a given value of the predictor.
+- Construct and interpret a prediction interval for an individual response at a given value of the predictor.
+- Distinguish between a confidence interval for a mean response and a prediction interval for an individual response.
+- Create residual plots in R and use them to identify violations of the regression assumptions.
+
+## What's Inside
+
+- **Readings** — five connected readings: *What Is Simple Linear Regression?*, *Fitting and Interpreting a Regression Model in R*, *Inference for the Slope*, *Confidence and Prediction Intervals*, and *Checking Regression Assumptions*.
+- **Knowledge Checks** — focused practice on coefficient interpretation, model fitting, predictions and residuals, \(R^2\), slope confidence intervals, interval selection, and residual diagnostics.
+- **Quizzes** — scenario-based checks of the Module 8 material.
+- **Mini-Project** — a simple linear regression analysis of your own dataset.
+- **Glossary** — definitions and examples of the main regression terms.
+
+## Suggested Workflow
+
+Read the model and fitting readings first. Fit the examples in R as you read. Then read the slope inference reading, which introduces the remaining error assumptions and builds the interval for the slope. Next, read the confidence and prediction intervals reading. Finish with the assumptions reading to learn how to check them, and use the knowledge checks to identify any skills that need more practice before the module quiz.

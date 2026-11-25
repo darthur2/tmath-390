@@ -1,0 +1,257 @@
+---
+title: "Confidence and Prediction Intervals"
+subtitle: "Estimating a mean response versus predicting an individual response."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+## Beyond point predictions
+
+So far, the fitted line has given us point predictions: single numbers. But just as a slope estimate needs a range of plausible values, a prediction needs a range as well. The same simple linear regression model and the same assumptions we used to build the slope interval let us build intervals for the response at a particular value of the predictor.
+
+## Two questions at the same x
+
+A fitted regression line can answer two different kinds of questions at the same value of the predictor:
+
+1. What is the **mean response** for all units with this predictor value?
+2. What is the response for **one individual unit** with this predictor value?
+
+These questions sound similar, but they require different intervals. A **confidence interval for the mean response** estimates an average. A **prediction interval** estimates an individual response. Prediction intervals are wider because they must account for both uncertainty about the mean and the natural variation of individual observations.
+
+We continue with the café example: daily high temperature \(x\) in degrees Celsius and iced coffee sales \(y\) in cups.
+
+```{r}
+# Daily high temperature and iced coffee sales.
+temp <- c(18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40)
+sales <- c(123, 143, 111, 137, 146, 164, 153, 208, 189, 216, 185, 228)
+
+# Fit the simple linear regression model.
+model <- lm(sales ~ temp)
+```
+
+Suppose the café wants to plan for a day with a high temperature of 30 degrees Celsius. The fitted model predicts
+
+$$
+\hat y=29.88+4.73(30)\approx 171.64
+$$
+
+cups of iced coffee.
+
+That prediction of about 171.64 cups is a point estimate. It could be the estimated mean sales for all 30-degree days, or it could be a prediction for one particular 30-degree day. The point estimate is the same, but the uncertainty is different.
+
+- A **confidence interval for the mean response** answers: “What is a plausible range for the mean sales of all days with a high temperature of 30 degrees?”
+- A **prediction interval** answers: “What is a plausible range for the sales on one future day with a high temperature of 30 degrees?”
+
+## Confidence interval for the mean response
+
+The confidence interval for the mean response at \(x_0\) has the form
+
+$$
+\hat y_0\pm t^*\,SE(\hat y_0),
+$$
+
+where \(\hat y_0\) is the fitted value at \(x_0\) and \(SE(\hat y_0)\) is the standard error of the fitted mean.
+
+The standard error of the fitted mean is
+
+$$
+SE(\hat y_0)=s\sqrt{\frac{1}{n}+\frac{(x_0-\bar x)^2}{\sum_{i=1}^n (x_i-\bar x)^2}},
+$$
+
+where \(s\) is the residual standard error, \(n\) is the sample size, \(\bar x\) is the mean of the predictor values, and the sum in the denominator measures how spread out the predictor values are.
+
+The standard error of the fitted mean is smallest near the center of the predictor values and larger near the extremes. That is why the interval for the mean response is narrower near the middle of the data and wider at the edges.
+
+In R, `predict()` with `interval = "confidence"` gives this interval.
+
+```{r}
+# 95% confidence interval for the mean response at 30 degrees.
+predict(
+  model,
+  newdata = data.frame(temp = 30),
+  interval = "confidence"
+)
+```
+
+The output has three columns:
+
+- `fit`: the fitted value, about \(171.64\) cups.
+- `lwr`: the lower endpoint of the interval.
+- `upr`: the upper endpoint of the interval.
+
+For the café model, the 95% confidence interval for the mean response is approximately
+
+$$
+(160.33,\ 182.96).
+$$
+
+In context:
+
+> We are 95% confident that the mean iced coffee sales on all days with a high temperature of 30 degrees Celsius are between about 160.33 and 182.96 cups.
+
+This interval is about the mean of all 30-degree days, not about one particular day.
+
+## Prediction interval for an individual response
+
+A prediction interval for an individual response at \(x_0\) has the form
+
+$$
+\hat y_0\pm t^*\sqrt{SE(\hat y_0)^2+s^2},
+$$
+
+where \(s\) is the residual standard error. The extra \(s^2\) term accounts for the natural variation of individual observations around the mean.
+
+In R, `predict()` with `interval = "prediction"` gives the prediction interval.
+
+```{r}
+# 95% prediction interval for an individual response at 30 degrees.
+predict(
+  model,
+  newdata = data.frame(temp = 30),
+  interval = "prediction"
+)
+```
+
+For the café model, the 95% prediction interval is approximately
+
+$$
+(131.23,\ 212.06).
+$$
+
+In context:
+
+> We are 95% confident that the iced coffee sales on a single future day with a high temperature of 30 degrees Celsius will be between about 131.23 and 212.06 cups.
+
+Notice that the prediction interval is much wider than the confidence interval for the mean. The point estimate is the same, but predicting one day is harder than estimating the average of many days.
+
+## Why the prediction interval is wider
+
+The confidence interval for the mean only has to account for uncertainty in the estimated mean. The prediction interval must account for two sources of uncertainty:
+
+1. Uncertainty in the estimated mean response.
+2. The natural variation of individual responses around that mean.
+
+Because the prediction interval includes both sources, it is always wider than the confidence interval for the mean at the same value of \(x\), provided the same confidence level is used.
+
+## Choosing the right interval
+
+The wording of the question tells you which interval is appropriate.
+
+Use a **confidence interval for the mean response** when the question is about an average or a mean:
+
+- “the mean sales for all days with a temperature of 30 degrees”
+- “the average score of all students who study 10 hours”
+- “the expected mean response”
+- “the mean delivery time for all 14-mile deliveries”
+
+Use a **prediction interval** when the question is about one individual or one future observation:
+
+- “a single new day”
+- “one future customer”
+- “this individual employee”
+- “the next delivery”
+- “a randomly selected unit”
+
+If the prompt says “mean,” “average,” or “all,” a confidence interval for the mean is usually appropriate. If the prompt says “single,” “individual,” or “one future observation,” a prediction interval is usually appropriate.
+
+## Interpreting the intervals correctly
+
+A 95% confidence interval for the mean response:
+
+> We are 95% confident that the mean response for all units with this predictor value is between the lower and upper endpoints.
+
+A 95% prediction interval:
+
+> We are 95% confident that the response for a single future unit with this predictor value will be between the lower and upper endpoints.
+
+Do not say that 95% of individuals lie in the confidence interval. The confidence interval is about the mean, not about the distribution of individuals.
+
+## How the intervals change with x
+
+Both intervals are narrowest near the center of the observed predictor values and wider near the edges. This happens because the fitted line is estimated most precisely near the middle of the data.
+
+The plot below shows both bands for the café data. The inner band is the confidence band for the mean response, and the outer band is the prediction band for an individual response.
+
+```{r, echo = FALSE, fig.cap = "A confidence band for the mean response and a wider prediction band for an individual response."}
+# Compute both bands over the observed range of temperatures.
+x_grid <- seq(min(temp), max(temp), length.out = 200)
+ci <- predict(
+  model,
+  newdata = data.frame(temp = x_grid),
+  interval = "confidence"
+)
+pred_band <- predict(
+  model,
+  newdata = data.frame(temp = x_grid),
+  interval = "prediction"
+)
+
+plot(
+  temp,
+  sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Confidence and prediction bands",
+  pch = 19,
+  col = "#346678"
+)
+
+# Draw the wider prediction band first, then the narrower confidence band.
+polygon(
+  c(x_grid, rev(x_grid)),
+  c(pred_band[, "lwr"], rev(pred_band[, "upr"])),
+  col = adjustcolor("#c9892b", alpha.f = 0.18),
+  border = NA
+)
+polygon(
+  c(x_grid, rev(x_grid)),
+  c(ci[, "lwr"], rev(ci[, "upr"])),
+  col = adjustcolor("#346678", alpha.f = 0.35),
+  border = NA
+)
+lines(x_grid, ci[, "fit"], col = "#245364", lwd = 2)
+legend(
+  "topleft",
+  legend = c("95% confidence band for the mean", "95% prediction band for an individual"),
+  fill = c(
+    adjustcolor("#346678", alpha.f = 0.35),
+    adjustcolor("#c9892b", alpha.f = 0.18)
+  ),
+  border = NA,
+  bty = "n",
+  cex = 0.8
+)
+```
+
+The prediction interval is also affected by the residual standard error. A model with more unexplained variation will have a wider prediction interval.
+
+Both intervals become unreliable when the predictor value is far outside the observed range. This is another reason to avoid extrapolation.
+
+## Common mistakes
+
+- **Using a confidence interval for an individual.** A confidence interval for the mean response is too narrow to describe one individual.
+- **Using a prediction interval for a mean.** A prediction interval is wider than necessary when the question is about an average.
+- **Saying “95% of individuals are in the confidence interval.”** The confidence interval is about the mean, not the individual distribution.
+- **Saying “there is a 95% probability that the mean is in the interval.”** The confidence level describes the procedure, not a probability assigned after the interval is computed.
+- **Forgetting that the point estimate is the same.** The center of both intervals is the same fitted value; the difference is the width and interpretation.
+
+## Summary
+
+- A confidence interval for the mean response estimates the average response at a given \(x\).
+- A prediction interval estimates an individual response at a given \(x\).
+- Prediction intervals are wider because they include individual variation.
+- Use `predict()` with `interval = "confidence"` or `interval = "prediction"`.
+- Read the prompt carefully to decide whether it is asking about a mean or an individual.
+- Both intervals are about the response at a specified predictor value, not about the slope.

@@ -13,3 +13,4 @@ This page links to the readings for each module.
 - [Module 5: Maximum Likelihood Estimation](module_5/index.html)
 - [Module 6: Sampling Distributions and the Central Limit Theorem](module_6/index.html)
 - [Module 7: Inference](module_7/index.html)
+- [Module 8: Regression](module_8/index.html)

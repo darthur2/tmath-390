@@ -1,0 +1,262 @@
+---
+title: "Fitting and Interpreting a Regression Model in R"
+subtitle: "Least squares, lm(), predictions, residuals, and R-squared."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+The previous reading introduced the simple linear regression model. This reading shows how R chooses the fitted line, how to read the model output, how to make predictions, how to compute residuals, and how to interpret the coefficient of determination \(R^2\).
+
+We will use the café data from the previous reading. The predictor is daily high temperature in degrees Celsius, and the response is iced coffee sales in cups.
+
+```{r}
+# Daily high temperature in degrees Celsius.
+temp <- c(18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40)
+
+# Iced coffee sales in cups.
+sales <- c(123, 143, 111, 137, 146, 164, 153, 208, 189, 216, 185, 228)
+```
+
+## The least squares idea
+
+A line is determined by its intercept and slope. Many different lines could be drawn through the same scatterplot. Regression chooses the line that makes the vertical distances from the observed points to the line as small as possible in a squared sense.
+
+For each observation, the vertical distance from the observed response \(y_i\) to the fitted value \(\hat y_i\) is the residual
+
+$$
+e_i=y_i-\hat y_i.
+$$
+
+The **sum of squared errors** is
+
+$$
+SSE=\sum_{i=1}^n e_i^2=\sum_{i=1}^n (y_i-\hat y_i)^2.
+$$
+
+The figure below shows the least squares line and the vertical residuals that it makes small in a squared sense.
+
+```{r, echo = FALSE, fig.cap = "The least squares line and the vertical residuals it minimizes."}
+# Fit the line and show the vertical residuals.
+fit_ls <- lm(sales ~ temp)
+
+plot(
+  temp,
+  sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Least squares line and residuals",
+  pch = 19,
+  col = "#346678"
+)
+abline(fit_ls, col = "#245364", lwd = 2)
+segments(
+  temp,
+  fitted(fit_ls),
+  temp,
+  sales,
+  col = "#b04a3a",
+  lwd = 1.2
+)
+```
+
+The **least squares** estimates are the intercept and slope that minimize \(SSE\):
+
+$$
+\hat\beta_1=
+\frac{\sum_{i=1}^n (x_i-\bar x)(y_i-\bar y)}
+{\sum_{i=1}^n (x_i-\bar x)^2},
+\qquad
+\hat\beta_0=\bar y-\hat\beta_1\bar x.
+$$
+
+Squaring the residuals means that large misses are penalized more heavily than small ones. It also makes the algebra work out nicely. In practice, we let R do the calculation.
+
+## Fitting the model with lm()
+
+The function `lm()` fits a linear model. The formula `sales ~ temp` means “model sales as a function of temperature.”
+
+```{r}
+# Fit the simple linear regression model.
+model <- lm(sales ~ temp)
+
+# Display the fitted model.
+model
+```
+
+The output gives the estimated intercept and slope. The fitted equation is
+
+$$
+\hat y=29.88+4.73x,
+$$
+
+where \(x\) is temperature in degrees Celsius and \(y\) is predicted mean iced coffee sales in cups.
+
+A fitted line can be added to the scatterplot with `abline()`.
+
+```{r}
+# Plot the data and add the least squares line.
+plot(
+  temp,
+  sales,
+  xlab = "Daily high temperature (C)",
+  ylab = "Iced coffee sales (cups)",
+  main = "Fitted regression line",
+  pch = 19,
+  col = "#346678"
+)
+abline(model, col = "#245364", lwd = 2)
+```
+
+The line passes through the middle of the cloud of points. It does not pass through every point, because the relationship is not perfect.
+
+## Reading the summary output
+
+The `summary()` function gives a fuller picture of the fitted model.
+
+```{r}
+# Summarize the fitted model.
+summary(model)
+```
+
+The coefficient table has four columns:
+
+- **Estimate:** the estimated intercept and slope.
+- **Std. Error:** the estimated standard error of each estimate.
+- **t value:** the estimate divided by its standard error.
+- **Pr(>|t|):** a p-value reported by R for each coefficient.
+
+The intercept row describes \(\beta_0\), and the `temp` row describes \(\beta_1\). The slope estimate is \(4.7255\), with standard error \(0.7280\). The intercept estimate is \(29.8765\), with standard error \(21.7030\).
+
+The summary also reports the **residual standard error**, which estimates the standard deviation of the errors. For this model it is about \(17.41\) cups. That number describes the typical size of the residuals, in the units of the response.
+
+The `Multiple R-squared` value is \(0.8082\). We will interpret it shortly. The standard errors will be the basis for the interval estimates in a later reading.
+
+## Writing the fitted equation
+
+The fitted equation should always be written with the variables named in context. For the café model:
+
+$$
+\widehat{\text{sales}}=29.88+4.73(\text{temperature}).
+$$
+
+In context:
+
+> For each additional degree Celsius, the predicted mean iced coffee sales increase by about 4.73 cups.
+
+The intercept says:
+
+> The predicted mean iced coffee sales at 0 degrees Celsius are about 29.88 cups.
+
+Because 0 degrees Celsius is outside the observed range, the intercept is an extrapolation and has little practical meaning for this café.
+
+The coefficients can also be extracted directly.
+
+```{r}
+# Extract the estimated coefficients.
+coef(model)
+```
+
+## Predictions
+
+A **prediction** uses the fitted model to estimate the mean response at a particular value of the predictor. The `predict()` function creates predictions.
+
+```{r}
+# Predict mean sales on a 30-degree day.
+predict(model, newdata = data.frame(temp = 30))
+```
+
+The predicted mean sales on a 30-degree day are about \(171.64\) cups. This is a prediction of the mean response for all days with a high temperature of 30 degrees, not a promise about one particular day.
+
+The argument `newdata` must be a data frame with a column whose name matches the predictor in the model. Here the predictor is `temp`, so we use `data.frame(temp = 30)`.
+
+## Residuals
+
+A **residual** is the observed response minus the fitted value:
+
+$$
+e_i=y_i-\hat y_i.
+$$
+
+The `fitted()` and `resid()` functions extract fitted values and residuals from a fitted model.
+
+```{r}
+# Fitted value and residual for the first observation.
+fitted(model)[1]
+resid(model)[1]
+```
+
+The first observation has temperature 18 degrees and sales 123 cups. The fitted value is about \(114.94\) cups, so the residual is about
+
+$$
+123-114.94=8.06.
+$$
+
+The observed sales were about 8.06 cups above the model's prediction. A positive residual means the model underpredicted the response. A negative residual means the model overpredicted the response.
+
+Residuals are useful because they show what the model missed. They are also the main tool for checking the model later in the module.
+
+## The coefficient of determination, R-squared
+
+The **coefficient of determination**, written \(R^2\), measures the proportion of variation in the response that is explained by the linear model.
+
+The total variation in the response is measured by the **total sum of squares**:
+
+$$
+SST=\sum_{i=1}^n (y_i-\bar y)^2.
+$$
+
+The variation left unexplained by the model is the sum of squared errors, \(SSE\). The coefficient of determination is
+
+$$
+R^2=1-\frac{SSE}{SST}.
+$$
+
+Because \(0\le SSE\le SST\), we have \(0\le R^2\le 1\).
+
+For the café model, \(R^2\approx 0.8082\). In context:
+
+> About 80.8% of the variation in daily iced coffee sales is explained by the linear relationship with daily high temperature.
+
+The remaining \(19.2\%\) of the variation is not explained by temperature in this linear model. It could be due to other variables, random variation, or a relationship that is not perfectly linear.
+
+In R, the value is stored in the model summary.
+
+```{r}
+# Extract R-squared from the model summary.
+summary(model)$r.squared
+```
+
+For a simple linear regression model, \(R^2\) is also the square of the correlation between the response and the predictor. Correlation describes the strength of the linear association; \(R^2\) describes the proportion of response variation explained by the linear model.
+
+A larger \(R^2\) means the points are closer to the fitted line in a relative sense. A smaller \(R^2\) means the line leaves more variation unexplained. But \(R^2\) alone does not tell us whether the model is appropriate. A model can have a high \(R^2\) and still be a poor summary, and a model with a modest \(R^2\) can be useful.
+
+## Common mistakes
+
+- **Rounding too early.** Use the coefficients from R, not rounded values copied partway through a calculation.
+- **Forgetting the units.** The slope has units of response per unit of predictor. Here, cups per degree Celsius.
+- **Saying \(R^2\) explains variation in \(x\).** \(R^2\) describes variation in the response, not the predictor.
+- **Treating \(R^2\) as a probability.** \(R^2\) is a proportion of variation, not the probability that the model is correct.
+- **Using \(R^2\) to judge the model.** A high \(R^2\) does not guarantee that a straight line is appropriate. Residual plots, not \(R^2\), show where the model misses.
+- **Extrapolating.** Predictions outside the observed range of the predictor are unreliable.
+- **Interpreting a prediction as a guarantee.** A prediction is a model-based estimate, not a certainty.
+
+## Summary
+
+- `lm()` fits a least squares regression line.
+- `summary()` reports coefficients, standard errors, the residual standard error, and \(R^2\).
+- `predict()` computes a predicted mean response at a given predictor value.
+- `resid()` and `fitted()` extract residuals and fitted values.
+- \(R^2\) is the proportion of variation in the response explained by the linear model.
+- A good analysis interprets the coefficients in context and examines the residuals before relying on the model.

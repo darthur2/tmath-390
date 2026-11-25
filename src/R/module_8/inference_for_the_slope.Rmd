@@ -1,0 +1,246 @@
+---
+title: "Inference for the Slope"
+subtitle: "Constructing an interval estimate for the slope of a simple linear regression model."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  comment = "",
+  collapse = TRUE,
+  fig.align = "center",
+  fig.width = 6.5,
+  fig.height = 4,
+  fig.retina = 2
+)
+```
+
+A fitted slope \(\hat\beta_1\) is an estimate based on one sample. A different sample would produce a different estimate. **Inference for the slope** describes how much the estimate would vary from sample to sample and uses that variability to construct an interval estimate for the population slope.
+
+We continue with the café example: daily high temperature \(x\) in degrees Celsius and iced coffee sales \(y\) in cups.
+
+```{r}
+# Daily high temperature and iced coffee sales.
+temp <- c(18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40)
+sales <- c(123, 143, 111, 137, 146, 164, 153, 208, 189, 216, 185, 228)
+
+# Fit the simple linear regression model.
+model <- lm(sales ~ temp)
+```
+
+## Parameter and estimate
+
+The population slope \(\beta_1\) is the change in the mean response associated with a one-unit increase in the predictor. It is fixed but unknown.
+
+The sample slope \(\hat\beta_1\) is our estimate of \(\beta_1\). For the café data,
+
+$$
+\hat\beta_1=4.7255.
+$$
+
+The estimate says that each additional degree Celsius is associated with an estimated increase of about 4.73 cups in mean sales. Because the estimate comes from a sample, it is not exactly equal to the population slope.
+
+That single number is a point estimate. If we took a different sample of days, we would get a different estimate. Depending on the sample, the estimate might be closer to zero, or it might even be negative instead of positive. To describe what the data tell us about \(\beta_1\), we want more than just a point estimate: we want a range of plausible values. That range is a **confidence interval for the slope**.
+
+## The sampling distribution of the slope
+
+Imagine taking many random samples of the same size from the same population and fitting the regression line each time. The slopes from those samples would form a **sampling distribution**.
+
+Under the regression assumptions, the sampling distribution of \(\hat\beta_1\) is centered at \(\beta_1\) and has standard deviation
+
+$$
+SE(\hat\beta_1),
+$$
+
+the **standard error of the slope**. In practice, we estimate the standard error from the data. R reports it in the `Std. Error` column of the coefficient table.
+
+```{r}
+# Slope estimate and standard error from the fitted model.
+summary(model)$coefficients["temp", c("Estimate", "Std. Error")]
+```
+
+The estimated slope is more precise when the points are tightly clustered around the line and when the predictor values are spread out. A larger residual standard error or less spread in the predictor tends to produce a larger standard error for the slope.
+
+A simulation makes the sampling distribution visible. The histogram below shows the slopes from many samples of 12 days generated from the café model.
+
+```{r, echo = FALSE, fig.cap = "A simulated sampling distribution of the slope for samples of 12 days."}
+# Simulate many slope estimates from the fitted model.
+set.seed(3905)
+sim_slopes <- replicate(1000, {
+  sim_y <- coef(model)[1] + coef(model)[2] * temp + rnorm(length(temp), 0, summary(model)$sigma)
+  coef(lm(sim_y ~ temp))[["temp"]]
+})
+
+hist(
+  sim_slopes,
+  breaks = 30,
+  col = adjustcolor("#346678", alpha.f = 0.45),
+  border = "white",
+  main = "Sampling distribution of the slope",
+  xlab = "Estimated slope (cups per degree C)"
+)
+abline(v = coef(model)[2], col = "#245364", lwd = 2, lty = 2)
+abline(v = mean(sim_slopes), col = "#b04a3a", lwd = 2)
+legend(
+  "topright",
+  legend = c("True slope", "Mean of estimates"),
+  col = c("#245364", "#b04a3a"),
+  lwd = 2,
+  lty = c(2, 1),
+  bty = "n",
+  cex = 0.85
+)
+```
+
+## Standardizing the slope estimate
+
+To build an interval, we need to know the sampling distribution of \(\hat\beta_1\), not just its center and spread. If we knew the true standard deviation of the sampling distribution, the standardized quantity
+
+$$
+Z=\frac{\hat\beta_1-\beta_1}{SD(\hat\beta_1)}
+$$
+
+would have a standard normal distribution. In practice, we do not know that standard deviation, so we estimate it with \(SE(\hat\beta_1)\).
+
+Estimating the standard deviation adds uncertainty. The standardized quantity
+
+$$
+T=\frac{\hat\beta_1-\beta_1}{SE(\hat\beta_1)}
+$$
+
+therefore follows a \(t\) distribution with \(n-2\) degrees of freedom, rather than a standard normal distribution. The degrees of freedom are \(n-2\) because we estimate two parameters, \(\beta_0\) and \(\beta_1\); estimating each parameter uses up one degree of freedom. This \(t\) distribution is what gives us the multiplier \(t^*\) used to build the interval.
+
+The figure below shows the central 95% region and the cutoff values for 10 degrees of freedom.
+
+```{r, echo = FALSE, fig.cap = "A t distribution with 10 degrees of freedom and a 95% central region."}
+# Compute the cutoff for a 95% interval.
+t_star_plot <- qt(0.975, df = 10)
+x <- seq(-4, 4, length.out = 1000)
+density <- dt(x, df = 10)
+
+plot(
+  x,
+  density,
+  type = "l",
+  lwd = 2,
+  xlab = "t",
+  ylab = "Density",
+  main = "t distribution with 10 degrees of freedom"
+)
+
+# Shade the lower and upper tails.
+lower_x <- seq(min(x), -t_star_plot, length.out = 200)
+polygon(
+  c(lower_x, rev(lower_x)),
+  c(rep(0, length(lower_x)), rev(dt(lower_x, df = 10))),
+  col = "lightpink",
+  border = NA
+)
+upper_x <- seq(t_star_plot, max(x), length.out = 200)
+polygon(
+  c(upper_x, rev(upper_x)),
+  c(rep(0, length(upper_x)), rev(dt(upper_x, df = 10))),
+  col = "lightpink",
+  border = NA
+)
+
+# Shade the central 95% region and redraw the density curve.
+central_x <- seq(-t_star_plot, t_star_plot, length.out = 300)
+polygon(
+  c(central_x, rev(central_x)),
+  c(rep(0, length(central_x)), rev(dt(central_x, df = 10))),
+  col = "lightblue",
+  border = NA
+)
+lines(x, density, lwd = 2)
+abline(v = c(-t_star_plot, t_star_plot), lty = 2, lwd = 2)
+text(-t_star_plot, 0.05, labels = "t* = 2.228", pos = 2)
+text(t_star_plot, 0.05, labels = "t* = 2.228", pos = 4)
+```
+
+## Assumptions for inference
+
+The sampling distribution above, and therefore the interval, requires the following assumptions.
+
+- **Linearity.** The average response is a linear function of the predictor. We made this assumption when we defined the simple linear regression model. Without it, the straight-line mean is not the right summary, and the slope does not describe the relationship we intend to estimate.
+- **Independence.** The errors are independent of one another. This is usually determined by how the data were collected. Without independence, the standard error formula and the sampling distribution are not reliable.
+- **Constant variance.** The variability of the errors is the same for every value of the predictor. A single residual standard error can then describe the spread of the errors at every \(x\).
+- **Normality of the errors.** The errors are approximately normally distributed. This is what makes the standardized slope estimate follow a \(t\) distribution, especially in small samples.
+
+If these assumptions are seriously violated, the standard error and interval may be misleading. The final reading in this module shows how to check them with residual plots.
+
+## Confidence interval for the slope
+
+A 95% confidence interval for the slope has the form
+
+$$
+\hat\beta_1\pm t^*\,SE(\hat\beta_1),
+$$
+
+where \(t^*\) is the \(97.5\)th percentile of a \(t\) distribution with \(n-2\) degrees of freedom. For the café data, \(n=12\), so the degrees of freedom are \(12-2=10\).
+
+```{r}
+# Extract the slope estimate and standard error.
+slope_hat <- coef(model)["temp"]
+slope_se <- summary(model)$coefficients["temp", "Std. Error"]
+
+# Compute the 95% critical value with 10 degrees of freedom.
+t_star <- qt(0.975, df = 10)
+
+# Construct the confidence interval.
+c(
+  lower = slope_hat - t_star * slope_se,
+  upper = slope_hat + t_star * slope_se
+)
+```
+
+The interval is approximately
+
+$$
+(3.10,\ 6.35).
+$$
+
+The same interval can be obtained directly with `confint()`.
+
+```{r}
+# 95% confidence interval for the model coefficients.
+confint(model)
+```
+
+The interval for `temp` is the interval for the slope. In context:
+
+> We are 95% confident that the true slope relating temperature to mean iced coffee sales is between about 3.10 and 6.35 cups per degree Celsius.
+
+Equivalently, for each additional degree Celsius, the population mean iced coffee sales are estimated to increase by between about 3.10 and 6.35 cups. The interval describes the slope, not individual days and not the correlation.
+
+## Using the interval to assess significance
+
+A 95% confidence interval for the slope gives a range of plausible values for the population slope. We can use it to judge whether the relationship is significant.
+
+- If the interval contains 0, then 0 is a plausible value for the slope. The relationship is not significant at the 5% level, and it is possible that the true regression line is flat.
+- If the interval is entirely above 0, all plausible slopes are positive. The relationship is significant and positive.
+- If the interval is entirely below 0, all plausible slopes are negative. The relationship is significant and negative.
+
+For the café model, the interval \((3.10, 6.35)\) is entirely above 0. In context, there is statistically significant evidence of a positive linear relationship between temperature and mean iced coffee sales, and a flat line with slope 0 is not plausible.
+
+The word “significant” here means statistically detectable, not large or practically important.
+
+## Common mistakes
+
+- **Saying “there is a 95% probability that the slope is in the interval.”** Once the interval is computed, it either contains the true slope or it does not. The 95% refers to the long-run behavior of the procedure.
+- **Confusing the slope interval with a prediction interval.** A confidence interval for the slope is about the population slope, not about individual responses.
+- **Treating statistical significance as practical importance.** A statistically significant slope can be very small in practical terms, especially with a large sample.
+- **Saying an interval that contains 0 proves the slope is zero.** It says that 0 is one plausible value, not that it is the only plausible value.
+- **Saying “the interval does not contain 0, so the model is good.”** Significance only says there is evidence of a nonzero linear relationship. It does not establish that the model fits well or that the assumptions hold.
+- **Ignoring the assumptions.** The interval can be unreliable when the linearity, independence, constant variance, or normality assumptions are seriously violated.
+
+## Summary
+
+- The population slope \(\beta_1\) is estimated by \(\hat\beta_1\).
+- The standard error of the slope measures the sample-to-sample variability of the estimate.
+- Under the regression assumptions, the standardized slope estimate follows a \(t\) distribution with \(n-2\) degrees of freedom.
+- A 95% confidence interval for the slope is \(\hat\beta_1\pm t^*SE(\hat\beta_1)\).
+- If the interval contains 0, then 0 is plausible and the relationship is not significant at the 5% level. It is possible that the true regression line is flat.
+- Always interpret the interval in context and check the regression assumptions.

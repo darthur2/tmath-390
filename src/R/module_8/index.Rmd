@@ -1,0 +1,26 @@
+---
+title: "Module 8: Regression"
+---
+
+This page lists the overview, readings, mini-project, and glossary for Module 8.
+
+## Overview
+
+- [Module Overview](overview.html)
+
+## Readings
+
+- [What Is Simple Linear Regression?](what_is_simple_linear_regression.html)
+- [Fitting and Interpreting a Regression Model in R](fitting_and_interpreting_in_r.html)
+- [Inference for the Slope](inference_for_the_slope.html)
+- [Confidence and Prediction Intervals](confidence_and_prediction_intervals.html)
+- [Checking Regression Assumptions](checking_regression_assumptions.html)
+
+## Mini-Project
+
+- [Simple Linear Regression Mini-Project](project/rubric.html)
+- [Final Presentation Rubric](project/presentation_rubric.html)
+
+## Glossary
+
+- [Definitions and Examples](definitions_and_examples.html)
