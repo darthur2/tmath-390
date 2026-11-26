@@ -144,6 +144,10 @@ rmd_files <- list.files(
   full.names = TRUE
 )
 
+# Templates are downloaded as-is rather than rendered into pages.
+template_files <- rmd_files[grepl("_template\\.Rmd$", rmd_files)]
+rmd_files <- setdiff(rmd_files, template_files)
+
 for (input in rmd_files) {
   relative <- sub("^src/R/", "", input)
   out_dir <- file.path(out_root, dirname(relative))
@@ -196,6 +200,14 @@ for (input in rmd_files) {
   )
   html <- sub("</body>", paste0(script_tags, "</body>"), html, fixed = TRUE)
   writeLines(html, html_path, useBytes = TRUE)
+}
+
+# Copy downloadable R Markdown templates into the site.
+for (template in template_files) {
+  relative <- sub("^src/R/", "", template)
+  dest <- file.path(out_root, relative)
+  dir.create(dirname(dest), recursive = TRUE, showWarnings = FALSE)
+  file.copy(template, dest, overwrite = TRUE)
 }
 
 invisible(file.copy(

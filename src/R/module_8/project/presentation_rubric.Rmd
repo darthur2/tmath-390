@@ -15,6 +15,8 @@ You may prepare your slides using either:
 
 Your presentation should be 7 to 10 minutes long. Include one content slide for each of the seven required items below. You may add a title slide and a short conclusion slide, but the seven required slides should each be present and clearly identifiable.
 
+You must also upload an **audio-only recording** of yourself presenting the slides. The recording should run 7 to 10 minutes and should accompany the slides and, when applicable, the R Markdown source.
+
 ## Required slides
 
 ### 1. Dataset and variables
@@ -53,7 +55,17 @@ If you choose to make your slides with R Markdown:
 2. Choose a presentation format such as `ioslides_presentation` or `slidy_presentation` for HTML slides, or `beamer_presentation` for PDF slides. Quarto's `revealjs` format is also acceptable.
 3. Use `##` headings for individual slide titles, bullet points for the content, and code chunks to produce plots and tables.
 4. Knit or render the file to HTML or PDF.
-5. Submit the rendered slides and the `.Rmd` source file.
+5. Submit the rendered slides, the `.Rmd` source file, and your audio recording.
+
+## Presentation template
+
+An optional R Markdown template is available here:
+
+<div class="rmd-download">
+<a href="presentation_template.Rmd" download="presentation_template.Rmd" data-filename="presentation_template.Rmd">Download the R Markdown presentation template</a>
+</div>
+
+The template provides the required slide structure and examples of bullets, numbered lists, tables, and code chunk placeholders. It is a starting point, not a completed analysis. Replace the placeholder text and add your own code, results, and interpretations. Do not submit the template unchanged.
 
 ## Submission
 
@@ -61,8 +73,17 @@ Submit the following:
 
 - **PowerPoint option:** the `.pptx` file, or a PDF export of the slides.
 - **R Markdown option:** the rendered HTML or PDF slides and the `.Rmd` source file.
+- **Audio recording:** an audio-only recording of you presenting the slides. The recording should run 7 to 10 minutes.
 
-Your slides should be readable, your plots should be clearly labeled, and your interpretations should be stated in context. Do not simply read the slides aloud; use them to support your explanation.
+Your slides should be readable, your plots should be clearly labeled, and your interpretations should be stated in context. Do not simply read the slides aloud; use them to support your explanation. If you use the presentation template, replace all placeholders with your own content and results before submitting.
+
+## Submission checklist
+
+- All seven required content slides are present.
+- The slides are uploaded as a `.pptx` file, a PDF, or rendered R Markdown slides.
+- The `.Rmd` source file is uploaded when the R Markdown option is used.
+- The audio-only recording is uploaded and runs 7 to 10 minutes.
+- Plots are clearly labeled, and the interpretations are stated in context.
 
 ## Grading Rubric
 
@@ -77,13 +98,15 @@ Total: 100 points
 | Confidence interval for a population mean slide | 10 | A confidence interval for a population mean is presented correctly and interpreted in context, including the confidence level, population, and units. | The interval is mostly correct, but the interpretation is incomplete, unclear, or not fully in context. | The interval is missing or incorrect, or it is not interpreted in context. |
 | Confidence interval for a difference in means slide | 10 | A confidence interval for a difference between population means is presented correctly and interpreted in context, including the direction of the difference and what the interval says about whether a difference is plausible. | The interval is mostly correct, but the interpretation, direction, or connection to zero is incomplete or unclear. | The interval is missing or incorrect, or it is not interpreted in context. |
 | Simple linear regression slide | 20 | The slide includes a scatterplot with the fitted regression line and equation, a 95% confidence interval for the slope, and a correct interpretation of the slope and interval in context. It reports and interprets \(R^2\) in context as a measure of model fit and mentions any violations of the regression assumptions. | The slide includes most required elements, but the equation, slope interval, interpretation, \(R^2\), or discussion of assumption violations is incomplete, unclear, or partly inaccurate. | Several required elements are missing or incorrect, or the regression results are not interpreted in context. |
-| Overall slide quality, organization, and delivery | 15 | Slides are clear, readable, well organized, and visually consistent. The presentation flows logically, stays within the time limit, and is delivered clearly and professionally. | The presentation is generally clear and organized, but there are issues with slide readability, visual consistency, flow, pacing, or delivery. | The presentation is disorganized, difficult to read or follow, significantly off pace, or does not fit the time limit. |
+| Overall slide quality, organization, and delivery | 15 | Slides are clear, readable, well organized, and visually consistent. The presentation flows logically, stays within the time limit, and the uploaded audio recording is clear, audible, and delivered professionally. | The presentation is generally clear and organized, but there are issues with slide readability, visual consistency, flow, pacing, or the clarity of the audio recording. | The presentation is disorganized, difficult to read or follow, significantly off pace, does not fit the time limit, or the recording is missing or unusable. |
 
 ### General Expectations
 
 - Include exactly one content slide for each of the seven required items. A title slide and a short conclusion slide are optional.
+- Upload the audio recording along with the slides and the R Markdown source file, when applicable.
 - Keep slides readable: use large enough text, clear labels, and plots that are not overcrowded.
 - Interpret results in context rather than simply reading numbers from the slides.
 - Use confidence intervals to describe plausible values and to discuss significance where appropriate.
 - For the regression slide, mention any assumption violations even if you do not show the diagnostic plots.
 - If you use R Markdown, make sure the source file reproduces the figures and results shown in the slides.
+- If you use the presentation template, replace every placeholder with your own content and results; do not submit the template unchanged.

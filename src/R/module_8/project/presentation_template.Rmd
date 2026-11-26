@@ -1,0 +1,139 @@
+---
+title: "Final Project Presentation"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: ioslides_presentation
+# output: slidy_presentation
+# output: beamer_presentation
+---
+
+<!--
+TEMPLATE INSTRUCTIONS
+
+This file is a starting point for your slides. Replace every bracketed
+placeholder with your own text, variable names, code, and results. The
+template is intentionally incomplete: do not submit it unchanged.
+
+Use the slide titles below for the seven required items. You may add a
+title slide (from the YAML header) and an optional conclusion slide.
+
+For R Markdown presentations:
+- Use ## for individual slide titles.
+- Put code for plots and tables in code chunks.
+- The placeholder code chunks below are set to eval = FALSE so the
+  template knits without producing results. Add your code, then remove
+  eval = FALSE. Set echo = FALSE if you do not want code on the slide.
+- Knit or render to HTML or PDF. Submit the rendered slides, this .Rmd
+  file, and your audio-only recording.
+-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = "center"
+)
+```
+
+## 1. Dataset and variables
+
+<!-- Replace these bullets and table with your own dataset information. -->
+
+- **Dataset:** [name and short description]
+- **What one row represents:** [one observation]
+- **Context:** [population or setting, if known]
+
+| Variable | Type | Role |
+|---|---|---|
+| [variable 1] | [quantitative/categorical] | [predictor/response/grouping] |
+| [variable 2] | [quantitative/categorical] | [predictor/response/grouping] |
+
+## 2. Univariate summary and visualization
+
+<!-- Use bullets or a table for the numeric summary, then add your plot. -->
+
+- **Variable:** [name]
+- **Center:** [mean or median]
+- **Spread:** [standard deviation, IQR, or range]
+- **Shape:** [symmetric, skewed, modes]
+
+```{r univariate-summary, eval=FALSE, echo=TRUE}
+# Add code for your numeric summary and univariate plot.
+```
+
+## 3. Bivariate summary and visualization
+
+<!-- Use a numbered list to organize direction, form, and strength. -->
+
+1. **Direction:** [positive, negative, or no clear direction]
+2. **Form:** [linear or curved]
+3. **Strength:** [weak, moderate, or strong]
+
+```{r bivariate-summary, eval=FALSE, echo=TRUE}
+# Add code for your correlation, scatterplot, or other bivariate summary.
+```
+
+## 4. Univariate model, parameters, and fitting
+
+<!-- Replace these bullets with your chosen model and parameter estimates. -->
+
+- **Variable:** [name]
+- **Model:** [model name]
+- **Estimated parameters:** [list the estimates]
+- **Why this model:** [brief rationale]
+- **How the model was fit:** [brief explanation of the maximum likelihood step]
+
+```{r univariate-model, eval=FALSE, echo=TRUE}
+# Add code for the fitted model and plot.
+```
+
+## 5. Confidence interval for a population mean
+
+<!-- Replace the table entries and interpretation. -->
+
+| Quantity | Value |
+|---|---|
+| Sample mean | [value] |
+| Standard error | [value] |
+| Degrees of freedom | [value] |
+| Critical value | [value] |
+| 95% confidence interval | [lower, upper] |
+
+**Interpretation:** [Interpret the interval in context, including the population, units, and confidence level.]
+
+## 6. Confidence interval for a difference in means
+
+<!-- Replace the table entries and interpretation. -->
+
+| Quantity | Value |
+|---|---|
+| Difference in sample means | [value] |
+| Standard error | [value] |
+| Degrees of freedom | [value] |
+| Critical value | [value] |
+| 95% confidence interval | [lower, upper] |
+
+**Interpretation:** [Interpret the interval in context, including direction, units, and whether 0 is plausible.]
+
+## 7. Simple linear regression
+
+<!-- Replace these bullets with your regression results and interpretation. -->
+
+- **Regression equation:** [write the fitted equation]
+- **Slope interpretation:** [interpret the slope in context]
+- **95% confidence interval for the slope:** [lower, upper]
+- **Significance:** [does the interval contain 0?]
+- **\(R^2\):** [value and interpretation]
+- **Assumption concerns:** [mention any violations, even if you do not show the plots]
+
+```{r regression, eval=FALSE, echo=TRUE}
+# Add code for your scatterplot, fitted regression line, slope interval,
+# and R-squared.
+```
+
+## Optional conclusion
+
+<!-- Add a short conclusion slide if you want one. -->
+
+- [Main takeaway]
