@@ -4850,5 +4850,140 @@ window.TMATH_GLOSSARY = {
       "text": "A comparison of the population variances in a two-sample problem. If the population variances are unknown but assumed equal, use a pooled two-sample t interval. If the population variances are unknown and not assumed equal, use a Welch (unpooled) two-sample t interval. When population variances are known, use a two-sample z interval instead. Sample standard deviations that are similar are consistent with equal variances; sample standard deviations that are very different suggest unequal variances.",
       "count": 1
     }
+  },
+  "module_8/what_is_simple_linear_regression.html": {
+    "Simple Linear Regression Model": {
+      "text": "A model for a response y as a linear function of a single predictor x: y = beta_0 + beta_1 x + epsilon. The mean response is assumed to be linear in the predictor.",
+      "count": 1
+    },
+    "Least Squares": {
+      "text": "The method that chooses the regression line by minimizing the sum of squared residuals.",
+      "count": 1
+    },
+    "Scatterplot": {
+      "text": "A plot of one quantitative variable against another, used to display the direction, form, and strength of a relationship.",
+      "count": 1
+    },
+    "Predictor Variable": {
+      "text": "The variable used to explain or predict the response. It is usually plotted on the horizontal axis and denoted x.",
+      "count": 1
+    },
+    "Response Variable": {
+      "text": "The variable being explained or predicted. It is usually plotted on the vertical axis and denoted y.",
+      "count": 1
+    },
+    "Residual": {
+      "text": "The difference between an observed response and its fitted value: e_i = y_i - yhat_i. A positive residual means the observation is above the fitted line.",
+      "count": 1
+    },
+    "Error Term": {
+      "text": "The random deviation of an individual response from the population regression line. Errors are unobserved population quantities.",
+      "count": 1
+    },
+    "Intercept": {
+      "text": "The parameter beta_0 in the simple linear regression model. It is the mean response when the predictor equals zero.",
+      "count": 1
+    },
+    "Slope": {
+      "text": "The parameter beta_1 in the simple linear regression model. It is the change in the mean response associated with a one-unit increase in the predictor.",
+      "count": 1
+    },
+    "Linearity": {
+      "text": "The assumption that the mean response is a linear function of the predictor.",
+      "count": 1
+    },
+    "Extrapolation": {
+      "text": "Using a regression model to predict outside the range of predictor values observed in the data. Extrapolation is risky because the linear pattern may not continue.",
+      "count": 1
+    },
+    "Fitted Value": {
+      "text": "The value the regression model predicts for a particular observation: yhat_i = beta_0_hat + beta_1_hat x_i.",
+      "count": 1
+    }
+  },
+  "module_8/fitting_and_interpreting_in_r.html": {
+    "Least Squares": {
+      "text": "The method that chooses the regression line by minimizing the sum of squared residuals.",
+      "count": 1
+    },
+    "Coefficient of Determination": {
+      "text": "The proportion of the total variation in the response that is explained by the linear regression model. It is often written R-squared.",
+      "count": 1
+    }
+  },
+  "module_8/inference_for_the_slope.html": {
+    "Confidence Interval for the Slope": {
+      "text": "An interval estimate of the population slope beta_1, constructed from the sample slope and its standard error.",
+      "count": 1
+    },
+    "Sampling Distribution": {
+      "text": "The distribution of a statistic over repeated random samples of the same size from the same population. For the slope, it describes how the slope estimate would vary from sample to sample.",
+      "count": 1
+    },
+    "Standard Error of the Slope": {
+      "text": "The estimated standard deviation of the sampling distribution of the slope estimate. It measures how much the estimated slope would vary from sample to sample.",
+      "count": 1
+    },
+    "Linearity": {
+      "text": "The assumption that the mean response is a linear function of the predictor.",
+      "count": 1
+    },
+    "Independence": {
+      "text": "The assumption that the errors are not related to one another. Random sampling and random assignment help support independence.",
+      "count": 1
+    },
+    "Constant Variance": {
+      "text": "The assumption that the variability of the errors is the same for every value of the predictor. It is also called homoscedasticity.",
+      "count": 1
+    },
+    "Normality": {
+      "text": "The assumption that the errors are approximately normally distributed. It is used to justify t-based interval estimates, especially in small samples.",
+      "count": 1
+    },
+    "Critical Value": {
+      "text": "A quantile from the reference distribution used to construct an interval. For a slope interval, the critical value is a t quantile with n - 2 degrees of freedom.",
+      "count": 1
+    },
+    "Degrees of Freedom": {
+      "text": "A quantity that determines the shape of a t distribution. For a simple linear regression slope interval, the degrees of freedom are n - 2 because two parameters are estimated.",
+      "count": 1
+    }
+  },
+  "module_8/confidence_and_prediction_intervals.html": {
+    "Confidence Interval for the Mean Response": {
+      "text": "An interval estimate of the mean response for all units with a specified value of the predictor. It is narrower than a prediction interval because it only accounts for uncertainty in the estimated mean.",
+      "count": 1
+    },
+    "Prediction Interval": {
+      "text": "An interval estimate for an individual response at a specified value of the predictor. It is wider than a confidence interval for the mean because it also includes individual variation.",
+      "count": 1
+    }
+  },
+  "module_8/checking_regression_assumptions.html": {
+    "Residual Plot": {
+      "text": "A plot used to check regression assumptions. The most common version plots residuals versus fitted values to check linearity and constant variance.",
+      "count": 1
+    },
+    "Linearity": {
+      "text": "The assumption that the mean response is a linear function of the predictor. A curved residual pattern suggests that this assumption is not reasonable.",
+      "count": 1
+    },
+    "Independence": {
+      "text": "The assumption that the errors are not related to one another. A pattern in residuals plotted against observation order can suggest dependence.",
+      "count": 1
+    },
+    "Constant Variance": {
+      "text": "The assumption that the variability of the errors is the same for every value of the predictor. A fan-shaped residual plot suggests a violation.",
+      "count": 1
+    },
+    "Normality": {
+      "text": "The assumption that the errors are approximately normally distributed. A normal Q-Q plot of the residuals is used to look for strong departures from normality.",
+      "count": 1
+    },
+    "Normal Q-Q Plot": {
+      "text": "A plot that compares the quantiles of the residuals to the quantiles expected from a normal distribution. Points close to a straight reference line are consistent with approximately normal residuals.",
+      "count": 1
+    }
   }
+
 };

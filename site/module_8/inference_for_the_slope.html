@@ -378,10 +378,10 @@ quantity</p>
 T=\frac{\hat\beta_1-\beta_1}{SE(\hat\beta_1)}
 $$</p>
 <p>therefore follows a \(t\)
-distribution with \(n-2\) degrees of
-freedom, rather than a standard normal distribution. The degrees of
-freedom are \(n-2\) because we estimate
-two parameters, \(\beta_0\) and \(\beta_1\); estimating each parameter uses
+distribution with \(n-2\)
+<strong>degrees of freedom</strong>, rather than a standard normal
+distribution. The degrees of freedom are \(n-2\) because we estimate two parameters,
+\(\beta_0\) and \(\beta_1\); estimating each parameter uses
 up one degree of freedom. This \(t\)
 distribution is what gives us the multiplier \(t^*\) used to build the interval.</p>
 <p>The figure below shows the central 95% region and the cutoff values
@@ -428,7 +428,8 @@ to check them with residual plots.</p>
 <p>$$
 \hat\beta_1\pm t^*\,SE(\hat\beta_1),
 $$</p>
-<p>where \(t^*\) is the \(97.5\)th percentile of a \(t\) distribution with \(n-2\) degrees of freedom. For the café
+<p>where \(t^*\) is the
+<strong>critical value</strong>, the \(97.5\)th percentile of a \(t\) distribution with \(n-2\) degrees of freedom. For the café
 data, \(n=12\), so the degrees of
 freedom are \(12-2=10\).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Extract the slope estimate and standard error.</span></span>
