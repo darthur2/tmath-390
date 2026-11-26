@@ -1,22 +1,89 @@
 ---
-title: "Presentation Rubric"
+title: "Final Presentation: Guidelines and Rubric"
 ---
 
-## Final Presentation Rubric
+## Purpose
+
+The final presentation gives you a chance to summarize the full project and communicate the most important results and conclusions. Your presentation should show that you can describe your data, summarize variables, fit statistical models, construct and interpret confidence intervals, and interpret a simple linear regression model in context. The emphasis is on clear communication, correct interpretation, and well-chosen visuals rather than on covering every detail of the written report.
+
+## Format
+
+You may prepare your slides using either:
+
+- **PowerPoint** or another slide program.
+- **R Markdown** or Quarto, rendered to slides.
+
+Your presentation should be 7 to 10 minutes long. Include one content slide for each of the seven required items below. You may add a title slide and a short conclusion slide, but the seven required slides should each be present and clearly identifiable.
+
+## Required slides
+
+### 1. Dataset and variables
+
+Provide an overview of the dataset and the variables used in the project. Explain what the dataset describes, what one row represents, and the context or population when those details are available. Identify the key variables and whether they are quantitative or categorical.
+
+### 2. Univariate summary and visualization
+
+Choose one variable and present a univariate numeric summary along with an accompanying visualization. Use summaries and a plot that fit the variable. Comment on the distribution, including center, spread, shape, and any interesting features such as skewness, outliers, or multiple modes.
+
+### 3. Bivariate summary and visualization
+
+Choose a pair of variables and present a bivariate numeric summary along with an accompanying visualization. Use a correlation and a scatterplot when both variables are quantitative. Comment on the direction, form, and strength of the relationship shown in the plot and summary.
+
+### 4. Univariate model, parameters, and fitting
+
+Show a univariate plot of a variable along with a fitted model overlaid on the plot. State which model you used for that variable and report the estimated parameters. Briefly explain why you chose that model and how the model was fit, including how the maximum likelihood estimate was obtained.
+
+### 5. Confidence interval for a population mean
+
+Present a confidence interval for a population mean for one of the variables. Interpret the interval in context, including the confidence level, the population, and the units.
+
+### 6. Confidence interval for a difference in means
+
+Present a confidence interval for a difference between two population means. Interpret the interval in context, including the direction of the difference, the units, and what the interval says about whether a difference is plausible.
+
+### 7. Simple linear regression
+
+Present a scatterplot with the fitted regression line and the regression equation. Include a 95% confidence interval for the slope parameter and interpret both the slope and the interval in context. Report \(R^2\) and interpret it in context as a measure of model fit. Also mention whether you found any violations of the regression assumptions. You do not need to show the diagnostic plots on this slide; a brief verbal summary of any concerns is sufficient.
+
+## Building slides with R Markdown
+
+If you choose to make your slides with R Markdown:
+
+1. In RStudio, choose **File → New File → R Markdown… → Presentation**.
+2. Choose a presentation format such as `ioslides_presentation` or `slidy_presentation` for HTML slides, or `beamer_presentation` for PDF slides. Quarto's `revealjs` format is also acceptable.
+3. Use `##` headings for individual slide titles, bullet points for the content, and code chunks to produce plots and tables.
+4. Knit or render the file to HTML or PDF.
+5. Submit the rendered slides and the `.Rmd` source file.
+
+## Submission
+
+Submit the following:
+
+- **PowerPoint option:** the `.pptx` file, or a PDF export of the slides.
+- **R Markdown option:** the rendered HTML or PDF slides and the `.Rmd` source file.
+
+Your slides should be readable, your plots should be clearly labeled, and your interpretations should be stated in context. Do not simply read the slides aloud; use them to support your explanation.
+
+## Grading Rubric
 
 Total: 100 points
 
 | Criterion | Points | Full Credit | Partial Credit | Low / No Credit |
-| --- | ---: | --- | --- | --- |
-| Overall organization and flow | 20 | The presentation is well organized and easy to follow. It has a clear beginning, middle, and end, and the major pieces of the project are connected into a coherent story. | The presentation is generally organized, but the flow is sometimes uneven or the connections between sections are not always clear. | The presentation is disorganized, difficult to follow, or lacks a clear structure. |
-| Coverage of major project components | 25 | The presentation covers the major ideas from the full project and gives an appropriate overview of each part without getting lost in unnecessary detail. The most important results and conclusions are included. | Most of the major components are covered, but one or more parts are treated too briefly, unevenly, or with too much detail in the wrong places. | Several major components are missing, or the presentation does not reflect the full project. |
-| Statistical correctness and interpretation | 25 | Statistical results are described accurately and interpreted correctly in context. The presentation shows a solid understanding of the methods used across the project and communicates the main conclusions clearly. | The presentation is mostly correct, but some interpretations are vague, incomplete, or only partly supported by the results. | There are major statistical errors, unclear interpretations, or conclusions that are not supported by the analysis. |
-| Use of visuals and evidence | 20 | Visuals are clear, readable, and well chosen. They support the main points of the presentation and help explain the results rather than distracting from them. | Visuals are mostly clear and useful, but some are crowded, hard to read, or not fully integrated into the explanation. | Visuals are weak, difficult to read, missing, or not used effectively to support the presentation. |
-| Delivery and pacing | 10 | The presentation is spoken clearly and stays within the time limit. The pacing is appropriate for a 7 to 10 minute talk, and the delivery is understandable and polished. | The delivery is understandable, but there are issues with pacing, clarity, or staying within the time limit. | The presentation is hard to hear or follow, significantly off pace, or does not fit the time limit well. |
+| --------- | -----: | ----------- | -------------- | --------------- |
+| Dataset and variable overview slide | 10 | The slide clearly identifies the dataset, what one row represents, the context or population when available, and the key variables and their types. The audience can understand what the data are and how they relate to the project. | The overview is mostly clear, but it is missing some context, variable definitions, or an explanation of what one row represents. | The dataset and variables are unclear or missing, or they are not explained in context. |
+| Univariate summary and visualization slide | 10 | The slide provides appropriate numeric summaries and a clear, labeled univariate visualization for one variable. The student comments accurately on the distribution, including center, spread, shape, and interesting features such as skewness or outliers. | The summary or plot is mostly appropriate, but the comments on the distribution are incomplete, vague, or only partly connected to the display. | The numeric summary or visualization is missing or inappropriate, or the distribution is not interpreted. |
+| Bivariate summary and visualization slide | 10 | The slide provides an appropriate numeric summary, such as a correlation, and a clear, labeled bivariate visualization for a pair of variables. The student comments accurately on the direction, form, and strength of the relationship. | The summary or plot is mostly appropriate, but the interpretation of the relationship is incomplete or only partly supported by the evidence. | The numeric summary or visualization is missing or inappropriate, or the relationship is not interpreted. |
+| Univariate model, parameters, and MLE slide | 15 | The slide shows a univariate plot with the fitted model overlaid, names the model used, reports the estimated parameters, explains why the model was chosen, and briefly explains how the parameters were estimated by maximum likelihood. | The plot, model name, parameter estimates, rationale, or MLE explanation is incomplete, unclear, or partly inaccurate. | The model, parameters, or MLE explanation is missing or incorrect, or the plot does not show the fitted model. |
+| Confidence interval for a population mean slide | 10 | A confidence interval for a population mean is presented correctly and interpreted in context, including the confidence level, population, and units. | The interval is mostly correct, but the interpretation is incomplete, unclear, or not fully in context. | The interval is missing or incorrect, or it is not interpreted in context. |
+| Confidence interval for a difference in means slide | 10 | A confidence interval for a difference between population means is presented correctly and interpreted in context, including the direction of the difference and what the interval says about whether a difference is plausible. | The interval is mostly correct, but the interpretation, direction, or connection to zero is incomplete or unclear. | The interval is missing or incorrect, or it is not interpreted in context. |
+| Simple linear regression slide | 20 | The slide includes a scatterplot with the fitted regression line and equation, a 95% confidence interval for the slope, and a correct interpretation of the slope and interval in context. It reports and interprets \(R^2\) in context as a measure of model fit and mentions any violations of the regression assumptions. | The slide includes most required elements, but the equation, slope interval, interpretation, \(R^2\), or discussion of assumption violations is incomplete, unclear, or partly inaccurate. | Several required elements are missing or incorrect, or the regression results are not interpreted in context. |
+| Overall slide quality, organization, and delivery | 15 | Slides are clear, readable, well organized, and visually consistent. The presentation flows logically, stays within the time limit, and is delivered clearly and professionally. | The presentation is generally clear and organized, but there are issues with slide readability, visual consistency, flow, pacing, or delivery. | The presentation is disorganized, difficult to read or follow, significantly off pace, or does not fit the time limit. |
 
 ### General Expectations
 
-- The presentation should summarize the project clearly rather than retell every detail.
-- The main emphasis should be on the most important results and conclusions from each part of the project.
-- Claims should be supported by the analysis and visuals presented.
-- Slides should be readable and should support, not replace, the explanation.
+- Include exactly one content slide for each of the seven required items. A title slide and a short conclusion slide are optional.
+- Keep slides readable: use large enough text, clear labels, and plots that are not overcrowded.
+- Interpret results in context rather than simply reading numbers from the slides.
+- Use confidence intervals to describe plausible values and to discuss significance where appropriate.
+- For the regression slide, mention any assumption violations even if you do not show the diagnostic plots.
+- If you use R Markdown, make sure the source file reproduces the figures and results shown in the slides.

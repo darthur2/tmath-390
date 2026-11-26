@@ -12,7 +12,7 @@
 
 
 
-<title>Presentation Rubric</title>
+<title>Final Presentation: Guidelines and Rubric</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -210,20 +210,133 @@ text-decoration: underline;
 
 
 
-<h1 class="title toc-ignore">Presentation Rubric</h1>
+<h1 class="title toc-ignore">Final Presentation: Guidelines and
+Rubric</h1>
 
 
 
-<div id="final-presentation-rubric" class="section level2">
-<h2>Final Presentation Rubric</h2>
+<div id="purpose" class="section level2">
+<h2>Purpose</h2>
+<p>The final presentation gives you a chance to summarize the full
+project and communicate the most important results and conclusions. Your
+presentation should show that you can describe your data, summarize
+variables, fit statistical models, construct and interpret confidence
+intervals, and interpret a simple linear regression model in context.
+The emphasis is on clear communication, correct interpretation, and
+well-chosen visuals rather than on covering every detail of the written
+report.</p>
+</div>
+<div id="format" class="section level2">
+<h2>Format</h2>
+<p>You may prepare your slides using either:</p>
+<ul>
+<li><strong>PowerPoint</strong> or another slide program.</li>
+<li><strong>R Markdown</strong> or Quarto, rendered to slides.</li>
+</ul>
+<p>Your presentation should be 7 to 10 minutes long. Include one content
+slide for each of the seven required items below. You may add a title
+slide and a short conclusion slide, but the seven required slides should
+each be present and clearly identifiable.</p>
+</div>
+<div id="required-slides" class="section level2">
+<h2>Required slides</h2>
+<div id="dataset-and-variables" class="section level3">
+<h3>1. Dataset and variables</h3>
+<p>Provide an overview of the dataset and the variables used in the
+project. Explain what the dataset describes, what one row represents,
+and the context or population when those details are available. Identify
+the key variables and whether they are quantitative or categorical.</p>
+</div>
+<div id="univariate-summary-and-visualization" class="section level3">
+<h3>2. Univariate summary and visualization</h3>
+<p>Choose one variable and present a univariate numeric summary along
+with an accompanying visualization. Use summaries and a plot that fit
+the variable. Comment on the distribution, including center, spread,
+shape, and any interesting features such as skewness, outliers, or
+multiple modes.</p>
+</div>
+<div id="bivariate-summary-and-visualization" class="section level3">
+<h3>3. Bivariate summary and visualization</h3>
+<p>Choose a pair of variables and present a bivariate numeric summary
+along with an accompanying visualization. Use a correlation and a
+scatterplot when both variables are quantitative. Comment on the
+direction, form, and strength of the relationship shown in the plot and
+summary.</p>
+</div>
+<div id="univariate-model-parameters-and-fitting" class="section level3">
+<h3>4. Univariate model, parameters, and fitting</h3>
+<p>Show a univariate plot of a variable along with a fitted model
+overlaid on the plot. State which model you used for that variable and
+report the estimated parameters. Briefly explain why you chose that
+model and how the model was fit, including how the maximum likelihood
+estimate was obtained.</p>
+</div>
+<div id="confidence-interval-for-a-population-mean" class="section level3">
+<h3>5. Confidence interval for a population mean</h3>
+<p>Present a confidence interval for a population mean for one of the
+variables. Interpret the interval in context, including the confidence
+level, the population, and the units.</p>
+</div>
+<div id="confidence-interval-for-a-difference-in-means" class="section level3">
+<h3>6. Confidence interval for a difference in means</h3>
+<p>Present a confidence interval for a difference between two population
+means. Interpret the interval in context, including the direction of the
+difference, the units, and what the interval says about whether a
+difference is plausible.</p>
+</div>
+<div id="simple-linear-regression" class="section level3">
+<h3>7. Simple linear regression</h3>
+<p>Present a scatterplot with the fitted regression line and the
+regression equation. Include a 95% confidence interval for the slope
+parameter and interpret both the slope and the interval in context.
+Report \(R^2\) and interpret it in
+context as a measure of model fit. Also mention whether you found any
+violations of the regression assumptions. You do not need to show the
+diagnostic plots on this slide; a brief verbal summary of any concerns
+is sufficient.</p>
+</div>
+</div>
+<div id="building-slides-with-r-markdown" class="section level2">
+<h2>Building slides with R Markdown</h2>
+<p>If you choose to make your slides with R Markdown:</p>
+<ol style="list-style-type: decimal">
+<li>In RStudio, choose <strong>File → New File → R Markdown… →
+Presentation</strong>.</li>
+<li>Choose a presentation format such as
+<code>ioslides_presentation</code> or <code>slidy_presentation</code>
+for HTML slides, or <code>beamer_presentation</code> for PDF slides.
+Quarto’s <code>revealjs</code> format is also acceptable.</li>
+<li>Use <code>##</code> headings for individual slide titles, bullet
+points for the content, and code chunks to produce plots and
+tables.</li>
+<li>Knit or render the file to HTML or PDF.</li>
+<li>Submit the rendered slides and the <code>.Rmd</code> source
+file.</li>
+</ol>
+</div>
+<div id="submission" class="section level2">
+<h2>Submission</h2>
+<p>Submit the following:</p>
+<ul>
+<li><strong>PowerPoint option:</strong> the <code>.pptx</code> file, or
+a PDF export of the slides.</li>
+<li><strong>R Markdown option:</strong> the rendered HTML or PDF slides
+and the <code>.Rmd</code> source file.</li>
+</ul>
+<p>Your slides should be readable, your plots should be clearly labeled,
+and your interpretations should be stated in context. Do not simply read
+the slides aloud; use them to support your explanation.</p>
+</div>
+<div id="grading-rubric" class="section level2">
+<h2>Grading Rubric</h2>
 <p>Total: 100 points</p>
 <table>
 <colgroup>
-<col width="18%" />
+<col width="16%" />
+<col width="10%" />
+<col width="20%" />
 <col width="25%" />
-<col width="18%" />
-<col width="18%" />
-<col width="18%" />
+<col width="27%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -236,76 +349,123 @@ text-decoration: underline;
 </thead>
 <tbody>
 <tr class="odd">
-<td>Overall organization and flow</td>
-<td align="right">20</td>
-<td>The presentation is well organized and easy to follow. It has a
-clear beginning, middle, and end, and the major pieces of the project
-are connected into a coherent story.</td>
-<td>The presentation is generally organized, but the flow is sometimes
-uneven or the connections between sections are not always clear.</td>
-<td>The presentation is disorganized, difficult to follow, or lacks a
-clear structure.</td>
-</tr>
-<tr class="even">
-<td>Coverage of major project components</td>
-<td align="right">25</td>
-<td>The presentation covers the major ideas from the full project and
-gives an appropriate overview of each part without getting lost in
-unnecessary detail. The most important results and conclusions are
-included.</td>
-<td>Most of the major components are covered, but one or more parts are
-treated too briefly, unevenly, or with too much detail in the wrong
-places.</td>
-<td>Several major components are missing, or the presentation does not
-reflect the full project.</td>
-</tr>
-<tr class="odd">
-<td>Statistical correctness and interpretation</td>
-<td align="right">25</td>
-<td>Statistical results are described accurately and interpreted
-correctly in context. The presentation shows a solid understanding of
-the methods used across the project and communicates the main
-conclusions clearly.</td>
-<td>The presentation is mostly correct, but some interpretations are
-vague, incomplete, or only partly supported by the results.</td>
-<td>There are major statistical errors, unclear interpretations, or
-conclusions that are not supported by the analysis.</td>
-</tr>
-<tr class="even">
-<td>Use of visuals and evidence</td>
-<td align="right">20</td>
-<td>Visuals are clear, readable, and well chosen. They support the main
-points of the presentation and help explain the results rather than
-distracting from them.</td>
-<td>Visuals are mostly clear and useful, but some are crowded, hard to
-read, or not fully integrated into the explanation.</td>
-<td>Visuals are weak, difficult to read, missing, or not used
-effectively to support the presentation.</td>
-</tr>
-<tr class="odd">
-<td>Delivery and pacing</td>
+<td>Dataset and variable overview slide</td>
 <td align="right">10</td>
-<td>The presentation is spoken clearly and stays within the time limit.
-The pacing is appropriate for a 7 to 10 minute talk, and the delivery is
-understandable and polished.</td>
-<td>The delivery is understandable, but there are issues with pacing,
-clarity, or staying within the time limit.</td>
-<td>The presentation is hard to hear or follow, significantly off pace,
-or does not fit the time limit well.</td>
+<td>The slide clearly identifies the dataset, what one row represents,
+the context or population when available, and the key variables and
+their types. The audience can understand what the data are and how they
+relate to the project.</td>
+<td>The overview is mostly clear, but it is missing some context,
+variable definitions, or an explanation of what one row represents.</td>
+<td>The dataset and variables are unclear or missing, or they are not
+explained in context.</td>
+</tr>
+<tr class="even">
+<td>Univariate summary and visualization slide</td>
+<td align="right">10</td>
+<td>The slide provides appropriate numeric summaries and a clear,
+labeled univariate visualization for one variable. The student comments
+accurately on the distribution, including center, spread, shape, and
+interesting features such as skewness or outliers.</td>
+<td>The summary or plot is mostly appropriate, but the comments on the
+distribution are incomplete, vague, or only partly connected to the
+display.</td>
+<td>The numeric summary or visualization is missing or inappropriate, or
+the distribution is not interpreted.</td>
+</tr>
+<tr class="odd">
+<td>Bivariate summary and visualization slide</td>
+<td align="right">10</td>
+<td>The slide provides an appropriate numeric summary, such as a
+correlation, and a clear, labeled bivariate visualization for a pair of
+variables. The student comments accurately on the direction, form, and
+strength of the relationship.</td>
+<td>The summary or plot is mostly appropriate, but the interpretation of
+the relationship is incomplete or only partly supported by the
+evidence.</td>
+<td>The numeric summary or visualization is missing or inappropriate, or
+the relationship is not interpreted.</td>
+</tr>
+<tr class="even">
+<td>Univariate model, parameters, and MLE slide</td>
+<td align="right">15</td>
+<td>The slide shows a univariate plot with the fitted model overlaid,
+names the model used, reports the estimated parameters, explains why the
+model was chosen, and briefly explains how the parameters were estimated
+by maximum likelihood.</td>
+<td>The plot, model name, parameter estimates, rationale, or MLE
+explanation is incomplete, unclear, or partly inaccurate.</td>
+<td>The model, parameters, or MLE explanation is missing or incorrect,
+or the plot does not show the fitted model.</td>
+</tr>
+<tr class="odd">
+<td>Confidence interval for a population mean slide</td>
+<td align="right">10</td>
+<td>A confidence interval for a population mean is presented correctly
+and interpreted in context, including the confidence level, population,
+and units.</td>
+<td>The interval is mostly correct, but the interpretation is
+incomplete, unclear, or not fully in context.</td>
+<td>The interval is missing or incorrect, or it is not interpreted in
+context.</td>
+</tr>
+<tr class="even">
+<td>Confidence interval for a difference in means slide</td>
+<td align="right">10</td>
+<td>A confidence interval for a difference between population means is
+presented correctly and interpreted in context, including the direction
+of the difference and what the interval says about whether a difference
+is plausible.</td>
+<td>The interval is mostly correct, but the interpretation, direction,
+or connection to zero is incomplete or unclear.</td>
+<td>The interval is missing or incorrect, or it is not interpreted in
+context.</td>
+</tr>
+<tr class="odd">
+<td>Simple linear regression slide</td>
+<td align="right">20</td>
+<td>The slide includes a scatterplot with the fitted regression line and
+equation, a 95% confidence interval for the slope, and a correct
+interpretation of the slope and interval in context. It reports and
+interprets \(R^2\) in context as a
+measure of model fit and mentions any violations of the regression
+assumptions.</td>
+<td>The slide includes most required elements, but the equation, slope
+interval, interpretation, \(R^2\), or
+discussion of assumption violations is incomplete, unclear, or partly
+inaccurate.</td>
+<td>Several required elements are missing or incorrect, or the
+regression results are not interpreted in context.</td>
+</tr>
+<tr class="even">
+<td>Overall slide quality, organization, and delivery</td>
+<td align="right">15</td>
+<td>Slides are clear, readable, well organized, and visually consistent.
+The presentation flows logically, stays within the time limit, and is
+delivered clearly and professionally.</td>
+<td>The presentation is generally clear and organized, but there are
+issues with slide readability, visual consistency, flow, pacing, or
+delivery.</td>
+<td>The presentation is disorganized, difficult to read or follow,
+significantly off pace, or does not fit the time limit.</td>
 </tr>
 </tbody>
 </table>
 <div id="general-expectations" class="section level3">
 <h3>General Expectations</h3>
 <ul>
-<li>The presentation should summarize the project clearly rather than
-retell every detail.</li>
-<li>The main emphasis should be on the most important results and
-conclusions from each part of the project.</li>
-<li>Claims should be supported by the analysis and visuals
-presented.</li>
-<li>Slides should be readable and should support, not replace, the
-explanation.</li>
+<li>Include exactly one content slide for each of the seven required
+items. A title slide and a short conclusion slide are optional.</li>
+<li>Keep slides readable: use large enough text, clear labels, and plots
+that are not overcrowded.</li>
+<li>Interpret results in context rather than simply reading numbers from
+the slides.</li>
+<li>Use confidence intervals to describe plausible values and to discuss
+significance where appropriate.</li>
+<li>For the regression slide, mention any assumption violations even if
+you do not show the diagnostic plots.</li>
+<li>If you use R Markdown, make sure the source file reproduces the
+figures and results shown in the slides.</li>
 </ul>
 </div>
 </div>

@@ -12,7 +12,7 @@
 
 
 
-<title>Rubric</title>
+<title>Simple Linear Regression Mini-Project</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -210,20 +210,193 @@ text-decoration: underline;
 
 
 
-<h1 class="title toc-ignore">Rubric</h1>
+<h1 class="title toc-ignore">Simple Linear Regression Mini-Project</h1>
 
 
 
-<div id="simple-linear-regression-mini-project-rubric" class="section level2">
-<h2>Simple Linear Regression Mini-Project Rubric</h2>
+<div id="purpose" class="section level2">
+<h2>Purpose</h2>
+<p>In this project, you will use simple linear regression to study the
+relationship between two quantitative variables from your assigned
+dataset. You will choose a predictor and a response, assess whether a
+linear model is reasonable, fit the model, interpret the slope and \(R^2\), construct a confidence interval for
+the slope, make a prediction with both a confidence interval for the
+mean response and a prediction interval for an individual response, and
+check the regression assumptions. The goal is to connect the regression
+methods from Module 8 with a complete analysis of your data.</p>
+</div>
+<div id="materials" class="section level2">
+<h2>Materials</h2>
+<p>You will receive:</p>
+<ul>
+<li>A cleaned CSV dataset assigned to you.</li>
+<li>A background description and data dictionary for that dataset.</li>
+</ul>
+<p>Use these materials to describe the variables and the context of the
+data. Do not invent a source, population, collection date, or procedure
+that the supplied materials do not provide. If an important detail is
+not available, say so briefly.</p>
+<p>You may use the Module 8 readings for review. You may also reuse the
+scatterplot, correlation, and other evidence from your exploratory data
+analysis mini-project. If you use the same predictor and response pair
+as before, you may refer to that earlier work instead of repeating it.
+If you choose a different pair, provide the new scatterplot,
+correlation, and interpretation.</p>
+</div>
+<div id="what-to-do" class="section level2">
+<h2>What to do</h2>
+<div id="choose-a-predictor-and-a-response" class="section level3">
+<h3>1. Choose a predictor and a response</h3>
+<p>Select one quantitative predictor (independent) variable and one
+quantitative response (dependent) variable from your assigned dataset.
+You may use the same pair you used for the scatterplot in your
+exploratory data analysis mini-project, or you may choose a different
+pair.</p>
+<p>If you choose a different pair, create a clearly labeled scatterplot,
+compute the correlation, and interpret the direction, form, and strength
+of the relationship. If you choose the same pair, refer to the earlier
+scatterplot and summarize what the correlation and relationship were.
+You do not need to repeat the scatterplot unless it helps your
+report.</p>
+<p>Identify both variables by name and include units when they are
+available. Report the final sample size used in the regression after
+handling missing values.</p>
+</div>
+<div id="justify-a-simple-linear-regression-model" class="section level3">
+<h3>2. Justify a simple linear regression model</h3>
+<p>Use the scatterplot to explain why a simple linear regression model
+is reasonable for these two variables. At this stage, focus only on the
+<strong>linearity</strong> assumption: does the average response appear
+to follow a straight-line pattern as the predictor changes?</p>
+<p>If the relationship does not look linear, you may still fit the
+regression model, but say clearly that the linearity assumption is
+questionable and interpret the results with caution. Do not claim that
+the relationship is linear without evidence from the plot.</p>
+</div>
+<div id="fit-the-model-and-interpret-the-slope-and-r2" class="section level3">
+<h3>3. Fit the model and interpret the slope and \(R^2\)</h3>
+<p>Fit the simple linear regression model in R. Report the fitted
+equation using the variable names in context, and include the relevant R
+code and output.</p>
+<p>Interpret the estimated slope in context. Your interpretation should
+state the expected change in the mean response associated with a
+one-unit increase in the predictor, including the correct units.</p>
+<p>Report \(R^2\) and interpret it in
+context as a measure of model fit: the proportion of the variation in
+the response that is explained by the linear relationship with the
+predictor. Explain briefly what this value suggests about the fit, while
+remembering that a high \(R^2\) does
+not by itself prove that the model is appropriate.</p>
+</div>
+<div id="construct-a-95-confidence-interval-for-the-slope" class="section level3">
+<h3>4. Construct a 95% confidence interval for the slope</h3>
+<p>Construct a 95% confidence interval for the population slope \(\beta_1\). Report the estimate, standard
+error, degrees of freedom, critical value, margin of error, and
+endpoints, along with the relevant R code and output.</p>
+<p>Interpret the interval in context, including the confidence level and
+units. Then use the interval to make a statement about significance. If
+the interval contains 0, then 0 is a plausible value for the slope, so
+the relationship is not statistically significant at the 5% level and it
+is possible that the true regression line is flat. If the interval is
+entirely above 0 or entirely below 0, state that the relationship is
+statistically significant and give the direction.</p>
+</div>
+<div id="make-a-prediction-and-construct-response-intervals" class="section level3">
+<h3>5. Make a prediction and construct response intervals</h3>
+<p>Choose a value of the predictor \(x\) at which you want to make a prediction.
+Choose a value within the observed range of the predictor and explain
+why the value is useful or interesting.</p>
+<p>Report the predicted response at that value and interpret it in
+context. If your dataset contains an observed response at that same
+value of \(x\), report the residual for
+that observation and interpret whether the model overpredicted or
+underpredicted the response. If there is no observed response at that
+\(x\), state that a residual cannot be
+computed.</p>
+<p>Construct a 95% confidence interval for the mean response at your
+chosen \(x\) and interpret it in
+context. Then construct a 95% prediction interval for an individual
+response at that same \(x\) and
+interpret it in context. Clearly distinguish the two intervals: the
+confidence interval is for the mean response of all units with that
+predictor value, while the prediction interval is for one individual
+response. Explain why the prediction interval is wider.</p>
+</div>
+<div id="check-the-regression-assumptions" class="section level3">
+<h3>6. Check the regression assumptions</h3>
+<p>Check each of the four regression assumptions using appropriate plots
+and summaries. For each assumption, comment on whether the plot provides
+evidence of a violation.</p>
+<ul>
+<li><strong>Linearity:</strong> Use a residuals-versus-fitted-values
+plot, along with your earlier scatterplot, to look for curvature.</li>
+<li><strong>Independence:</strong> Use a
+residuals-versus-observation-order plot when order is meaningful, and
+consider how the data were collected. Describe any clustering, trends,
+or repeated measurements that could create dependence.</li>
+<li><strong>Constant variance:</strong> Use a
+residuals-versus-fitted-values plot to look for a fan shape or changing
+spread.</li>
+<li><strong>Normality:</strong> Use a normal Q-Q plot of the residuals
+to look for strong departures from normality, such as heavy tails or
+strong skew.</li>
+</ul>
+<p>If you find a violation, explain what it is and what it means for
+your model or intervals. Do not simply list the assumptions or say that
+they are satisfied without evidence.</p>
+</div>
+</div>
+<div id="report-format-and-r-code" class="section level2">
+<h2>Report format and R code</h2>
+<p>Submit a readable report in one of these formats:</p>
+<ul>
+<li><strong>HTML:</strong> a rendered HTML report, for example from R
+Markdown or Quarto.</li>
+<li><strong>Word:</strong> a <code>.docx</code> document.</li>
+<li><strong>PDF:</strong> a <code>.pdf</code> document.</li>
+</ul>
+<p>In every format, include the relevant R code alongside the output and
+written interpretations so your results can be followed. Use R functions
+and methods covered in the course materials. The Module 8 readings are
+available for review.</p>
+</div>
+<div id="submission-checklist" class="section level2">
+<h2>Submission checklist</h2>
+<ul>
+<li>The predictor and response are identified by name and units, and the
+final sample size is reported.</li>
+<li>A new variable pair includes a clearly labeled scatterplot, a
+computed correlation, and an interpretation; a reused pair clearly
+references the earlier scatterplot and summarizes the correlation and
+relationship.</li>
+<li>The scatterplot is used to justify whether a linear model is
+reasonable, and any nonlinearity is noted.</li>
+<li>The regression model is fit correctly, the fitted equation is
+reported, the slope is interpreted in context, and \(R^2\) is reported and interpreted as a
+measure of model fit.</li>
+<li>A 95% confidence interval for the slope is computed and interpreted
+in context, with a correct statement about significance.</li>
+<li>A prediction is made at a chosen \(x\) value; the residual is reported and
+interpreted when an observed response exists at that \(x\).</li>
+<li>A 95% confidence interval for the mean response and a 95% prediction
+interval for an individual response are computed and interpreted in
+context, and the two intervals are clearly distinguished.</li>
+<li>All four regression assumptions are checked with appropriate plots,
+and any violations are discussed.</li>
+<li>The report includes the relevant R code and output and is organized,
+readable, and complete.</li>
+</ul>
+</div>
+<div id="grading-rubric" class="section level2">
+<h2>Grading Rubric</h2>
 <p>Total: 100 points</p>
 <table>
 <colgroup>
-<col width="7%" />
-<col width="0%" />
-<col width="45%" />
-<col width="25%" />
+<col width="16%" />
+<col width="10%" />
 <col width="20%" />
+<col width="25%" />
+<col width="27%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -236,80 +409,103 @@ text-decoration: underline;
 </thead>
 <tbody>
 <tr class="odd">
-<td>SLR model setup and notation in context</td>
-<td align="right">20</td>
-<td>The simple linear regression model is set up correctly, and the
-notation is explained clearly in context. The student identifies the
-response variable, predictor variable, intercept, slope, and error term,
-and gives a sensible description of what each means for the data at
-hand. The student also comments on whether a linear model appears
-reasonable.</td>
-<td>The model is mostly set up correctly, but some notation is unclear,
-incomplete, or only partly explained in context. The linearity check is
-present but not fully justified or described clearly.</td>
-<td>The model setup is incorrect or missing, notation is not explained
-in context, or there is no meaningful attempt to assess whether a linear
-model is reasonable.</td>
+<td>Variable selection, scatterplot, and correlation</td>
+<td align="right">15</td>
+<td>A suitable quantitative predictor and response are selected and
+identified in context with units. A new variable pair is supported by a
+clearly labeled scatterplot and a correlation that is computed and
+interpreted in terms of direction, form, and strength. A reused pair is
+clearly referenced and its prior scatterplot, correlation, and
+relationship are summarized.</td>
+<td>The variables are identified, but the scatterplot, correlation,
+interpretation, or reference to prior work is incomplete, vague, or only
+partly connected to the data.</td>
+<td>The predictor or response is missing or inappropriate, or there is
+no meaningful scatterplot or correlation evidence.</td>
 </tr>
 <tr class="even">
-<td>Fit the model correctly</td>
-<td align="right">15</td>
-<td>The regression model is fit correctly, and the parameter estimates
-are reported clearly. The fitted equation matches the output from the
-model, and the estimates are connected to the variables in context.</td>
-<td>The model is fit mostly correctly, but there are minor errors,
-omissions, or unclear reporting of the parameter estimates or fitted
-equation.</td>
-<td>The model fit is incorrect, incomplete, or not clearly
-reported.</td>
+<td>Linearity justification for simple linear regression</td>
+<td align="right">10</td>
+<td>The scatterplot is used to justify whether a linear model is
+reasonable. If the relationship is not linear, the student clearly notes
+the concern and proceeds with appropriate caution.</td>
+<td>Linearity is mentioned, but the justification is weak, incomplete,
+or not clearly tied to the scatterplot.</td>
+<td>There is no meaningful assessment of linearity, or linearity is
+assumed without evidence.</td>
 </tr>
 <tr class="odd">
-<td>Interpret beta_1 in context</td>
-<td align="right">15</td>
-<td>The slope parameter beta_1 is interpreted correctly in context as
-the expected change in the response for a one-unit increase in the
-predictor.</td>
-<td>The interpretation is mostly correct, but it is somewhat vague,
-slightly inaccurate, or not fully tied to the context of the data.</td>
-<td>The interpretation is incorrect, missing, or not stated in
+<td>Model fit, slope interpretation, and \(R^2\)</td>
+<td align="right">20</td>
+<td>The regression model is fit correctly, and the fitted equation is
+reported with the variable names in context. The slope is interpreted
+correctly as the expected change in the mean response for a one-unit
+increase in the predictor, with units. \(R^2\) is reported and interpreted correctly
+as the proportion of variation in the response explained by the
+model.</td>
+<td>The model is fit mostly correctly, but the equation, slope
+interpretation, units, or \(R^2\)
+interpretation is incomplete or contains minor errors.</td>
+<td>The model fit is incorrect or missing, or the slope and \(R^2\) are not interpreted meaningfully in
 context.</td>
 </tr>
 <tr class="even">
-<td>Confidence interval for beta_1 and significance discussion</td>
+<td>95% confidence interval for the slope and significance</td>
 <td align="right">15</td>
-<td>A confidence interval for beta_1 is computed correctly and used
-appropriately to discuss whether the slope is statistically significant.
-The interval is interpreted correctly in context.</td>
-<td>The confidence interval is mostly correct, but the interpretation or
-significance discussion is incomplete, unclear, or only partly connected
-to the context.</td>
-<td>The interval is incorrect, missing, or not interpreted in context,
-and the discussion of significance is not meaningful.</td>
+<td>A 95% confidence interval for the slope is computed correctly and
+reported with supporting values and code. It is interpreted in context
+with units. The student uses the interval to make a correct significance
+statement: if the interval contains 0, the relationship is not
+significant and a flat line is plausible; if it is entirely positive or
+negative, the relationship is significant in that direction.</td>
+<td>The interval is mostly correct, but the interpretation, reported
+values, or significance statement is incomplete or partly
+inaccurate.</td>
+<td>The interval is incorrect or missing, is not interpreted in context,
+or the significance statement is incorrect or missing.</td>
 </tr>
 <tr class="odd">
-<td>Prediction at a given x value and prediction interval</td>
-<td align="right">20</td>
-<td>The predicted response at the specified predictor value is computed
-correctly, and a prediction interval is given correctly. The student
-clearly distinguishes the prediction interval from a confidence interval
-and interprets it in context.</td>
-<td>The prediction or prediction interval is mostly correct, but the
-interpretation is incomplete, slightly unclear, or does not clearly
-distinguish prediction from estimation.</td>
-<td>The prediction or prediction interval is incorrect, missing, or not
-interpreted in context.</td>
+<td>Prediction and residual at the chosen \(x\)</td>
+<td align="right">10</td>
+<td>A predictor value within the observed range is chosen and justified.
+The predicted response is computed and interpreted in context. If an
+observed response exists at that \(x\),
+the residual is reported and interpreted; if not, the student correctly
+states that a residual cannot be computed.</td>
+<td>The prediction is mostly correct, but the context, residual
+reporting, or explanation of whether a residual can be computed is
+incomplete.</td>
+<td>The prediction is incorrect or missing, or the residual requirement
+is ignored.</td>
 </tr>
 <tr class="even">
-<td>Coefficient of determination and interpretation</td>
+<td>Confidence interval for the mean response vs. prediction
+interval</td>
 <td align="right">15</td>
-<td>The coefficient of determination is reported correctly and
-interpreted correctly in context as the proportion of variability in the
-response explained by the linear model.</td>
-<td>The coefficient of determination is mostly correct, but the
-interpretation is vague, slightly inaccurate, or not fully tied to the
-context.</td>
-<td>The coefficient of determination is missing, incorrect, or not
-interpreted meaningfully in context.</td>
+<td>A 95% confidence interval for the mean response and a 95% prediction
+interval for an individual response are constructed correctly at the
+chosen \(x\) and interpreted in
+context. The student clearly distinguishes the two intervals and
+explains why the prediction interval is wider.</td>
+<td>Both intervals are mostly correct, but the interpretation,
+distinction, or explanation of the widths is incomplete or partly
+unclear.</td>
+<td>One or both intervals are incorrect or missing, or the intervals are
+confused with each other or not interpreted in context.</td>
+</tr>
+<tr class="odd">
+<td>Checking all four regression assumptions</td>
+<td align="right">15</td>
+<td>All four assumptions are checked with appropriate plots: linearity
+and constant variance with residuals versus fitted values, independence
+with observation order or study design, and normality with a normal Q-Q
+plot. The student comments on any violations and explains their
+implications.</td>
+<td>Most assumptions are checked, but one is missing or the plots and
+comments are incomplete, vague, or only partly connected to the
+data.</td>
+<td>Several assumptions are missing, or the assumptions are listed
+without meaningful plots or discussion.</td>
 </tr>
 </tbody>
 </table>
@@ -319,14 +515,21 @@ interpreted meaningfully in context.</td>
 <li>Exploration beyond the required analysis is welcome, especially when
 the data raise interesting questions or reveal unexpected patterns.</li>
 <li>Work should be organized, readable, and complete.</li>
-<li>Notation should be explained in context, not just written as
-symbols.</li>
-<li>Students should distinguish between interpretation of the fitted
-line, a confidence interval, and a prediction interval.</li>
-<li>The linearity check should be based on the pattern in the data and
-used to judge whether SLR is reasonable.</li>
-<li>Interpretations of statistical output should be stated in terms of
-the variables in the project.</li>
+<li>Use the assigned dataset and the supplied background and data
+dictionary; do not add unsupported details about the data’s source or
+collection.</li>
+<li>If you reuse earlier exploratory work, reference it clearly rather
+than duplicating it.</li>
+<li>Interpret results in terms of the variables and context in the
+project, not just as numbers.</li>
+<li>Use the confidence interval for the slope to assess significance
+rather than relying on a separate hypothesis test.</li>
+<li>Distinguish clearly between a confidence interval for the mean
+response and a prediction interval for an individual response.</li>
+<li>Check all four regression assumptions with evidence rather than
+merely listing them.</li>
+<li>Include the relevant R code with its output in the submitted
+report.</li>
 </ul>
 </div>
 </div>

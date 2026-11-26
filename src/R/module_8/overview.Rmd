@@ -47,7 +47,7 @@ You will learn how to write and interpret a simple linear regression model. You 
 - **Readings** — five connected readings: *What Is Simple Linear Regression?*, *Fitting and Interpreting a Regression Model in R*, *Inference for the Slope*, *Confidence and Prediction Intervals*, and *Checking Regression Assumptions*.
 - **Knowledge Checks** — focused practice on coefficient interpretation, model fitting, predictions and residuals, \(R^2\), slope confidence intervals, interval selection, and residual diagnostics.
 - **Quizzes** — scenario-based checks of the Module 8 material.
-- **Mini-Project** — a simple linear regression analysis of your own dataset.
+- **Mini-Project** — a simple linear regression analysis of your assigned dataset, including model fitting, slope inference, prediction intervals, and assumption checks.
 - **Glossary** — definitions and examples of the main regression terms.
 
 ## Suggested Workflow

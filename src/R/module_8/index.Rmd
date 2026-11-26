@@ -19,7 +19,7 @@ This page lists the overview, readings, mini-project, and glossary for Module 8.
 ## Mini-Project
 
 - [Simple Linear Regression Mini-Project](project/rubric.html)
-- [Final Presentation Rubric](project/presentation_rubric.html)
+- [Final Presentation: Guidelines and Rubric](project/presentation_rubric.html)
 
 ## Glossary
 
